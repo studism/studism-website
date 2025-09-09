@@ -16,7 +16,7 @@ const AppDetail = () => {
   const appData = {
     sakuraenglish: {
       name: 'SakuraEnglish',
-      icon: '🌸',
+      icon: '/images/sakuraenglish-icon.png',
       category: '語学学習',
       description: '日常英会話からビジネス英語まで、AIを活用したパーソナルコーチングであなたの英語学習をサポートします。発音矯正、ロールプレイング、単語学習など、多彩な機能で効率的な英語力向上を実現します。AIとの自由な会話練習を通じて、実践的なコミュニケーション能力を身につけ、自信を持って英語を話せるようになります。',
       features: [
@@ -29,12 +29,12 @@ const AppDetail = () => {
         { title: 'AI会話', description: 'AIとの自然な英会話練習' },
         { title: '学習進捗', description: '詳細な学習データと分析' }
       ],
-      appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/idXXXXXXXXX',
+      appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
       playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish'
     },
     timelyze: {
       name: 'Timelyze',
-      icon: '⏰',
+      icon: '/images/timelyze-icon.png',
       category: '生産性',
       description: 'あなたの学習時間を最適化するスマートな時間管理アプリです。集中力向上を促すポモドーロタイマー、学習記録の自動分析、進捗可視化機能で、効率的な学習習慣を身につけましょう。目標設定から達成までのプロセスをサポートし、あなたの「学び」を最大限に引き出します。',
       features: [
@@ -96,7 +96,7 @@ const AppDetail = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-8">
-              <div className="text-6xl">{app.icon}</div>
+              <img src={app.icon} alt={app.name} className="w-16 h-16 rounded-xl" />
               <div className="flex-1 space-y-4">
                 <div className="space-y-2">
                   <Badge variant="secondary" className="w-fit">{app.category}</Badge>
@@ -173,7 +173,7 @@ const AppDetail = () => {
                 <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="aspect-[9/16] bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                     <div className="text-center space-y-2">
-                      <div className="text-4xl">{app.icon}</div>
+                      <img src={app.icon} alt={app.name} className="w-12 h-12 rounded-lg" />
                       <p className="text-sm text-muted-foreground">スクリーンショット</p>
                     </div>
                   </div>

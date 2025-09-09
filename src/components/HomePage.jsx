@@ -12,7 +12,7 @@ const HomePage = () => {
       id: 'sakuraenglish',
       name: 'SakuraEnglish',
       description: '日常英会話からビジネス英語まで、AIを活用したパーソナルコーチングであなたの英語学習をサポート。',
-      icon: '🌸',
+      icon: '/images/sakuraenglish-icon.png',
       category: '語学学習',
       features: ['AI会話練習', '発音矯正', 'ビジネス英語']
     },
@@ -20,7 +20,7 @@ const HomePage = () => {
       id: 'timelyze',
       name: 'Timelyze',
       description: 'あなたの学習時間を最適化するスマートな時間管理アプリ。集中力向上を促すポモドーロタイマー機能付き。',
-      icon: '⏰',
+      icon: '/images/timelyze-icon.png',
       category: '生産性',
       features: ['ポモドーロタイマー', '学習記録', '進捗可視化']
     }
@@ -176,7 +176,7 @@ const HomePage = () => {
                 <Card key={app.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <CardHeader>
                     <div className="flex items-center space-x-4">
-                      <div className="text-4xl">{app.icon}</div>
+                      <img src={app.icon} alt={app.name} className="w-12 h-12 rounded-lg" />
                       <div className="space-y-1">
                         <CardTitle className="text-xl">{app.name}</CardTitle>
                         <Badge variant="secondary">{app.category}</Badge>
