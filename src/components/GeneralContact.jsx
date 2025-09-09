@@ -21,6 +21,9 @@ const GeneralContact = () => {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -36,11 +39,34 @@ const GeneralContact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // フォーム送信処理（実装時にバックエンドAPIに送信）
-    console.log('Form submitted:', formData);
-    alert('お問い合わせを受け付けました。ありがとうございます。');
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/general-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: data.message });
+        setFormData({ name: '', email: '', category: '', message: '' });
+      } else {
+        setSubmitStatus({ type: 'error', message: data.error || 'エラーが発生しました' });
+      }
+    } catch (error) {
+      console.error('Submit error:', error);
+      setSubmitStatus({ type: 'error', message: 'ネットワークエラーが発生しました' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -162,9 +188,15 @@ const GeneralContact = () => {
                   </Button>
                 </div>
 
-                <Button type="submit" className="w-full" size="lg">
+                {submitStatus && (
+                  <div className={`p-4 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                    {submitStatus.message}
+                  </div>
+                )}
+
+                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                   <Send className="w-4 h-4 mr-2" />
-                  送信する
+                  {isSubmitting ? '送信中...' : '送信する'}
                 </Button>
               </form>
             </CardContent>
