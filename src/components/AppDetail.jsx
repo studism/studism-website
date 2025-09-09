@@ -16,7 +16,7 @@ const AppDetail = () => {
   const appData = {
     sakuraenglish: {
       name: 'SakuraEnglish',
-      icon: '/images/sakuraenglish-icon.png',
+      icon: '/images/sakuraenglish.png',
       category: '語学学習',
       description: '日常英会話からビジネス英語まで、AIを活用したパーソナルコーチングであなたの英語学習をサポートします。発音矯正、ロールプレイング、単語学習など、多彩な機能で効率的な英語力向上を実現します。AIとの自由な会話練習を通じて、実践的なコミュニケーション能力を身につけ、自信を持って英語を話せるようになります。',
       features: [
@@ -34,7 +34,7 @@ const AppDetail = () => {
     },
     timelyze: {
       name: 'Timelyze',
-      icon: '/images/timelyze-icon.png',
+      icon: '/images/timelyze.png',
       category: '生産性',
       description: 'あなたの学習時間を最適化するスマートな時間管理アプリです。集中力向上を促すポモドーロタイマー、学習記録の自動分析、進捗可視化機能で、効率的な学習習慣を身につけましょう。目標設定から達成までのプロセスをサポートし、あなたの「学び」を最大限に引き出します。',
       features: [

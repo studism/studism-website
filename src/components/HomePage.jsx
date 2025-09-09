@@ -12,7 +12,7 @@ const HomePage = () => {
       id: 'sakuraenglish',
       name: 'SakuraEnglish',
       description: '日常英会話からビジネス英語まで、AIを活用したパーソナルコーチングであなたの英語学習をサポート。',
-      icon: '/images/sakuraenglish-icon.png',
+      icon: '/images/sakuraenglish.png',
       category: '語学学習',
       features: ['AI会話練習', '発音矯正', 'ビジネス英語']
     },
@@ -20,7 +20,7 @@ const HomePage = () => {
       id: 'timelyze',
       name: 'Timelyze',
       description: 'あなたの学習時間を最適化するスマートな時間管理アプリ。集中力向上を促すポモドーロタイマー機能付き。',
-      icon: '/images/timelyze-icon.png',
+      icon: '/images/timelyze.png',
       category: '生産性',
       features: ['ポモドーロタイマー', '学習記録', '進捗可視化']
     }
