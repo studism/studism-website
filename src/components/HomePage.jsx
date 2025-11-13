@@ -85,9 +85,12 @@ const HomePage = () => {
           </video>
         </div>
 
+        {/* White overlay - 95% transparent (5% opacity) */}
+        <div className="absolute inset-0 bg-white/5"></div>
+
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8 bg-white/70 p-8 rounded-2xl backdrop-blur-sm">
+            <div className="space-y-8 p-8 rounded-2xl">
               <div className="space-y-4">
                 <Badge variant="secondary" className="w-fit">
                   <BookOpen className="w-4 h-4 mr-2" />
