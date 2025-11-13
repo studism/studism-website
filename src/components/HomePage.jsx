@@ -64,49 +64,50 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background"></div>
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+        {/* Background GIF */}
+        <div className="absolute inset-0">
+          <img
+            src="/images/hero-animation.gif"
+            alt="Background"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+
+        {/* Content */}
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <Badge variant="secondary" className="w-fit">
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  教育テクノロジー
-                </Badge>
-                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                  学びを、<br />
-                  <span className="text-primary">もっと自由に</span><br />
-                  <span className="text-accent">もっと楽しく</span>
-                </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  Studismは、教育とテクノロジーを融合させた革新的な学習アプリケーションを開発しています。
-                  一人ひとりの学習スタイルに合わせたパーソナライズされた体験を提供し、
-                  知的好奇心を刺激し、自律的な学びを支援します。
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="group" asChild>
-                  <a href="#apps">
-                    アプリを見る
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <a href="#about">
-                    会社について
-                  </a>
-                </Button>
-              </div>
+          <div className="max-w-3xl mx-auto text-center space-y-8 text-white">
+            <div className="space-y-4">
+              <Badge variant="secondary" className="w-fit mx-auto bg-white/90 text-foreground hover:bg-white">
+                <BookOpen className="w-4 h-4 mr-2" />
+                教育テクノロジー
+              </Badge>
+              <h1 className="text-4xl lg:text-6xl font-bold leading-tight drop-shadow-lg">
+                学びを、<br />
+                <span className="text-primary-foreground">もっと自由に</span><br />
+                <span className="text-accent-foreground">もっと楽しく</span>
+              </h1>
+              <p className="text-xl leading-relaxed drop-shadow-md">
+                Studismは、教育とテクノロジーを融合させた革新的な学習アプリケーションを開発しています。
+                一人ひとりの学習スタイルに合わせたパーソナライズされた体験を提供し、
+                知的好奇心を刺激し、自律的な学びを支援します。
+              </p>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-3xl"></div>
-              <img
-                src="/images/hero-animation.gif"
-                alt="Studismのキービジュアル"
-                className="relative z-10 w-full h-auto rounded-2xl shadow-2xl"
-                loading="eager"
-              />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="group bg-white text-foreground hover:bg-white/90" asChild>
+                <a href="#apps">
+                  アプリを見る
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10" asChild>
+                <a href="#about">
+                  会社について
+                </a>
+              </Button>
             </div>
           </div>
         </div>
