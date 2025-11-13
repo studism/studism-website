@@ -6,9 +6,8 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   // GitHub Pagesのベースパス設定
-  // リポジトリ名が 'username.github.io' の場合は base: '/' にしてください
-  // それ以外の場合は base: '/リポジトリ名/' に変更してください（例: '/studism-site/'）
-  base: '/studism-site/',
+  // 独自ドメインを使用する場合は base: '/' に設定
+  base: '/',
   plugins: [react(),tailwindcss()],
   resolve: {
     alias: {
