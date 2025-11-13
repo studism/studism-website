@@ -61,10 +61,10 @@ const HomePage = () => {
               <span className="text-xl font-bold text-foreground">Studism</span>
             </button>
             <nav className="hidden md:flex space-x-6">
-              <a href="#about" className="font-semibold text-muted-foreground hover:text-foreground transition-colors">会社について</a>
-              <a href="#apps" className="font-semibold text-muted-foreground hover:text-foreground transition-colors">アプリ一覧</a>
-              <a href="#news" className="font-semibold text-muted-foreground hover:text-foreground transition-colors">お知らせ</a>
-              <Link to="/contact" className="font-semibold text-muted-foreground hover:text-foreground transition-colors">お問い合わせ</Link>
+              <a href="#about" className="font-semibold text-foreground hover:text-primary hover:underline transition-colors">会社について</a>
+              <a href="#apps" className="font-semibold text-foreground hover:text-primary hover:underline transition-colors">アプリ一覧</a>
+              <a href="#news" className="font-semibold text-foreground hover:text-primary hover:underline transition-colors">お知らせ</a>
+              <Link to="/contact" className="font-semibold text-foreground hover:text-primary hover:underline transition-colors">お問い合わせ</Link>
             </nav>
           </div>
         </div>
