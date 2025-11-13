@@ -48,7 +48,7 @@ const HomePage = () => {
     <div className="min-h-screen">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div className="container mx-auto px-6 lg:px-8 py-4">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8" />
@@ -67,7 +67,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background"></div>
-        <div className="container mx-auto px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
@@ -114,7 +114,7 @@ const HomePage = () => {
 
       {/* About Section */}
       <section id="about" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-6 lg:px-8">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold">Studismについて</h2>
@@ -160,7 +160,7 @@ const HomePage = () => {
 
       {/* Apps Section */}
       <section id="apps" className="py-20">
-        <div className="container mx-auto px-6 lg:px-8">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold">アプリ一覧</h2>
@@ -214,7 +214,7 @@ const HomePage = () => {
 
       {/* News Section */}
       <section id="news" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-6 lg:px-8">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold">最新情報・お知らせ</h2>
@@ -247,7 +247,7 @@ const HomePage = () => {
 
       {/* Footer */}
       <footer className="bg-foreground text-background py-12">
-        <div className="container mx-auto px-6 lg:px-8">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
