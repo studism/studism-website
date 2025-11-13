@@ -23,22 +23,12 @@ const PrivacyPolicy = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" asChild>
-                <Link to={`/app/${appSlug}`}>
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  {appName}に戻る
-                </Link>
-              </Button>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
-                </div>
-                <span className="text-xl font-bold text-foreground">Studism</span>
-              </div>
-            </div>
+            <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8" />
+              <span className="text-xl font-bold text-foreground">Studism</span>
+            </Link>
           </div>
         </div>
       </header>
