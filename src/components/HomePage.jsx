@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Download, Clock, BookOpen, Smartphone, BarChart, Target } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const HomePage = () => {
   // ページ読み込み時にトップにスクロール
@@ -49,26 +51,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 py-4">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
-            >
-              <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8" />
-              <span className="text-xl font-bold text-foreground">Studism</span>
-            </button>
-            <nav className="hidden md:flex space-x-6">
-              <a href="#about" className="font-semibold text-foreground py-2 border-b-2 border-transparent hover:border-primary transition-all duration-300 ease-in-out">会社について</a>
-              <a href="#apps" className="font-semibold text-foreground py-2 border-b-2 border-transparent hover:border-primary transition-all duration-300 ease-in-out">アプリ一覧</a>
-              <a href="#news" className="font-semibold text-foreground py-2 border-b-2 border-transparent hover:border-primary transition-all duration-300 ease-in-out">お知らせ</a>
-              <Link to="/contact" className="font-semibold text-foreground py-2 border-b-2 border-transparent hover:border-primary transition-all duration-300 ease-in-out">お問い合わせ</Link>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
@@ -252,51 +235,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
-        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8 invert" />
-                <span className="text-xl font-bold">Studism</span>
-              </div>
-              <p className="text-background/80 text-sm leading-relaxed">
-                学びを、もっと自由に、もっと楽しく。
-                教育とテクノロジーの融合で、
-                新しい学習体験を提供します。
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold">アプリ</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link to="/app/sakuraenglish" className="text-background/80 hover:text-background transition-colors">SakuraEnglish</Link></li>
-                <li><Link to="/app/timelyze" className="text-background/80 hover:text-background transition-colors">Timelyze</Link></li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold">会社情報</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#about" className="text-background/80 hover:text-background transition-colors">会社について</a></li>
-                <li><a href="#news" className="text-background/80 hover:text-background transition-colors">お知らせ</a></li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold">サポート</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link to="/privacy" className="text-background/80 hover:text-background transition-colors">プライバシーポリシー</Link></li>
-                <li><a href="/terms" className="text-background/80 hover:text-background transition-colors">利用規約</a></li>
-                <li><Link to="/contact" className="text-background/80 hover:text-background transition-colors">お問い合わせ</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-background/20 mt-8 pt-8 text-center">
-            <p className="text-background/60 text-sm">
-              © 2025 Studism Inc. All Rights Reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

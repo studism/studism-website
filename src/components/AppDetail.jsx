@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Download, ExternalLink, Shield, MessageCircle, Star, Users, Zap } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const AppDetail = () => {
   const { appSlug } = useParams();
@@ -69,17 +71,7 @@ const AppDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-              <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8" />
-              <span className="text-xl font-bold text-foreground">Studism</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* App Hero */}
       <section className="py-12 bg-gradient-to-br from-primary/5 via-accent/5 to-background">
@@ -200,22 +192,7 @@ const AppDetail = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4">
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
-                <span className="text-foreground font-bold text-lg">S</span>
-              </div>
-              <span className="text-xl font-bold">Studism</span>
-            </div>
-            <p className="text-background/60 text-sm">
-              © 2025 Studism Inc. All Rights Reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
