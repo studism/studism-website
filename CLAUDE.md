@@ -17,6 +17,35 @@ Studism is a React-based marketing website showcasing educational technology app
 ### Package Manager
 This project uses **pnpm** (version 10.4.1+) as specified in package.json. Always use `pnpm` instead of npm or yarn.
 
+## Development Workflow
+
+### Git Commit Policy
+**IMPORTANT**: When making any code changes, always commit and push to GitHub immediately after completing the changes.
+
+Workflow steps:
+1. Make code changes
+2. Run `git add <changed-files>`
+3. Create commit with descriptive message in Japanese
+4. Run `git push` to push to remote repository
+
+All commits should include:
+- Descriptive commit message in Japanese
+- `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
+- `Co-Authored-By: Claude <noreply@anthropic.com>`
+
+Example commit flow:
+```bash
+git add src/components/HomePage.jsx
+git commit -m "コンポーネントの変更内容
+
+詳細な説明
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+git push
+```
+
 ## Architecture
 
 ### Routing Structure
