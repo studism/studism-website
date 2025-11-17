@@ -25,9 +25,9 @@ const AppDetail = () => {
         { icon: <Users className="w-5 h-5" />, title: '復習＆トラッキング', description: '間違えた単語の復習と習熟度管理' }
       ],
       screenshots: [
-        { title: 'メイン画面', description: 'シンプルで使いやすいインターフェース' },
-        { title: 'クイズ画面', description: 'レベル別の英単語クイズ' },
-        { title: '学習進捗', description: '詳細な学習データと分析' }
+        { title: 'メイン画面', description: 'シンプルで使いやすいインターフェース', image: '/images/screenshots/SakuraEnglish-ss01.webp' },
+        { title: 'クイズ画面', description: 'レベル別の英単語クイズ', image: '/images/screenshots/SakuraEnglish-ss02.webp' },
+        { title: '学習進捗', description: '詳細な学習データと分析', image: '/images/screenshots/SakuraEnglish-ss03.webp' }
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
       playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish'
@@ -43,9 +43,9 @@ const AppDetail = () => {
         { icon: <Users className="w-5 h-5" />, title: '目標管理', description: '進捗確認と達成時の自動通知' }
       ],
       screenshots: [
-        { title: 'タイマー画面', description: 'シンプルで使いやすい時間記録' },
-        { title: '統計画面', description: '詳細な学習データの可視化' },
-        { title: '目標設定', description: '個人に合わせた目標管理' }
+        { title: 'タイマー画面', description: 'シンプルで使いやすい時間記録', image: '/images/screenshots/Timelyze-ss01.webp' },
+        { title: '統計画面', description: '詳細な学習データの可視化', image: '/images/screenshots/Timelyze-ss02.webp' },
+        { title: '目標設定', description: '個人に合わせた目標管理', image: '/images/screenshots/Timelyze-ss03.webp' }
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
       playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.timelyze'
@@ -161,11 +161,12 @@ const AppDetail = () => {
             <div className="grid md:grid-cols-3 gap-8">
               {app.screenshots.map((screenshot, index) => (
                 <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="aspect-[9/16] bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                    <div className="text-center space-y-2">
-                      <img src={app.icon} alt={app.name} className="w-12 h-12 rounded-lg" />
-                      <p className="text-sm text-muted-foreground">スクリーンショット</p>
-                    </div>
+                  <div className="aspect-[9/16] bg-muted overflow-hidden">
+                    <img
+                      src={screenshot.image}
+                      alt={screenshot.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <CardContent className="p-4">
                     <h3 className="font-semibold">{screenshot.title}</h3>
