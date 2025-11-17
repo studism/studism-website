@@ -22,10 +22,10 @@ const HomePage = () => {
     {
       id: 'timelyze',
       name: 'Timelyze',
-      description: 'あなたの学習時間を最適化するスマートな時間管理アプリ。集中力向上を促すポモドーロタイマー機能付き。',
+      description: '学習時間の記録・管理を簡単に。直感的な操作で学習習慣を身につけ、目標達成まで継続的にサポート。',
       icon: '/images/timelyze.png',
       category: '生産性',
-      features: ['ポモドーロタイマー', '学習記録', '進捗可視化']
+      features: ['時間記録・追跡', 'データ可視化', '目標管理']
     }
   ];
 

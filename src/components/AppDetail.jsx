@@ -36,18 +36,18 @@ const AppDetail = () => {
       name: 'Timelyze',
       icon: '/images/timelyze.png',
       category: '生産性',
-      description: 'あなたの学習時間を最適化するスマートな時間管理アプリです。集中力向上を促すポモドーロタイマー、学習記録の自動分析、進捗可視化機能で、効率的な学習習慣を身につけましょう。目標設定から達成までのプロセスをサポートし、あなたの「学び」を最大限に引き出します。',
+      description: '学習時間の記録・管理を簡単にする時間管理アプリです。タイマー機能での測定や手動入力に対応し、教科別に学習時間を集計できます。日別・週別・月別のグラフ表示で学習データを可視化し、目標設定と進捗確認で継続的な学習をサポート。カレンダー機能やメモ機能も搭載し、効率的な学習習慣を身につけることができます。',
       features: [
-        { icon: <Zap className="w-5 h-5" />, title: 'ポモドーロタイマー', description: '集中力を最大化する時間管理' },
-        { icon: <Star className="w-5 h-5" />, title: '学習記録', description: '自動で学習時間を記録・分析' },
-        { icon: <Users className="w-5 h-5" />, title: '進捗可視化', description: 'グラフで学習状況を一目で確認' }
+        { icon: <Zap className="w-5 h-5" />, title: '時間記録・追跡', description: 'タイマー機能と手動入力で教科別集計' },
+        { icon: <Star className="w-5 h-5" />, title: 'データ可視化', description: '日別・週別・月別のグラフで分析' },
+        { icon: <Users className="w-5 h-5" />, title: '目標管理', description: '進捗確認と達成時の自動通知' }
       ],
       screenshots: [
-        { title: 'タイマー画面', description: 'シンプルで見やすいタイマー' },
+        { title: 'タイマー画面', description: 'シンプルで使いやすい時間記録' },
         { title: '統計画面', description: '詳細な学習データの可視化' },
         { title: '目標設定', description: '個人に合わせた目標管理' }
       ],
-      appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/idYYYYYYYYY',
+      appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
       playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.timelyze'
     }
   };
