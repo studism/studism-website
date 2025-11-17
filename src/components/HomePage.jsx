@@ -71,7 +71,7 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-16 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
         {/* Background Video */}
         <div className="absolute inset-0">
           <video
@@ -88,8 +88,8 @@ const HomePage = () => {
         {/* White gradient overlay - left to right */}
         <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/20 to-transparent"></div>
 
-        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 relative z-10 h-full flex items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center w-full py-12">
             <div className="space-y-8 p-8 rounded-2xl">
               <div className="space-y-4">
                 <Badge variant="secondary" className="w-fit">
