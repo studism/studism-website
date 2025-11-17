@@ -20,9 +20,9 @@ const AppDetail = () => {
       category: '語学学習',
       description: 'レベル別の英単語クイズで効率的に語彙力を強化できるアプリです。5段階のレベル（Lev1-Lev5）から自分に合った難易度を選択でき、カスタム単語リスト機能で自分だけの学習プランを作成できます。間違えた単語の復習機能や習熟度トラッキングにより、着実に英語力を向上させることができます。',
       features: [
-        { icon: <Zap className="w-5 h-5" />, title: 'レベル別クイズ', description: '5段階の難易度で自分に合った学習' },
-        { icon: <Star className="w-5 h-5" />, title: 'カスタム単語リスト', description: '自分だけの単語帳を作成可能' },
-        { icon: <Users className="w-5 h-5" />, title: '復習＆トラッキング', description: '間違えた単語の復習と習熟度管理' }
+        { icon: <Zap className="w-5 h-5" />, title: 'レベル別クイズ', description: '5段階の難易度で自分に合った学習', image: '/images/screenshots/SakuraEnglish-ss01.webp' },
+        { icon: <Star className="w-5 h-5" />, title: 'カスタム単語リスト', description: '自分だけの単語帳を作成可能', image: '/images/screenshots/SakuraEnglish-ss02.webp' },
+        { icon: <Users className="w-5 h-5" />, title: '復習＆トラッキング', description: '間違えた単語の復習と習熟度管理', image: '/images/screenshots/SakuraEnglish-ss03.webp' }
       ],
       screenshots: [
         { title: 'メイン画面', description: 'シンプルで使いやすいインターフェース', image: '/images/screenshots/SakuraEnglish-ss01.webp' },
@@ -38,9 +38,9 @@ const AppDetail = () => {
       category: '生産性',
       description: '学習時間の記録・管理を簡単にする時間管理アプリです。タイマー機能での測定や手動入力に対応し、教科別に学習時間を集計できます。日別・週別・月別のグラフ表示で学習データを可視化し、目標設定と進捗確認で継続的な学習をサポート。カレンダー機能やメモ機能も搭載し、効率的な学習習慣を身につけることができます。',
       features: [
-        { icon: <Zap className="w-5 h-5" />, title: '時間記録・追跡', description: 'タイマー機能と手動入力で教科別集計' },
-        { icon: <Star className="w-5 h-5" />, title: 'データ可視化', description: '日別・週別・月別のグラフで分析' },
-        { icon: <Users className="w-5 h-5" />, title: '目標管理', description: '進捗確認と達成時の自動通知' }
+        { icon: <Zap className="w-5 h-5" />, title: '時間記録・追跡', description: 'タイマー機能と手動入力で教科別集計', image: '/images/screenshots/Timelyze-ss01.webp' },
+        { icon: <Star className="w-5 h-5" />, title: 'データ可視化', description: '日別・週別・月別のグラフで分析', image: '/images/screenshots/Timelyze-ss02.webp' },
+        { icon: <Users className="w-5 h-5" />, title: '目標管理', description: '進捗確認と達成時の自動通知', image: '/images/screenshots/Timelyze-ss03.webp' }
       ],
       screenshots: [
         { title: 'タイマー画面', description: 'シンプルで使いやすい時間記録', image: '/images/screenshots/Timelyze-ss01.webp' },
@@ -129,48 +129,24 @@ const AppDetail = () => {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {app.features.map((feature, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto text-primary">
+                <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="aspect-[9/16] bg-muted overflow-hidden">
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardHeader className="text-center">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto text-primary mb-2">
                       {feature.icon}
                     </div>
                     <CardTitle className="text-lg">{feature.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="text-center">
                     <CardDescription className="text-base">
                       {feature.description}
                     </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Screenshots */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-2xl lg:text-3xl font-bold">スクリーンショット</h2>
-              <p className="text-muted-foreground">
-                アプリの画面をご覧いただけます
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {app.screenshots.map((screenshot, index) => (
-                <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="aspect-[9/16] bg-muted overflow-hidden">
-                    <img
-                      src={screenshot.image}
-                      alt={screenshot.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold">{screenshot.title}</h3>
-                    <p className="text-sm text-muted-foreground">{screenshot.description}</p>
                   </CardContent>
                 </Card>
               ))}
