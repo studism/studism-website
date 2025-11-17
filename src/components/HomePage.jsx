@@ -92,7 +92,7 @@ const HomePage = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
             <div className="space-y-8 p-8 rounded-2xl">
               <div className="space-y-4">
-                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+                <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight">
                   学びを、<br />
                   <span className="text-primary brightness-110">もっと自由に</span><br />
                   <span className="text-accent brightness-110">もっと楽しく</span>
