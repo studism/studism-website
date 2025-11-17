@@ -86,7 +86,7 @@ const HomePage = () => {
         </div>
 
         {/* White gradient overlay - left to right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent"></div>
 
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 relative z-10 h-full flex items-center">
           <div className="grid lg:grid-cols-2 gap-12 items-center w-full py-12">
