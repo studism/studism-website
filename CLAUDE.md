@@ -136,6 +136,36 @@ App data structure requires:
 - screenshots array with title and description
 - appStoreUrl and playStoreUrl
 
+## Environment Variables
+
+This project requires environment variables for certain features. Create a `.env` file in the project root based on `.env.example`.
+
+### Contact Form Configuration
+
+The contact form uses Google Apps Script as the backend. Required setup:
+
+1. **Deploy the Google Apps Script**:
+   - Open https://script.google.com
+   - Create new project
+   - Copy code from `google-apps-script/contact-form.gs`
+   - Update `RECIPIENT_EMAIL` constant with your email address
+   - Deploy as web app:
+     - Execute as: Me
+     - Who has access: Anyone
+   - Copy the deployment URL
+
+2. **Configure environment variable**:
+   - Create `.env` file in project root
+   - Add: `VITE_CONTACT_FORM_URL=https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec`
+   - Replace `YOUR_SCRIPT_ID` with actual script ID from deployment URL
+
+3. **Test the form**:
+   - Run development server
+   - Submit test contact form
+   - Verify email receipt
+
+**Note**: The `.env` file is git-ignored for security. Never commit API keys or deployment URLs to the repository.
+
 ## Deployment
 
 The site is configured for deployment with `base: '/'` in vite.config.js (suitable for custom domains or GitHub Pages with custom domain). For GitHub Pages without custom domain, change to `base: '/repository-name/'`.

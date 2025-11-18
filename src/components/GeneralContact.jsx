@@ -47,7 +47,7 @@ const GeneralContact = () => {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch('/api/general-contact', {
+      const response = await fetch(import.meta.env.VITE_CONTACT_FORM_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
