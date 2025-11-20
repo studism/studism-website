@@ -10,7 +10,7 @@ const Header = () => {
             to="/"
             className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
           >
-            <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8" />
+            <img src="/images/studism-logo.png" alt="Studism" className="w-12 h-12" />
             <span className="text-xl font-bold text-foreground">Studism</span>
           </Link>
           <nav className="hidden md:flex space-x-6">
