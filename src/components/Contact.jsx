@@ -10,12 +10,12 @@ import { ArrowLeft, MessageCircle, Send, Shield } from 'lucide-react';
 
 const Contact = () => {
   const { appSlug } = useParams();
-  
+
   // ページ読み込み時にトップにスクロール
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [appSlug]);
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,10 +39,10 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(import.meta.env.VITE_CONTACT_API_URL || '/api/contact', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify({
           ...formData,

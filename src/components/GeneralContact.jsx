@@ -15,7 +15,7 @@ const GeneralContact = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -47,10 +47,10 @@ const GeneralContact = () => {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch(import.meta.env.VITE_CONTACT_FORM_URL, {
+      const response = await fetch(import.meta.env.VITE_CONTACT_API_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(formData),
       });
