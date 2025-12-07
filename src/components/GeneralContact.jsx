@@ -46,8 +46,15 @@ const GeneralContact = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
+    const endpoint = import.meta.env.VITE_CONTACT_FORM_URL || import.meta.env.VITE_CONTACT_API_URL;
+    if (!endpoint) {
+      setSubmitStatus({ type: 'error', message: '送信先URLが設定されていません。.env に VITE_CONTACT_FORM_URL を設定してください。' });
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await fetch(import.meta.env.VITE_CONTACT_API_URL, {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
