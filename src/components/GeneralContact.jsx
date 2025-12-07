@@ -116,6 +116,7 @@ const GeneralContact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="山田太郎"
+                    autoComplete="name"
                     required
                   />
                 </div>
@@ -129,6 +130,7 @@ const GeneralContact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="example@email.com"
+                    autoComplete="email"
                     required
                   />
                 </div>
@@ -136,7 +138,7 @@ const GeneralContact = () => {
                 <div className="space-y-2">
                   <Label htmlFor="category">お問い合わせ種別 <span className="text-destructive">*</span></Label>
                   <Select value={formData.category} onValueChange={(value) => handleSelectChange('category', value)} required>
-                    <SelectTrigger>
+                    <SelectTrigger id="category" name="category" autoComplete="off" aria-required="true">
                       <SelectValue placeholder="お問い合わせの種別を選択してください" />
                     </SelectTrigger>
                     <SelectContent>
@@ -159,6 +161,7 @@ const GeneralContact = () => {
                     onChange={handleInputChange}
                     placeholder="具体的な内容をご記載ください"
                     rows={6}
+                    autoComplete="off"
                     required
                   />
                 </div>

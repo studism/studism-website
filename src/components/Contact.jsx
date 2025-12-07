@@ -129,9 +129,11 @@ const Contact = () => {
                   <Label htmlFor="name">お名前 <span className="text-destructive">*</span></Label>
                   <Input
                     id="name"
+                    name="name"
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
                     placeholder="山田太郎"
+                    autoComplete="name"
                     required
                   />
                 </div>
@@ -140,10 +142,12 @@ const Contact = () => {
                   <Label htmlFor="email">メールアドレス <span className="text-destructive">*</span></Label>
                   <Input
                     id="email"
+                    name="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
                     placeholder="example@email.com"
+                    autoComplete="email"
                     required
                   />
                 </div>
@@ -151,7 +155,7 @@ const Contact = () => {
                 <div className="space-y-2">
                   <Label htmlFor="category">お問い合わせ種別 <span className="text-destructive">*</span></Label>
                   <Select value={formData.category} onValueChange={(value) => handleChange('category', value)} required>
-                    <SelectTrigger>
+                    <SelectTrigger id="category" name="category" autoComplete="off" aria-required="true">
                       <SelectValue placeholder="お問い合わせの種別を選択してください" />
                     </SelectTrigger>
                     <SelectContent>
@@ -168,10 +172,12 @@ const Contact = () => {
                   <Label htmlFor="message">詳細 <span className="text-destructive">*</span></Label>
                   <Textarea
                     id="message"
+                    name="message"
                     value={formData.message}
                     onChange={(e) => handleChange('message', e.target.value)}
                     placeholder="具体的な内容をご記載ください"
                     rows={6}
+                    autoComplete="off"
                     required
                   />
                 </div>
