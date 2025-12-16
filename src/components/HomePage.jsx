@@ -86,7 +86,7 @@ const HomePage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
+      <section className="relative h-[calc(100vh-180px)] overflow-hidden">
         {/* Background Slideshow */}
         <div className="absolute inset-0">
           {heroImages.map((image, index) => (
@@ -144,6 +144,13 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-center items-center gap-8 md:gap-16">
             <div className="flex flex-col">
+              {/* Progress Bar */}
+              <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
+                <div
+                  className="h-full bg-primary transition-all duration-100 ease-linear"
+                  style={{ width: currentSlide === 0 ? `${progress}%` : '0%' }}
+                />
+              </div>
               <Link
                 to="/app/sakuraenglish"
                 className={`flex items-center gap-3 group transition-opacity ${currentSlide === 0 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
@@ -156,15 +163,15 @@ const HomePage = () => {
                 />
                 <span className="text-sm md:text-base font-medium text-gray-800">SakuraEnglish</span>
               </Link>
-              {/* Progress Bar */}
-              <div className="h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
-                <div
-                  className="h-full bg-primary transition-all duration-100 ease-linear"
-                  style={{ width: currentSlide === 0 ? `${progress}%` : '0%' }}
-                />
-              </div>
             </div>
             <div className="flex flex-col">
+              {/* Progress Bar */}
+              <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
+                <div
+                  className="h-full bg-primary transition-all duration-100 ease-linear"
+                  style={{ width: currentSlide === 1 ? `${progress}%` : '0%' }}
+                />
+              </div>
               <Link
                 to="/app/timelyze"
                 className={`flex items-center gap-3 group transition-opacity ${currentSlide === 1 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
@@ -177,13 +184,6 @@ const HomePage = () => {
                 />
                 <span className="text-sm md:text-base font-medium text-gray-800">Timelyze</span>
               </Link>
-              {/* Progress Bar */}
-              <div className="h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
-                <div
-                  className="h-full bg-primary transition-all duration-100 ease-linear"
-                  style={{ width: currentSlide === 1 ? `${progress}%` : '0%' }}
-                />
-              </div>
             </div>
           </div>
         </div>
