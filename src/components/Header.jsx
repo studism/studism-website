@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // クリック外で閉じる
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50">
@@ -30,12 +43,9 @@ const Header = () => {
         <div className="container mx-auto px-4 md:px-8">
           <nav className="flex items-center justify-center md:justify-start space-x-1 md:space-x-2 overflow-x-auto">
             {/* 企業情報 Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
-            >
+            <div className="relative" ref={dropdownRef}>
               <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap flex items-center gap-1"
               >
                 企業情報
@@ -68,15 +78,15 @@ const Header = () => {
       {/* Full-width Dropdown Menu */}
       {isDropdownOpen && (
         <div
+          ref={dropdownRef}
           className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40"
-          onMouseEnter={() => setIsDropdownOpen(true)}
-          onMouseLeave={() => setIsDropdownOpen(false)}
         >
           <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
             <Link
               to="/#about"
               className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
+              onClick={() => setIsDropdownOpen(false)}
             >
               企業情報トップ
               <span className="text-lg">→</span>
@@ -90,17 +100,29 @@ const Header = () => {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <a href="/#about" className="text-gray-600 hover:text-primary hover:underline">
+                    <a
+                      href="/#about"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
                       Studismが望む未来
                     </a>
                   </li>
                   <li>
-                    <a href="/#apps" className="text-gray-600 hover:text-primary hover:underline">
+                    <a
+                      href="/#apps"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
                       開発アプリ一覧
                     </a>
                   </li>
                   <li>
-                    <a href="/#news" className="text-gray-600 hover:text-primary hover:underline">
+                    <a
+                      href="/#news"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
                       お知らせ
                     </a>
                   </li>
@@ -114,7 +136,11 @@ const Header = () => {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link to="/privacy" className="text-gray-600 hover:text-primary hover:underline">
+                    <Link
+                      to="/privacy"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
                       プライバシーポリシー
                     </Link>
                   </li>
@@ -128,7 +154,11 @@ const Header = () => {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link to="/contact" className="text-gray-600 hover:text-primary hover:underline">
+                    <Link
+                      to="/contact"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
                       お問い合わせフォーム
                     </Link>
                   </li>
