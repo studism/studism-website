@@ -139,6 +139,36 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Promotion Banners Section */}
+      <section className="py-8 bg-white">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            <Link
+              to="/app/sakuraenglish"
+              className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+            >
+              <img
+                src="/images/SakuraEnglish.JPG"
+                alt="SakuraEnglish"
+                className="w-full h-48 md:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </Link>
+            <Link
+              to="/app/timelyze"
+              className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+            >
+              <img
+                src="/images/timelyze.png"
+                alt="Timelyze"
+                className="w-full h-48 md:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* About Section */}
       <section id="about" className="py-20 bg-muted/30">
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
