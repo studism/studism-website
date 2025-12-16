@@ -5,11 +5,18 @@ import { ChevronDown } from 'lucide-react';
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
 
   // クリック外で閉じる
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      // ボタンとドロップダウンの外側をクリックした場合のみ閉じる
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -17,6 +24,10 @@ const Header = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
 
   return (
     <header className="sticky top-0 z-50">
@@ -43,9 +54,10 @@ const Header = () => {
         <div className="container mx-auto px-4 md:px-8">
           <nav className="flex items-center justify-center md:justify-start space-x-1 md:space-x-2 overflow-x-auto">
             {/* 企業情報 Dropdown */}
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative">
               <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                ref={buttonRef}
+                onClick={toggleDropdown}
                 className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap flex items-center gap-1"
               >
                 企業情報
