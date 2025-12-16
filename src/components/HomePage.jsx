@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,10 +8,28 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const HomePage = () => {
+  // スライドショー用の画像
+  const heroImages = [
+    { src: '/images/sakuraenglish.png', alt: 'SakuraEnglish' },
+    { src: '/images/timelyze.png', alt: 'Timelyze' },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   // ページ読み込み時にトップにスクロール
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // スライドショーの自動切り替え
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 4000); // 4秒ごとに切り替え
+
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
+
   const apps = [
     {
       id: 'sakuraenglish',
@@ -55,17 +73,36 @@ const HomePage = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
-        {/* Background Video */}
-        <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/images/hero-animation.webm" type="video/webm" />
-          </video>
+        {/* Background Slideshow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200">
+          {heroImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="max-w-[300px] md:max-w-[400px] lg:max-w-[500px] h-auto object-contain drop-shadow-2xl"
+              />
+            </div>
+          ))}
+          {/* スライドインジケーター */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+            {heroImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? 'bg-primary w-8'
+                    : 'bg-gray-400 hover:bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* White gradient overlay - left to right */}
