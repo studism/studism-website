@@ -304,39 +304,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* News Section */}
-      <section id="news" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
-          <div className="space-y-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-bold">最新情報・お知らせ</h2>
-              <p className="text-lg text-muted-foreground">
-                アプリのアップデート情報や新機能のお知らせをご確認いただけます。
-              </p>
-            </div>
-            <div className="max-w-3xl mx-auto space-y-4">
-              {news.map((item, index) => (
-                <Card key={index} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0">
-                        <Badge variant={item.type === 'アップデート' ? 'default' : item.type === '新機能' ? 'secondary' : 'outline'}>
-                          {item.type}
-                        </Badge>
-                      </div>
-                      <div className="flex-1 space-y-2">
-                        <p className="text-sm text-muted-foreground">{item.date}</p>
-                        <h3 className="font-medium leading-relaxed">{item.title}</h3>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );
