@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { getNewsById, news } from '@/data/news';
+import { getNewsById, getSortedNews } from '@/data/news';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -77,7 +77,7 @@ const NewsDetail = () => {
               その他のニュース
             </h2>
             <div className="space-y-4">
-              {news
+              {getSortedNews()
                 .filter(item => item.id !== newsId)
                 .slice(0, 3)
                 .map((item) => (

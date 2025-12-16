@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Download, Clock, BookOpen, Smartphone, BarChart, Target } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { news } from '@/data/news';
+import { getLatestNews } from '@/data/news';
 
 const HomePage = () => {
   // スライドショー用の画像
@@ -178,7 +178,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">ニュース</h2>
           <div className="space-y-4">
-            {news.map((item) => (
+            {getLatestNews(5).map((item) => (
               <Link
                 key={item.id}
                 to={`/news/${item.id}`}
@@ -197,9 +197,9 @@ const HomePage = () => {
             ))}
           </div>
           <div className="mt-6 text-right">
-            <a href="#" className="text-primary hover:underline text-sm">
+            <Link to="/news" className="text-primary hover:underline text-sm">
               一覧を見る →
-            </a>
+            </Link>
           </div>
         </div>
       </section>
