@@ -15,20 +15,34 @@ const HomePage = () => {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const SLIDE_DURATION = 4000; // 4秒
 
   // ページ読み込み時にトップにスクロール
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // スライドショーの自動切り替え
+  // スライドショーの自動切り替えとプログレスバー
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 4000); // 4秒ごとに切り替え
+    setProgress(0);
 
-    return () => clearInterval(timer);
-  }, [heroImages.length]);
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) return 100;
+        return prev + (100 / (SLIDE_DURATION / 50)); // 50msごとに更新
+      });
+    }, 50);
+
+    const slideTimer = setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, SLIDE_DURATION);
+
+    return () => {
+      clearInterval(progressInterval);
+      clearTimeout(slideTimer);
+    };
+  }, [currentSlide, heroImages.length]);
 
   const apps = [
     {
@@ -129,30 +143,48 @@ const HomePage = () => {
       <section className="py-4 bg-white border-b">
         <div className="container mx-auto px-4">
           <div className="flex justify-center items-center gap-8 md:gap-16">
-            <Link
-              to="/app/sakuraenglish"
-              className={`flex items-center gap-3 group transition-opacity ${currentSlide === 0 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
-              onMouseEnter={() => setCurrentSlide(0)}
-            >
-              <img
-                src="/images/SakuraEnglish.JPG"
-                alt="SakuraEnglish"
-                className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
-              />
-              <span className="text-sm md:text-base font-medium text-gray-800">SakuraEnglish</span>
-            </Link>
-            <Link
-              to="/app/timelyze"
-              className={`flex items-center gap-3 group transition-opacity ${currentSlide === 1 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
-              onMouseEnter={() => setCurrentSlide(1)}
-            >
-              <img
-                src="/images/timelyze.png"
-                alt="Timelyze"
-                className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
-              />
-              <span className="text-sm md:text-base font-medium text-gray-800">Timelyze</span>
-            </Link>
+            <div className="flex flex-col">
+              <Link
+                to="/app/sakuraenglish"
+                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 0 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+                onMouseEnter={() => setCurrentSlide(0)}
+              >
+                <img
+                  src="/images/SakuraEnglish.JPG"
+                  alt="SakuraEnglish"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
+                />
+                <span className="text-sm md:text-base font-medium text-gray-800">SakuraEnglish</span>
+              </Link>
+              {/* Progress Bar */}
+              <div className="h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
+                <div
+                  className="h-full bg-primary transition-all duration-100 ease-linear"
+                  style={{ width: currentSlide === 0 ? `${progress}%` : '0%' }}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <Link
+                to="/app/timelyze"
+                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 1 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+                onMouseEnter={() => setCurrentSlide(1)}
+              >
+                <img
+                  src="/images/timelyze.png"
+                  alt="Timelyze"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
+                />
+                <span className="text-sm md:text-base font-medium text-gray-800">Timelyze</span>
+              </Link>
+              {/* Progress Bar */}
+              <div className="h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
+                <div
+                  className="h-full bg-primary transition-all duration-100 ease-linear"
+                  style={{ width: currentSlide === 1 ? `${progress}%` : '0%' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
