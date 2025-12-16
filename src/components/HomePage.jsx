@@ -189,6 +189,33 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* News Section */}
+      <section id="news" className="py-12 bg-white">
+        <div className="container mx-auto px-4 md:px-8">
+          <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">ニュース</h2>
+          <div className="space-y-4">
+            {news.map((item, index) => (
+              <div key={index} className="flex flex-wrap items-center gap-2 md:gap-4 py-3 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                <span className="text-sm text-gray-500 font-mono">{item.date}</span>
+                <span className={`text-xs px-2 py-1 rounded ${
+                  item.type === 'お知らせ' ? 'bg-blue-100 text-blue-700' :
+                  item.type === 'アップデート' ? 'bg-green-100 text-green-700' :
+                  'bg-gray-100 text-gray-700'
+                }`}>
+                  {item.type}
+                </span>
+                <span className="text-gray-800 hover:text-primary cursor-pointer">{item.title}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 text-right">
+            <a href="#" className="text-primary hover:underline text-sm">
+              一覧を見る →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* About Section */}
       <section id="about" className="py-20 bg-muted/30">
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
