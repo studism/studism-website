@@ -7,6 +7,7 @@ import { ArrowRight, Download, Clock, BookOpen, Smartphone, BarChart, Target } f
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getLatestNews } from '@/data/news';
+import { getLatestTopics, getPopularTopics } from '@/data/topics';
 
 const HomePage = () => {
   // スライドショー用の画像
@@ -200,6 +201,72 @@ const HomePage = () => {
             <Link to="/news" className="text-primary hover:underline text-sm">
               一覧を見る →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Topics Section */}
+      <section className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4 md:px-8">
+          {/* Latest Topics */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">最新トピック</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {getLatestTopics(3).map((topic) => (
+                <Link
+                  key={topic.id}
+                  to={`/topics/${topic.id}`}
+                  className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                >
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={topic.image}
+                      alt={topic.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <span className="text-xs text-primary font-medium">{topic.category}</span>
+                    <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
+                      {topic.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-2 line-clamp-2">{topic.description}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Popular Topics */}
+          <div>
+            <h2 className="text-2xl font-bold mb-6 border-b-2 border-accent pb-2">人気トピック</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {getPopularTopics(3).map((topic) => (
+                <Link
+                  key={topic.id}
+                  to={`/topics/${topic.id}`}
+                  className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                >
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={topic.image}
+                      alt={topic.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-primary font-medium">{topic.category}</span>
+                      <span className="text-xs text-gray-400">{topic.views.toLocaleString()} views</span>
+                    </div>
+                    <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
+                      {topic.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-2 line-clamp-2">{topic.description}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
