@@ -10,7 +10,7 @@ import Footer from '@/components/Footer';
 const HomePage = () => {
   // スライドショー用の画像
   const heroImages = [
-    { src: '/images/sakuraenglish.png', alt: 'SakuraEnglish' },
+    { src: '/images/SakuraEnglishVer2.1.8.png', alt: 'SakuraEnglish' },
     { src: '/images/timelyze.png', alt: 'Timelyze' },
   ];
 
@@ -74,18 +74,18 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
         {/* Background Slideshow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200">
+        <div className="absolute inset-0">
           {heroImages.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
+              className={`absolute inset-0 transition-opacity duration-1000 ${
                 index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="max-w-[300px] md:max-w-[400px] lg:max-w-[500px] h-auto object-contain drop-shadow-2xl"
+                className="w-full h-full object-contain bg-slate-100"
               />
             </div>
           ))}
