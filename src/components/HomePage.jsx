@@ -10,7 +10,7 @@ import Footer from '@/components/Footer';
 const HomePage = () => {
   // スライドショー用の画像
   const heroImages = [
-    { src: '/images/SakuraEnglishVer2.1.8.png', alt: 'SakuraEnglish' },
+    { src: '/images/sakuraenglish-promo.png', alt: 'SakuraEnglish' },
     { src: '/images/timelyze.png', alt: 'Timelyze' },
   ];
 
@@ -157,7 +157,7 @@ const HomePage = () => {
                 onMouseEnter={() => setCurrentSlide(0)}
               >
                 <img
-                  src="/images/SakuraEnglish.JPG"
+                  src="/images/sakuraenglish-banner.jpg"
                   alt="SakuraEnglish"
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />
