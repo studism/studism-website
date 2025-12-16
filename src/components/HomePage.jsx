@@ -127,7 +127,7 @@ const HomePage = () => {
                 </Button>
                 <Button variant="outline" size="lg" asChild>
                   <a href="#about">
-                    会社について
+                    Studismが望む未来
                   </a>
                 </Button>
               </div>
@@ -194,7 +194,7 @@ const HomePage = () => {
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-bold">Studismについて</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold">Studismが望む未来</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 株式会社Studismは、「学びを、もっと自由に、もっと楽しく」をミッションに掲げ、
                 教育とテクノロジーを融合させた革新的な学習アプリケーションを開発しています。
