@@ -89,20 +89,6 @@ const HomePage = () => {
               />
             </div>
           ))}
-          {/* スライドインジケーター */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-            {heroImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide
-                    ? 'bg-primary w-8'
-                    : 'bg-gray-400 hover:bg-gray-600'
-                }`}
-              />
-            ))}
-          </div>
         </div>
 
         {/* White gradient overlay - left to right */}
@@ -145,7 +131,8 @@ const HomePage = () => {
           <div className="flex justify-center items-center gap-8 md:gap-16">
             <Link
               to="/app/sakuraenglish"
-              className="flex items-center gap-3 group hover:opacity-70 transition-opacity"
+              className={`flex items-center gap-3 group transition-opacity ${currentSlide === 0 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+              onMouseEnter={() => setCurrentSlide(0)}
             >
               <img
                 src="/images/SakuraEnglish.JPG"
@@ -156,7 +143,8 @@ const HomePage = () => {
             </Link>
             <Link
               to="/app/timelyze"
-              className="flex items-center gap-3 group hover:opacity-70 transition-opacity"
+              className={`flex items-center gap-3 group transition-opacity ${currentSlide === 1 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+              onMouseEnter={() => setCurrentSlide(1)}
             >
               <img
                 src="/images/timelyze.png"
