@@ -140,30 +140,30 @@ const HomePage = () => {
       </section>
 
       {/* Promotion Banners Section */}
-      <section className="py-8 bg-white">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid md:grid-cols-2 gap-6">
+      <section className="py-4 bg-white border-b">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center gap-8 md:gap-16">
             <Link
               to="/app/sakuraenglish"
-              className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+              className="flex items-center gap-3 group hover:opacity-70 transition-opacity"
             >
               <img
                 src="/images/SakuraEnglish.JPG"
                 alt="SakuraEnglish"
-                className="w-full h-48 md:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="text-sm md:text-base font-medium text-gray-800">SakuraEnglish</span>
             </Link>
             <Link
               to="/app/timelyze"
-              className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+              className="flex items-center gap-3 group hover:opacity-70 transition-opacity"
             >
               <img
                 src="/images/timelyze.png"
                 alt="Timelyze"
-                className="w-full h-48 md:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="text-sm md:text-base font-medium text-gray-800">Timelyze</span>
             </Link>
           </div>
         </div>
