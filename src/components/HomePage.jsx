@@ -20,7 +20,7 @@ const HomePage = () => {
   const [news, setNews] = useState([]);
   const [latestTopics, setLatestTopics] = useState([]);
   const [popularTopics, setPopularTopics] = useState([]);
-  const SLIDE_DURATION = 6000; // 6秒
+  const SLIDE_DURATION = 4000; // 4秒
 
   // ページ読み込み時にトップにスクロール & データ取得
   useEffect(() => {
@@ -103,9 +103,7 @@ const HomePage = () => {
               <img
                 src={image.src}
                 alt={image.alt}
-                className={`w-full h-full object-contain bg-slate-100 transition-transform duration-[6000ms] ease-out ${
-                  index === currentSlide ? 'scale-110' : 'scale-100'
-                }`}
+                className="w-full h-full object-contain bg-slate-100"
               />
             </div>
           ))}
