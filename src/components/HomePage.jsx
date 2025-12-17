@@ -6,8 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Download, Clock, BookOpen, Smartphone, BarChart, Target } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { getLatestNews } from '@/data/news';
-import { getLatestTopics, getPopularTopics } from '@/data/topics';
+import { getNewsList, getTopicsList } from '@/lib/microcms';
 
 const HomePage = () => {
   // スライドショー用の画像
@@ -18,11 +17,28 @@ const HomePage = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [news, setNews] = useState([]);
+  const [topics, setTopics] = useState([]);
   const SLIDE_DURATION = 4000; // 4秒
 
-  // ページ読み込み時にトップにスクロール
+  // ページ読み込み時にトップにスクロール & データ取得
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // microCMSからデータ取得
+    const fetchData = async () => {
+      try {
+        const [newsData, topicsData] = await Promise.all([
+          getNewsList(5),
+          getTopicsList(6),
+        ]);
+        setNews(newsData);
+        setTopics(topicsData);
+      } catch (error) {
+        console.error('Failed to fetch data from microCMS:', error);
+      }
+    };
+    fetchData();
   }, []);
 
   // スライドショーの自動切り替えとプログレスバー
@@ -179,19 +195,21 @@ const HomePage = () => {
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">ニュース</h2>
           <div className="space-y-4">
-            {getLatestNews(5).map((item) => (
+            {news.map((item) => (
               <Link
                 key={item.id}
                 to={`/news/${item.id}`}
                 className="flex flex-wrap items-center gap-2 md:gap-4 py-3 border-b border-gray-200 hover:bg-gray-50 transition-colors"
               >
-                <span className="text-sm text-gray-500 font-mono">{item.date}</span>
+                <span className="text-sm text-gray-500 font-mono">
+                  {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
+                </span>
                 <span className={`text-xs px-2 py-1 rounded ${
                   item.type === 'お知らせ' ? 'bg-blue-100 text-blue-700' :
                   item.type === 'アップデート' ? 'bg-green-100 text-green-700' :
                   'bg-gray-100 text-gray-700'
                 }`}>
-                  {item.type}
+                  {item.type || 'その他'}
                 </span>
                 <span className="text-gray-800 hover:text-primary">{item.title}</span>
               </Link>
@@ -212,7 +230,7 @@ const HomePage = () => {
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">最新トピック</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {getLatestTopics(3).map((topic) => (
+              {topics.slice(0, 3).map((topic) => (
                 <Link
                   key={topic.id}
                   to={`/topics/${topic.id}`}
@@ -220,13 +238,13 @@ const HomePage = () => {
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
-                      src={topic.image}
+                      src={topic.image?.url || '/images/studism-logo.png'}
                       alt={topic.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="p-4">
-                    <span className="text-xs text-primary font-medium">{topic.category}</span>
+                    <span className="text-xs text-primary font-medium">{topic.category || 'その他'}</span>
                     <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
                       {topic.title}
                     </h3>
@@ -241,7 +259,7 @@ const HomePage = () => {
           <div>
             <h2 className="text-2xl font-bold mb-6 border-b-2 border-accent pb-2">人気トピック</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {getPopularTopics(3).map((topic) => (
+              {topics.slice(3, 6).map((topic) => (
                 <Link
                   key={topic.id}
                   to={`/topics/${topic.id}`}
@@ -249,16 +267,13 @@ const HomePage = () => {
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
-                      src={topic.image}
+                      src={topic.image?.url || '/images/studism-logo.png'}
                       alt={topic.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="p-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-primary font-medium">{topic.category}</span>
-                      <span className="text-xs text-gray-400">{topic.views.toLocaleString()} views</span>
-                    </div>
+                    <span className="text-xs text-primary font-medium">{topic.category || 'その他'}</span>
                     <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
                       {topic.title}
                     </h3>
@@ -267,6 +282,13 @@ const HomePage = () => {
                 </Link>
               ))}
             </div>
+          </div>
+
+          {/* View All Link */}
+          <div className="mt-8 text-right">
+            <Link to="/topics" className="text-primary hover:underline text-sm">
+              一覧を見る →
+            </Link>
           </div>
         </div>
       </section>

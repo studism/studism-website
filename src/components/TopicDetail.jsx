@@ -1,17 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { getTopicById, getLatestTopics, getPopularTopics } from '@/data/topics';
+import { getTopicById, getTopicsList } from '@/lib/microcms';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const TopicDetail = () => {
   const { topicId } = useParams();
-  const topic = getTopicById(topicId);
+  const [topic, setTopic] = useState(null);
+  const [relatedTopics, setRelatedTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+
+    const fetchData = async () => {
+      try {
+        const [topicData, topicsData] = await Promise.all([
+          getTopicById(topicId),
+          getTopicsList(4),
+        ]);
+        setTopic(topicData);
+        setRelatedTopics(topicsData.filter(item => item.id !== topicId).slice(0, 3));
+
+        // 閲覧数をインクリメント
+        fetch('/api/views', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: topicId }),
+        }).catch(err => console.error('Failed to update views:', err));
+      } catch (error) {
+        console.error('Failed to fetch topic:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [topicId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <div className="container mx-auto px-4 md:px-8 py-20 text-center">
+          <p className="text-gray-500">読み込み中...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!topic) {
     return (
@@ -29,10 +66,10 @@ const TopicDetail = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="py-12">
+      <main className="py-12 flex-grow">
         <div className="container mx-auto px-4 md:px-8 max-w-4xl">
           {/* Back Link */}
           <Link
@@ -47,9 +84,8 @@ const TopicDetail = () => {
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-4">
               <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
-                {topic.category}
+                {topic.category || 'その他'}
               </span>
-              <span className="text-sm text-gray-400">{topic.views.toLocaleString()} views</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
               {topic.title}
@@ -58,21 +94,25 @@ const TopicDetail = () => {
           </div>
 
           {/* Topic Image */}
-          <div className="mb-8 rounded-lg overflow-hidden">
-            <img
-              src={topic.image}
-              alt={topic.title}
-              className="w-full h-auto object-cover"
-            />
-          </div>
+          {topic.image?.url && (
+            <div className="mb-8 rounded-lg overflow-hidden">
+              <img
+                src={topic.image.url}
+                alt={topic.title}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          )}
 
-          {/* Topic Content Placeholder */}
-          <div className="prose prose-lg max-w-none">
-            <div className="bg-white rounded-lg border p-6 md:p-8">
+          {/* Topic Content */}
+          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-img:max-w-2xl prose-img:mx-auto prose-img:rounded-lg">
+            {topic.content ? (
+              <div dangerouslySetInnerHTML={{ __html: topic.content }} />
+            ) : (
               <p className="text-gray-700 leading-relaxed">
                 このトピックの詳細コンテンツは準備中です。
               </p>
-            </div>
+            )}
           </div>
 
           {/* Related Topics */}
@@ -81,10 +121,7 @@ const TopicDetail = () => {
               関連トピック
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {getPopularTopics(3)
-                .filter(item => item.id !== topicId)
-                .slice(0, 3)
-                .map((item) => (
+              {relatedTopics.map((item) => (
                   <Link
                     key={item.id}
                     to={`/topics/${item.id}`}
@@ -92,13 +129,13 @@ const TopicDetail = () => {
                   >
                     <div className="aspect-video overflow-hidden">
                       <img
-                        src={item.image}
+                        src={item.image?.url || '/images/studism-logo.png'}
                         alt={item.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                     <div className="p-4">
-                      <span className="text-xs text-primary font-medium">{item.category}</span>
+                      <span className="text-xs text-primary font-medium">{item.category || 'その他'}</span>
                       <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
                         {item.title}
                       </h3>

@@ -10,6 +10,7 @@ import GeneralPrivacy from './components/GeneralPrivacy';
 import NewsDetail from './components/NewsDetail';
 import NewsList from './components/NewsList';
 import TopicDetail from './components/TopicDetail';
+import TopicsList from './components/TopicsList';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/privacy" element={<GeneralPrivacy />} />
           <Route path="/news" element={<NewsList />} />
           <Route path="/news/:newsId" element={<NewsDetail />} />
+          <Route path="/topics" element={<TopicsList />} />
           <Route path="/topics/:topicId" element={<TopicDetail />} />
           <Route path="/app/:appSlug" element={<AppDetail />} />
           <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />
