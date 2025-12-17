@@ -39,11 +39,17 @@ export const getTopicById = async (id) => {
   return response;
 };
 
-// 人気トピック取得（viewsでソート - microCMS側でviewsフィールドがある場合）
+// 人気トピック取得（viewsでソート）
 export const getPopularTopics = async (limit = 3) => {
   const response = await client.get({
     endpoint: 'topics',
-    queries: { limit, orders: '-views' },
+    queries: { limit: 100 }, // 全件取得してクライアント側でソート
   });
-  return response.contents;
+  // viewsを数値として降順ソート
+  const sorted = response.contents.sort((a, b) => {
+    const viewsA = parseInt(a.views || '0', 10);
+    const viewsB = parseInt(b.views || '0', 10);
+    return viewsB - viewsA;
+  });
+  return sorted.slice(0, limit);
 };

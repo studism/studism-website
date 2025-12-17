@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Download, Clock, BookOpen, Smartphone, BarChart, Target } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { getNewsList, getTopicsList } from '@/lib/microcms';
+import { getNewsList, getTopicsList, getPopularTopics } from '@/lib/microcms';
 
 const HomePage = () => {
   // スライドショー用の画像
@@ -18,7 +18,8 @@ const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [progress, setProgress] = useState(0);
   const [news, setNews] = useState([]);
-  const [topics, setTopics] = useState([]);
+  const [latestTopics, setLatestTopics] = useState([]);
+  const [popularTopics, setPopularTopics] = useState([]);
   const SLIDE_DURATION = 4000; // 4秒
 
   // ページ読み込み時にトップにスクロール & データ取得
@@ -28,12 +29,14 @@ const HomePage = () => {
     // microCMSからデータ取得
     const fetchData = async () => {
       try {
-        const [newsData, topicsData] = await Promise.all([
+        const [newsData, latestData, popularData] = await Promise.all([
           getNewsList(5),
-          getTopicsList(6),
+          getTopicsList(3),
+          getPopularTopics(3),
         ]);
         setNews(newsData);
-        setTopics(topicsData);
+        setLatestTopics(latestData);
+        setPopularTopics(popularData);
       } catch (error) {
         console.error('Failed to fetch data from microCMS:', error);
       }
@@ -230,7 +233,7 @@ const HomePage = () => {
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">最新トピック</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {topics.slice(0, 3).map((topic) => (
+              {latestTopics.map((topic) => (
                 <Link
                   key={topic.id}
                   to={`/topics/${topic.id}`}
@@ -259,7 +262,7 @@ const HomePage = () => {
           <div>
             <h2 className="text-2xl font-bold mb-6 border-b-2 border-accent pb-2">人気トピック</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {topics.slice(3, 6).map((topic) => (
+              {popularTopics.map((topic) => (
                 <Link
                   key={topic.id}
                   to={`/topics/${topic.id}`}
