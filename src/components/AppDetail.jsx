@@ -18,7 +18,7 @@ const AppDetail = () => {
   const appData = {
     sakuraenglish: {
       name: 'SakuraEnglish',
-      icon: '/images/sakuraenglish.png',
+      icon: '/images/sakuraenglish.jpg',
       category: '語学学習',
       description: 'レベル別の英単語クイズで効率的に語彙力を強化できるアプリです。5段階のレベル（Lev1-Lev5）から自分に合った難易度を選択でき、カスタム単語リスト機能で自分だけの学習プランを作成できます。間違えた単語の復習機能や習熟度トラッキングにより、着実に英語力を向上させることができます。',
       features: [

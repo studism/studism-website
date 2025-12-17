@@ -4,13 +4,16 @@ import { ChevronDown } from 'lucide-react';
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
+  const appsDropdownRef = useRef(null);
+  const appsButtonRef = useRef(null);
 
   // クリック外で閉じる
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // ボタンとドロップダウンの外側をクリックした場合のみ閉じる
+      // 企業情報ドロップダウン
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target) &&
@@ -18,6 +21,15 @@ const Header = () => {
         !buttonRef.current.contains(event.target)
       ) {
         setIsDropdownOpen(false);
+      }
+      // アプリ一覧ドロップダウン
+      if (
+        appsDropdownRef.current &&
+        !appsDropdownRef.current.contains(event.target) &&
+        appsButtonRef.current &&
+        !appsButtonRef.current.contains(event.target)
+      ) {
+        setIsAppsDropdownOpen(false);
       }
     };
 
@@ -27,6 +39,12 @@ const Header = () => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
+    setIsAppsDropdownOpen(false);
+  };
+
+  const toggleAppsDropdown = () => {
+    setIsAppsDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -65,12 +83,17 @@ const Header = () => {
               </button>
             </div>
 
-            <a
-              href="/#apps"
-              className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap"
-            >
-              アプリ一覧
-            </a>
+            {/* アプリ一覧 Dropdown */}
+            <div className="relative">
+              <button
+                ref={appsButtonRef}
+                onClick={toggleAppsDropdown}
+                className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap flex items-center gap-1"
+              >
+                アプリ一覧
+                <ChevronDown className={`w-4 h-4 transition-transform ${isAppsDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
             <a
               href="/#news"
               className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap"
@@ -87,7 +110,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Full-width Dropdown Menu */}
+      {/* Full-width Dropdown Menu - 企業情報 */}
       {isDropdownOpen && (
         <div
           ref={dropdownRef}
@@ -172,6 +195,66 @@ const Header = () => {
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       お問い合わせフォーム
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full-width Dropdown Menu - アプリ一覧 */}
+      {isAppsDropdownOpen && (
+        <div
+          ref={appsDropdownRef}
+          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40"
+        >
+          <div className="container mx-auto px-4 md:px-8 py-8">
+            {/* Header */}
+            <a
+              href="/#apps"
+              className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
+              onClick={() => setIsAppsDropdownOpen(false)}
+            >
+              アプリ一覧トップ
+              <span className="text-lg">→</span>
+            </a>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* 学習カテゴリ */}
+              <div>
+                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
+                  学習
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      to="/app/sakuraenglish"
+                      className="text-gray-600 hover:text-primary hover:underline flex items-center gap-2"
+                      onClick={() => setIsAppsDropdownOpen(false)}
+                    >
+                      <img src="/images/sakuraenglish.jpg" alt="SakuraEnglish" className="w-6 h-6 rounded" />
+                      SakuraEnglish
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* サポートカテゴリ */}
+              <div>
+                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
+                  サポート
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      to="/app/timelyze"
+                      className="text-gray-600 hover:text-primary hover:underline flex items-center gap-2"
+                      onClick={() => setIsAppsDropdownOpen(false)}
+                    >
+                      <img src="/images/timelyze.png" alt="Timelyze" className="w-6 h-6 rounded" />
+                      Timelyze
                     </Link>
                   </li>
                 </ul>

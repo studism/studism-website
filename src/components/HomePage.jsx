@@ -70,7 +70,7 @@ const HomePage = () => {
       id: 'sakuraenglish',
       name: 'SakuraEnglish',
       description: 'レベル別の英単語クイズで効率的に語彙力を強化。カスタム単語リスト機能で自分だけの学習プランを作成。',
-      icon: '/images/sakuraenglish.png',
+      icon: '/images/sakuraenglish.jpg',
       category: '語学学習',
       features: ['レベル別クイズ', 'カスタム単語リスト', '復習機能']
     },
@@ -161,7 +161,7 @@ const HomePage = () => {
                 onMouseEnter={() => setCurrentSlide(0)}
               >
                 <img
-                  src="/images/sakuraenglish-banner.jpg"
+                  src="/images/sakuraenglish.jpg"
                   alt="SakuraEnglish"
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />
