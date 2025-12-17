@@ -1,34 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, Search } from 'lucide-react';
-
-// 検索対象データ
-const searchData = [
-  // アプリ
-  { title: 'SakuraEnglish', description: 'レベル別の英単語クイズで効率的に語彙力を強化', category: 'アプリ', path: '/app/sakuraenglish', keywords: ['英語', '英単語', 'クイズ', '語学', '学習'] },
-  { title: 'Timelyze', description: '学習時間の記録・管理を簡単に', category: 'アプリ', path: '/app/timelyze', keywords: ['時間', '管理', '記録', '生産性', '目標'] },
-  // ページ
-  { title: 'ホーム', description: 'Studismトップページ', category: 'ページ', path: '/', keywords: ['トップ', 'メイン'] },
-  { title: 'お問い合わせ', description: 'ご質問・ご要望はこちら', category: 'ページ', path: '/contact', keywords: ['連絡', '質問', 'フォーム'] },
-  { title: 'プライバシーポリシー', description: '個人情報の取り扱いについて', category: 'ページ', path: '/privacy', keywords: ['個人情報', 'ポリシー', '規約'] },
-  { title: 'ニュース', description: '最新のお知らせ', category: 'ページ', path: '/#news', keywords: ['お知らせ', '更新', '新着'] },
-  { title: 'アプリ一覧', description: 'Studismの開発アプリ', category: 'ページ', path: '/#apps', keywords: ['アプリ', '製品'] },
-  { title: 'Studismについて', description: '企業情報・ミッション', category: 'ページ', path: '/#about', keywords: ['会社', '企業', 'ミッション', 'ビジョン'] },
-];
+import { ChevronDown, Search, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const appsDropdownRef = useRef(null);
   const appsButtonRef = useRef(null);
   const searchRef = useRef(null);
   const searchInputRef = useRef(null);
+  const langDropdownRef = useRef(null);
+
+  // 検索対象データ（翻訳対応）
+  const getSearchData = () => [
+    { title: t('searchData.sakuraenglish.title'), description: t('searchData.sakuraenglish.description'), category: t('searchData.sakuraenglish.category'), path: '/app/sakuraenglish', keywords: ['英語', '英単語', 'クイズ', '語学', '学習', 'english', 'vocabulary', 'quiz'] },
+    { title: t('searchData.timelyze.title'), description: t('searchData.timelyze.description'), category: t('searchData.timelyze.category'), path: '/app/timelyze', keywords: ['時間', '管理', '記録', '生産性', '目標', 'time', 'management', 'productivity'] },
+    { title: t('searchData.home.title'), description: t('searchData.home.description'), category: t('searchData.home.category'), path: '/', keywords: ['トップ', 'メイン', 'home', 'top'] },
+    { title: t('searchData.contact.title'), description: t('searchData.contact.description'), category: t('searchData.contact.category'), path: '/contact', keywords: ['連絡', '質問', 'フォーム', 'contact', 'form'] },
+    { title: t('searchData.privacy.title'), description: t('searchData.privacy.description'), category: t('searchData.privacy.category'), path: '/privacy', keywords: ['個人情報', 'ポリシー', '規約', 'privacy', 'policy'] },
+    { title: t('searchData.news.title'), description: t('searchData.news.description'), category: t('searchData.news.category'), path: '/#news', keywords: ['お知らせ', '更新', '新着', 'news', 'announcement'] },
+    { title: t('searchData.appList.title'), description: t('searchData.appList.description'), category: t('searchData.appList.category'), path: '/#apps', keywords: ['アプリ', '製品', 'apps', 'products'] },
+    { title: t('searchData.about.title'), description: t('searchData.about.description'), category: t('searchData.about.category'), path: '/#about', keywords: ['会社', '企業', 'ミッション', 'ビジョン', 'company', 'about', 'mission'] },
+  ];
+
+  // 言語切り替え
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('language', lng);
+    setIsLangDropdownOpen(false);
+  };
 
   // クリック外で閉じる
   useEffect(() => {
@@ -58,6 +67,13 @@ const Header = () => {
       ) {
         setIsSearchOpen(false);
       }
+      // 言語ドロップダウン
+      if (
+        langDropdownRef.current &&
+        !langDropdownRef.current.contains(event.target)
+      ) {
+        setIsLangDropdownOpen(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -71,13 +87,14 @@ const Header = () => {
       return;
     }
     const query = searchQuery.toLowerCase();
+    const searchData = getSearchData();
     const results = searchData.filter(item =>
       item.title.toLowerCase().includes(query) ||
       item.description.toLowerCase().includes(query) ||
       item.keywords.some(keyword => keyword.toLowerCase().includes(query))
     );
     setSearchResults(results);
-  }, [searchQuery]);
+  }, [searchQuery, i18n.language]);
 
   // 検索結果をクリックしたときの処理
   const handleSearchResultClick = (path) => {
@@ -119,14 +136,43 @@ const Header = () => {
             >
               <img src="/images/studism-logo.png" alt="Studism" className="w-10 h-10" />
               <div className="flex items-center space-x-2">
-                <span className="text-xl font-bold text-foreground">Studism</span>
-                <span className="text-sm text-muted-foreground hidden sm:inline">| 学びを、もっと自由に</span>
+                <span className="text-xl font-bold text-foreground">{t('common.siteName')}</span>
+                <span className="text-sm text-muted-foreground hidden sm:inline">| {t('common.tagline')}</span>
               </div>
             </Link>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
+              {/* 言語切り替え */}
+              <div className="relative" ref={langDropdownRef}>
+                <button
+                  onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                  className="flex items-center gap-1 px-2 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                  aria-label="Change language"
+                >
+                  <Globe className="w-4 h-4" />
+                  <span className="hidden sm:inline">{i18n.language === 'ja' ? '日本語' : 'English'}</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isLangDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border z-50">
+                    <button
+                      onClick={() => changeLanguage('ja')}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 rounded-t-lg ${i18n.language === 'ja' ? 'bg-primary/10 text-primary font-medium' : ''}`}
+                    >
+                      日本語
+                    </button>
+                    <button
+                      onClick={() => changeLanguage('en')}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 rounded-b-lg ${i18n.language === 'en' ? 'bg-primary/10 text-primary font-medium' : ''}`}
+                    >
+                      English
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {/* SNSリンク */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <a
                   href="https://x.com/Studism_Stdism"
                   target="_blank"
@@ -161,8 +207,8 @@ const Header = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onFocus={() => setIsSearchOpen(true)}
-                    placeholder="サイト内検索"
-                    className="w-40 md:w-56 pl-9 pr-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50 focus:bg-white transition-colors"
+                    placeholder={t('common.search')}
+                    className="w-32 md:w-48 pl-9 pr-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50 focus:bg-white transition-colors"
                   />
                 </div>
 
@@ -190,7 +236,7 @@ const Header = () => {
               {/* 検索結果なし */}
               {isSearchOpen && searchQuery.trim() !== '' && searchResults.length === 0 && (
                 <div className="absolute top-full right-0 mt-2 w-72 md:w-80 bg-white rounded-lg shadow-xl border z-50 p-4">
-                  <p className="text-sm text-gray-500 text-center">検索結果がありません</p>
+                  <p className="text-sm text-gray-500 text-center">{t('common.noResults')}</p>
                 </div>
               )}
               </div>
@@ -210,7 +256,7 @@ const Header = () => {
                 onClick={toggleDropdown}
                 className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap flex items-center gap-1"
               >
-                企業情報
+                {t('header.companyInfo')}
                 <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
             </div>
@@ -222,7 +268,7 @@ const Header = () => {
                 onClick={toggleAppsDropdown}
                 className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap flex items-center gap-1"
               >
-                アプリ一覧
+                {t('header.apps')}
                 <ChevronDown className={`w-4 h-4 transition-transform ${isAppsDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
             </div>
@@ -230,13 +276,13 @@ const Header = () => {
               href="/#news"
               className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap"
             >
-              お知らせ
+              {t('header.news')}
             </a>
             <Link
               to="/contact"
               className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap"
             >
-              お問い合わせ
+              {t('header.contact')}
             </Link>
           </nav>
         </div>
@@ -255,7 +301,7 @@ const Header = () => {
               className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
               onClick={() => setIsDropdownOpen(false)}
             >
-              企業情報トップ
+              {t('header.companyInfoTop')}
               <span className="text-lg">→</span>
             </Link>
 
@@ -263,7 +309,7 @@ const Header = () => {
               {/* Column 1 */}
               <div>
                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  Studismについて
+                  {t('header.aboutStudism')}
                 </h3>
                 <ul className="space-y-3">
                   <li>
@@ -272,7 +318,7 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      Studismが望む未来
+                      {t('header.ourVision')}
                     </a>
                   </li>
                   <li>
@@ -281,7 +327,7 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      開発アプリ一覧
+                      {t('header.appList')}
                     </a>
                   </li>
                   <li>
@@ -290,7 +336,7 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      お知らせ
+                      {t('header.news')}
                     </a>
                   </li>
                 </ul>
@@ -299,7 +345,7 @@ const Header = () => {
               {/* Column 2 */}
               <div>
                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  ポリシー
+                  {t('header.policy')}
                 </h3>
                 <ul className="space-y-3">
                   <li>
@@ -308,7 +354,7 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      プライバシーポリシー
+                      {t('header.privacyPolicy')}
                     </Link>
                   </li>
                 </ul>
@@ -317,7 +363,7 @@ const Header = () => {
               {/* Column 3 */}
               <div>
                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  お問い合わせ
+                  {t('header.contact')}
                 </h3>
                 <ul className="space-y-3">
                   <li>
@@ -326,7 +372,7 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      お問い合わせフォーム
+                      {t('header.contactForm')}
                     </Link>
                   </li>
                 </ul>
@@ -349,7 +395,7 @@ const Header = () => {
               className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
               onClick={() => setIsAppsDropdownOpen(false)}
             >
-              アプリ一覧トップ
+              {t('header.appsTop')}
               <span className="text-lg">→</span>
             </a>
 
@@ -357,7 +403,7 @@ const Header = () => {
               {/* 学習カテゴリ */}
               <div>
                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  学習
+                  {t('header.learning')}
                 </h3>
                 <ul className="space-y-3">
                   <li>
@@ -376,7 +422,7 @@ const Header = () => {
               {/* サポートカテゴリ */}
               <div>
                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  サポート
+                  {t('header.support')}
                 </h3>
                 <ul className="space-y-3">
                   <li>

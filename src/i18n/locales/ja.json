@@ -1,0 +1,161 @@
+{
+  "common": {
+    "siteName": "Studism",
+    "tagline": "学びを、もっと自由に",
+    "learnMore": "詳細を見る",
+    "viewAll": "一覧を見る →",
+    "download": "ダウンロード",
+    "search": "サイト内検索",
+    "noResults": "検索結果がありません",
+    "other": "その他"
+  },
+  "header": {
+    "companyInfo": "企業情報",
+    "apps": "アプリ一覧",
+    "news": "お知らせ",
+    "contact": "お問い合わせ",
+    "companyInfoTop": "企業情報トップ",
+    "appsTop": "アプリ一覧トップ",
+    "aboutStudism": "Studismについて",
+    "ourVision": "Studismが望む未来",
+    "appList": "開発アプリ一覧",
+    "policy": "ポリシー",
+    "privacyPolicy": "プライバシーポリシー",
+    "contactForm": "お問い合わせフォーム",
+    "learning": "学習",
+    "support": "サポート"
+  },
+  "hero": {
+    "title1": "学びを、",
+    "title2": "もっと自由に",
+    "title3": "もっと楽しく",
+    "viewApps": "アプリを見る",
+    "ourVision": "Studismが望む未来"
+  },
+  "news": {
+    "title": "ニュース",
+    "announcement": "お知らせ",
+    "update": "アップデート"
+  },
+  "topics": {
+    "latest": "最新トピック",
+    "popular": "人気トピック"
+  },
+  "about": {
+    "title": "Studismが望む未来",
+    "description": "株式会社Studismは、「学びを、もっと自由に、もっと楽しく」をミッションに掲げ、教育とテクノロジーを融合させた革新的な学習アプリケーションを開発しています。私たちは、一人ひとりの学習スタイルに合わせたパーソナライズされた体験を提供し、知的好奇心を刺激し、自律的な学びを支援することを目指しています。",
+    "mobileFirst": "モバイルファースト",
+    "mobileFirstDesc": "いつでもどこでも学習できる、シンプルで使いやすいアプリケーション",
+    "dataVisualization": "学習データ可視化",
+    "dataVisualizationDesc": "詳細な学習データの記録と分析で、効率的な学習をサポート",
+    "customization": "カスタマイズ機能",
+    "customizationDesc": "自分に合った学習プランと目標設定で、継続的な成長をサポート"
+  },
+  "apps": {
+    "title": "アプリ一覧",
+    "description": "Studismが開発した学習アプリケーションをご紹介します。それぞれのアプリが、あなたの学びをサポートします。",
+    "sakuraenglish": {
+      "name": "SakuraEnglish",
+      "description": "レベル別の英単語クイズで効率的に語彙力を強化。カスタム単語リスト機能で自分だけの学習プランを作成。",
+      "category": "語学学習",
+      "features": ["レベル別クイズ", "カスタム単語リスト", "復習機能"]
+    },
+    "timelyze": {
+      "name": "Timelyze",
+      "description": "学習時間の記録・管理を簡単に。直感的な操作で学習習慣を身につけ、目標達成まで継続的にサポート。",
+      "category": "生産性",
+      "features": ["時間記録・追跡", "データ可視化", "目標管理"]
+    }
+  },
+  "footer": {
+    "tagline": "学びを、もっと自由に、もっと楽しく。教育とテクノロジーの融合で、新しい学習体験を提供します。",
+    "apps": "アプリ",
+    "companyInfo": "会社情報",
+    "aboutCompany": "会社について",
+    "support": "サポート",
+    "terms": "利用規約",
+    "copyright": "© 2025 Studism Inc. All Rights Reserved."
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "generalTitle": "お問い合わせ",
+    "description": "ご質問やご要望がございましたら、お気軽にお問い合わせください",
+    "formTitle": "お問い合わせフォーム",
+    "name": "お名前",
+    "namePlaceholder": "山田太郎",
+    "email": "メールアドレス",
+    "emailPlaceholder": "example@email.com",
+    "category": "お問い合わせ種別",
+    "categoryPlaceholder": "お問い合わせの種別を選択してください",
+    "categoryGeneral": "一般的なお問い合わせ",
+    "categoryAppSupport": "アプリサポート",
+    "categoryBusiness": "ビジネス・提携について",
+    "categoryMedia": "メディア・取材について",
+    "categoryPrivacy": "プライバシーポリシーについて",
+    "categoryOther": "その他",
+    "message": "詳細",
+    "messagePlaceholder": "具体的な内容をご記載ください",
+    "privacyNotice": "個人情報の取り扱いについて",
+    "privacyNoticeText": "いただいた個人情報は、お問い合わせへの対応のみに利用し、当社のプライバシーポリシーに基づき適切に管理いたします。",
+    "checkPrivacy": "プライバシーポリシーを確認する",
+    "submit": "送信する",
+    "sending": "送信中...",
+    "successMessage": "お問い合わせありがとうございます。内容を確認の上、ご連絡いたします。",
+    "errorMessage": "送信に失敗しました。時間をおいて再度お試しください。",
+    "networkError": "ネットワークエラーが発生しました",
+    "noEndpoint": "送信先URLが設定されていません",
+    "backToHome": "ホームに戻る",
+    "notice": "ご注意",
+    "noticeItems": [
+      "お問い合わせの内容によっては、ご返信までにお時間をいただく場合がございます。",
+      "土日祝日および年末年始は、お返事が遅れる場合がございます。",
+      "お問い合わせの内容によっては、お答えできない場合もございます。"
+    ]
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "lastUpdated": "最終更新日"
+  },
+  "searchData": {
+    "sakuraenglish": {
+      "title": "SakuraEnglish",
+      "description": "レベル別の英単語クイズで効率的に語彙力を強化",
+      "category": "アプリ"
+    },
+    "timelyze": {
+      "title": "Timelyze",
+      "description": "学習時間の記録・管理を簡単に",
+      "category": "アプリ"
+    },
+    "home": {
+      "title": "ホーム",
+      "description": "Studismトップページ",
+      "category": "ページ"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "ご質問・ご要望はこちら",
+      "category": "ページ"
+    },
+    "privacy": {
+      "title": "プライバシーポリシー",
+      "description": "個人情報の取り扱いについて",
+      "category": "ページ"
+    },
+    "news": {
+      "title": "ニュース",
+      "description": "最新のお知らせ",
+      "category": "ページ"
+    },
+    "appList": {
+      "title": "アプリ一覧",
+      "description": "Studismの開発アプリ",
+      "category": "ページ"
+    },
+    "about": {
+      "title": "Studismについて",
+      "description": "企業情報・ミッション",
+      "category": "ページ"
+    }
+  }
+}

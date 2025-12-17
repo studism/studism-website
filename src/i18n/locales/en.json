@@ -1,0 +1,161 @@
+{
+  "common": {
+    "siteName": "Studism",
+    "tagline": "Learn Freely",
+    "learnMore": "Learn More",
+    "viewAll": "View All →",
+    "download": "Download",
+    "search": "Search",
+    "noResults": "No results found",
+    "other": "Other"
+  },
+  "header": {
+    "companyInfo": "Company",
+    "apps": "Apps",
+    "news": "News",
+    "contact": "Contact",
+    "companyInfoTop": "Company Overview",
+    "appsTop": "All Apps",
+    "aboutStudism": "About Studism",
+    "ourVision": "Our Vision",
+    "appList": "Our Apps",
+    "policy": "Policy",
+    "privacyPolicy": "Privacy Policy",
+    "contactForm": "Contact Form",
+    "learning": "Learning",
+    "support": "Support"
+  },
+  "hero": {
+    "title1": "Learn",
+    "title2": "Freely",
+    "title3": "Joyfully",
+    "viewApps": "View Apps",
+    "ourVision": "Our Vision"
+  },
+  "news": {
+    "title": "News",
+    "announcement": "Announcement",
+    "update": "Update"
+  },
+  "topics": {
+    "latest": "Latest Topics",
+    "popular": "Popular Topics"
+  },
+  "about": {
+    "title": "Our Vision",
+    "description": "Studism Inc. is committed to the mission of making learning more free and enjoyable. We develop innovative educational applications that blend education with technology. We aim to provide personalized experiences tailored to each individual's learning style, stimulate intellectual curiosity, and support autonomous learning.",
+    "mobileFirst": "Mobile First",
+    "mobileFirstDesc": "Simple and easy-to-use applications that enable learning anytime, anywhere",
+    "dataVisualization": "Data Visualization",
+    "dataVisualizationDesc": "Support efficient learning through detailed learning data recording and analysis",
+    "customization": "Customization",
+    "customizationDesc": "Support continuous growth with personalized learning plans and goal setting"
+  },
+  "apps": {
+    "title": "Our Apps",
+    "description": "Introducing learning applications developed by Studism. Each app is designed to support your learning journey.",
+    "sakuraenglish": {
+      "name": "SakuraEnglish",
+      "description": "Efficiently strengthen your vocabulary with level-based word quizzes. Create your own learning plan with custom word list features.",
+      "category": "Language Learning",
+      "features": ["Level-based Quiz", "Custom Word Lists", "Review Function"]
+    },
+    "timelyze": {
+      "name": "Timelyze",
+      "description": "Easily record and manage your study time. Build study habits with intuitive controls and receive continuous support until you reach your goals.",
+      "category": "Productivity",
+      "features": ["Time Tracking", "Data Visualization", "Goal Management"]
+    }
+  },
+  "footer": {
+    "tagline": "Learn freely, learn joyfully. We provide new learning experiences through the fusion of education and technology.",
+    "apps": "Apps",
+    "companyInfo": "Company",
+    "aboutCompany": "About Us",
+    "support": "Support",
+    "terms": "Terms of Use",
+    "copyright": "© 2025 Studism Inc. All Rights Reserved."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "generalTitle": "Contact Us",
+    "description": "If you have any questions or requests, please feel free to contact us",
+    "formTitle": "Contact Form",
+    "name": "Name",
+    "namePlaceholder": "John Doe",
+    "email": "Email",
+    "emailPlaceholder": "example@email.com",
+    "category": "Inquiry Type",
+    "categoryPlaceholder": "Please select the type of inquiry",
+    "categoryGeneral": "General Inquiry",
+    "categoryAppSupport": "App Support",
+    "categoryBusiness": "Business & Partnership",
+    "categoryMedia": "Media & Press",
+    "categoryPrivacy": "Privacy Policy",
+    "categoryOther": "Other",
+    "message": "Details",
+    "messagePlaceholder": "Please provide specific details",
+    "privacyNotice": "About Personal Information",
+    "privacyNoticeText": "The personal information you provide will only be used to respond to your inquiry and will be appropriately managed in accordance with our privacy policy.",
+    "checkPrivacy": "View Privacy Policy",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "successMessage": "Thank you for your inquiry. We will review and get back to you.",
+    "errorMessage": "Failed to send. Please try again later.",
+    "networkError": "A network error occurred",
+    "noEndpoint": "Submission URL is not configured",
+    "backToHome": "Back to Home",
+    "notice": "Please Note",
+    "noticeItems": [
+      "Depending on the nature of your inquiry, it may take some time to respond.",
+      "Responses may be delayed on weekends, holidays, and during the year-end and New Year period.",
+      "We may not be able to answer certain inquiries."
+    ]
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated"
+  },
+  "searchData": {
+    "sakuraenglish": {
+      "title": "SakuraEnglish",
+      "description": "Efficiently strengthen vocabulary with level-based word quizzes",
+      "category": "App"
+    },
+    "timelyze": {
+      "title": "Timelyze",
+      "description": "Easily record and manage study time",
+      "category": "App"
+    },
+    "home": {
+      "title": "Home",
+      "description": "Studism Homepage",
+      "category": "Page"
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Questions and requests",
+      "category": "Page"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "About handling of personal information",
+      "category": "Page"
+    },
+    "news": {
+      "title": "News",
+      "description": "Latest announcements",
+      "category": "Page"
+    },
+    "appList": {
+      "title": "Apps",
+      "description": "Apps developed by Studism",
+      "category": "Page"
+    },
+    "about": {
+      "title": "About Studism",
+      "description": "Company info and mission",
+      "category": "Page"
+    }
+  }
+}

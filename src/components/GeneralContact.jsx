@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Send, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -11,6 +12,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const GeneralContact = () => {
+  const { t } = useTranslation();
+
   // ページ読み込み時にトップにスクロール
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,7 +51,7 @@ const GeneralContact = () => {
 
     const endpoint = import.meta.env.VITE_CONTACT_FORM_URL || import.meta.env.VITE_CONTACT_API_URL;
     if (!endpoint) {
-      setSubmitStatus({ type: 'error', message: '送信先URLが設定されていません。.env に VITE_CONTACT_FORM_URL を設定してください。' });
+      setSubmitStatus({ type: 'error', message: t('contact.noEndpoint') });
       setIsSubmitting(false);
       return;
     }
@@ -65,18 +68,20 @@ const GeneralContact = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSubmitStatus({ type: 'success', message: data.message });
+        setSubmitStatus({ type: 'success', message: t('contact.successMessage') });
         setFormData({ name: '', email: '', category: '', message: '' });
       } else {
-        setSubmitStatus({ type: 'error', message: data.error || 'エラーが発生しました' });
+        setSubmitStatus({ type: 'error', message: data.error || t('contact.errorMessage') });
       }
     } catch (error) {
       console.error('Submit error:', error);
-      setSubmitStatus({ type: 'error', message: 'ネットワークエラーが発生しました' });
+      setSubmitStatus({ type: 'error', message: t('contact.networkError') });
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const noticeItems = t('contact.noticeItems', { returnObjects: true });
 
   return (
     <div className="min-h-screen bg-background">
@@ -91,9 +96,9 @@ const GeneralContact = () => {
               <Send className="w-8 h-8 text-primary" />
             </div>
             <div className="space-y-2">
-              <h1 className="text-3xl lg:text-4xl font-bold">お問い合わせ</h1>
+              <h1 className="text-3xl lg:text-4xl font-bold">{t('contact.title')}</h1>
               <p className="text-muted-foreground">
-                ご質問やご要望がございましたら、お気軽にお問い合わせください
+                {t('contact.description')}
               </p>
             </div>
           </div>
@@ -103,63 +108,63 @@ const GeneralContact = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Send className="w-5 h-5" />
-                <span>お問い合わせフォーム</span>
+                <span>{t('contact.formTitle')}</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="name">お名前 <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="name">{t('contact.name')} <span className="text-destructive">*</span></Label>
                   <Input
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="山田太郎"
+                    placeholder={t('contact.namePlaceholder')}
                     autoComplete="name"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">メールアドレス <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="email">{t('contact.email')} <span className="text-destructive">*</span></Label>
                   <Input
                     id="email"
                     name="email"
                     type="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="example@email.com"
+                    placeholder={t('contact.emailPlaceholder')}
                     autoComplete="email"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="category">お問い合わせ種別 <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="category">{t('contact.category')} <span className="text-destructive">*</span></Label>
                   <Select value={formData.category} onValueChange={(value) => handleSelectChange('category', value)} required>
                     <SelectTrigger id="category" name="category" autoComplete="off" aria-required="true">
-                      <SelectValue placeholder="お問い合わせの種別を選択してください" />
+                      <SelectValue placeholder={t('contact.categoryPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="general">一般的なお問い合わせ</SelectItem>
-                      <SelectItem value="app_support">アプリサポート</SelectItem>
-                      <SelectItem value="business">ビジネス・提携について</SelectItem>
-                      <SelectItem value="media">メディア・取材について</SelectItem>
-                      <SelectItem value="privacy">プライバシーポリシーについて</SelectItem>
-                      <SelectItem value="other">その他</SelectItem>
+                      <SelectItem value="general">{t('contact.categoryGeneral')}</SelectItem>
+                      <SelectItem value="app_support">{t('contact.categoryAppSupport')}</SelectItem>
+                      <SelectItem value="business">{t('contact.categoryBusiness')}</SelectItem>
+                      <SelectItem value="media">{t('contact.categoryMedia')}</SelectItem>
+                      <SelectItem value="privacy">{t('contact.categoryPrivacy')}</SelectItem>
+                      <SelectItem value="other">{t('contact.categoryOther')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">詳細 <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="message">{t('contact.message')} <span className="text-destructive">*</span></Label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="具体的な内容をご記載ください"
+                    placeholder={t('contact.messagePlaceholder')}
                     rows={6}
                     autoComplete="off"
                     required
@@ -170,14 +175,14 @@ const GeneralContact = () => {
                 <div className="bg-muted/50 p-4 rounded-lg space-y-2">
                   <h3 className="font-medium flex items-center space-x-2">
                     <Shield className="w-4 h-4" />
-                    <span>個人情報の取り扱いについて</span>
+                    <span>{t('contact.privacyNotice')}</span>
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    いただいた個人情報は、お問い合わせへの対応のみに利用し、当社のプライバシーポリシーに基づき適切に管理いたします。
+                    {t('contact.privacyNoticeText')}
                   </p>
                   <Button variant="link" className="p-0 h-auto text-sm" asChild>
                     <Link to="/privacy">
-                      プライバシーポリシーを確認する
+                      {t('contact.checkPrivacy')}
                     </Link>
                   </Button>
                 </div>
@@ -190,7 +195,7 @@ const GeneralContact = () => {
 
                 <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                   <Send className="w-4 h-4 mr-2" />
-                  {isSubmitting ? '送信中...' : '送信する'}
+                  {isSubmitting ? t('contact.sending') : t('contact.submit')}
                 </Button>
               </form>
             </CardContent>
@@ -200,11 +205,11 @@ const GeneralContact = () => {
           <div className="mt-12 space-y-6">
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">ご注意</h3>
+                <h3 className="font-semibold mb-4">{t('contact.notice')}</h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• お問い合わせの内容によっては、ご返信までにお時間をいただく場合がございます。</li>
-                  <li>• 土日祝日および年末年始は、お返事が遅れる場合がございます。</li>
-                  <li>• お問い合わせの内容によっては、お答えできない場合もございます。</li>
+                  {Array.isArray(noticeItems) && noticeItems.map((item, index) => (
+                    <li key={index}>• {item}</li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
@@ -214,7 +219,7 @@ const GeneralContact = () => {
               <Button asChild>
                 <Link to="/">
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  ホームに戻る
+                  {t('contact.backToHome')}
                 </Link>
               </Button>
             </div>
@@ -228,4 +233,3 @@ const GeneralContact = () => {
 };
 
 export default GeneralContact;
-

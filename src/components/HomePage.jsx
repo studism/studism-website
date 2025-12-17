@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +10,8 @@ import Footer from '@/components/Footer';
 import { getNewsList, getTopicsList, getPopularTopics } from '@/lib/microcms';
 
 const HomePage = () => {
+  const { t, i18n } = useTranslation();
+
   // スライドショー用の画像
   const heroImages = [
     { src: '/images/sakuraenglish-promo.png', alt: 'SakuraEnglish' },
@@ -68,19 +71,19 @@ const HomePage = () => {
   const apps = [
     {
       id: 'sakuraenglish',
-      name: 'SakuraEnglish',
-      description: 'レベル別の英単語クイズで効率的に語彙力を強化。カスタム単語リスト機能で自分だけの学習プランを作成。',
+      name: t('apps.sakuraenglish.name'),
+      description: t('apps.sakuraenglish.description'),
       icon: '/images/sakuraenglish.jpg',
-      category: '語学学習',
-      features: ['レベル別クイズ', 'カスタム単語リスト', '復習機能']
+      category: t('apps.sakuraenglish.category'),
+      features: t('apps.sakuraenglish.features', { returnObjects: true })
     },
     {
       id: 'timelyze',
-      name: 'Timelyze',
-      description: '学習時間の記録・管理を簡単に。直感的な操作で学習習慣を身につけ、目標達成まで継続的にサポート。',
+      name: t('apps.timelyze.name'),
+      description: t('apps.timelyze.description'),
       icon: '/images/timelyze.png',
-      category: '生産性',
-      features: ['時間記録・追跡', 'データ可視化', '目標管理']
+      category: t('apps.timelyze.category'),
+      features: t('apps.timelyze.features', { returnObjects: true })
     }
   ];
 
@@ -117,21 +120,21 @@ const HomePage = () => {
             <div className="space-y-8 p-8 rounded-2xl">
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight">
-                  学びを、<br />
-                  <span className="text-primary brightness-110">もっと自由に</span><br />
-                  <span className="text-accent brightness-110">もっと楽しく</span>
+                  {t('hero.title1')}<br />
+                  <span className="text-primary brightness-110">{t('hero.title2')}</span><br />
+                  <span className="text-accent brightness-110">{t('hero.title3')}</span>
                 </h1>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="group" asChild>
                   <a href="#apps">
-                    アプリを見る
+                    {t('hero.viewApps')}
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
                   <a href="#about">
-                    Studismが望む未来
+                    {t('hero.ourVision')}
                   </a>
                 </Button>
               </div>
@@ -196,7 +199,7 @@ const HomePage = () => {
       {/* News Section */}
       <section id="news" className="py-12 bg-white">
         <div className="container mx-auto px-4 md:px-8">
-          <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">ニュース</h2>
+          <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">{t('news.title')}</h2>
           <div className="space-y-4">
             {news.map((item) => (
               <Link
@@ -205,14 +208,16 @@ const HomePage = () => {
                 className="flex flex-wrap items-center gap-2 md:gap-4 py-3 border-b border-gray-200 hover:bg-gray-50 transition-colors"
               >
                 <span className="text-sm text-gray-500 font-mono">
-                  {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
+                  {new Date(item.publishedAt).toLocaleDateString(i18n.language === 'ja' ? 'ja-JP' : 'en-US')}
                 </span>
                 <span className={`text-xs px-2 py-1 rounded ${
                   item.type === 'お知らせ' ? 'bg-blue-100 text-blue-700' :
                   item.type === 'アップデート' ? 'bg-green-100 text-green-700' :
                   'bg-gray-100 text-gray-700'
                 }`}>
-                  {item.type || 'その他'}
+                  {item.type === 'お知らせ' ? t('news.announcement') :
+                   item.type === 'アップデート' ? t('news.update') :
+                   (item.type || t('common.other'))}
                 </span>
                 <span className="text-gray-800 hover:text-primary">{item.title}</span>
               </Link>
@@ -220,7 +225,7 @@ const HomePage = () => {
           </div>
           <div className="mt-6 text-right">
             <Link to="/news" className="text-primary hover:underline text-sm">
-              一覧を見る →
+              {t('common.viewAll')}
             </Link>
           </div>
         </div>
@@ -231,7 +236,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 md:px-8">
           {/* Latest Topics */}
           <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">最新トピック</h2>
+            <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">{t('topics.latest')}</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {latestTopics.map((topic) => (
                 <Link
@@ -247,7 +252,7 @@ const HomePage = () => {
                     />
                   </div>
                   <div className="p-4">
-                    <span className="text-xs text-primary font-medium">{topic.category || 'その他'}</span>
+                    <span className="text-xs text-primary font-medium">{topic.category || t('common.other')}</span>
                     <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
                       {topic.title}
                     </h3>
@@ -260,7 +265,7 @@ const HomePage = () => {
 
           {/* Popular Topics */}
           <div>
-            <h2 className="text-2xl font-bold mb-6 border-b-2 border-accent pb-2">人気トピック</h2>
+            <h2 className="text-2xl font-bold mb-6 border-b-2 border-accent pb-2">{t('topics.popular')}</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {popularTopics.map((topic) => (
                 <Link
@@ -276,7 +281,7 @@ const HomePage = () => {
                     />
                   </div>
                   <div className="p-4">
-                    <span className="text-xs text-primary font-medium">{topic.category || 'その他'}</span>
+                    <span className="text-xs text-primary font-medium">{topic.category || t('common.other')}</span>
                     <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
                       {topic.title}
                     </h3>
@@ -290,7 +295,7 @@ const HomePage = () => {
           {/* View All Link */}
           <div className="mt-8 text-right">
             <Link to="/topics" className="text-primary hover:underline text-sm">
-              一覧を見る →
+              {t('common.viewAll')}
             </Link>
           </div>
         </div>
@@ -301,12 +306,9 @@ const HomePage = () => {
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-bold">Studismが望む未来</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold">{t('about.title')}</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                株式会社Studismは、「学びを、もっと自由に、もっと楽しく」をミッションに掲げ、
-                教育とテクノロジーを融合させた革新的な学習アプリケーションを開発しています。
-                私たちは、一人ひとりの学習スタイルに合わせたパーソナライズされた体験を提供し、
-                知的好奇心を刺激し、自律的な学びを支援することを目指しています。
+                {t('about.description')}
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
@@ -314,27 +316,27 @@ const HomePage = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
                   <Smartphone className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">モバイルファースト</h3>
+                <h3 className="text-xl font-semibold">{t('about.mobileFirst')}</h3>
                 <p className="text-muted-foreground">
-                  いつでもどこでも学習できる、シンプルで使いやすいアプリケーション
+                  {t('about.mobileFirstDesc')}
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto">
                   <BarChart className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-semibold">学習データ可視化</h3>
+                <h3 className="text-xl font-semibold">{t('about.dataVisualization')}</h3>
                 <p className="text-muted-foreground">
-                  詳細な学習データの記録と分析で、効率的な学習をサポート
+                  {t('about.dataVisualizationDesc')}
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
                   <Target className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">カスタマイズ機能</h3>
+                <h3 className="text-xl font-semibold">{t('about.customization')}</h3>
                 <p className="text-muted-foreground">
-                  自分に合った学習プランと目標設定で、継続的な成長をサポート
+                  {t('about.customizationDesc')}
                 </p>
               </div>
             </div>
@@ -347,10 +349,9 @@ const HomePage = () => {
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-bold">アプリ一覧</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold">{t('apps.title')}</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Studismが開発した学習アプリケーションをご紹介します。
-                それぞれのアプリが、あなたの学びをサポートします。
+                {t('apps.description')}
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -379,13 +380,13 @@ const HomePage = () => {
                     <div className="flex space-x-3 pt-4">
                       <Button asChild size="sm" className="flex-1">
                         <Link to={`/app/${app.id}`}>
-                          詳細を見る
+                          {t('common.learnMore')}
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Link>
                       </Button>
                       <Button variant="outline" size="sm">
                         <Download className="w-4 h-4 mr-2" />
-                        ダウンロード
+                        {t('common.download')}
                       </Button>
                     </div>
                   </CardContent>
@@ -402,4 +403,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
