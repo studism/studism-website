@@ -128,7 +128,7 @@ const Header = () => {
               {/* SNSリンク */}
               <div className="flex items-center gap-2">
                 <a
-                  href="https://x.com/studism_app"
+                  href="https://x.com/Studism_Stdism"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-gray-600 hover:text-black transition-colors"
@@ -139,7 +139,7 @@ const Header = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://instagram.com/studism_app"
+                  href="https://www.instagram.com/studism_stdism/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-gray-600 hover:text-pink-600 transition-colors"
