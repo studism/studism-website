@@ -440,7 +440,6 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Full-width Dropdown Menu - お知らせ */}
       <div
