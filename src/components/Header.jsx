@@ -281,17 +281,6 @@ const Header = () => {
               </button>
             </div>
 
-            {/* アプリ一覧 Dropdown */}
-            <div className="relative">
-              <button
-                ref={appsButtonRef}
-                onClick={toggleAppsDropdown}
-                className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap flex items-center gap-1"
-              >
-                {t('header.apps')}
-                <ChevronDown className={`w-4 h-4 transition-transform ${isAppsDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-            </div>
             {/* お知らせ Dropdown */}
             <div className="relative">
               <button
@@ -429,77 +418,6 @@ const Header = () => {
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       {t('header.contactForm')}
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Full-width Dropdown Menu - アプリ一覧 */}
-      {isAppsDropdownOpen && (
-        <div
-          ref={appsDropdownRef}
-          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40"
-        >
-          <div className="container mx-auto px-4 md:px-8 py-8">
-            {/* Header */}
-            <Link
-              to="/apps"
-              className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
-              onClick={() => setIsAppsDropdownOpen(false)}
-            >
-              {t('header.appsTop')}
-              <span className="text-lg">→</span>
-            </Link>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* 学習カテゴリ */}
-              <div>
-                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  {t('header.learning')}
-                </h3>
-                <ul className="space-y-3">
-                  <li>
-                    <Link
-                      to="/app/sakuraenglish"
-                      className="text-gray-600 hover:text-primary hover:underline flex items-center gap-2"
-                      onClick={() => setIsAppsDropdownOpen(false)}
-                    >
-                      <img src="/images/sakuraenglish.jpg" alt="SakuraEnglish" className="w-6 h-6 rounded" />
-                      SakuraEnglish
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/app/studism"
-                      className="text-gray-600 hover:text-primary hover:underline flex items-center gap-2"
-                      onClick={() => setIsAppsDropdownOpen(false)}
-                    >
-                      <img src="/images/Studism.png" alt="Studism" className="w-6 h-6 rounded" />
-                      Studism
-                      <span className="text-xs bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded">開発中</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              {/* サポートカテゴリ */}
-              <div>
-                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  {t('header.support')}
-                </h3>
-                <ul className="space-y-3">
-                  <li>
-                    <Link
-                      to="/app/timelyze"
-                      className="text-gray-600 hover:text-primary hover:underline flex items-center gap-2"
-                      onClick={() => setIsAppsDropdownOpen(false)}
-                    >
-                      <img src="/images/timelyze.png" alt="Timelyze" className="w-6 h-6 rounded" />
-                      Timelyze
                     </Link>
                   </li>
                 </ul>
