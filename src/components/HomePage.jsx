@@ -235,28 +235,27 @@ const HomePage = () => {
       <section className="py-12 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
           {/* Latest Topics */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary pb-2">{t('topics.latest')}</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+          <div className="mb-8">
+            <h2 className="text-xl font-bold mb-4 border-b-2 border-primary pb-2">{t('topics.latest')}</h2>
+            <div className="grid md:grid-cols-3 gap-4">
               {latestTopics.map((topic) => (
                 <Link
                   key={topic.id}
                   to={`/topics/${topic.id}`}
-                  className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                  className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow flex"
                 >
-                  <div className="aspect-video overflow-hidden">
+                  <div className="w-24 h-24 flex-shrink-0 overflow-hidden">
                     <img
                       src={topic.image?.url || '/images/studism-logo.png'}
                       alt={topic.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="p-4">
+                  <div className="p-3 flex-1 min-w-0">
                     <span className="text-xs text-primary font-medium">{topic.category || t('common.other')}</span>
-                    <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="font-bold text-sm mt-1 group-hover:text-primary transition-colors line-clamp-2">
                       {topic.title}
                     </h3>
-                    <p className="text-sm text-gray-500 mt-2 line-clamp-2">{topic.description}</p>
                   </div>
                 </Link>
               ))}
@@ -265,27 +264,26 @@ const HomePage = () => {
 
           {/* Popular Topics */}
           <div>
-            <h2 className="text-2xl font-bold mb-6 border-b-2 border-accent pb-2">{t('topics.popular')}</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <h2 className="text-xl font-bold mb-4 border-b-2 border-accent pb-2">{t('topics.popular')}</h2>
+            <div className="grid md:grid-cols-3 gap-4">
               {popularTopics.map((topic) => (
                 <Link
                   key={topic.id}
                   to={`/topics/${topic.id}`}
-                  className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                  className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow flex"
                 >
-                  <div className="aspect-video overflow-hidden">
+                  <div className="w-24 h-24 flex-shrink-0 overflow-hidden">
                     <img
                       src={topic.image?.url || '/images/studism-logo.png'}
                       alt={topic.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="p-4">
+                  <div className="p-3 flex-1 min-w-0">
                     <span className="text-xs text-primary font-medium">{topic.category || t('common.other')}</span>
-                    <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="font-bold text-sm mt-1 group-hover:text-primary transition-colors line-clamp-2">
                       {topic.title}
                     </h3>
-                    <p className="text-sm text-gray-500 mt-2 line-clamp-2">{topic.description}</p>
                   </div>
                 </Link>
               ))}
