@@ -303,12 +303,13 @@ const Header = () => {
       </div>
 
       {/* Full-width Dropdown Menu - 企業情報 */}
-      {isDropdownOpen && (
-        <div
-          ref={dropdownRef}
-          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 animate-in slide-in-from-top-full duration-1000 ease-out"
-        >
-          <div className="container mx-auto px-4 md:px-8 py-8">
+      <div
+        ref={dropdownRef}
+        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-all duration-700 ease-out ${
+          isDropdownOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 border-t-0'
+        }`}
+      >
+        <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
             <Link
               to="/about"
@@ -439,15 +440,16 @@ const Header = () => {
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Full-width Dropdown Menu - お知らせ */}
-      {isNewsDropdownOpen && (
-        <div
-          ref={newsDropdownRef}
-          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 animate-in slide-in-from-top-full duration-1000 ease-out"
-        >
-          <div className="container mx-auto px-4 md:px-8 py-8">
+      <div
+        ref={newsDropdownRef}
+        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-all duration-700 ease-out ${
+          isNewsDropdownOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0 border-t-0'
+        }`}
+      >
+        <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
             <a
               href="/#news"
@@ -497,7 +499,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };
