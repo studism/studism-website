@@ -115,35 +115,6 @@ const HomePage = () => {
         {/* White gradient overlay - left to right */}
         <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/20 to-transparent"></div>
 
-        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20 relative z-10 h-full flex items-start pt-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
-            <div className="space-y-8 p-8 rounded-2xl">
-              <div className="space-y-4">
-                <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight">
-                  {t('hero.title1')}<br />
-                  <span className="text-primary brightness-110">{t('hero.title2')}</span><br />
-                  <span className="text-accent brightness-110">{t('hero.title3')}</span>
-                </h1>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="group" asChild>
-                  <a href="#apps">
-                    {t('hero.viewApps')}
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <a href="#about">
-                    {t('hero.ourVision')}
-                  </a>
-                </Button>
-              </div>
-            </div>
-            <div className="relative lg:block hidden">
-              {/* Empty space on the right to maintain layout */}
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Promotion Banners Section */}
