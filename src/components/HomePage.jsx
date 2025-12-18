@@ -234,67 +234,35 @@ const HomePage = () => {
       {/* Topics Section */}
       <section className="py-12 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
-          {/* Latest Topics */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold mb-4 border-b-2 border-primary pb-2">{t('topics.latest')}</h2>
-            <div className="grid md:grid-cols-3 gap-4">
-              {latestTopics.map((topic) => (
-                <Link
-                  key={topic.id}
-                  to={`/topics/${topic.id}`}
-                  className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow flex"
-                >
-                  <div className="w-24 h-24 flex-shrink-0 overflow-hidden">
-                    <img
-                      src={topic.image?.url || '/images/studism-logo.png'}
-                      alt={topic.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-3 flex-1 min-w-0">
-                    <span className="text-xs text-primary font-medium">{topic.category || t('common.other')}</span>
-                    <h3 className="font-bold text-sm mt-1 group-hover:text-primary transition-colors line-clamp-2">
-                      {topic.title}
-                    </h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Popular Topics */}
-          <div>
-            <h2 className="text-xl font-bold mb-4 border-b-2 border-accent pb-2">{t('topics.popular')}</h2>
-            <div className="grid md:grid-cols-3 gap-4">
-              {popularTopics.map((topic) => (
-                <Link
-                  key={topic.id}
-                  to={`/topics/${topic.id}`}
-                  className="group bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow flex"
-                >
-                  <div className="w-24 h-24 flex-shrink-0 overflow-hidden">
-                    <img
-                      src={topic.image?.url || '/images/studism-logo.png'}
-                      alt={topic.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-3 flex-1 min-w-0">
-                    <span className="text-xs text-primary font-medium">{topic.category || t('common.other')}</span>
-                    <h3 className="font-bold text-sm mt-1 group-hover:text-primary transition-colors line-clamp-2">
-                      {topic.title}
-                    </h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* View All Link */}
-          <div className="mt-8 text-right">
+          {/* Topics */}
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">{t('topics.title')}</h2>
             <Link to="/topics" className="text-primary hover:underline text-sm">
               {t('common.viewAll')}
             </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[...latestTopics, ...popularTopics].slice(0, 8).map((topic) => (
+              <Link
+                key={topic.id}
+                to={`/topics/${topic.id}`}
+                className="group"
+              >
+                <div className="aspect-video overflow-hidden rounded-lg mb-2">
+                  <img
+                    src={topic.image?.url || '/images/studism-logo.png'}
+                    alt={topic.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h3 className="font-medium text-sm group-hover:text-primary transition-colors line-clamp-2">
+                  {topic.title}
+                </h3>
+                <p className="text-xs text-gray-500 mt-1">
+                  {new Date(topic.publishedAt).toLocaleDateString('ja-JP')}
+                </p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
