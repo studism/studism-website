@@ -310,9 +310,14 @@ const Header = () => {
         >
           <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
-            <h2 className="text-2xl font-bold text-primary mb-8">
+            <Link
+              to="/about"
+              className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
+              onClick={() => setIsDropdownOpen(false)}
+            >
               {t('header.companyInfoTop')}
-            </h2>
+              <span className="text-lg">→</span>
+            </Link>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Column 1 - Studismについて */}
