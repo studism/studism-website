@@ -51,6 +51,12 @@ const AppDetail = () => {
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
       playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.timelyze'
+    },
+    studism: {
+      name: 'Studism',
+      icon: '/images/Studism.png',
+      category: '学習',
+      inDevelopment: true
     }
   };
 
@@ -65,6 +71,38 @@ const AppDetail = () => {
             <Link to="/">ホームに戻る</Link>
           </Button>
         </div>
+      </div>
+    );
+  }
+
+  // 開発中のアプリの場合
+  if (app.inDevelopment) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto text-center space-y-8">
+              <img src={app.icon} alt={app.name} className="w-24 h-24 rounded-2xl mx-auto shadow-lg" />
+              <div className="space-y-4">
+                <Badge variant="secondary" className="w-fit mx-auto">{app.category}</Badge>
+                <h1 className="text-3xl lg:text-4xl font-bold">{app.name}</h1>
+              </div>
+              <div className="bg-primary/10 rounded-2xl p-8 space-y-4">
+                <div className="text-6xl">🚧</div>
+                <h2 className="text-2xl font-bold text-primary">開発中</h2>
+                <p className="text-muted-foreground">
+                  このアプリは現在開発中です。<br />
+                  リリースをお楽しみに！
+                </p>
+              </div>
+              <Button asChild>
+                <Link to="/apps">アプリ一覧に戻る</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+        <Footer />
       </div>
     );
   }

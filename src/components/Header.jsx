@@ -432,6 +432,17 @@ const Header = () => {
                       SakuraEnglish
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/app/studism"
+                      className="text-gray-600 hover:text-primary hover:underline flex items-center gap-2"
+                      onClick={() => setIsAppsDropdownOpen(false)}
+                    >
+                      <img src="/images/Studism.png" alt="Studism" className="w-6 h-6 rounded" />
+                      Studism
+                      <span className="text-xs bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded">開発中</span>
+                    </Link>
+                  </li>
                 </ul>
               </div>
 

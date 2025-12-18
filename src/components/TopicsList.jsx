@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { getTopicsList } from '@/lib/microcms';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const TopicsList = () => {
+  const { t, i18n } = useTranslation();
   const [allTopics, setAllTopics] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,19 +39,19 @@ const TopicsList = () => {
             className="inline-flex items-center gap-2 text-primary hover:underline mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            トップページに戻る
+            {t('pages.backToHome')}
           </Link>
 
           {/* Page Title */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold pb-4 border-b-4 border-primary">
-              トピック一覧
+              {t('topics.title')}
             </h1>
           </div>
 
           {/* Loading State */}
           {loading && (
-            <p className="text-center text-gray-500 py-12">読み込み中...</p>
+            <p className="text-center text-gray-500 py-12">{t('pages.loading')}</p>
           )}
 
           {/* Topics Grid */}
@@ -80,10 +82,10 @@ const TopicsList = () => {
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs text-primary font-medium bg-primary/10 px-2 py-0.5 rounded">
-                        {topic.category || 'その他'}
+                        {topic.category || t('common.other')}
                       </span>
                       <span className="text-xs text-gray-400">
-                        {new Date(topic.publishedAt).toLocaleDateString('ja-JP', {
+                        {new Date(topic.publishedAt).toLocaleDateString(i18n.language === 'ja' ? 'ja-JP' : 'en-US', {
                           year: 'numeric',
                           month: '2-digit',
                           day: '2-digit'
@@ -106,7 +108,7 @@ const TopicsList = () => {
 
           {!loading && allTopics.length === 0 && (
             <p className="text-center text-gray-500 py-12">
-              トピックはまだありません。
+              {t('topics.empty')}
             </p>
           )}
         </div>

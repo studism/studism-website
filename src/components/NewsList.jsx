@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { getNewsList } from '@/lib/microcms';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const NewsList = () => {
+  const { t, i18n } = useTranslation();
   const [allNews, setAllNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,19 +39,19 @@ const NewsList = () => {
             className="inline-flex items-center gap-2 text-primary hover:underline mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            トップページに戻る
+            {t('pages.backToHome')}
           </Link>
 
           {/* Page Title */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold pb-4 border-b-4 border-primary">
-              ニュース一覧
+              {t('newsList.title')}
             </h1>
           </div>
 
           {/* Loading State */}
           {loading && (
-            <p className="text-center text-gray-500 py-12">読み込み中...</p>
+            <p className="text-center text-gray-500 py-12">{t('pages.loading')}</p>
           )}
 
           {/* News List */}
@@ -64,7 +66,7 @@ const NewsList = () => {
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-2">
                       <span className="text-base font-bold text-primary">
-                        {new Date(item.publishedAt).toLocaleDateString('ja-JP', {
+                        {new Date(item.publishedAt).toLocaleDateString(i18n.language === 'ja' ? 'ja-JP' : 'en-US', {
                           year: 'numeric',
                           month: '2-digit',
                           day: '2-digit'
@@ -75,7 +77,9 @@ const NewsList = () => {
                         item.type === 'アップデート' ? 'bg-green-100 text-green-700' :
                         'bg-gray-100 text-gray-700'
                       }`}>
-                        {item.type || 'その他'}
+                        {item.type === 'お知らせ' ? t('news.announcement') :
+                         item.type === 'アップデート' ? t('news.update') :
+                         (item.type || t('common.other'))}
                       </span>
                     </div>
                     <p className="text-gray-800 group-hover:text-primary transition-colors font-medium">
@@ -90,7 +94,7 @@ const NewsList = () => {
 
           {!loading && allNews.length === 0 && (
             <p className="text-center text-gray-500 py-12">
-              ニュースはまだありません。
+              {t('newsList.empty')}
             </p>
           )}
         </div>

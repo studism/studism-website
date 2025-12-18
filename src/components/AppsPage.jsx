@@ -28,6 +28,15 @@ const AppsPage = () => {
       description: t('apps.timelyze.description'),
       features: t('apps.timelyze.features', { returnObjects: true }),
     },
+    {
+      slug: 'studism',
+      name: 'Studism',
+      icon: '/images/Studism.png',
+      category: t('apps.studism.category'),
+      description: t('apps.studism.description'),
+      features: t('apps.studism.features', { returnObjects: true }),
+      inDevelopment: true,
+    },
   ];
 
   return (

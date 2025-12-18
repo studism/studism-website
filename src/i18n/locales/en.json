@@ -23,7 +23,12 @@
     "privacyPolicy": "Privacy Policy",
     "contactForm": "Contact Form",
     "learning": "Learning",
-    "support": "Support"
+    "support": "Support",
+    "newsTop": "News & Topics",
+    "newsCategory": "News",
+    "newsAll": "All News",
+    "topicsCategory": "Topics",
+    "topicsAll": "All Topics"
   },
   "hero": {
     "title1": "Learn",
@@ -39,11 +44,21 @@
   },
   "topics": {
     "latest": "Latest Topics",
-    "popular": "Popular Topics"
+    "popular": "Popular Topics",
+    "title": "All Topics",
+    "empty": "No topics yet."
+  },
+  "newsList": {
+    "title": "All News",
+    "empty": "No news yet."
+  },
+  "pages": {
+    "backToHome": "Back to Home",
+    "loading": "Loading..."
   },
   "about": {
     "title": "Our Vision",
-    "description": "Studism Inc. is committed to the mission of making learning more free and enjoyable. We develop innovative educational applications that blend education with technology. We aim to provide personalized experiences tailored to each individual's learning style, stimulate intellectual curiosity, and support autonomous learning.",
+    "description": "Studism's mission is to make learning more free and enjoyable. Everyone has their own learning style. Late nights studying alone, days when friends keep you going—it's all part of learning. You don't have to be perfect. What matters is being able to continue at your own pace. We deliver these learning experiences through the power of technology.",
     "mobileFirst": "Mobile First",
     "mobileFirstDesc": "Simple and easy-to-use applications that enable learning anytime, anywhere",
     "dataVisualization": "Data Visualization",
@@ -65,6 +80,13 @@
       "description": "Easily record and manage your study time. Build study habits with intuitive controls and receive continuous support until you reach your goals.",
       "category": "Productivity",
       "features": ["Time Tracking", "Data Visualization", "Goal Management"]
+    },
+    "studism": {
+      "name": "Studism",
+      "description": "In Development",
+      "category": "Learning",
+      "features": [],
+      "inDevelopment": "In Development"
     }
   },
   "footer": {
