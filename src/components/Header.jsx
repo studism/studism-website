@@ -323,7 +323,7 @@ const Header = () => {
                 <ul className="space-y-3">
                   <li>
                     <Link
-                      to="/about"
+                      to="/about/message"
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
@@ -332,7 +332,7 @@ const Header = () => {
                   </li>
                   <li>
                     <Link
-                      to="/about"
+                      to="/about/company"
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
@@ -341,7 +341,7 @@ const Header = () => {
                   </li>
                   <li>
                     <Link
-                      to="/about"
+                      to="/about/officers"
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
@@ -350,7 +350,7 @@ const Header = () => {
                   </li>
                   <li>
                     <Link
-                      to="/about"
+                      to="/about/philosophy"
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >

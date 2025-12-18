@@ -13,6 +13,10 @@ import TopicDetail from './components/TopicDetail';
 import TopicsList from './components/TopicsList';
 import AppsPage from './components/AppsPage';
 import AboutPage from './components/AboutPage';
+import TopMessage from './components/about/TopMessage';
+import Company from './components/about/Company';
+import Officers from './components/about/Officers';
+import Philosophy from './components/about/Philosophy';
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
           <Route path="/topics/:topicId" element={<TopicDetail />} />
           <Route path="/apps" element={<AppsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/about/message" element={<TopMessage />} />
+          <Route path="/about/company" element={<Company />} />
+          <Route path="/about/officers" element={<Officers />} />
+          <Route path="/about/philosophy" element={<Philosophy />} />
           <Route path="/app/:appSlug" element={<AppDetail />} />
           <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />
           <Route path="/app/:appSlug/contact" element={<Contact />} />
