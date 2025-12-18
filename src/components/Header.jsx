@@ -346,15 +346,6 @@ const Header = () => {
                       {t('header.ourVision')}
                     </a>
                   </li>
-                  <li>
-                    <Link
-                      to="/apps"
-                      className="text-gray-600 hover:text-primary hover:underline"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      {t('header.appList')}
-                    </Link>
-                  </li>
                 </ul>
               </div>
 
