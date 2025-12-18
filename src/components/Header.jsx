@@ -306,7 +306,7 @@ const Header = () => {
       {isDropdownOpen && (
         <div
           ref={dropdownRef}
-          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 animate-in slide-in-from-top-4 fade-in duration-700 ease-out"
+          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 animate-in slide-in-from-top-full duration-1000 ease-out"
         >
           <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
@@ -445,7 +445,7 @@ const Header = () => {
       {isNewsDropdownOpen && (
         <div
           ref={newsDropdownRef}
-          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 animate-in slide-in-from-top-4 fade-in duration-700 ease-out"
+          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 animate-in slide-in-from-top-full duration-1000 ease-out"
         >
           <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
