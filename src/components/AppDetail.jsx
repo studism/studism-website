@@ -89,7 +89,6 @@ const AppDetail = () => {
                 <h1 className="text-3xl lg:text-4xl font-bold">{app.name}</h1>
               </div>
               <div className="bg-primary/10 rounded-2xl p-8 space-y-4">
-                <div className="text-6xl">🚧</div>
                 <h2 className="text-2xl font-bold text-primary">開発中</h2>
                 <p className="text-muted-foreground">
                   このアプリは現在開発中です。<br />
