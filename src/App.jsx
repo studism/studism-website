@@ -11,6 +11,7 @@ import NewsDetail from './components/NewsDetail';
 import NewsList from './components/NewsList';
 import TopicDetail from './components/TopicDetail';
 import TopicsList from './components/TopicsList';
+import AppsPage from './components/AppsPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/news/:newsId" element={<NewsDetail />} />
           <Route path="/topics" element={<TopicsList />} />
           <Route path="/topics/:topicId" element={<TopicDetail />} />
+          <Route path="/apps" element={<AppsPage />} />
           <Route path="/app/:appSlug" element={<AppDetail />} />
           <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />
           <Route path="/app/:appSlug/contact" element={<Contact />} />

@@ -347,13 +347,13 @@ const Header = () => {
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="/#apps"
+                    <Link
+                      to="/apps"
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       {t('header.appList')}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -406,14 +406,14 @@ const Header = () => {
         >
           <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
-            <a
-              href="/#apps"
+            <Link
+              to="/apps"
               className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
               onClick={() => setIsAppsDropdownOpen(false)}
             >
               {t('header.appsTop')}
               <span className="text-lg">→</span>
-            </a>
+            </Link>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* 学習カテゴリ */}
