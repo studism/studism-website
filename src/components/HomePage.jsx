@@ -234,15 +234,43 @@ const HomePage = () => {
       {/* Topics Section */}
       <section className="py-12 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
-          {/* Topics */}
+          {/* Latest Topics */}
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">{t('topics.title')}</h2>
+            <h2 className="text-xl font-bold">{t('topics.latest')}</h2>
             <Link to="/topics" className="text-primary hover:underline text-sm">
               {t('common.viewAll')}
             </Link>
           </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {latestTopics.slice(0, 4).map((topic) => (
+              <Link
+                key={topic.id}
+                to={`/topics/${topic.id}`}
+                className="group"
+              >
+                <div className="aspect-video overflow-hidden rounded-lg mb-2">
+                  <img
+                    src={topic.image?.url || '/images/studism-logo.png'}
+                    alt={topic.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h3 className="font-medium text-sm group-hover:text-primary transition-colors line-clamp-2">
+                  {topic.title}
+                </h3>
+                <p className="text-xs text-gray-500 mt-1">
+                  {new Date(topic.publishedAt).toLocaleDateString('ja-JP')}
+                </p>
+              </Link>
+            ))}
+          </div>
+
+          {/* Popular Topics */}
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">{t('topics.popular')}</h2>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[...latestTopics, ...popularTopics].slice(0, 8).map((topic) => (
+            {popularTopics.slice(0, 4).map((topic) => (
               <Link
                 key={topic.id}
                 to={`/topics/${topic.id}`}
