@@ -8,6 +8,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false);
+  const [isNewsDropdownOpen, setIsNewsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -16,6 +17,8 @@ const Header = () => {
   const buttonRef = useRef(null);
   const appsDropdownRef = useRef(null);
   const appsButtonRef = useRef(null);
+  const newsDropdownRef = useRef(null);
+  const newsButtonRef = useRef(null);
   const searchRef = useRef(null);
   const searchInputRef = useRef(null);
   const langDropdownRef = useRef(null);
@@ -59,6 +62,15 @@ const Header = () => {
         !appsButtonRef.current.contains(event.target)
       ) {
         setIsAppsDropdownOpen(false);
+      }
+      // お知らせドロップダウン
+      if (
+        newsDropdownRef.current &&
+        !newsDropdownRef.current.contains(event.target) &&
+        newsButtonRef.current &&
+        !newsButtonRef.current.contains(event.target)
+      ) {
+        setIsNewsDropdownOpen(false);
       }
       // 検索ドロップダウン
       if (
@@ -117,11 +129,19 @@ const Header = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
     setIsAppsDropdownOpen(false);
+    setIsNewsDropdownOpen(false);
   };
 
   const toggleAppsDropdown = () => {
     setIsAppsDropdownOpen((prev) => !prev);
     setIsDropdownOpen(false);
+    setIsNewsDropdownOpen(false);
+  };
+
+  const toggleNewsDropdown = () => {
+    setIsNewsDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(false);
+    setIsAppsDropdownOpen(false);
   };
 
   return (
@@ -272,12 +292,17 @@ const Header = () => {
                 <ChevronDown className={`w-4 h-4 transition-transform ${isAppsDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
             </div>
-            <a
-              href="/#news"
-              className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap"
-            >
-              {t('header.news')}
-            </a>
+            {/* お知らせ Dropdown */}
+            <div className="relative">
+              <button
+                ref={newsButtonRef}
+                onClick={toggleNewsDropdown}
+                className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap flex items-center gap-1"
+              >
+                {t('header.news')}
+                <ChevronDown className={`w-4 h-4 transition-transform ${isNewsDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
             <Link
               to="/contact"
               className="text-white text-sm md:text-base font-medium px-4 py-3 hover:bg-white/20 transition-colors whitespace-nowrap"
@@ -328,15 +353,6 @@ const Header = () => {
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       {t('header.appList')}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/#news"
-                      className="text-gray-600 hover:text-primary hover:underline"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      {t('header.news')}
                     </a>
                   </li>
                 </ul>
@@ -433,6 +449,64 @@ const Header = () => {
                     >
                       <img src="/images/timelyze.png" alt="Timelyze" className="w-6 h-6 rounded" />
                       Timelyze
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full-width Dropdown Menu - お知らせ */}
+      {isNewsDropdownOpen && (
+        <div
+          ref={newsDropdownRef}
+          className="absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40"
+        >
+          <div className="container mx-auto px-4 md:px-8 py-8">
+            {/* Header */}
+            <a
+              href="/#news"
+              className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
+              onClick={() => setIsNewsDropdownOpen(false)}
+            >
+              {t('header.newsTop')}
+              <span className="text-lg">→</span>
+            </a>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* ニュース */}
+              <div>
+                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
+                  {t('header.newsCategory')}
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      to="/news"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsNewsDropdownOpen(false)}
+                    >
+                      {t('header.newsAll')}
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* トピック */}
+              <div>
+                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
+                  {t('header.topicsCategory')}
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      to="/topics"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsNewsDropdownOpen(false)}
+                    >
+                      {t('header.topicsAll')}
                     </Link>
                   </li>
                 </ul>
