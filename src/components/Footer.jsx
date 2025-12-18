@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8 invert" />
+              <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8" />
               <span className="text-xl font-bold">{t('common.siteName')}</span>
             </div>
             <p className="text-background/80 text-sm leading-relaxed">
