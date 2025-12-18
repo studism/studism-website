@@ -327,17 +327,8 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      企業情報
+                      トップメッセージ
                     </Link>
-                  </li>
-                  <li>
-                    <a
-                      href="/#about"
-                      className="text-gray-600 hover:text-primary hover:underline"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      {t('header.ourVision')}
-                    </a>
                   </li>
                   <li>
                     <Link
@@ -345,7 +336,25 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      事業内容
+                      会社概要
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/about"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      役員一覧
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/about"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      企業理念
                     </Link>
                   </li>
                 </ul>
