@@ -112,9 +112,6 @@ const HomePage = () => {
           ))}
         </div>
 
-        {/* White gradient overlay - left to right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/20 to-transparent"></div>
-
       </section>
 
       {/* Promotion Banners Section */}
