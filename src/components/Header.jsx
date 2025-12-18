@@ -343,8 +343,17 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      {t('header.ourVision')}
+                      企業情報
                     </Link>
+                  </li>
+                  <li>
+                    <a
+                      href="/#about"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      {t('header.ourVision')}
+                    </a>
                   </li>
                 </ul>
               </div>
