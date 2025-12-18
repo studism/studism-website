@@ -34,7 +34,7 @@ const AboutPage = () => {
                 <h2 className="text-2xl font-bold mb-6 pb-2 border-b-2 border-primary">基本情報</h2>
                 <dl className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 py-3 border-b border-gray-100">
-                    <dt className="font-medium text-gray-700">サービス名</dt>
+                    <dt className="font-medium text-gray-700">名称</dt>
                     <dd className="md:col-span-2 text-gray-900">Studism</dd>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 py-3 border-b border-gray-100">
