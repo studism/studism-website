@@ -322,7 +322,7 @@ const Header = () => {
           <div className="container mx-auto px-4 md:px-8 py-8">
             {/* Header */}
             <Link
-              to="/#about"
+              to="/about"
               className="text-2xl font-bold text-primary hover:underline flex items-center gap-2 mb-8"
               onClick={() => setIsDropdownOpen(false)}
             >
@@ -338,13 +338,13 @@ const Header = () => {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <a
-                      href="/#about"
+                    <Link
+                      to="/about"
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       {t('header.ourVision')}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
