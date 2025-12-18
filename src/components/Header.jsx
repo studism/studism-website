@@ -305,8 +305,8 @@ const Header = () => {
       {/* Full-width Dropdown Menu - 企業情報 */}
       <div
         ref={dropdownRef}
-        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-all duration-1000 ease-out ${
-          isDropdownOpen ? 'max-h-[600px]' : 'max-h-0 border-t-0'
+        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-[max-height] duration-1000 linear ${
+          isDropdownOpen ? 'max-h-[600px]' : 'max-h-0'
         }`}
       >
         <div className="container mx-auto px-4 md:px-8 py-8">
@@ -444,8 +444,8 @@ const Header = () => {
       {/* Full-width Dropdown Menu - お知らせ */}
       <div
         ref={newsDropdownRef}
-        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-all duration-1000 ease-out ${
-          isNewsDropdownOpen ? 'max-h-[400px]' : 'max-h-0 border-t-0'
+        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-[max-height] duration-1000 linear ${
+          isNewsDropdownOpen ? 'max-h-[400px]' : 'max-h-0'
         }`}
       >
         <div className="container mx-auto px-4 md:px-8 py-8">
