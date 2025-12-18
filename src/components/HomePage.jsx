@@ -302,7 +302,7 @@ const HomePage = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-muted/30">
+      <section id="about" className="py-20 bg-[#00ACFA]">
         <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4">
