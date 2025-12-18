@@ -326,7 +326,7 @@ const Header = () => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Column 1 */}
+              {/* Column 1 - Studismについて */}
               <div>
                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
                   {t('header.aboutStudism')}
@@ -350,13 +350,67 @@ const Header = () => {
                       {t('header.ourVision')}
                     </a>
                   </li>
+                  <li>
+                    <Link
+                      to="/about"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      事業内容
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
-              {/* Column 2 */}
+              {/* Column 2 - サービス・プロダクト */}
               <div>
                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  {t('header.policy')}
+                  サービス・プロダクト
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      to="/apps"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      アプリ一覧
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/app/sakuraenglish"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      SakuraEnglish
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/app/timelyze"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      Timelyze
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/app/studism"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      Studism <span className="text-xs text-yellow-600">(開発中)</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Column 3 - サポート */}
+              <div>
+                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
+                  サポート
                 </h3>
                 <ul className="space-y-3">
                   <li>
@@ -368,15 +422,6 @@ const Header = () => {
                       {t('header.privacyPolicy')}
                     </Link>
                   </li>
-                </ul>
-              </div>
-
-              {/* Column 3 */}
-              <div>
-                <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary pb-2 mb-4">
-                  {t('header.contact')}
-                </h3>
-                <ul className="space-y-3">
                   <li>
                     <Link
                       to="/contact"
