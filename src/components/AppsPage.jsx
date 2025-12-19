@@ -23,7 +23,7 @@ const AppsPage = () => {
     {
       slug: 'timelyze',
       name: 'Timelyze',
-      icon: '/images/timelyze.png',
+      icon: '/images/Timelyze1.0.7.jpg',
       category: t('apps.timelyze.category'),
       description: t('apps.timelyze.description'),
       features: t('apps.timelyze.features', { returnObjects: true }),

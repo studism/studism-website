@@ -36,7 +36,7 @@ const AppDetail = () => {
     },
     timelyze: {
       name: 'Timelyze',
-      icon: '/images/timelyze.png',
+      icon: '/images/Timelyze1.0.7.jpg',
       category: '生産性',
       description: '学習時間の記録・管理を簡単にする時間管理アプリです。タイマー機能での測定や手動入力に対応し、教科別に学習時間を集計できます。日別・週別・月別のグラフ表示で学習データを可視化し、目標設定と進捗確認で継続的な学習をサポート。カレンダー機能やメモ機能も搭載し、効率的な学習習慣を身につけることができます。',
       features: [

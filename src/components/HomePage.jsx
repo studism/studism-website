@@ -15,7 +15,7 @@ const HomePage = () => {
   // スライドショー用の画像
   const heroImages = [
     { src: '/images/sakuraenglish-promo.png', alt: 'SakuraEnglish' },
-    { src: '/images/timelyze.png', alt: 'Timelyze' },
+    { src: '/images/Timelyze1.0.7.jpg', alt: 'Timelyze' },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -81,7 +81,7 @@ const HomePage = () => {
       id: 'timelyze',
       name: t('apps.timelyze.name'),
       description: t('apps.timelyze.description'),
-      icon: '/images/timelyze.png',
+      icon: '/images/Timelyze1.0.7.jpg',
       category: t('apps.timelyze.category'),
       features: t('apps.timelyze.features', { returnObjects: true })
     }
@@ -153,7 +153,7 @@ const HomePage = () => {
                 onMouseEnter={() => setCurrentSlide(1)}
               >
                 <img
-                  src="/images/timelyze.png"
+                  src="/images/Timelyze1.0.7.jpg"
                   alt="Timelyze"
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />

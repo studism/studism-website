@@ -13,7 +13,7 @@ export const topics = [
     id: 'topic-timelyze-intro',
     title: 'Timelyzeで学習時間を可視化しよう',
     description: '時間管理の重要性と、Timelyzeの活用方法',
-    image: '/images/timelyze.png',
+    image: '/images/Timelyze1.0.7.jpg',
     category: 'アプリ紹介',
     dateSort: '2025-12-10',
     isPopular: true,

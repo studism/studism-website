@@ -87,7 +87,7 @@ const AboutPage = () => {
                       to="/app/timelyze"
                       className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                     >
-                      <img src="/images/timelyze.png" alt="Timelyze" className="w-12 h-12 rounded-lg" />
+                      <img src="/images/Timelyze1.0.7.jpg" alt="Timelyze" className="w-12 h-12 rounded-lg" />
                       <div>
                         <p className="font-medium">Timelyze</p>
                         <p className="text-sm text-gray-500">生産性</p>
