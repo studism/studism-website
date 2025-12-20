@@ -30,7 +30,7 @@ const Company = () => {
                     </tr>
                     <tr>
                       <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">代表者</th>
-                      <td className="px-6 py-4 text-gray-800">横田直紀 / 田邊光希 / 荒木智也 / 藤井翼 / 森下勇莉</td>
+                      <td className="px-6 py-4 text-gray-800">横田直紀</td>
                     </tr>
                     <tr>
                       <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">設立</th>
