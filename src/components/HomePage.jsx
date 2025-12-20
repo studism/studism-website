@@ -114,6 +114,15 @@ const HomePage = () => {
 
       </section>
 
+      {/* Tagline Section */}
+      <section className="py-16 md:py-24 bg-yellow-400/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center text-gray-800">
+            わかる、つながる、世界が変わる
+          </h2>
+        </div>
+      </section>
+
       {/* Promotion Banners Section */}
       <section className="py-4 bg-white border-b">
         <div className="container mx-auto px-4">
