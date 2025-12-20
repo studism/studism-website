@@ -26,7 +26,7 @@ const TopMessage = () => {
                 「学びを、もっと自由に。もっと楽しく。」
               </h2>
 
-              <div className="space-y-8 text-gray-700 leading-relaxed">
+              <div className="space-y-8 text-gray-700 leading-relaxed text-center">
                 <p>
                   「もっと早く知りたかった」「もっと効率よくできたはずだ」
                   学んできた道を振り返ると、そんな後悔ばかりが浮かびます。
