@@ -85,7 +85,7 @@ const TopMessage = () => {
                   <p className="text-xl md:text-2xl font-medium text-gray-800 mb-8">
                     一緒に、次のステージへ。
                   </p>
-                  <p className="text-3xl md:text-4xl font-bold text-primary">
+                  <p className="text-4xl md:text-5xl font-bold text-primary">
                     Studism
                   </p>
                 </div>
