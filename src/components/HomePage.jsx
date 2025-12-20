@@ -166,7 +166,7 @@ const HomePage = () => {
 
       {/* Tagline Section */}
       <section
-        className="py-16 md:py-24 relative bg-cover bg-center"
+        className="py-24 md:py-40 relative bg-cover bg-center"
         style={{ backgroundImage: "url('/images/Networkarth.jpg')" }}
       >
         <div className="absolute inset-0 bg-yellow-400/30"></div>
