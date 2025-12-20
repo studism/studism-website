@@ -76,16 +76,16 @@ const TopMessage = () => {
                 </p>
 
                 <div className="text-center pt-8 border-t">
-                  <p className="text-lg font-medium text-gray-800 mb-2">
+                  <p className="text-xl md:text-2xl font-medium text-gray-800 mb-3">
                     すべての人に、学ぶ機会を。
                   </p>
-                  <p className="text-lg font-medium text-gray-800 mb-2">
+                  <p className="text-xl md:text-2xl font-medium text-gray-800 mb-3">
                     すべての努力に、正しい成果を。
                   </p>
-                  <p className="text-lg font-medium text-gray-800 mb-6">
+                  <p className="text-xl md:text-2xl font-medium text-gray-800 mb-8">
                     一緒に、次のステージへ。
                   </p>
-                  <p className="text-xl font-bold text-primary">
+                  <p className="text-2xl md:text-3xl font-bold text-primary">
                     Studism
                   </p>
                 </div>
