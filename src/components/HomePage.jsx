@@ -166,11 +166,12 @@ const HomePage = () => {
 
       {/* Tagline Section */}
       <section
-        className="py-32 md:py-40 relative bg-cover bg-center"
+        className="py-48 md:py-72 relative bg-cover bg-center"
         style={{ backgroundImage: "url('/images/Network1.1.png')" }}
       >
+        <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center text-gray-800">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center text-white drop-shadow-lg">
             わかる、つながる、世界が変わる
           </h2>
         </div>
