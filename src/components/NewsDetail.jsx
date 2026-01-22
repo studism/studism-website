@@ -72,7 +72,7 @@ const NewsDetail = () => {
         <div className="container mx-auto px-4 md:px-8 max-w-6xl">
           {/* Back Link */}
           <Link
-            to="/#news"
+            to="/news"
             className="inline-flex items-center gap-2 text-primary hover:underline mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
