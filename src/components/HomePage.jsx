@@ -26,6 +26,7 @@ const HomePage = () => {
   const [selectedAppIndex, setSelectedAppIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [hasDragged, setHasDragged] = useState(false);
+  const [isDetailsVisible, setIsDetailsVisible] = useState(true);
   const [startX, setStartX] = useState(0);
   const [scrollLeftStart, setScrollLeftStart] = useState(0);
   const [velocity, setVelocity] = useState(0);
@@ -220,6 +221,8 @@ const HomePage = () => {
     // 一定距離以上動いたらドラッグとして判定
     if (Math.abs(walk) > 5) {
       setHasDragged(true);
+      // ドラッグ開始時に詳細を閉じる
+      setIsDetailsVisible(false);
     }
 
     // 速度を計算
@@ -327,6 +330,8 @@ const HomePage = () => {
           requestAnimationFrame(animateSnap);
         } else {
           setSelectedAppIndex(closestIndex);
+          // スナップ完了後に詳細を表示
+          setTimeout(() => setIsDetailsVisible(true), 50);
         }
       };
 
@@ -363,6 +368,7 @@ const HomePage = () => {
 
     if (Math.abs(walk) > 5) {
       setHasDragged(true);
+      setIsDetailsVisible(false);
     }
 
     if (dt > 0) {
@@ -719,20 +725,26 @@ const HomePage = () => {
           </div>
 
           {/* Selected App Details with Icon */}
-          <div className="mt-12 max-w-4xl mx-auto">
+          <div
+            className={`mt-12 max-w-4xl mx-auto transition-all duration-300 ease-out overflow-hidden ${
+              isDetailsVisible
+                ? 'opacity-100 max-h-[500px] translate-y-0'
+                : 'opacity-0 max-h-0 -translate-y-8'
+            }`}
+          >
             {apps.map((app, index) => (
               <div
                 key={app.id}
-                className={`transition-all duration-500 ${
+                className={`transition-all duration-300 ${
                   index === selectedAppIndex
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-4 absolute pointer-events-none'
+                    ? 'opacity-100'
+                    : 'opacity-0 absolute pointer-events-none'
                 }`}
                 style={{ display: index === selectedAppIndex ? 'block' : 'none' }}
               >
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                   {/* App Icon - Center */}
-                  <div className="flex-shrink-0">
+                  <div className={`flex-shrink-0 transition-transform duration-300 ${isDetailsVisible ? 'scale-100' : 'scale-75'}`}>
                     <div
                       className="relative w-40 h-40 md:w-52 md:h-52 rounded-3xl overflow-hidden shadow-2xl"
                       style={{ backgroundColor: app.color + '30' }}
