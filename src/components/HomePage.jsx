@@ -708,20 +708,6 @@ const HomePage = () => {
               })}
             </div>
 
-            {/* Progress Indicator */}
-            <div className="flex justify-center gap-2 mt-4">
-              {apps.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => scrollToApp(index)}
-                  className={`h-2 rounded-full transition-all duration-300
-                    ${index === selectedAppIndex
-                      ? 'w-8 bg-primary'
-                      : 'w-2 bg-gray-300 hover:bg-gray-400'}`}
-                  aria-label={`Go to app ${index + 1}`}
-                />
-              ))}
-            </div>
           </div>
 
           {/* Selected App Details with Icon */}
