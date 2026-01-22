@@ -330,8 +330,8 @@ const HomePage = () => {
           requestAnimationFrame(animateSnap);
         } else {
           setSelectedAppIndex(closestIndex);
-          // スナップ完了後に詳細を表示
-          setTimeout(() => setIsDetailsVisible(true), 50);
+          // スナップ完了後に即座に詳細を表示
+          setIsDetailsVisible(true);
         }
       };
 
