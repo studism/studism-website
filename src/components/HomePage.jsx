@@ -730,7 +730,7 @@ const HomePage = () => {
                 <div
                   className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 transition-all ease-out ${
                     isDetailsVisible
-                      ? 'opacity-100 translate-y-0 scale-100 duration-500'
+                      ? 'opacity-100 translate-y-0 scale-100 duration-300'
                       : 'opacity-0 -translate-y-32 scale-0 duration-300'
                   }`}
                   style={{
@@ -741,7 +741,7 @@ const HomePage = () => {
                   <div
                     className={`flex-shrink-0 transition-all ease-out ${
                       isDetailsVisible
-                        ? 'scale-100 rotate-0 opacity-100 duration-500'
+                        ? 'scale-100 rotate-0 opacity-100 duration-300'
                         : 'scale-0 rotate-180 opacity-0 duration-300'
                     }`}
                     style={{
@@ -771,7 +771,7 @@ const HomePage = () => {
                   <div
                     className={`flex-1 text-center md:text-left space-y-4 transition-all ease-out ${
                       isDetailsVisible
-                        ? 'opacity-100 translate-x-0 duration-500 delay-100'
+                        ? 'opacity-100 translate-x-0 duration-300 delay-75'
                         : 'opacity-0 -translate-x-8 md:-translate-x-16 duration-200'
                     }`}
                   >
