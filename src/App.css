@@ -139,28 +139,3 @@ html {
   }
 }
 
-/* Google翻訳ウィジェットのスタイル */
-.translate-widget .goog-te-gadget-simple {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  cursor: pointer;
-}
-
-.translate-widget .goog-te-gadget-simple > span {
-  border: none !important;
-}
-
-.translate-widget .goog-te-gadget-simple .goog-te-menu-value {
-  color: #4b5563 !important;
-  font-size: 14px !important;
-}
-
-.translate-widget .goog-te-gadget-simple .goog-te-menu-value:hover {
-  color: #111827 !important;
-}
-
-.translate-widget .goog-te-gadget-simple > span > a {
-  display: none !important;
-}
-

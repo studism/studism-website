@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, Search, Globe } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Header = () => {
@@ -32,46 +32,6 @@ const Header = () => {
     { title: t('searchData.appList.title'), description: t('searchData.appList.description'), category: t('searchData.appList.category'), path: '/#apps', keywords: ['アプリ', '製品', 'apps', 'products'] },
     { title: t('searchData.about.title'), description: t('searchData.about.description'), category: t('searchData.about.category'), path: '/#about', keywords: ['会社', '企業', 'ミッション', 'ビジョン', 'company', 'about', 'mission'] },
   ];
-
-  // Google翻訳の初期化
-  useEffect(() => {
-    let attempts = 0;
-    const maxAttempts = 10;
-
-    const initGoogleTranslate = () => {
-      const element = document.getElementById('google_translate_element');
-      if (!element) return false;
-
-      if (window.google && window.google.translate && window.google.translate.TranslateElement) {
-        // すでに初期化されているかチェック
-        if (element.querySelector('.goog-te-gadget')) {
-          return true;
-        }
-        new window.google.translate.TranslateElement({
-          pageLanguage: 'ja',
-          includedLanguages: 'en,ja,zh-CN,zh-TW,ko,es,fr,de,pt,vi,th',
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-        return true;
-      }
-      return false;
-    };
-
-    const tryInit = () => {
-      if (initGoogleTranslate()) return;
-      attempts++;
-      if (attempts < maxAttempts) {
-        setTimeout(tryInit, 500);
-      }
-    };
-
-    // 少し遅延させてから初期化を試みる
-    setTimeout(tryInit, 100);
-
-    // グローバルコールバックも設定
-    window.googleTranslateElementInit = initGoogleTranslate;
-  }, []);
 
   // クリック外で閉じる
   useEffect(() => {
@@ -186,12 +146,6 @@ const Header = () => {
             </Link>
 
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Google翻訳（自動翻訳） */}
-              <div className="flex items-center gap-1 px-2 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors">
-                <Globe className="w-4 h-4 flex-shrink-0" />
-                <div id="google_translate_element" className="translate-widget"></div>
-              </div>
-
               {/* SNSリンク */}
               <div className="flex items-center gap-1">
                 <a
