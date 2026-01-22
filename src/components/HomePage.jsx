@@ -240,19 +240,20 @@ const HomePage = () => {
     }
   };
 
-  // 慣性スクロール
+  // 慣性スクロール（スナップへの滑らかな遷移付き）
   const applyMomentum = () => {
     if (!appCarouselRef.current) return;
 
     const container = appCarouselRef.current;
-    let currentVelocity = velocity * 15; // 速度を増幅
-    const friction = 0.95; // 摩擦係数
-    const minVelocity = 0.5; // 停止する最小速度
+    let currentVelocity = velocity * 15;
+    const friction = 0.92;
+    const snapThreshold = 2; // スナップ開始する速度閾値
 
     const animate = () => {
-      if (Math.abs(currentVelocity) < minVelocity) {
+      // 速度が十分に遅くなったら滑らかにスナップへ移行
+      if (Math.abs(currentVelocity) < snapThreshold) {
         momentumRef.current = null;
-        snapToClosest();
+        smoothSnapToClosest();
         return;
       }
 
@@ -262,11 +263,64 @@ const HomePage = () => {
       momentumRef.current = requestAnimationFrame(animate);
     };
 
-    // 速度が十分にある場合のみ慣性を適用
-    if (Math.abs(currentVelocity) > minVelocity) {
+    if (Math.abs(currentVelocity) > snapThreshold) {
       momentumRef.current = requestAnimationFrame(animate);
     } else {
-      snapToClosest();
+      smoothSnapToClosest();
+    }
+  };
+
+  // 滑らかにスナップ（現在の位置から最寄りのアプリへ）
+  const smoothSnapToClosest = () => {
+    if (!appCarouselRef.current) return;
+    const container = appCarouselRef.current;
+    const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+    const cards = container.querySelectorAll('[data-app-card]');
+
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    cards.forEach((card, index) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const distance = Math.abs(containerCenter - cardCenter);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    const targetCard = cards[closestIndex];
+    if (targetCard) {
+      const containerWidth = container.offsetWidth;
+      const cardLeft = targetCard.offsetLeft;
+      const cardWidth = targetCard.offsetWidth;
+      const targetScroll = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+      const startScroll = container.scrollLeft;
+      const distance = targetScroll - startScroll;
+
+      // 距離に応じてアニメーション時間を調整（より自然に）
+      const duration = Math.min(Math.max(Math.abs(distance) * 2, 150), 400);
+
+      let startTime = null;
+
+      const animateSnap = (currentTime) => {
+        if (!startTime) startTime = currentTime;
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // easeOutQuart - より滑らかな減速
+        const easeOut = 1 - Math.pow(1 - progress, 4);
+        container.scrollLeft = startScroll + distance * easeOut;
+
+        if (progress < 1) {
+          requestAnimationFrame(animateSnap);
+        } else {
+          setSelectedAppIndex(closestIndex);
+        }
+      };
+
+      requestAnimationFrame(animateSnap);
+      setSelectedAppIndex(closestIndex);
     }
   };
 
@@ -310,38 +364,6 @@ const HomePage = () => {
     applyMomentum();
   };
 
-  // 最も近いアプリにスナップ（滑らかなアニメーション）
-  const snapToClosest = () => {
-    if (!appCarouselRef.current) return;
-    const container = appCarouselRef.current;
-    const containerCenter = container.scrollLeft + container.offsetWidth / 2;
-    const cards = container.querySelectorAll('[data-app-card]');
-
-    let closestIndex = 0;
-    let closestDistance = Infinity;
-
-    cards.forEach((card, index) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const distance = Math.abs(containerCenter - cardCenter);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
-
-    // 滑らかにスクロール
-    const targetCard = cards[closestIndex];
-    if (targetCard) {
-      const containerWidth = container.offsetWidth;
-      const cardLeft = targetCard.offsetLeft;
-      const cardWidth = targetCard.offsetWidth;
-      const targetScroll = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-
-      // カスタムスムーススクロール
-      smoothScrollTo(container, targetScroll, 300);
-    }
-    setSelectedAppIndex(closestIndex);
-  };
 
 
   return (
