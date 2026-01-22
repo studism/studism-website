@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Download, Clock, BookOpen, Smartphone, BarChart, Target } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Download, Clock, BookOpen, Smartphone, BarChart, Target, ChevronLeft, ChevronRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getNewsList, getTopicsList, getPopularTopics } from '@/lib/microcms';
@@ -23,6 +23,8 @@ const HomePage = () => {
   const [news, setNews] = useState([]);
   const [latestTopics, setLatestTopics] = useState([]);
   const [popularTopics, setPopularTopics] = useState([]);
+  const [selectedAppIndex, setSelectedAppIndex] = useState(0);
+  const appCarouselRef = React.useRef(null);
   const SLIDE_DURATION = 4000; // 4秒
 
   // ページ読み込み時にトップにスクロール & データ取得
@@ -74,18 +76,46 @@ const HomePage = () => {
       name: t('apps.sakuraenglish.name'),
       description: t('apps.sakuraenglish.description'),
       icon: '/images/sakuraenglish.jpg',
+      promoImage: '/images/sakuraenglish-promo.png',
       category: t('apps.sakuraenglish.category'),
-      features: t('apps.sakuraenglish.features', { returnObjects: true })
+      features: t('apps.sakuraenglish.features', { returnObjects: true }),
+      color: '#FFB7C5'
     },
     {
       id: 'timelyze',
       name: t('apps.timelyze.name'),
       description: t('apps.timelyze.description'),
       icon: '/images/Timelyze1.0.7.jpg',
+      promoImage: '/images/Timelyze1.0.7.jpg',
       category: t('apps.timelyze.category'),
-      features: t('apps.timelyze.features', { returnObjects: true })
+      features: t('apps.timelyze.features', { returnObjects: true }),
+      color: '#7DD3FC'
+    },
+    {
+      id: 'studism',
+      name: t('apps.studism.name'),
+      description: t('apps.studism.description'),
+      icon: '/images/studism-logo.png',
+      promoImage: '/images/studism-logo.png',
+      category: t('apps.studism.category'),
+      features: [],
+      color: '#A78BFA',
+      inDevelopment: true
     }
   ];
+
+  // アプリカルーセルのナビゲーション
+  const scrollToApp = (index) => {
+    setSelectedAppIndex(index);
+  };
+
+  const nextApp = () => {
+    setSelectedAppIndex((prev) => (prev + 1) % apps.length);
+  };
+
+  const prevApp = () => {
+    setSelectedAppIndex((prev) => (prev - 1 + apps.length) % apps.length);
+  };
 
 
   return (
@@ -319,55 +349,148 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Apps Section */}
-      <section id="apps" className="py-20">
-        <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-20">
-          <div className="space-y-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-bold">{t('apps.title')}</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {t('apps.description')}
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {apps.map((app) => (
-                <Card key={app.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <CardHeader>
-                    <div className="flex items-center space-x-4">
-                      <img src={app.icon} alt={app.name} className="w-12 h-12 rounded-lg" />
-                      <div className="space-y-1">
-                        <CardTitle className="text-xl">{app.name}</CardTitle>
-                        <Badge variant="secondary">{app.category}</Badge>
-                      </div>
+      {/* Apps Section - Nintendo Style Carousel */}
+      <section id="apps" className="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center space-y-4 mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold">{t('apps.title')}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t('apps.description')}
+            </p>
+          </div>
+
+          {/* Carousel Container */}
+          <div className="relative">
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevApp}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110"
+              aria-label="Previous app"
+            >
+              <ChevronLeft className="w-6 h-6 text-gray-700" />
+            </button>
+            <button
+              onClick={nextApp}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110"
+              aria-label="Next app"
+            >
+              <ChevronRight className="w-6 h-6 text-gray-700" />
+            </button>
+
+            {/* App Cards Carousel */}
+            <div className="flex justify-center items-center gap-4 md:gap-8 px-16 py-8">
+              {apps.map((app, index) => {
+                const isSelected = index === selectedAppIndex;
+                const distance = Math.abs(index - selectedAppIndex);
+
+                return (
+                  <button
+                    key={app.id}
+                    onClick={() => scrollToApp(index)}
+                    className={`relative flex-shrink-0 transition-all duration-500 ease-out cursor-pointer
+                      ${isSelected
+                        ? 'scale-100 opacity-100 z-10'
+                        : distance === 1
+                          ? 'scale-75 opacity-60 hover:opacity-80'
+                          : 'scale-50 opacity-30 hover:opacity-50'
+                      }`}
+                    style={{
+                      transform: `translateX(${(index - selectedAppIndex) * -20}%) scale(${isSelected ? 1 : 0.75 - distance * 0.15})`,
+                    }}
+                  >
+                    <div
+                      className={`relative w-48 md:w-64 aspect-square rounded-2xl overflow-hidden shadow-xl transition-shadow duration-300
+                        ${isSelected ? 'shadow-2xl ring-4 ring-primary/30' : ''}`}
+                      style={{ backgroundColor: app.color + '30' }}
+                    >
+                      <img
+                        src={app.icon}
+                        alt={app.name}
+                        className="w-full h-full object-cover"
+                      />
+                      {app.inDevelopment && (
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                          <span className="text-white font-bold text-sm px-3 py-1 bg-yellow-500 rounded-full">
+                            {t('apps.studism.inDevelopment')}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <CardDescription className="text-base leading-relaxed">
-                      {app.description}
-                    </CardDescription>
-                    <div className="flex flex-wrap gap-2">
-                      {app.features.map((feature, index) => (
-                        <Badge key={index} variant="outline" className="text-xs">
+                    {/* App Name Label */}
+                    <div className={`mt-4 text-center transition-opacity duration-300 ${isSelected ? 'opacity-100' : 'opacity-0'}`}>
+                      <Badge
+                        className="text-xs"
+                        style={{ backgroundColor: app.color, color: '#fff' }}
+                      >
+                        {app.category}
+                      </Badge>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Progress Indicator */}
+            <div className="flex justify-center gap-2 mt-4">
+              {apps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToApp(index)}
+                  className={`h-2 rounded-full transition-all duration-300
+                    ${index === selectedAppIndex
+                      ? 'w-8 bg-primary'
+                      : 'w-2 bg-gray-300 hover:bg-gray-400'}`}
+                  aria-label={`Go to app ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Selected App Details */}
+          <div className="mt-12 max-w-2xl mx-auto">
+            {apps.map((app, index) => (
+              <div
+                key={app.id}
+                className={`transition-all duration-500 ${
+                  index === selectedAppIndex
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-4 absolute pointer-events-none'
+                }`}
+                style={{ display: index === selectedAppIndex ? 'block' : 'none' }}
+              >
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl md:text-3xl font-bold">{app.name}</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    {app.description}
+                  </p>
+
+                  {app.features.length > 0 && (
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {app.features.map((feature, featureIndex) => (
+                        <Badge key={featureIndex} variant="outline" className="text-sm px-4 py-1">
                           {feature}
                         </Badge>
                       ))}
                     </div>
-                    <div className="flex space-x-3 pt-4">
-                      <Button asChild size="sm" className="flex-1">
-                        <Link to={`/app/${app.id}`}>
-                          {t('common.learnMore')}
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Link>
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Download className="w-4 h-4 mr-2" />
+                  )}
+
+                  <div className="flex justify-center gap-4 pt-4">
+                    <Button asChild size="lg">
+                      <Link to={`/app/${app.id}`}>
+                        {t('common.learnMore')}
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </Link>
+                    </Button>
+                    {!app.inDevelopment && (
+                      <Button variant="outline" size="lg">
+                        <Download className="w-5 h-5 mr-2" />
                         {t('common.download')}
                       </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
