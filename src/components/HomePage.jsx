@@ -25,6 +25,7 @@ const HomePage = () => {
   const [popularTopics, setPopularTopics] = useState([]);
   const [selectedAppIndex, setSelectedAppIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [hasDragged, setHasDragged] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftStart, setScrollLeftStart] = useState(0);
   const [velocity, setVelocity] = useState(0);
@@ -196,6 +197,7 @@ const HomePage = () => {
       momentumRef.current = null;
     }
     setIsDragging(true);
+    setHasDragged(false);
     const x = e.pageX - appCarouselRef.current.offsetLeft;
     setStartX(x);
     setLastX(x);
@@ -215,6 +217,11 @@ const HomePage = () => {
     const walk = x - startX;
     appCarouselRef.current.scrollLeft = scrollLeftStart - walk;
 
+    // 一定距離以上動いたらドラッグとして判定
+    if (Math.abs(walk) > 5) {
+      setHasDragged(true);
+    }
+
     // 速度を計算
     if (dt > 0) {
       const newVelocity = (lastX - x) / dt;
@@ -228,15 +235,19 @@ const HomePage = () => {
   const handleMouseUp = () => {
     if (!appCarouselRef.current) return;
     setIsDragging(false);
-    // 慣性スクロールを適用
-    applyMomentum();
+    // ドラッグした場合のみ慣性スクロールを適用
+    if (hasDragged) {
+      applyMomentum();
+    }
   };
 
   const handleMouseLeave = () => {
     if (!appCarouselRef.current) return;
     if (isDragging) {
       setIsDragging(false);
-      applyMomentum();
+      if (hasDragged) {
+        applyMomentum();
+      }
     }
   };
 
@@ -332,6 +343,7 @@ const HomePage = () => {
       momentumRef.current = null;
     }
     setIsDragging(true);
+    setHasDragged(false);
     const x = e.touches[0].pageX - appCarouselRef.current.offsetLeft;
     setStartX(x);
     setLastX(x);
@@ -349,6 +361,10 @@ const HomePage = () => {
     const walk = x - startX;
     appCarouselRef.current.scrollLeft = scrollLeftStart - walk;
 
+    if (Math.abs(walk) > 5) {
+      setHasDragged(true);
+    }
+
     if (dt > 0) {
       const newVelocity = (lastX - x) / dt;
       setVelocity(newVelocity);
@@ -361,7 +377,9 @@ const HomePage = () => {
   const handleTouchEnd = () => {
     if (!appCarouselRef.current) return;
     setIsDragging(false);
-    applyMomentum();
+    if (hasDragged) {
+      applyMomentum();
+    }
   };
 
 
@@ -649,7 +667,7 @@ const HomePage = () => {
                   <div
                     key={app.id}
                     data-app-card
-                    onClick={() => !isDragging && scrollToApp(index)}
+                    onClick={() => !hasDragged && scrollToApp(index)}
                     className={`relative flex-shrink-0 transition-all duration-300 ease-out
                       ${isSelected
                         ? 'scale-100 opacity-100'
