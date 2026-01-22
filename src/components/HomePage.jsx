@@ -27,7 +27,11 @@ const HomePage = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftStart, setScrollLeftStart] = useState(0);
+  const [velocity, setVelocity] = useState(0);
+  const [lastX, setLastX] = useState(0);
+  const [lastTime, setLastTime] = useState(0);
   const appCarouselRef = React.useRef(null);
+  const momentumRef = React.useRef(null);
   const SLIDE_DURATION = 4000; // 4秒
 
   // ページ読み込み時にトップにスクロール & データ取得
@@ -186,29 +190,82 @@ const HomePage = () => {
   const handleMouseDown = (e) => {
     if (!appCarouselRef.current) return;
     e.preventDefault();
+    // 慣性アニメーション中なら停止
+    if (momentumRef.current) {
+      cancelAnimationFrame(momentumRef.current);
+      momentumRef.current = null;
+    }
     setIsDragging(true);
-    setStartX(e.pageX - appCarouselRef.current.offsetLeft);
+    const x = e.pageX - appCarouselRef.current.offsetLeft;
+    setStartX(x);
+    setLastX(x);
+    setLastTime(Date.now());
     setScrollLeftStart(appCarouselRef.current.scrollLeft);
+    setVelocity(0);
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging || !appCarouselRef.current) return;
     e.preventDefault();
     const x = e.pageX - appCarouselRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const now = Date.now();
+    const dt = now - lastTime;
+
+    // カーソルに追従（1:1）
+    const walk = x - startX;
     appCarouselRef.current.scrollLeft = scrollLeftStart - walk;
+
+    // 速度を計算
+    if (dt > 0) {
+      const newVelocity = (lastX - x) / dt;
+      setVelocity(newVelocity);
+    }
+
+    setLastX(x);
+    setLastTime(now);
   };
 
   const handleMouseUp = () => {
     if (!appCarouselRef.current) return;
     setIsDragging(false);
-    snapToClosest();
+    // 慣性スクロールを適用
+    applyMomentum();
   };
 
   const handleMouseLeave = () => {
     if (!appCarouselRef.current) return;
     if (isDragging) {
       setIsDragging(false);
+      applyMomentum();
+    }
+  };
+
+  // 慣性スクロール
+  const applyMomentum = () => {
+    if (!appCarouselRef.current) return;
+
+    const container = appCarouselRef.current;
+    let currentVelocity = velocity * 15; // 速度を増幅
+    const friction = 0.95; // 摩擦係数
+    const minVelocity = 0.5; // 停止する最小速度
+
+    const animate = () => {
+      if (Math.abs(currentVelocity) < minVelocity) {
+        momentumRef.current = null;
+        snapToClosest();
+        return;
+      }
+
+      container.scrollLeft += currentVelocity;
+      currentVelocity *= friction;
+
+      momentumRef.current = requestAnimationFrame(animate);
+    };
+
+    // 速度が十分にある場合のみ慣性を適用
+    if (Math.abs(currentVelocity) > minVelocity) {
+      momentumRef.current = requestAnimationFrame(animate);
+    } else {
       snapToClosest();
     }
   };
@@ -216,24 +273,41 @@ const HomePage = () => {
   // タッチ対応
   const handleTouchStart = (e) => {
     if (!appCarouselRef.current) return;
+    if (momentumRef.current) {
+      cancelAnimationFrame(momentumRef.current);
+      momentumRef.current = null;
+    }
     setIsDragging(true);
-    setStartX(e.touches[0].pageX - appCarouselRef.current.offsetLeft);
+    const x = e.touches[0].pageX - appCarouselRef.current.offsetLeft;
+    setStartX(x);
+    setLastX(x);
+    setLastTime(Date.now());
     setScrollLeftStart(appCarouselRef.current.scrollLeft);
-    appCarouselRef.current.style.scrollBehavior = 'auto';
+    setVelocity(0);
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging || !appCarouselRef.current) return;
     const x = e.touches[0].pageX - appCarouselRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
+    const now = Date.now();
+    const dt = now - lastTime;
+
+    const walk = x - startX;
     appCarouselRef.current.scrollLeft = scrollLeftStart - walk;
+
+    if (dt > 0) {
+      const newVelocity = (lastX - x) / dt;
+      setVelocity(newVelocity);
+    }
+
+    setLastX(x);
+    setLastTime(now);
   };
 
   const handleTouchEnd = () => {
     if (!appCarouselRef.current) return;
     setIsDragging(false);
-    appCarouselRef.current.style.scrollBehavior = 'smooth';
-    snapToClosest();
+    applyMomentum();
   };
 
   // 最も近いアプリにスナップ（滑らかなアニメーション）
