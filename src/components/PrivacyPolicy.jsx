@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Shield } from 'lucide-react';
 
 const PrivacyPolicy = () => {
   const { appSlug } = useParams();
+  const { t } = useTranslation();
 
   // ページ読み込み時にトップにスクロール
   useEffect(() => {
@@ -17,7 +19,7 @@ const PrivacyPolicy = () => {
     timelyze: 'Timelyze'
   };
 
-  const appName = appNames[appSlug] || 'アプリ';
+  const appName = appNames[appSlug] || t('common.other');
 
   return (
     <div className="min-h-screen bg-background">
@@ -41,9 +43,9 @@ const PrivacyPolicy = () => {
               <Shield className="w-8 h-8 text-primary" />
             </div>
             <div className="space-y-2">
-              <h1 className="text-3xl lg:text-4xl font-bold">{appName} プライバシーポリシー</h1>
+              <h1 className="text-3xl lg:text-4xl font-bold">{appName} {t('privacy.title')}</h1>
               <p className="text-muted-foreground">
-                個人情報の取り扱いについて詳しくご説明します
+                {t('privacy.description')}
               </p>
             </div>
           </div>
@@ -52,86 +54,83 @@ const PrivacyPolicy = () => {
             <CardContent className="p-8 space-y-8">
               <div className="prose prose-gray max-w-none">
                 <p className="text-muted-foreground leading-relaxed">
-                  このプライバシーポリシーは、株式会社Studism（以下「当社」といいます）が提供するアプリケーション「{appName}」（以下「本アプリ」といいます）における、ユーザーの個人情報および利用者情報の取扱いについて定めるものです。
+                  {t('privacy.appIntro', { appName })}
                 </p>
 
                 <div className="space-y-6">
                   <div>
-                    <h2 className="text-xl font-semibold mb-4">1. 取得する情報および取得方法</h2>
-                    <p className="text-muted-foreground mb-4">本アプリでは、以下の情報を、以下の方法により取得します。</p>
-                    
+                    <h2 className="text-xl font-semibold mb-4">{t('privacy.section1Title')}</h2>
+                    <p className="text-muted-foreground mb-4">{t('privacy.section1Intro')}</p>
+
                     <div className="space-y-4">
                       <div>
-                        <h3 className="font-medium mb-2">(1) ユーザーにご提供いただく情報</h3>
+                        <h3 className="font-medium mb-2">{t('privacy.section1aTitle')}</h3>
                         <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-4">
-                          <li>メールアドレス（お問い合わせ時など）</li>
-                          <li>その他、ユーザーが任意で入力する情報</li>
+                          {t('privacy.section1aItems', { returnObjects: true }).map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
                         </ul>
                       </div>
-                      
+
                       <div>
-                        <h3 className="font-medium mb-2">(2) 本アプリのご利用にあたって当社が取得する情報</h3>
+                        <h3 className="font-medium mb-2">{t('privacy.section1bTitle')}</h3>
                         <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-4">
-                          <li>端末情報（OS、端末識別子など）</li>
-                          <li>ログ情報（IPアドレス、アクセス日時、操作履歴など）</li>
-                          <li>クッキー（Cookie）および匿名ID</li>
-                          <li>アプリケーションの利用状況に関する情報（アプリの起動回数、利用時間、機能利用状況など）</li>
+                          {t('privacy.section1bItems', { returnObjects: true }).map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
                         </ul>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-semibold mb-4">2. 利用目的</h2>
-                    <p className="text-muted-foreground mb-4">当社は、取得した情報を以下の目的で利用します。</p>
+                    <h2 className="text-xl font-semibold mb-4">{t('privacy.section2Title')}</h2>
+                    <p className="text-muted-foreground mb-4">{t('privacy.section2Intro')}</p>
                     <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-4">
-                      <li>本アプリの提供、運営、維持、改善のため</li>
-                      <li>ユーザーからのお問い合わせに対応するため</li>
-                      <li>本アプリに関する情報（アップデート情報、キャンペーン情報など）を提供するため</li>
-                      <li>本アプリの利用状況を分析し、サービス改善や新機能開発に役立てるため</li>
-                      <li>統計データとして、個人を特定できない形式に加工して利用するため</li>
-                      <li>不正行為の防止および対応のため</li>
+                      {t('privacy.section2Items', { returnObjects: true }).map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
                     </ul>
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-semibold mb-4">3. 第三者提供</h2>
+                    <h2 className="text-xl font-semibold mb-4">{t('privacy.section3Title')}</h2>
                     <p className="text-muted-foreground">
-                      当社は、法令で認められる場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。
+                      {t('privacy.section3Text')}
                     </p>
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-semibold mb-4">4. 個人情報の開示、訂正、利用停止など</h2>
+                    <h2 className="text-xl font-semibold mb-4">{t('privacy.section4Title')}</h2>
                     <p className="text-muted-foreground">
-                      ユーザーは、当社が保有するご自身の個人情報について、開示、訂正、利用停止などを求めることができます。ご希望の場合は、下記「お問い合わせ」よりご連絡ください。
+                      {t('privacy.section4Text')}
                     </p>
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-semibold mb-4">5. 本プライバシーポリシーの変更</h2>
+                    <h2 className="text-xl font-semibold mb-4">{t('privacy.section6Title')}</h2>
                     <p className="text-muted-foreground">
-                      当社は、必要に応じて本プライバシーポリシーを変更することがあります。変更した場合は、本アプリ内または当社のウェブサイト上で告知いたします。変更後のプライバシーポリシーは、告知された時点から効力を生じるものとします。
+                      {t('privacy.section6Text')}
                     </p>
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-semibold mb-4">6. お問い合わせ</h2>
+                    <h2 className="text-xl font-semibold mb-4">{t('privacy.section7Title')}</h2>
                     <p className="text-muted-foreground mb-4">
-                      本プライバシーポリシーに関するお問い合わせは、以下の窓口までご連絡ください。
+                      {t('privacy.section7Text')}
                     </p>
                     <div className="bg-muted/50 p-4 rounded-lg">
-                      <p className="font-medium">株式会社Studism</p>
+                      <p className="font-medium">{t('privacy.companyName')}</p>
                       <Button variant="link" className="p-0 h-auto" asChild>
                         <Link to={`/app/${appSlug}/contact`}>
-                          お問い合わせフォーム
+                          {t('privacy.contactForm')}
                         </Link>
                       </Button>
                     </div>
                   </div>
 
                   <div className="border-t pt-6">
-                    <p className="text-sm text-muted-foreground">制定日: 2025年9月8日</p>
+                    <p className="text-sm text-muted-foreground">{t('privacy.establishedDate')}</p>
                   </div>
                 </div>
               </div>
@@ -142,7 +141,7 @@ const PrivacyPolicy = () => {
             <Button asChild>
               <Link to={`/app/${appSlug}`}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                {appName}に戻る
+                {t('appContact.backToApp', { appName })}
               </Link>
             </Button>
           </div>

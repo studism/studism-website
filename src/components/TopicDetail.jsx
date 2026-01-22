@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
 import { getTopicById, getTopicsList } from '@/lib/microcms';
 import Header from '@/components/Header';
@@ -7,6 +8,7 @@ import Footer from '@/components/Footer';
 
 const TopicDetail = () => {
   const { topicId } = useParams();
+  const { t, i18n } = useTranslation();
   const [topic, setTopic] = useState(null);
   const [relatedTopics, setRelatedTopics] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +45,7 @@ const TopicDetail = () => {
       <div className="min-h-screen">
         <Header />
         <div className="container mx-auto px-4 md:px-8 py-20 text-center">
-          <p className="text-gray-500">読み込み中...</p>
+          <p className="text-gray-500">{t('topicDetail.loading')}</p>
         </div>
         <Footer />
       </div>
@@ -55,9 +57,9 @@ const TopicDetail = () => {
       <div className="min-h-screen">
         <Header />
         <div className="container mx-auto px-4 md:px-8 py-20 text-center">
-          <h1 className="text-2xl font-bold mb-4">トピックが見つかりません</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('topicDetail.notFound')}</h1>
           <Link to="/" className="text-primary hover:underline">
-            トップページに戻る
+            {t('topicDetail.backToHome')}
           </Link>
         </div>
         <Footer />
@@ -77,14 +79,14 @@ const TopicDetail = () => {
             className="inline-flex items-center gap-2 text-primary hover:underline mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            トップページに戻る
+            {t('topicDetail.backToHome')}
           </Link>
 
           {/* Topic Header */}
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-4">
               <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
-                {topic.category || 'その他'}
+                {topic.category || t('topicDetail.other')}
               </span>
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
@@ -110,7 +112,7 @@ const TopicDetail = () => {
               <div dangerouslySetInnerHTML={{ __html: topic.content }} />
             ) : (
               <p className="text-gray-700 leading-relaxed">
-                このトピックの詳細コンテンツは準備中です。
+                {t('topicDetail.contentPreparing')}
               </p>
             )}
           </div>
@@ -118,7 +120,7 @@ const TopicDetail = () => {
           {/* Related Topics */}
           <div className="mt-12">
             <h2 className="text-xl font-bold mb-6 border-b-2 border-primary pb-2">
-              関連トピック
+              {t('topicDetail.relatedTopics')}
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {relatedTopics.map((item) => (
@@ -135,7 +137,7 @@ const TopicDetail = () => {
                       />
                     </div>
                     <div className="p-4">
-                      <span className="text-xs text-primary font-medium">{item.category || 'その他'}</span>
+                      <span className="text-xs text-primary font-medium">{item.category || t('topicDetail.other')}</span>
                       <h3 className="font-bold mt-1 group-hover:text-primary transition-colors line-clamp-2">
                         {item.title}
                       </h3>

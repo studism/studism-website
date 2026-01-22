@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Header from '../Header';
 import Footer from '../Footer';
 
 const Company = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -14,7 +17,7 @@ const Company = () => {
       <main>
         <section className="bg-primary py-12">
           <div className="container mx-auto px-4 md:px-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white">会社概要</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-white">{t('company.pageTitle')}</h1>
           </div>
         </section>
 
@@ -25,27 +28,27 @@ const Company = () => {
                 <table className="w-full">
                   <tbody className="divide-y">
                     <tr>
-                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700 w-1/3">会社名</th>
-                      <td className="px-6 py-4 text-gray-800">Studism</td>
+                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700 w-1/3">{t('company.companyName')}</th>
+                      <td className="px-6 py-4 text-gray-800">{t('company.companyNameValue')}</td>
                     </tr>
                     <tr>
-                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">代表者</th>
-                      <td className="px-6 py-4 text-gray-800">横田直紀</td>
+                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">{t('company.representative')}</th>
+                      <td className="px-6 py-4 text-gray-800">{t('company.representativeValue')}</td>
                     </tr>
                     <tr>
-                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">設立</th>
-                      <td className="px-6 py-4 text-gray-800">2025年8月</td>
+                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">{t('company.established')}</th>
+                      <td className="px-6 py-4 text-gray-800">{t('company.establishedValue')}</td>
                     </tr>
                     <tr>
-                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">所在地</th>
-                      <td className="px-6 py-4 text-gray-800">東京都世田谷区北沢</td>
+                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">{t('company.location')}</th>
+                      <td className="px-6 py-4 text-gray-800">{t('company.locationValue')}</td>
                     </tr>
                     <tr>
-                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">事業内容</th>
-                      <td className="px-6 py-4 text-gray-800">教育アプリの企画・開発・運営</td>
+                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">{t('company.business')}</th>
+                      <td className="px-6 py-4 text-gray-800">{t('company.businessValue')}</td>
                     </tr>
                     <tr>
-                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">連絡先</th>
+                      <th className="px-6 py-4 bg-gray-50 text-left font-medium text-gray-700">{t('company.contactLabel')}</th>
                       <td className="px-6 py-4 text-gray-800">
                         <a href="mailto:studism-hp@stdism.com" className="text-primary hover:underline">
                           studism-hp@stdism.com
@@ -58,7 +61,7 @@ const Company = () => {
 
               <div className="mt-12 text-center">
                 <Link to="/about" className="text-primary hover:underline">
-                  ← 企業情報に戻る
+                  {t('company.backToAbout')}
                 </Link>
               </div>
             </div>

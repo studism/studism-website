@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
 import { getNewsById, getNewsList } from '@/lib/microcms';
 import Header from '@/components/Header';
@@ -7,6 +8,7 @@ import Footer from '@/components/Footer';
 
 const NewsDetail = () => {
   const { newsId } = useParams();
+  const { t, i18n } = useTranslation();
   const [article, setArticle] = useState(null);
   const [relatedNews, setRelatedNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +42,7 @@ const NewsDetail = () => {
       <div className="min-h-screen">
         <Header />
         <div className="container mx-auto px-4 md:px-8 py-20 text-center">
-          <p className="text-gray-500">読み込み中...</p>
+          <p className="text-gray-500">{t('newsDetail.loading')}</p>
         </div>
         <Footer />
       </div>
@@ -52,9 +54,9 @@ const NewsDetail = () => {
       <div className="min-h-screen">
         <Header />
         <div className="container mx-auto px-4 md:px-8 py-20 text-center">
-          <h1 className="text-2xl font-bold mb-4">記事が見つかりません</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('newsDetail.notFound')}</h1>
           <Link to="/" className="text-primary hover:underline">
-            トップページに戻る
+            {t('newsDetail.backToHome')}
           </Link>
         </div>
         <Footer />
@@ -74,7 +76,7 @@ const NewsDetail = () => {
             className="inline-flex items-center gap-2 text-primary hover:underline mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            ニュース一覧に戻る
+            {t('newsDetail.backToNews')}
           </Link>
 
           <div className="flex flex-col lg:flex-row gap-8">
@@ -86,7 +88,7 @@ const NewsDetail = () => {
                   {/* Date and Category Row */}
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
                     <span className="text-lg font-bold text-primary">
-                      {new Date(article.publishedAt).toLocaleDateString('ja-JP', {
+                      {new Date(article.publishedAt).toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'ja-JP', {
                         year: 'numeric',
                         month: '2-digit',
                         day: '2-digit'
@@ -122,7 +124,7 @@ const NewsDetail = () => {
               {/* Share Buttons */}
               <div className="py-4 border-b">
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-500">この記事をシェアする</span>
+                  <span className="text-sm text-gray-500">{t('newsDetail.shareArticle')}</span>
                   <div className="flex gap-2">
                     {/* X (Twitter) */}
                     <a
@@ -176,7 +178,7 @@ const NewsDetail = () => {
                 {/* Sidebar Header */}
                 <div className="border-t-4 border-primary">
                   <h2 className="text-lg font-bold text-primary text-center py-4">
-                    新着記事
+                    {t('newsDetail.latestArticles')}
                   </h2>
                 </div>
 
@@ -198,7 +200,7 @@ const NewsDetail = () => {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20">
-                            <span className="text-xs text-gray-400">No Image</span>
+                            <span className="text-xs text-gray-400">{t('newsDetail.noImage')}</span>
                           </div>
                         )}
                       </div>
@@ -209,7 +211,7 @@ const NewsDetail = () => {
                           {item.title}
                         </p>
                         <p className="text-xs text-gray-400 mt-1">
-                          {new Date(item.publishedAt).toLocaleDateString('ja-JP', {
+                          {new Date(item.publishedAt).toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'ja-JP', {
                             year: 'numeric',
                             month: '2-digit',
                             day: '2-digit'

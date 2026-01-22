@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +10,7 @@ import Footer from '@/components/Footer';
 
 const AppDetail = () => {
   const { appSlug } = useParams();
+  const { t } = useTranslation();
 
   // ページ読み込み時にトップにスクロール
   useEffect(() => {
@@ -17,45 +19,45 @@ const AppDetail = () => {
 
   const appData = {
     sakuraenglish: {
-      name: 'SakuraEnglish',
+      name: t('apps.sakuraenglish.name'),
       icon: '/images/sakuraenglish.jpg',
-      category: '語学学習',
-      description: 'レベル別の英単語クイズで効率的に語彙力を強化できるアプリです。5段階のレベル（Lev1-Lev5）から自分に合った難易度を選択でき、カスタム単語リスト機能で自分だけの学習プランを作成できます。間違えた単語の復習機能や習熟度トラッキングにより、着実に英語力を向上させることができます。',
+      category: t('apps.sakuraenglish.category'),
+      description: t('apps.sakuraenglish.fullDescription', 'レベル別の英単語クイズで効率的に語彙力を強化できるアプリです。5段階のレベル（Lev1-Lev5）から自分に合った難易度を選択でき、カスタム単語リスト機能で自分だけの学習プランを作成できます。間違えた単語の復習機能や習熟度トラッキングにより、着実に英語力を向上させることができます。'),
       features: [
-        { icon: <Zap className="w-5 h-5" />, title: 'レベル別クイズ', description: '5段階の難易度で自分に合った学習', image: '/images/screenshots/SakuraEnglish-ss01.webp' },
-        { icon: <Star className="w-5 h-5" />, title: 'カスタム単語リスト', description: '自分だけの単語帳を作成可能', image: '/images/screenshots/SakuraEnglish-ss02.webp' },
-        { icon: <Users className="w-5 h-5" />, title: '復習＆トラッキング', description: '間違えた単語の復習と習熟度管理', image: '/images/screenshots/SakuraEnglish-ss03.webp' }
+        { icon: <Zap className="w-5 h-5" />, title: t('apps.sakuraenglish.featureTitle1', 'レベル別クイズ'), description: t('apps.sakuraenglish.featureDesc1', '5段階の難易度で自分に合った学習'), image: '/images/screenshots/SakuraEnglish-ss01.webp' },
+        { icon: <Star className="w-5 h-5" />, title: t('apps.sakuraenglish.featureTitle2', 'カスタム単語リスト'), description: t('apps.sakuraenglish.featureDesc2', '自分だけの単語帳を作成可能'), image: '/images/screenshots/SakuraEnglish-ss02.webp' },
+        { icon: <Users className="w-5 h-5" />, title: t('apps.sakuraenglish.featureTitle3', '復習＆トラッキング'), description: t('apps.sakuraenglish.featureDesc3', '間違えた単語の復習と習熟度管理'), image: '/images/screenshots/SakuraEnglish-ss03.webp' }
       ],
       screenshots: [
-        { title: 'メイン画面', description: 'シンプルで使いやすいインターフェース', image: '/images/screenshots/SakuraEnglish-ss01.webp' },
-        { title: 'クイズ画面', description: 'レベル別の英単語クイズ', image: '/images/screenshots/SakuraEnglish-ss02.webp' },
-        { title: '学習進捗', description: '詳細な学習データと分析', image: '/images/screenshots/SakuraEnglish-ss03.webp' }
+        { title: t('apps.sakuraenglish.screenshotTitle1', 'メイン画面'), description: t('apps.sakuraenglish.screenshotDesc1', 'シンプルで使いやすいインターフェース'), image: '/images/screenshots/SakuraEnglish-ss01.webp' },
+        { title: t('apps.sakuraenglish.screenshotTitle2', 'クイズ画面'), description: t('apps.sakuraenglish.screenshotDesc2', 'レベル別の英単語クイズ'), image: '/images/screenshots/SakuraEnglish-ss02.webp' },
+        { title: t('apps.sakuraenglish.screenshotTitle3', '学習進捗'), description: t('apps.sakuraenglish.screenshotDesc3', '詳細な学習データと分析'), image: '/images/screenshots/SakuraEnglish-ss03.webp' }
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
       playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish'
     },
     timelyze: {
-      name: 'Timelyze',
+      name: t('apps.timelyze.name'),
       icon: '/images/Timelyze1.0.7.jpg',
-      category: '生産性',
-      description: '学習時間の記録・管理を簡単にする時間管理アプリです。タイマー機能での測定や手動入力に対応し、教科別に学習時間を集計できます。日別・週別・月別のグラフ表示で学習データを可視化し、目標設定と進捗確認で継続的な学習をサポート。カレンダー機能やメモ機能も搭載し、効率的な学習習慣を身につけることができます。',
+      category: t('apps.timelyze.category'),
+      description: t('apps.timelyze.fullDescription', '学習時間の記録・管理を簡単にする時間管理アプリです。タイマー機能での測定や手動入力に対応し、教科別に学習時間を集計できます。日別・週別・月別のグラフ表示で学習データを可視化し、目標設定と進捗確認で継続的な学習をサポート。カレンダー機能やメモ機能も搭載し、効率的な学習習慣を身につけることができます。'),
       features: [
-        { icon: <Zap className="w-5 h-5" />, title: '時間記録・追跡', description: 'タイマー機能と手動入力で教科別集計', image: '/images/screenshots/Timelyze-ss01.webp' },
-        { icon: <Star className="w-5 h-5" />, title: 'データ可視化', description: '日別・週別・月別のグラフで分析', image: '/images/screenshots/Timelyze-ss02.webp' },
-        { icon: <Users className="w-5 h-5" />, title: '目標管理', description: '進捗確認と達成時の自動通知', image: '/images/screenshots/Timelyze-ss03.webp' }
+        { icon: <Zap className="w-5 h-5" />, title: t('apps.timelyze.featureTitle1', '時間記録・追跡'), description: t('apps.timelyze.featureDesc1', 'タイマー機能と手動入力で教科別集計'), image: '/images/screenshots/Timelyze-ss01.webp' },
+        { icon: <Star className="w-5 h-5" />, title: t('apps.timelyze.featureTitle2', 'データ可視化'), description: t('apps.timelyze.featureDesc2', '日別・週別・月別のグラフで分析'), image: '/images/screenshots/Timelyze-ss02.webp' },
+        { icon: <Users className="w-5 h-5" />, title: t('apps.timelyze.featureTitle3', '目標管理'), description: t('apps.timelyze.featureDesc3', '進捗確認と達成時の自動通知'), image: '/images/screenshots/Timelyze-ss03.webp' }
       ],
       screenshots: [
-        { title: 'タイマー画面', description: 'シンプルで使いやすい時間記録', image: '/images/screenshots/Timelyze-ss01.webp' },
-        { title: '統計画面', description: '詳細な学習データの可視化', image: '/images/screenshots/Timelyze-ss02.webp' },
-        { title: '目標設定', description: '個人に合わせた目標管理', image: '/images/screenshots/Timelyze-ss03.webp' }
+        { title: t('apps.timelyze.screenshotTitle1', 'タイマー画面'), description: t('apps.timelyze.screenshotDesc1', 'シンプルで使いやすい時間記録'), image: '/images/screenshots/Timelyze-ss01.webp' },
+        { title: t('apps.timelyze.screenshotTitle2', '統計画面'), description: t('apps.timelyze.screenshotDesc2', '詳細な学習データの可視化'), image: '/images/screenshots/Timelyze-ss02.webp' },
+        { title: t('apps.timelyze.screenshotTitle3', '目標設定'), description: t('apps.timelyze.screenshotDesc3', '個人に合わせた目標管理'), image: '/images/screenshots/Timelyze-ss03.webp' }
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
       playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.timelyze'
     },
     studism: {
-      name: 'Studism',
+      name: t('apps.studism.name'),
       icon: '/images/Studism.png',
-      category: '学習',
+      category: t('apps.studism.category'),
       inDevelopment: true
     }
   };
@@ -66,9 +68,9 @@ const AppDetail = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold">アプリが見つかりません</h1>
+          <h1 className="text-2xl font-bold">{t('appDetail.notFound')}</h1>
           <Button asChild>
-            <Link to="/">ホームに戻る</Link>
+            <Link to="/">{t('appDetail.backToHome')}</Link>
           </Button>
         </div>
       </div>
@@ -89,14 +91,14 @@ const AppDetail = () => {
                 <h1 className="text-3xl lg:text-4xl font-bold">{app.name}</h1>
               </div>
               <div className="bg-primary/10 rounded-2xl p-8 space-y-4">
-                <h2 className="text-2xl font-bold text-primary">開発中</h2>
+                <h2 className="text-2xl font-bold text-primary">{t('appDetail.inDevelopment')}</h2>
                 <p className="text-muted-foreground">
-                  このアプリは現在開発中です。<br />
-                  リリースをお楽しみに！
+                  {t('appDetail.inDevelopmentText')}<br />
+                  {t('appDetail.stayTuned')}
                 </p>
               </div>
               <Button asChild>
-                <Link to="/apps">アプリ一覧に戻る</Link>
+                <Link to="/apps">{t('appDetail.backToApps')}</Link>
               </Button>
             </div>
           </div>
@@ -151,9 +153,9 @@ const AppDetail = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-2xl lg:text-3xl font-bold">主な機能</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold">{t('appDetail.features')}</h2>
               <p className="text-muted-foreground">
-                {app.name}の特徴的な機能をご紹介します
+                {t('appDetail.featuresDescription', { appName: app.name })}
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
@@ -189,20 +191,20 @@ const AppDetail = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <div className="text-center space-y-8">
-              <h2 className="text-2xl lg:text-3xl font-bold">サポート</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold">{t('appDetail.support')}</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <Card className="hover:shadow-lg transition-shadow">
                   <CardHeader className="text-center">
                     <Shield className="w-8 h-8 text-primary mx-auto" />
-                    <CardTitle>プライバシーポリシー</CardTitle>
+                    <CardTitle>{t('appDetail.privacyPolicy')}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
                     <CardDescription className="mb-4">
-                      個人情報の取り扱いについて
+                      {t('appDetail.privacyDescription')}
                     </CardDescription>
                     <Button variant="outline" asChild className="w-full">
                       <Link to={`/app/${appSlug}/privacy`}>
-                        詳細を見る
+                        {t('appDetail.viewDetails')}
                       </Link>
                     </Button>
                   </CardContent>
@@ -210,15 +212,15 @@ const AppDetail = () => {
                 <Card className="hover:shadow-lg transition-shadow">
                   <CardHeader className="text-center">
                     <MessageCircle className="w-8 h-8 text-primary mx-auto" />
-                    <CardTitle>お問い合わせ</CardTitle>
+                    <CardTitle>{t('appDetail.contact')}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
                     <CardDescription className="mb-4">
-                      ご質問やサポートが必要な場合
+                      {t('appDetail.contactDescription')}
                     </CardDescription>
                     <Button variant="outline" asChild className="w-full">
                       <Link to={`/app/${appSlug}/contact`}>
-                        お問い合わせ
+                        {t('appDetail.contact')}
                       </Link>
                     </Button>
                   </CardContent>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,6 +11,7 @@ import { ArrowLeft, MessageCircle, Send, Shield } from 'lucide-react';
 
 const Contact = () => {
   const { appSlug } = useParams();
+  const { t } = useTranslation();
 
   // ページ読み込み時にトップにスクロール
   useEffect(() => {
@@ -31,7 +33,7 @@ const Contact = () => {
     timelyze: 'Timelyze'
   };
 
-  const appName = appNames[appSlug] || 'アプリ';
+  const appName = appNames[appSlug] || t('common.other');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ const Contact = () => {
 
     const endpoint = import.meta.env.VITE_CONTACT_FORM_URL || import.meta.env.VITE_CONTACT_API_URL;
     if (!endpoint) {
-      setSubmitStatus({ type: 'error', message: '送信先URLが設定されていません。.env に VITE_CONTACT_FORM_URL を設定してください。' });
+      setSubmitStatus({ type: 'error', message: t('appContact.noEndpoint') });
       setIsSubmitting(false);
       return;
     }
@@ -63,11 +65,11 @@ const Contact = () => {
         setSubmitStatus({ type: 'success', message: data.message });
         setFormData({ name: '', email: '', category: '', message: '' });
       } else {
-        setSubmitStatus({ type: 'error', message: data.error || 'エラーが発生しました' });
+        setSubmitStatus({ type: 'error', message: data.error || t('appContact.error') });
       }
     } catch (error) {
       console.error('Submit error:', error);
-      setSubmitStatus({ type: 'error', message: 'ネットワークエラーが発生しました' });
+      setSubmitStatus({ type: 'error', message: t('appContact.networkError') });
     } finally {
       setIsSubmitting(false);
     }
@@ -99,9 +101,9 @@ const Contact = () => {
               <MessageCircle className="w-8 h-8 text-primary" />
             </div>
             <div className="space-y-2">
-              <h1 className="text-3xl lg:text-4xl font-bold">{appName} お問い合わせ</h1>
+              <h1 className="text-3xl lg:text-4xl font-bold">{t('appContact.title', { appName })}</h1>
               <p className="text-muted-foreground">
-                ご質問やご要望がございましたら、お気軽にお問い合わせください
+                {t('appContact.description')}
               </p>
             </div>
           </div>
@@ -110,13 +112,13 @@ const Contact = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Send className="w-5 h-5" />
-                <span>お問い合わせフォーム</span>
+                <span>{t('appContact.formTitle')}</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="app">アプリ名</Label>
+                  <Label htmlFor="app">{t('appContact.appName')}</Label>
                   <Input
                     id="app"
                     value={appName}
@@ -126,56 +128,56 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="name">お名前 <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="name">{t('appContact.name')} <span className="text-destructive">*</span></Label>
                   <Input
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
-                    placeholder="山田太郎"
+                    placeholder={t('appContact.namePlaceholder')}
                     autoComplete="name"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">メールアドレス <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="email">{t('appContact.email')} <span className="text-destructive">*</span></Label>
                   <Input
                     id="email"
                     name="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
-                    placeholder="example@email.com"
+                    placeholder={t('appContact.emailPlaceholder')}
                     autoComplete="email"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="category">お問い合わせ種別 <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="category">{t('appContact.category')} <span className="text-destructive">*</span></Label>
                   <Select value={formData.category} onValueChange={(value) => handleChange('category', value)} required>
                     <SelectTrigger id="category" name="category" autoComplete="off" aria-required="true">
-                      <SelectValue placeholder="お問い合わせの種別を選択してください" />
+                      <SelectValue placeholder={t('appContact.categoryPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="bug">不具合報告</SelectItem>
-                      <SelectItem value="feature">機能要望</SelectItem>
-                      <SelectItem value="usage">使い方について</SelectItem>
-                      <SelectItem value="account">アカウントについて</SelectItem>
-                      <SelectItem value="other">その他</SelectItem>
+                      <SelectItem value="bug">{t('appContact.categoryBug')}</SelectItem>
+                      <SelectItem value="feature">{t('appContact.categoryFeature')}</SelectItem>
+                      <SelectItem value="usage">{t('appContact.categoryUsage')}</SelectItem>
+                      <SelectItem value="account">{t('appContact.categoryAccount')}</SelectItem>
+                      <SelectItem value="other">{t('appContact.categoryOther')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">詳細 <span className="text-destructive">*</span></Label>
+                  <Label htmlFor="message">{t('appContact.message')} <span className="text-destructive">*</span></Label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={(e) => handleChange('message', e.target.value)}
-                    placeholder="具体的な内容をご記載ください"
+                    placeholder={t('appContact.messagePlaceholder')}
                     rows={6}
                     autoComplete="off"
                     required
@@ -185,14 +187,14 @@ const Contact = () => {
                 <div className="bg-muted/50 p-4 rounded-lg space-y-2">
                   <h3 className="font-medium flex items-center space-x-2">
                     <Shield className="w-4 h-4" />
-                    <span>個人情報の取り扱いについて</span>
+                    <span>{t('appContact.privacyNotice')}</span>
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    いただいた個人情報は、お問い合わせへの対応のみに利用し、当社のプライバシーポリシーに基づき適切に管理いたします。
+                    {t('appContact.privacyNoticeText')}
                   </p>
                   <Button variant="link" className="p-0 h-auto text-sm" asChild>
                     <Link to={`/app/${appSlug}/privacy`}>
-                      プライバシーポリシーを確認する
+                      {t('appContact.checkPrivacy')}
                     </Link>
                   </Button>
                 </div>
@@ -205,7 +207,7 @@ const Contact = () => {
 
                 <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                   <Send className="w-4 h-4 mr-2" />
-                  {isSubmitting ? '送信中...' : '送信する'}
+                  {isSubmitting ? t('appContact.sending') : t('appContact.submit')}
                 </Button>
               </form>
             </CardContent>
@@ -214,11 +216,11 @@ const Contact = () => {
           <div className="mt-12 space-y-6">
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">ご注意</h3>
+                <h3 className="font-semibold mb-4">{t('appContact.notice')}</h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• お問い合わせの内容によっては、ご返信までにお時間をいただく場合がございます。</li>
-                  <li>• 土日祝日および年末年始は、お返事が遅れる場合がございます。</li>
-                  <li>• お問い合わせの内容によっては、お答えできない場合もございます。</li>
+                  {t('appContact.noticeItems', { returnObjects: true }).map((item, index) => (
+                    <li key={index}>• {item}</li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
@@ -227,7 +229,7 @@ const Contact = () => {
               <Button asChild>
                 <Link to={`/app/${appSlug}`}>
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  {appName}に戻る
+                  {t('appContact.backToApp', { appName })}
                 </Link>
               </Button>
             </div>
