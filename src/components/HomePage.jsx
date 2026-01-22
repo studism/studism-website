@@ -712,11 +712,7 @@ const HomePage = () => {
 
           {/* Selected App Details with Icon */}
           <div
-            className={`mt-12 max-w-4xl mx-auto transition-all duration-300 ease-out overflow-hidden ${
-              isDetailsVisible
-                ? 'opacity-100 max-h-[500px] translate-y-0'
-                : 'opacity-0 max-h-0 -translate-y-8'
-            }`}
+            className="mt-12 max-w-4xl mx-auto overflow-visible"
           >
             {apps.map((app, index) => (
               <div
@@ -728,9 +724,27 @@ const HomePage = () => {
                 }`}
                 style={{ display: index === selectedAppIndex ? 'block' : 'none' }}
               >
-                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div
+                  className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 transition-all ease-out ${
+                    isDetailsVisible
+                      ? 'opacity-100 translate-y-0 scale-100 duration-500'
+                      : 'opacity-0 -translate-y-24 scale-50 duration-300'
+                  }`}
+                  style={{
+                    transformOrigin: 'top center',
+                  }}
+                >
                   {/* App Icon - Center */}
-                  <div className={`flex-shrink-0 transition-transform duration-300 ${isDetailsVisible ? 'scale-100' : 'scale-75'}`}>
+                  <div
+                    className={`flex-shrink-0 transition-all ease-out ${
+                      isDetailsVisible
+                        ? 'scale-100 rotate-0 duration-500'
+                        : 'scale-0 -rotate-12 duration-300'
+                    }`}
+                    style={{
+                      transformOrigin: 'center center',
+                    }}
+                  >
                     <div
                       className="relative w-40 h-40 md:w-52 md:h-52 rounded-3xl overflow-hidden shadow-2xl"
                       style={{ backgroundColor: app.color + '30' }}
@@ -751,7 +765,13 @@ const HomePage = () => {
                   </div>
 
                   {/* App Details */}
-                  <div className="flex-1 text-center md:text-left space-y-4">
+                  <div
+                    className={`flex-1 text-center md:text-left space-y-4 transition-all ease-out ${
+                      isDetailsVisible
+                        ? 'opacity-100 translate-x-0 duration-500 delay-100'
+                        : 'opacity-0 -translate-x-8 md:-translate-x-16 duration-200'
+                    }`}
+                  >
                     <div>
                       <Badge
                         className="text-xs mb-2"
