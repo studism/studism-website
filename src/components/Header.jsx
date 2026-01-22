@@ -35,24 +35,42 @@ const Header = () => {
 
   // Google翻訳の初期化
   useEffect(() => {
+    let attempts = 0;
+    const maxAttempts = 10;
+
     const initGoogleTranslate = () => {
+      const element = document.getElementById('google_translate_element');
+      if (!element) return false;
+
       if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+        // すでに初期化されているかチェック
+        if (element.querySelector('.goog-te-gadget')) {
+          return true;
+        }
         new window.google.translate.TranslateElement({
           pageLanguage: 'ja',
           includedLanguages: 'en,ja,zh-CN,zh-TW,ko,es,fr,de,pt,vi,th',
           layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
           autoDisplay: false
         }, 'google_translate_element');
+        return true;
+      }
+      return false;
+    };
+
+    const tryInit = () => {
+      if (initGoogleTranslate()) return;
+      attempts++;
+      if (attempts < maxAttempts) {
+        setTimeout(tryInit, 500);
       }
     };
 
-    // スクリプトがすでに読み込まれている場合は初期化
-    if (window.google && window.google.translate) {
-      initGoogleTranslate();
-    } else {
-      // スクリプトの読み込みを待つ
-      window.googleTranslateElementInit = initGoogleTranslate;
-    }
+    // 少し遅延させてから初期化を試みる
+    setTimeout(tryInit, 100);
+
+    // グローバルコールバックも設定
+    window.googleTranslateElementInit = initGoogleTranslate;
   }, []);
 
   // クリック外で閉じる
