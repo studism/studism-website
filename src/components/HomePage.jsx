@@ -712,7 +712,10 @@ const HomePage = () => {
 
           {/* Selected App Details with Icon */}
           <div
-            className="mt-12 max-w-4xl mx-auto overflow-visible"
+            className="mt-8 max-w-4xl mx-auto overflow-visible"
+            style={{
+              perspective: '1000px',
+            }}
           >
             {apps.map((app, index) => (
               <div
@@ -728,21 +731,21 @@ const HomePage = () => {
                   className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 transition-all ease-out ${
                     isDetailsVisible
                       ? 'opacity-100 translate-y-0 scale-100 duration-500'
-                      : 'opacity-0 -translate-y-24 scale-50 duration-300'
+                      : 'opacity-0 -translate-y-32 scale-0 duration-300'
                   }`}
                   style={{
-                    transformOrigin: 'top center',
+                    transformOrigin: 'center top',
                   }}
                 >
                   {/* App Icon - Center */}
                   <div
                     className={`flex-shrink-0 transition-all ease-out ${
                       isDetailsVisible
-                        ? 'scale-100 rotate-0 duration-500'
-                        : 'scale-0 -rotate-12 duration-300'
+                        ? 'scale-100 rotate-0 opacity-100 duration-500'
+                        : 'scale-0 rotate-180 opacity-0 duration-300'
                     }`}
                     style={{
-                      transformOrigin: 'center center',
+                      transformOrigin: 'center top',
                     }}
                   >
                     <div
