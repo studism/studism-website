@@ -120,9 +120,31 @@ const HomePage = () => {
         const cardLeft = card.offsetLeft;
         const cardWidth = card.offsetWidth;
         const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-        container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        smoothScrollTo(container, scrollPosition, 300);
       }
     }
+  };
+
+  // カスタムスムーススクロール関数
+  const smoothScrollTo = (element, target, duration) => {
+    const start = element.scrollLeft;
+    const change = target - start;
+    const startTime = performance.now();
+
+    const animateScroll = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // easeOutCubic
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      element.scrollLeft = start + change * easeOut;
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
   };
 
   const nextApp = () => {
@@ -163,27 +185,23 @@ const HomePage = () => {
   // ドラッグスクロール機能
   const handleMouseDown = (e) => {
     if (!appCarouselRef.current) return;
+    e.preventDefault();
     setIsDragging(true);
     setStartX(e.pageX - appCarouselRef.current.offsetLeft);
     setScrollLeftStart(appCarouselRef.current.scrollLeft);
-    appCarouselRef.current.style.cursor = 'grabbing';
-    appCarouselRef.current.style.scrollBehavior = 'auto';
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging || !appCarouselRef.current) return;
     e.preventDefault();
     const x = e.pageX - appCarouselRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5; // スクロール速度の調整
+    const walk = (x - startX) * 2;
     appCarouselRef.current.scrollLeft = scrollLeftStart - walk;
   };
 
   const handleMouseUp = () => {
     if (!appCarouselRef.current) return;
     setIsDragging(false);
-    appCarouselRef.current.style.cursor = 'grab';
-    appCarouselRef.current.style.scrollBehavior = 'smooth';
-    // スナップ処理
     snapToClosest();
   };
 
@@ -191,8 +209,6 @@ const HomePage = () => {
     if (!appCarouselRef.current) return;
     if (isDragging) {
       setIsDragging(false);
-      appCarouselRef.current.style.cursor = 'grab';
-      appCarouselRef.current.style.scrollBehavior = 'smooth';
       snapToClosest();
     }
   };
@@ -220,7 +236,7 @@ const HomePage = () => {
     snapToClosest();
   };
 
-  // 最も近いアプリにスナップ
+  // 最も近いアプリにスナップ（滑らかなアニメーション）
   const snapToClosest = () => {
     if (!appCarouselRef.current) return;
     const container = appCarouselRef.current;
@@ -239,7 +255,18 @@ const HomePage = () => {
       }
     });
 
-    scrollToApp(closestIndex);
+    // 滑らかにスクロール
+    const targetCard = cards[closestIndex];
+    if (targetCard) {
+      const containerWidth = container.offsetWidth;
+      const cardLeft = targetCard.offsetLeft;
+      const cardWidth = targetCard.offsetWidth;
+      const targetScroll = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+
+      // カスタムスムーススクロール
+      smoothScrollTo(container, targetScroll, 300);
+    }
+    setSelectedAppIndex(closestIndex);
   };
 
 
@@ -513,7 +540,7 @@ const HomePage = () => {
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              className={`flex items-center gap-6 md:gap-10 px-[calc(50%-6rem)] md:px-[calc(50%-8rem)] py-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab select-none ${isDragging ? 'cursor-grabbing' : ''}`}
+              className="flex items-center gap-6 md:gap-10 px-[calc(50%-6rem)] md:px-[calc(50%-8rem)] py-8 overflow-x-auto scrollbar-hide select-none"
               style={{
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
@@ -527,7 +554,7 @@ const HomePage = () => {
                     key={app.id}
                     data-app-card
                     onClick={() => !isDragging && scrollToApp(index)}
-                    className={`relative flex-shrink-0 snap-center transition-all duration-300 ease-out cursor-pointer
+                    className={`relative flex-shrink-0 transition-all duration-300 ease-out
                       ${isSelected
                         ? 'scale-100 opacity-100'
                         : 'scale-90 opacity-50 hover:opacity-70'
@@ -541,7 +568,8 @@ const HomePage = () => {
                       <img
                         src={app.icon}
                         alt={app.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover pointer-events-none"
+                        draggable="false"
                       />
                       {app.inDevelopment && (
                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
