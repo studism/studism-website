@@ -107,14 +107,54 @@ const HomePage = () => {
   // アプリカルーセルのナビゲーション
   const scrollToApp = (index) => {
     setSelectedAppIndex(index);
+    // カルーセルを中央にスクロール
+    if (appCarouselRef.current) {
+      const container = appCarouselRef.current;
+      const cards = container.querySelectorAll('[data-app-card]');
+      if (cards[index]) {
+        const card = cards[index];
+        const containerWidth = container.offsetWidth;
+        const cardLeft = card.offsetLeft;
+        const cardWidth = card.offsetWidth;
+        const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+        container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+      }
+    }
   };
 
   const nextApp = () => {
-    setSelectedAppIndex((prev) => (prev + 1) % apps.length);
+    const newIndex = (selectedAppIndex + 1) % apps.length;
+    scrollToApp(newIndex);
   };
 
   const prevApp = () => {
-    setSelectedAppIndex((prev) => (prev - 1 + apps.length) % apps.length);
+    const newIndex = (selectedAppIndex - 1 + apps.length) % apps.length;
+    scrollToApp(newIndex);
+  };
+
+  // スクロール位置から選択アプリを更新
+  const handleCarouselScroll = () => {
+    if (appCarouselRef.current) {
+      const container = appCarouselRef.current;
+      const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+      const cards = container.querySelectorAll('[data-app-card]');
+
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      cards.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(containerCenter - cardCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      if (closestIndex !== selectedAppIndex) {
+        setSelectedAppIndex(closestIndex);
+      }
+    }
   };
 
 
@@ -378,29 +418,32 @@ const HomePage = () => {
             </button>
 
             {/* App Cards Carousel */}
-            <div className="flex justify-center items-center gap-4 md:gap-8 px-16 py-8">
+            <div
+              ref={appCarouselRef}
+              onScroll={handleCarouselScroll}
+              className="flex items-center gap-6 md:gap-10 px-[calc(50%-6rem)] md:px-[calc(50%-8rem)] py-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide"
+              style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+              }}
+            >
               {apps.map((app, index) => {
                 const isSelected = index === selectedAppIndex;
-                const distance = Math.abs(index - selectedAppIndex);
 
                 return (
                   <button
                     key={app.id}
+                    data-app-card
                     onClick={() => scrollToApp(index)}
-                    className={`relative flex-shrink-0 transition-all duration-500 ease-out cursor-pointer
+                    className={`relative flex-shrink-0 snap-center transition-all duration-300 ease-out cursor-pointer
                       ${isSelected
-                        ? 'scale-100 opacity-100 z-10'
-                        : distance === 1
-                          ? 'scale-75 opacity-60 hover:opacity-80'
-                          : 'scale-50 opacity-30 hover:opacity-50'
+                        ? 'scale-100 opacity-100'
+                        : 'scale-90 opacity-50 hover:opacity-70'
                       }`}
-                    style={{
-                      transform: `translateX(${(index - selectedAppIndex) * -20}%) scale(${isSelected ? 1 : 0.75 - distance * 0.15})`,
-                    }}
                   >
                     <div
-                      className={`relative w-48 md:w-64 aspect-square rounded-2xl overflow-hidden shadow-xl transition-shadow duration-300
-                        ${isSelected ? 'shadow-2xl ring-4 ring-primary/30' : ''}`}
+                      className={`relative w-48 md:w-64 aspect-square rounded-2xl overflow-hidden shadow-xl transition-all duration-300
+                        ${isSelected ? 'shadow-2xl ring-4 ring-primary/30' : 'shadow-lg'}`}
                       style={{ backgroundColor: app.color + '30' }}
                     >
                       <img
@@ -417,13 +460,8 @@ const HomePage = () => {
                       )}
                     </div>
                     {/* App Name Label */}
-                    <div className={`mt-4 text-center transition-opacity duration-300 ${isSelected ? 'opacity-100' : 'opacity-0'}`}>
-                      <Badge
-                        className="text-xs"
-                        style={{ backgroundColor: app.color, color: '#fff' }}
-                      >
-                        {app.category}
-                      </Badge>
+                    <div className={`mt-4 text-center transition-all duration-300 ${isSelected ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
+                      <span className="text-sm font-medium text-gray-700">{app.name}</span>
                     </div>
                   </button>
                 );
@@ -446,8 +484,8 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Selected App Details */}
-          <div className="mt-12 max-w-2xl mx-auto">
+          {/* Selected App Details with Icon */}
+          <div className="mt-12 max-w-4xl mx-auto">
             {apps.map((app, index) => (
               <div
                 key={app.id}
@@ -458,35 +496,67 @@ const HomePage = () => {
                 }`}
                 style={{ display: index === selectedAppIndex ? 'block' : 'none' }}
               >
-                <div className="text-center space-y-6">
-                  <h3 className="text-2xl md:text-3xl font-bold">{app.name}</h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    {app.description}
-                  </p>
-
-                  {app.features.length > 0 && (
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {app.features.map((feature, featureIndex) => (
-                        <Badge key={featureIndex} variant="outline" className="text-sm px-4 py-1">
-                          {feature}
-                        </Badge>
-                      ))}
+                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                  {/* App Icon - Center */}
+                  <div className="flex-shrink-0">
+                    <div
+                      className="relative w-40 h-40 md:w-52 md:h-52 rounded-3xl overflow-hidden shadow-2xl"
+                      style={{ backgroundColor: app.color + '30' }}
+                    >
+                      <img
+                        src={app.icon}
+                        alt={app.name}
+                        className="w-full h-full object-cover"
+                      />
+                      {app.inDevelopment && (
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                          <span className="text-white font-bold text-sm px-3 py-1 bg-yellow-500 rounded-full">
+                            {t('apps.studism.inDevelopment')}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
 
-                  <div className="flex justify-center gap-4 pt-4">
-                    <Button asChild size="lg">
-                      <Link to={`/app/${app.id}`}>
-                        {t('common.learnMore')}
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </Link>
-                    </Button>
-                    {!app.inDevelopment && (
-                      <Button variant="outline" size="lg">
-                        <Download className="w-5 h-5 mr-2" />
-                        {t('common.download')}
-                      </Button>
+                  {/* App Details */}
+                  <div className="flex-1 text-center md:text-left space-y-4">
+                    <div>
+                      <Badge
+                        className="text-xs mb-2"
+                        style={{ backgroundColor: app.color, color: '#fff' }}
+                      >
+                        {app.category}
+                      </Badge>
+                      <h3 className="text-2xl md:text-3xl font-bold">{app.name}</h3>
+                    </div>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {app.description}
+                    </p>
+
+                    {app.features.length > 0 && (
+                      <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                        {app.features.map((feature, featureIndex) => (
+                          <Badge key={featureIndex} variant="outline" className="text-sm px-4 py-1">
+                            {feature}
+                          </Badge>
+                        ))}
+                      </div>
                     )}
+
+                    <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+                      <Button asChild size="lg">
+                        <Link to={`/app/${app.id}`}>
+                          {t('common.learnMore')}
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </Link>
+                      </Button>
+                      {!app.inDevelopment && (
+                        <Button variant="outline" size="lg">
+                          <Download className="w-5 h-5 mr-2" />
+                          {t('common.download')}
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

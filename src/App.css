@@ -139,3 +139,13 @@ html {
   }
 }
 
+/* スクロールバー非表示（カルーセル用） */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
