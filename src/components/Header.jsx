@@ -12,7 +12,6 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const appsDropdownRef = useRef(null);
@@ -21,7 +20,6 @@ const Header = () => {
   const newsButtonRef = useRef(null);
   const searchRef = useRef(null);
   const searchInputRef = useRef(null);
-  const langDropdownRef = useRef(null);
 
   // 検索対象データ（翻訳対応）
   const getSearchData = () => [
@@ -34,13 +32,6 @@ const Header = () => {
     { title: t('searchData.appList.title'), description: t('searchData.appList.description'), category: t('searchData.appList.category'), path: '/#apps', keywords: ['アプリ', '製品', 'apps', 'products'] },
     { title: t('searchData.about.title'), description: t('searchData.about.description'), category: t('searchData.about.category'), path: '/#about', keywords: ['会社', '企業', 'ミッション', 'ビジョン', 'company', 'about', 'mission'] },
   ];
-
-  // 言語切り替え
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    localStorage.setItem('language', lng);
-    setIsLangDropdownOpen(false);
-  };
 
   // クリック外で閉じる
   useEffect(() => {
@@ -78,13 +69,6 @@ const Header = () => {
         !searchRef.current.contains(event.target)
       ) {
         setIsSearchOpen(false);
-      }
-      // 言語ドロップダウン
-      if (
-        langDropdownRef.current &&
-        !langDropdownRef.current.contains(event.target)
-      ) {
-        setIsLangDropdownOpen(false);
       }
     };
 
@@ -162,33 +146,10 @@ const Header = () => {
             </Link>
 
             <div className="flex items-center gap-2 md:gap-4">
-              {/* 言語切り替え */}
-              <div className="relative" ref={langDropdownRef}>
-                <button
-                  onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                  className="flex items-center gap-1 px-2 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
-                  aria-label="Change language"
-                >
-                  <Globe className="w-4 h-4" />
-                  <span className="hidden sm:inline">{i18n.language === 'ja' ? '日本語' : 'English'}</span>
-                  <ChevronDown className={`w-3 h-3 transition-transform ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isLangDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border z-50">
-                    <button
-                      onClick={() => changeLanguage('ja')}
-                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 rounded-t-lg ${i18n.language === 'ja' ? 'bg-primary/10 text-primary font-medium' : ''}`}
-                    >
-                      日本語
-                    </button>
-                    <button
-                      onClick={() => changeLanguage('en')}
-                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 rounded-b-lg ${i18n.language === 'en' ? 'bg-primary/10 text-primary font-medium' : ''}`}
-                    >
-                      English
-                    </button>
-                  </div>
-                )}
+              {/* Google翻訳（自動翻訳） */}
+              <div className="flex items-center gap-1 px-2 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors">
+                <Globe className="w-4 h-4 flex-shrink-0" />
+                <div id="google_translate_element" className="translate-widget"></div>
               </div>
 
               {/* SNSリンク */}
