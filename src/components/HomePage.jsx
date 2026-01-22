@@ -115,24 +115,36 @@ const HomePage = () => {
 
   // アプリカルーセルのナビゲーション
   const scrollToApp = (index) => {
-    setSelectedAppIndex(index);
-    // カルーセルを中央にスクロール
-    if (appCarouselRef.current) {
-      const container = appCarouselRef.current;
-      const cards = container.querySelectorAll('[data-app-card]');
-      if (cards[index]) {
-        const card = cards[index];
-        const containerWidth = container.offsetWidth;
-        const cardLeft = card.offsetLeft;
-        const cardWidth = card.offsetWidth;
-        const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-        smoothScrollTo(container, scrollPosition, 300);
+    // 同じアプリの場合は何もしない
+    if (index === selectedAppIndex) return;
+
+    // まず詳細を閉じる
+    setIsDetailsVisible(false);
+
+    // 少し待ってからスクロール開始
+    setTimeout(() => {
+      setSelectedAppIndex(index);
+      // カルーセルを中央にスクロール
+      if (appCarouselRef.current) {
+        const container = appCarouselRef.current;
+        const cards = container.querySelectorAll('[data-app-card]');
+        if (cards[index]) {
+          const card = cards[index];
+          const containerWidth = container.offsetWidth;
+          const cardLeft = card.offsetLeft;
+          const cardWidth = card.offsetWidth;
+          const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+          smoothScrollTo(container, scrollPosition, 250, () => {
+            // スクロール完了後に詳細を表示
+            setIsDetailsVisible(true);
+          });
+        }
       }
-    }
+    }, 150);
   };
 
   // カスタムスムーススクロール関数
-  const smoothScrollTo = (element, target, duration) => {
+  const smoothScrollTo = (element, target, duration, onComplete) => {
     const start = element.scrollLeft;
     const change = target - start;
     const startTime = performance.now();
@@ -147,6 +159,8 @@ const HomePage = () => {
 
       if (progress < 1) {
         requestAnimationFrame(animateScroll);
+      } else if (onComplete) {
+        onComplete();
       }
     };
 
