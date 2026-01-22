@@ -26,9 +26,17 @@
       .goog-te-gadget-icon { display: none !important; }
       .goog-te-gadget-simple img { display: none !important; }
       .goog-te-menu-value span:first-child { display: none; }
-      /* 翻訳中のちらつき防止 */
-      .skiptranslate { display: none !important; }
-      body > .skiptranslate { display: block !important; height: 0 !important; overflow: hidden !important; }
+      /* Google翻訳ウィジェットの調整 */
+      #google_translate_element .skiptranslate {
+        display: inline !important;
+      }
+      /* 翻訳完了後に表示されるバナーを非表示 */
+      .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+      }
+      body > .skiptranslate:first-child {
+        display: none !important;
+      }
     </style>
   </head>
   <body>
