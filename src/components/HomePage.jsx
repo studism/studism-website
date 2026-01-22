@@ -24,6 +24,9 @@ const HomePage = () => {
   const [latestTopics, setLatestTopics] = useState([]);
   const [popularTopics, setPopularTopics] = useState([]);
   const [selectedAppIndex, setSelectedAppIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftStart, setScrollLeftStart] = useState(0);
   const appCarouselRef = React.useRef(null);
   const SLIDE_DURATION = 4000; // 4秒
 
@@ -155,6 +158,88 @@ const HomePage = () => {
         setSelectedAppIndex(closestIndex);
       }
     }
+  };
+
+  // ドラッグスクロール機能
+  const handleMouseDown = (e) => {
+    if (!appCarouselRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - appCarouselRef.current.offsetLeft);
+    setScrollLeftStart(appCarouselRef.current.scrollLeft);
+    appCarouselRef.current.style.cursor = 'grabbing';
+    appCarouselRef.current.style.scrollBehavior = 'auto';
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !appCarouselRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - appCarouselRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // スクロール速度の調整
+    appCarouselRef.current.scrollLeft = scrollLeftStart - walk;
+  };
+
+  const handleMouseUp = () => {
+    if (!appCarouselRef.current) return;
+    setIsDragging(false);
+    appCarouselRef.current.style.cursor = 'grab';
+    appCarouselRef.current.style.scrollBehavior = 'smooth';
+    // スナップ処理
+    snapToClosest();
+  };
+
+  const handleMouseLeave = () => {
+    if (!appCarouselRef.current) return;
+    if (isDragging) {
+      setIsDragging(false);
+      appCarouselRef.current.style.cursor = 'grab';
+      appCarouselRef.current.style.scrollBehavior = 'smooth';
+      snapToClosest();
+    }
+  };
+
+  // タッチ対応
+  const handleTouchStart = (e) => {
+    if (!appCarouselRef.current) return;
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - appCarouselRef.current.offsetLeft);
+    setScrollLeftStart(appCarouselRef.current.scrollLeft);
+    appCarouselRef.current.style.scrollBehavior = 'auto';
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging || !appCarouselRef.current) return;
+    const x = e.touches[0].pageX - appCarouselRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    appCarouselRef.current.scrollLeft = scrollLeftStart - walk;
+  };
+
+  const handleTouchEnd = () => {
+    if (!appCarouselRef.current) return;
+    setIsDragging(false);
+    appCarouselRef.current.style.scrollBehavior = 'smooth';
+    snapToClosest();
+  };
+
+  // 最も近いアプリにスナップ
+  const snapToClosest = () => {
+    if (!appCarouselRef.current) return;
+    const container = appCarouselRef.current;
+    const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+    const cards = container.querySelectorAll('[data-app-card]');
+
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    cards.forEach((card, index) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const distance = Math.abs(containerCenter - cardCenter);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    scrollToApp(closestIndex);
   };
 
 
@@ -421,7 +506,14 @@ const HomePage = () => {
             <div
               ref={appCarouselRef}
               onScroll={handleCarouselScroll}
-              className="flex items-center gap-6 md:gap-10 px-[calc(50%-6rem)] md:px-[calc(50%-8rem)] py-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide"
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseLeave}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className={`flex items-center gap-6 md:gap-10 px-[calc(50%-6rem)] md:px-[calc(50%-8rem)] py-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab select-none ${isDragging ? 'cursor-grabbing' : ''}`}
               style={{
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
@@ -431,10 +523,10 @@ const HomePage = () => {
                 const isSelected = index === selectedAppIndex;
 
                 return (
-                  <button
+                  <div
                     key={app.id}
                     data-app-card
-                    onClick={() => scrollToApp(index)}
+                    onClick={() => !isDragging && scrollToApp(index)}
                     className={`relative flex-shrink-0 snap-center transition-all duration-300 ease-out cursor-pointer
                       ${isSelected
                         ? 'scale-100 opacity-100'
@@ -463,7 +555,7 @@ const HomePage = () => {
                     <div className={`mt-4 text-center transition-all duration-300 ${isSelected ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
                       <span className="text-sm font-medium text-gray-700">{app.name}</span>
                     </div>
-                  </button>
+                  </div>
                 );
               })}
             </div>
