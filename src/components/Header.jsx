@@ -129,7 +129,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="relative z-50">
       {/* Upper Header - Logo & Tagline */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 md:px-8 py-3">
