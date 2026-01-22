@@ -44,13 +44,9 @@
     <script type="module" src="/src/main.jsx"></script>
     <!-- Google Translate -->
     <script type="text/javascript">
+      // Reactコンポーネントで初期化するため、空の関数を定義
       function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'ja',
-          includedLanguages: 'en,ja,zh-CN,zh-TW,ko,es,fr,de,pt,vi,th',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
+        // Header.jsxで初期化される
       }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

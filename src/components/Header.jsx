@@ -33,6 +33,28 @@ const Header = () => {
     { title: t('searchData.about.title'), description: t('searchData.about.description'), category: t('searchData.about.category'), path: '/#about', keywords: ['会社', '企業', 'ミッション', 'ビジョン', 'company', 'about', 'mission'] },
   ];
 
+  // Google翻訳の初期化
+  useEffect(() => {
+    const initGoogleTranslate = () => {
+      if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+        new window.google.translate.TranslateElement({
+          pageLanguage: 'ja',
+          includedLanguages: 'en,ja,zh-CN,zh-TW,ko,es,fr,de,pt,vi,th',
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    };
+
+    // スクリプトがすでに読み込まれている場合は初期化
+    if (window.google && window.google.translate) {
+      initGoogleTranslate();
+    } else {
+      // スクリプトの読み込みを待つ
+      window.googleTranslateElementInit = initGoogleTranslate;
+    }
+  }, []);
+
   // クリック外で閉じる
   useEffect(() => {
     const handleClickOutside = (event) => {
