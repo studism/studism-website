@@ -25,6 +25,8 @@ const Header = () => {
   const getSearchData = () => [
     { title: t('searchData.sakuraenglish.title'), description: t('searchData.sakuraenglish.description'), category: t('searchData.sakuraenglish.category'), path: '/app/sakuraenglish', keywords: ['英語', '英単語', 'クイズ', '語学', '学習', 'english', 'vocabulary', 'quiz'] },
     { title: t('searchData.timelyze.title'), description: t('searchData.timelyze.description'), category: t('searchData.timelyze.category'), path: '/app/timelyze', keywords: ['時間', '管理', '記録', '生産性', '目標', 'time', 'management', 'productivity'] },
+    { title: t('searchData.studism.title'), description: t('searchData.studism.description'), category: t('searchData.studism.category'), path: '/app/studism', keywords: ['SNS', '学習', '質問', '動画', '共有', 'social', 'learning', 'study'] },
+    { title: t('searchData.mamemame.title'), description: t('searchData.mamemame.description'), category: t('searchData.mamemame.category'), path: '/app/mamemame', keywords: ['古文', '単語', 'クイズ', '受験', '古典', 'classical', 'japanese', 'vocabulary'] },
     { title: t('searchData.home.title'), description: t('searchData.home.description'), category: t('searchData.home.category'), path: '/', keywords: ['トップ', 'メイン', 'home', 'top'] },
     { title: t('searchData.contact.title'), description: t('searchData.contact.description'), category: t('searchData.contact.category'), path: '/contact', keywords: ['連絡', '質問', 'フォーム', 'contact', 'form'] },
     { title: t('searchData.privacy.title'), description: t('searchData.privacy.description'), category: t('searchData.privacy.category'), path: '/privacy', keywords: ['個人情報', 'ポリシー', '規約', 'privacy', 'policy'] },
@@ -369,7 +371,7 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      豆マメ <span className="text-xs text-yellow-600">(開発中)</span>
+                      豆マメ
                     </Link>
                   </li>
                 </ul>

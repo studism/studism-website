@@ -355,6 +355,16 @@
       "description": "Easily record and manage study time",
       "category": "App"
     },
+    "studism": {
+      "title": "Studism",
+      "description": "A learning SNS where students connect and learn together",
+      "category": "App"
+    },
+    "mamemame": {
+      "title": "MameMame",
+      "description": "Learn classical Japanese vocabulary through fun quizzes",
+      "category": "App"
+    },
     "home": {
       "title": "Home",
       "description": "Studism Homepage",

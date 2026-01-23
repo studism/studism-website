@@ -355,6 +355,16 @@
       "description": "学習時間の記録・管理を簡単に",
       "category": "アプリ"
     },
+    "studism": {
+      "title": "Studism",
+      "description": "学生同士がつながり、学び合える学習SNS",
+      "category": "アプリ"
+    },
+    "mamemame": {
+      "title": "豆マメ",
+      "description": "古文単語をクイズ形式で楽しく学習",
+      "category": "アプリ"
+    },
     "home": {
       "title": "ホーム",
       "description": "Studismトップページ",
