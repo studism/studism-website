@@ -23,63 +23,69 @@ const Philosophy = () => {
         </section>
 
         {/* ミッション */}
-        <section className="py-20 bg-gradient-to-b from-primary/5 to-white">
+        <section className="py-12 bg-gradient-to-b from-primary/5 to-white">
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-sm font-semibold text-primary mb-4">MISSION</p>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">{t('philosophy.missionTitle')}</h2>
-              <p className="text-4xl md:text-5xl font-bold text-primary leading-tight">
+              <p className="text-sm font-semibold text-primary mb-2">MISSION</p>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">{t('philosophy.missionTitle')}</h2>
+              <p className="text-3xl md:text-4xl font-bold text-primary leading-tight mb-4">
                 {t('philosophy.mission')}
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                {t('philosophy.missionDesc')}
               </p>
             </div>
           </div>
         </section>
 
         {/* ビジョン */}
-        <section className="py-20">
+        <section className="py-12">
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-sm font-semibold text-primary mb-4">VISION</p>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">{t('philosophy.visionTitle')}</h2>
-              <p className="text-2xl md:text-3xl text-gray-700 leading-relaxed">
+              <p className="text-sm font-semibold text-primary mb-2">VISION</p>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">{t('philosophy.visionTitle')}</h2>
+              <p className="text-2xl md:text-3xl text-gray-700 leading-relaxed mb-4">
                 {t('philosophy.vision')}
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                {t('philosophy.visionDesc')}
               </p>
             </div>
           </div>
         </section>
 
         {/* バリュー */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <p className="text-sm font-semibold text-primary mb-4">VALUES</p>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{t('philosophy.valuesTitle')}</h2>
+              <div className="text-center mb-8">
+                <p className="text-sm font-semibold text-primary mb-2">VALUES</p>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-800">{t('philosophy.valuesTitle')}</h2>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-white rounded-2xl p-8 shadow-sm text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Target className="w-8 h-8 text-primary" />
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-white rounded-2xl p-6 shadow-sm text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Target className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">{t('philosophy.value1Title')}</h3>
-                  <p className="text-gray-600 leading-relaxed">{t('philosophy.value1Desc')}</p>
+                  <h3 className="text-lg font-bold text-gray-800 mb-2">{t('philosophy.value1Title')}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{t('philosophy.value1Desc')}</p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 shadow-sm text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Users className="w-8 h-8 text-primary" />
+                <div className="bg-white rounded-2xl p-6 shadow-sm text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">{t('philosophy.value2Title')}</h3>
-                  <p className="text-gray-600 leading-relaxed">{t('philosophy.value2Desc')}</p>
+                  <h3 className="text-lg font-bold text-gray-800 mb-2">{t('philosophy.value2Title')}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{t('philosophy.value2Desc')}</p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 shadow-sm text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Zap className="w-8 h-8 text-primary" />
+                <div className="bg-white rounded-2xl p-6 shadow-sm text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">{t('philosophy.value3Title')}</h3>
-                  <p className="text-gray-600 leading-relaxed">{t('philosophy.value3Desc')}</p>
+                  <h3 className="text-lg font-bold text-gray-800 mb-2">{t('philosophy.value3Title')}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{t('philosophy.value3Desc')}</p>
                 </div>
               </div>
             </div>
