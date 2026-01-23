@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, ArrowLeft, Download, Clock, BookOpen, Smartphone, BarChart, Target, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ArrowLeft, ArrowUp, Download, Clock, BookOpen, Smartphone, BarChart, Target, ChevronLeft, ChevronRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getNewsList, getTopicsList, getPopularTopics } from '@/lib/microcms';
@@ -27,6 +27,7 @@ const HomePage = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [hasDragged, setHasDragged] = useState(false);
   const [isDetailsVisible, setIsDetailsVisible] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftStart, setScrollLeftStart] = useState(0);
   const [velocity, setVelocity] = useState(0);
@@ -35,6 +36,22 @@ const HomePage = () => {
   const appCarouselRef = React.useRef(null);
   const momentumRef = React.useRef(null);
   const SLIDE_DURATION = 4000; // 4秒
+
+  // スクロール位置を監視してトップボタンの表示を制御
+  useEffect(() => {
+    const handleScroll = () => {
+      // ヘッダーの高さ（約120px）を超えたら表示
+      setShowScrollTop(window.scrollY > 120);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // トップにスクロール
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // ページ読み込み時にトップにスクロール & データ取得
   useEffect(() => {
@@ -835,6 +852,19 @@ const HomePage = () => {
       </section>
 
       <Footer />
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-primary/90 hover:scale-110 ${
+          showScrollTop
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+        aria-label="ページトップへ戻る"
+      >
+        <ArrowUp className="w-6 h-6" />
+      </button>
     </div>
   );
 };
