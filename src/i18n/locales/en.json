@@ -316,7 +316,17 @@
   },
   "philosophy": {
     "pageTitle": "Corporate Philosophy",
-    "preparing": "Coming Soon",
+    "missionTitle": "Mission",
+    "mission": "Learn freely, learn joyfully.",
+    "visionTitle": "Vision",
+    "vision": "Deliver learning opportunities to everyone.",
+    "valuesTitle": "Values",
+    "value1Title": "At Your Own Pace",
+    "value1Desc": "You don't have to be perfect. What matters is being able to continue.",
+    "value2Title": "Power of Connection",
+    "value2Desc": "Solo study and learning with peers—it's all part of \"learning.\"",
+    "value3Title": "Deliver Through Technology",
+    "value3Desc": "New learning experiences through the fusion of education and technology.",
     "backToAbout": "← Back to Company Info"
   },
   "searchData": {
