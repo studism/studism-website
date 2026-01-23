@@ -35,6 +35,14 @@ const AppsPage = () => {
       category: t('apps.studism.category'),
       description: t('apps.studism.description'),
       features: t('apps.studism.features', { returnObjects: true }),
+    },
+    {
+      slug: 'mamemame',
+      name: '豆マメ',
+      icon: '/images/Mamemame.png',
+      category: t('apps.mamemame.category'),
+      description: t('apps.mamemame.description'),
+      features: t('apps.mamemame.features', { returnObjects: true }),
       inDevelopment: true,
     },
   ];
