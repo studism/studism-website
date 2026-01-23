@@ -360,7 +360,7 @@ const Header = () => {
                       className="text-gray-600 hover:text-primary hover:underline"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      Studism <span className="text-xs text-yellow-600">(開発中)</span>
+                      Studism
                     </Link>
                   </li>
                 </ul>
