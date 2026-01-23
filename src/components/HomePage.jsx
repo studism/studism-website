@@ -743,7 +743,7 @@ const HomePage = () => {
 
           {/* Selected App Details with Icon */}
           <div
-            className="mt-6 max-w-3xl mx-auto overflow-visible"
+            className="mt-6 max-w-4xl mx-auto overflow-visible"
             style={{
               perspective: '1000px',
             }}
@@ -815,7 +815,7 @@ const HomePage = () => {
                       </Badge>
                       <h3 className="text-xl md:text-2xl font-bold">{app.name}</h3>
                     </div>
-                    <p className="text-base text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground whitespace-nowrap">
                       {app.description}
                     </p>
 
