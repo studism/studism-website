@@ -209,7 +209,7 @@ const AppDetail = () => {
                     <CardTitle className="text-lg">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <CardDescription className="text-base" style={{ whiteSpace: 'pre-line' }}>
+                    <CardDescription className="text-base whitespace-nowrap overflow-hidden text-ellipsis">
                       {feature.description}
                     </CardDescription>
                   </CardContent>
