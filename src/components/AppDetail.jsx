@@ -153,7 +153,7 @@ const AppDetail = () => {
                   <Badge variant="secondary" className="w-fit">{app.category}</Badge>
                   <h1 className="text-3xl lg:text-4xl font-bold">{app.name}</h1>
                 </div>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-lg text-muted-foreground leading-relaxed" style={{ whiteSpace: 'pre-line' }}>
                   {app.description}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -209,7 +209,7 @@ const AppDetail = () => {
                     <CardTitle className="text-lg">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <CardDescription className="text-base">
+                    <CardDescription className="text-base" style={{ whiteSpace: 'pre-line' }}>
                       {feature.description}
                     </CardDescription>
                   </CardContent>
