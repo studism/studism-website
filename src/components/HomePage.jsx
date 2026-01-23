@@ -655,11 +655,8 @@ const HomePage = () => {
       {/* Apps Section - Nintendo Style Carousel */}
       <section id="apps" className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl lg:text-4xl font-bold">{t('apps.title')}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {t('apps.description')}
-            </p>
           </div>
 
           {/* Carousel Container */}
