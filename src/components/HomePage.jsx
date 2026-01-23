@@ -712,7 +712,7 @@ const HomePage = () => {
                       }`}
                   >
                     <div
-                      className={`relative w-48 md:w-64 aspect-square rounded-2xl overflow-hidden shadow-xl transition-all duration-300
+                      className={`relative w-32 md:w-44 aspect-square rounded-2xl overflow-hidden shadow-xl transition-all duration-300
                         ${isSelected ? 'shadow-2xl ring-4 ring-primary/30' : 'shadow-lg'}`}
                       style={{ backgroundColor: app.color + '30' }}
                     >
@@ -731,8 +731,8 @@ const HomePage = () => {
                       )}
                     </div>
                     {/* App Name Label */}
-                    <div className={`mt-4 text-center transition-all duration-300 ${isSelected ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
-                      <span className="text-sm font-medium text-gray-700">{app.name}</span>
+                    <div className={`mt-3 text-center transition-all duration-300 ${isSelected ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
+                      <span className="text-xs font-medium text-gray-700">{app.name}</span>
                     </div>
                   </div>
                 );
@@ -743,7 +743,7 @@ const HomePage = () => {
 
           {/* Selected App Details with Icon */}
           <div
-            className="mt-8 max-w-4xl mx-auto overflow-visible"
+            className="mt-6 max-w-3xl mx-auto overflow-visible"
             style={{
               perspective: '1000px',
             }}
@@ -759,7 +759,7 @@ const HomePage = () => {
                 style={{ display: index === selectedAppIndex ? 'block' : 'none' }}
               >
                 <div
-                  className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 transition-all ease-out ${
+                  className={`flex flex-col md:flex-row items-center gap-6 md:gap-10 transition-all ease-out ${
                     isDetailsVisible
                       ? 'opacity-100 translate-y-0 scale-100 duration-300'
                       : 'opacity-0 -translate-y-32 scale-0 duration-300'
@@ -780,7 +780,7 @@ const HomePage = () => {
                     }}
                   >
                     <div
-                      className="relative w-40 h-40 md:w-52 md:h-52 rounded-3xl overflow-hidden shadow-2xl"
+                      className="relative w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden shadow-2xl"
                       style={{ backgroundColor: app.color + '30' }}
                     >
                       <img
@@ -800,7 +800,7 @@ const HomePage = () => {
 
                   {/* App Details */}
                   <div
-                    className={`flex-1 text-center md:text-left space-y-4 transition-all ease-out ${
+                    className={`flex-1 text-center md:text-left space-y-3 transition-all ease-out ${
                       isDetailsVisible
                         ? 'opacity-100 translate-x-0 duration-300 delay-75'
                         : 'opacity-0 -translate-x-8 md:-translate-x-16 duration-200'
@@ -813,9 +813,9 @@ const HomePage = () => {
                       >
                         {app.category}
                       </Badge>
-                      <h3 className="text-2xl md:text-3xl font-bold">{app.name}</h3>
+                      <h3 className="text-xl md:text-2xl font-bold">{app.name}</h3>
                     </div>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-base text-muted-foreground leading-relaxed">
                       {app.description}
                     </p>
 
@@ -829,16 +829,16 @@ const HomePage = () => {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
-                      <Button asChild size="lg">
+                    <div className="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
+                      <Button asChild size="default">
                         <Link to={`/app/${app.id}`}>
                           {t('common.learnMore')}
-                          <ArrowRight className="w-5 h-5 ml-2" />
+                          <ArrowRight className="w-4 h-4 ml-2" />
                         </Link>
                       </Button>
                       {!app.inDevelopment && (
-                        <Button variant="outline" size="lg">
-                          <Download className="w-5 h-5 mr-2" />
+                        <Button variant="outline" size="default">
+                          <Download className="w-4 h-4 mr-2" />
                           {t('common.download')}
                         </Button>
                       )}
