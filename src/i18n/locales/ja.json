@@ -109,10 +109,22 @@
     },
     "studism": {
       "name": "Studism",
-      "description": "開発中",
-      "category": "学習",
-      "features": [],
-      "inDevelopment": "開発中"
+      "description": "学習する人たちの集いの場所に。わかる、つながる、世界がひろがる。",
+      "fullDescription": "Studismは、学生同士がつながり、学び合える新しい学習SNSです。勉強の悩みを共有したり、わからない問題を質問したり、学習に役立つ動画を見つけたり。Studismがあなたの学習をサポートします。",
+      "category": "SNS",
+      "features": ["質問フォーム", "アプリ間の連携", "学習動画"],
+      "featureTitle1": "質問フォーム",
+      "featureDesc1": "学習中のわからないは質問フォームへ",
+      "featureTitle2": "アプリ間の連携",
+      "featureDesc2": "他のアプリとの連携でどれだけ勉強したか共有しよう",
+      "featureTitle3": "学習動画",
+      "featureDesc3": "ショート動画や長尺動画で解説動画や隙間時間で理解を深めよう",
+      "screenshotTitle1": "質問フォーム",
+      "screenshotDesc1": "学習中のわからないは質問フォームへ",
+      "screenshotTitle2": "アプリ連携",
+      "screenshotDesc2": "他のアプリとの連携でどれだけ勉強したか共有",
+      "screenshotTitle3": "学習動画",
+      "screenshotDesc3": "ショート動画や長尺動画で理解を深めよう"
     }
   },
   "footer": {

@@ -58,7 +58,19 @@ const AppDetail = () => {
       name: t('apps.studism.name'),
       icon: '/images/Studism.png',
       category: t('apps.studism.category'),
-      inDevelopment: true
+      description: t('apps.studism.fullDescription', 'Studismは、学生同士がつながり、学び合える新しい学習SNSです。勉強の悩みを共有したり、わからない問題を質問したり、学習に役立つ動画を見つけたり。Studismがあなたの学習をサポートします。'),
+      features: [
+        { icon: <MessageCircle className="w-5 h-5" />, title: t('apps.studism.featureTitle1', '質問フォーム'), description: t('apps.studism.featureDesc1', '学習中のわからないは質問フォームへ'), image: '/images/screenshots/Studism-ss01.png' },
+        { icon: <Zap className="w-5 h-5" />, title: t('apps.studism.featureTitle2', 'アプリ間の連携'), description: t('apps.studism.featureDesc2', '他のアプリとの連携でどれだけ勉強したか共有しよう'), image: '/images/screenshots/Studism-ss02.png' },
+        { icon: <Star className="w-5 h-5" />, title: t('apps.studism.featureTitle3', '学習動画'), description: t('apps.studism.featureDesc3', 'ショート動画や長尺動画で解説動画や隙間時間で理解を深めよう'), image: '/images/screenshots/Studism-ss03.png' }
+      ],
+      screenshots: [
+        { title: t('apps.studism.screenshotTitle1', '質問フォーム'), description: t('apps.studism.screenshotDesc1', '学習中のわからないは質問フォームへ'), image: '/images/screenshots/Studism-ss01.png' },
+        { title: t('apps.studism.screenshotTitle2', 'アプリ連携'), description: t('apps.studism.screenshotDesc2', '他のアプリとの連携でどれだけ勉強したか共有'), image: '/images/screenshots/Studism-ss02.png' },
+        { title: t('apps.studism.screenshotTitle3', '学習動画'), description: t('apps.studism.screenshotDesc3', 'ショート動画や長尺動画で理解を深めよう'), image: '/images/screenshots/Studism-ss03.png' }
+      ],
+      appStoreUrl: 'https://apps.apple.com/jp/app/studism/id6754665143',
+      playStoreUrl: null
     }
   };
 
@@ -127,20 +139,24 @@ const AppDetail = () => {
                   {app.description}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="group" asChild>
-                    <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer">
-                      <Download className="w-4 h-4 mr-2" />
-                      App Store
-                      <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  </Button>
-                  <Button variant="outline" size="lg" asChild>
-                    <a href={app.playStoreUrl} target="_blank" rel="noopener noreferrer">
-                      <Download className="w-4 h-4 mr-2" />
-                      Google Play
-                      <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
-                  </Button>
+                  {app.appStoreUrl && (
+                    <Button size="lg" className="group" asChild>
+                      <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="w-4 h-4 mr-2" />
+                        App Store
+                        <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </Button>
+                  )}
+                  {app.playStoreUrl && (
+                    <Button variant="outline" size="lg" asChild>
+                      <a href={app.playStoreUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="w-4 h-4 mr-2" />
+                        Google Play
+                        <ExternalLink className="w-4 h-4 ml-2" />
+                      </a>
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

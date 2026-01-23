@@ -121,12 +121,11 @@ const HomePage = () => {
       id: 'studism',
       name: t('apps.studism.name'),
       description: t('apps.studism.description'),
-      icon: '/images/studism-logo.png',
-      promoImage: '/images/studism-logo.png',
+      icon: '/images/Studism.png',
+      promoImage: '/images/Studism.png',
       category: t('apps.studism.category'),
-      features: [],
-      color: '#A78BFA',
-      inDevelopment: true
+      features: t('apps.studism.features', { returnObjects: true }),
+      color: '#A78BFA'
     }
   ];
 

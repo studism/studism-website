@@ -109,10 +109,22 @@
     },
     "studism": {
       "name": "Studism",
-      "description": "In Development",
-      "category": "Learning",
-      "features": [],
-      "inDevelopment": "In Development"
+      "description": "A place where learners gather. Understand, connect, expand your world.",
+      "fullDescription": "Studism is a new learning SNS where students can connect and learn together. Share your study struggles, ask questions about problems you don't understand, or find helpful learning videos. Studism supports your learning journey.",
+      "category": "SNS",
+      "features": ["Q&A Forum", "App Integration", "Learning Videos"],
+      "featureTitle1": "Q&A Forum",
+      "featureDesc1": "Ask your questions while studying",
+      "featureTitle2": "App Integration",
+      "featureDesc2": "Share how much you've studied with other app integrations",
+      "featureTitle3": "Learning Videos",
+      "featureDesc3": "Deepen your understanding with short and long-form educational videos",
+      "screenshotTitle1": "Q&A Forum",
+      "screenshotDesc1": "Ask your questions while studying",
+      "screenshotTitle2": "App Integration",
+      "screenshotDesc2": "Share your study progress with connected apps",
+      "screenshotTitle3": "Learning Videos",
+      "screenshotDesc3": "Deepen understanding with short and long videos"
     }
   },
   "footer": {
