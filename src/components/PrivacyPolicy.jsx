@@ -153,9 +153,7 @@ const PrivacyPolicy = () => {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center space-x-2">
-              <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
-                <span className="text-foreground font-bold text-lg">S</span>
-              </div>
+              <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8" />
               <span className="text-xl font-bold">Studism</span>
             </div>
             <p className="text-background/60 text-sm">
