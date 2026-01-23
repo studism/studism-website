@@ -76,7 +76,19 @@ const AppDetail = () => {
       name: t('apps.mamemame.name'),
       icon: '/images/Mamemame.png',
       category: t('apps.mamemame.category'),
-      inDevelopment: true
+      description: t('apps.mamemame.fullDescription'),
+      features: [
+        { icon: <Zap className="w-5 h-5" />, title: t('apps.mamemame.featureTitle1'), description: t('apps.mamemame.featureDesc1'), image: '/images/screenshots/Mamemame-ss01.png' },
+        { icon: <Star className="w-5 h-5" />, title: t('apps.mamemame.featureTitle2'), description: t('apps.mamemame.featureDesc2'), image: '/images/screenshots/Mamemame-ss02.png' },
+        { icon: <Users className="w-5 h-5" />, title: t('apps.mamemame.featureTitle3'), description: t('apps.mamemame.featureDesc3'), image: '/images/screenshots/Mamemame-ss03.png' }
+      ],
+      screenshots: [
+        { title: t('apps.mamemame.screenshotTitle1'), description: t('apps.mamemame.screenshotDesc1'), image: '/images/screenshots/Mamemame-ss01.png' },
+        { title: t('apps.mamemame.screenshotTitle2'), description: t('apps.mamemame.screenshotDesc2'), image: '/images/screenshots/Mamemame-ss02.png' },
+        { title: t('apps.mamemame.screenshotTitle3'), description: t('apps.mamemame.screenshotDesc3'), image: '/images/screenshots/Mamemame-ss03.png' }
+      ],
+      appStoreUrl: 'https://apps.apple.com/jp/app/%E8%B1%86%E3%83%9E%E3%83%A1/id6757949629',
+      playStoreUrl: null
     }
   };
 

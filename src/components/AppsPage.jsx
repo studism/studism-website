@@ -43,7 +43,6 @@ const AppsPage = () => {
       category: t('apps.mamemame.category'),
       description: t('apps.mamemame.description'),
       features: t('apps.mamemame.features', { returnObjects: true }),
-      inDevelopment: true,
     },
   ];
 
