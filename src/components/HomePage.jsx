@@ -142,9 +142,8 @@ const HomePage = () => {
       category: t('apps.mamemame.category'),
       features: t('apps.mamemame.features', { returnObjects: true }),
       color: '#86EFAC',
-      appStoreUrl: null,
-      playStoreUrl: null,
-      inDevelopment: true
+      appStoreUrl: 'https://apps.apple.com/jp/app/%E8%B1%86%E3%83%9E%E3%83%A1/id6757949629',
+      playStoreUrl: null
     }
   ];
 
