@@ -177,11 +177,11 @@ const AppDetail = () => {
             <div className="grid md:grid-cols-3 gap-8">
               {app.features.map((feature, index) => (
                 <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="aspect-[9/16] bg-gray-100 overflow-hidden flex items-center justify-center">
+                  <div className="overflow-hidden">
                     <img
                       src={feature.image}
                       alt={feature.title}
-                      className="w-full h-full object-contain"
+                      className="w-full h-auto"
                     />
                   </div>
                   <CardHeader className="text-center">
