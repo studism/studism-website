@@ -38,14 +38,27 @@ const AboutPage = () => {
                     <dd className="md:col-span-2 text-gray-900">Studism</dd>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 py-3 border-b border-gray-100">
-                    <dt className="font-medium text-gray-700">設立日</dt>
-                    <dd className="md:col-span-2 text-gray-400 italic">準備中</dd>
+                    <dt className="font-medium text-gray-700">代表者</dt>
+                    <dd className="md:col-span-2 text-gray-900">横田直紀</dd>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 py-3 border-b border-gray-100">
+                    <dt className="font-medium text-gray-700">設立</dt>
+                    <dd className="md:col-span-2 text-gray-900">2025年8月</dd>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 py-3 border-b border-gray-100">
+                    <dt className="font-medium text-gray-700">所在地</dt>
+                    <dd className="md:col-span-2 text-gray-900">東京都世田谷区</dd>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 py-3 border-b border-gray-100">
                     <dt className="font-medium text-gray-700">事業内容</dt>
                     <dd className="md:col-span-2 text-gray-900">教育アプリケーションの企画・開発・運営</dd>
                   </div>
                 </dl>
+                <div className="mt-6 text-right">
+                  <Link to="/about/company" className="text-primary hover:underline text-sm">
+                    会社概要を見る →
+                  </Link>
+                </div>
               </div>
 
               {/* ミッション・ビジョン */}
