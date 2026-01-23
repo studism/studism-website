@@ -125,6 +125,13 @@
       "screenshotDesc2": "Share your study progress with connected apps",
       "screenshotTitle3": "Learning Videos",
       "screenshotDesc3": "Deepen understanding with short and long videos"
+    },
+    "mamemame": {
+      "name": "MameMame",
+      "description": "In Development",
+      "category": "Language Learning",
+      "features": [],
+      "inDevelopment": "In Development"
     }
   },
   "footer": {

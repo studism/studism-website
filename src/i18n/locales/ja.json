@@ -125,6 +125,13 @@
       "screenshotDesc2": "他のアプリとの連携でどれだけ勉強したか共有",
       "screenshotTitle3": "学習動画",
       "screenshotDesc3": "ショート動画や長尺動画で理解を深めよう"
+    },
+    "mamemame": {
+      "name": "豆マメ",
+      "description": "開発中",
+      "category": "語学学習",
+      "features": [],
+      "inDevelopment": "開発中"
     }
   },
   "footer": {

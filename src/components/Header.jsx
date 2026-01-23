@@ -363,6 +363,15 @@ const Header = () => {
                       Studism
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/app/mamemame"
+                      className="text-gray-600 hover:text-primary hover:underline"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      豆マメ <span className="text-xs text-yellow-600">(開発中)</span>
+                    </Link>
+                  </li>
                 </ul>
               </div>
 

@@ -71,6 +71,12 @@ const AppDetail = () => {
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/studism/id6754665143',
       playStoreUrl: null
+    },
+    mamemame: {
+      name: t('apps.mamemame.name'),
+      icon: '/images/Mamemame.png',
+      category: t('apps.mamemame.category'),
+      inDevelopment: true
     }
   };
 

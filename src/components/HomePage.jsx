@@ -132,6 +132,19 @@ const HomePage = () => {
       color: '#A78BFA',
       appStoreUrl: 'https://apps.apple.com/jp/app/studism/id6754665143',
       playStoreUrl: null
+    },
+    {
+      id: 'mamemame',
+      name: t('apps.mamemame.name'),
+      description: t('apps.mamemame.description'),
+      icon: '/images/Mamemame.png',
+      promoImage: '/images/Mamemame.png',
+      category: t('apps.mamemame.category'),
+      features: t('apps.mamemame.features', { returnObjects: true }),
+      color: '#86EFAC',
+      appStoreUrl: null,
+      playStoreUrl: null,
+      inDevelopment: true
     }
   ];
 
