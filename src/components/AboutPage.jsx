@@ -72,7 +72,7 @@ const AboutPage = () => {
                   <p className="text-gray-700">
                     Studismでは、学習をサポートする様々なアプリケーションを開発・提供しています。
                   </p>
-                  <div className="grid md:grid-cols-3 gap-4 mt-6">
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
                     <Link
                       to="/app/sakuraenglish"
                       className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
@@ -100,6 +100,16 @@ const AboutPage = () => {
                       <img src="/images/Studism.png" alt="Studism" className="w-12 h-12 rounded-lg" />
                       <div>
                         <p className="font-medium">Studism</p>
+                        <p className="text-sm text-gray-500">SNS</p>
+                      </div>
+                    </Link>
+                    <Link
+                      to="/app/mamemame"
+                      className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    >
+                      <img src="/images/Mamemame.png" alt="豆マメ" className="w-12 h-12 rounded-lg" />
+                      <div>
+                        <p className="font-medium">豆マメ</p>
                         <p className="text-sm text-yellow-600">開発中</p>
                       </div>
                     </Link>
