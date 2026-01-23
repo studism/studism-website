@@ -815,6 +815,9 @@ const HomePage = () => {
                       </Badge>
                       <h3 className="text-xl md:text-2xl font-bold">{app.name}</h3>
                     </div>
+                    <p className="text-sm text-muted-foreground whitespace-nowrap">
+                      {app.description}
+                    </p>
 
                     {app.features.length > 0 && (
                       <div className="flex flex-wrap justify-center md:justify-start gap-2">
