@@ -34,7 +34,7 @@ const AppDetail = () => {
         { title: t('apps.sakuraenglish.screenshotTitle3', '学習進捗'), description: t('apps.sakuraenglish.screenshotDesc3', '詳細な学習データと分析'), image: '/images/screenshots/SakuraEnglish-ss03.webp' }
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
-      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish'
+      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish01&hl=ja'
     },
     timelyze: {
       name: t('apps.timelyze.name'),
@@ -52,7 +52,7 @@ const AppDetail = () => {
         { title: t('apps.timelyze.screenshotTitle3', '目標設定'), description: t('apps.timelyze.screenshotDesc3', '個人に合わせた目標管理'), image: '/images/screenshots/Timelyze-ss03.webp' }
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
-      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.timelyze'
+      playStoreUrl: null
     },
     studism: {
       name: t('apps.studism.name'),
