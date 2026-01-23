@@ -7,7 +7,7 @@ const Header = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false);
+  const [_isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false);
   const [isNewsDropdownOpen, setIsNewsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -105,7 +105,7 @@ const Header = () => {
   };
 
   // 検索を開く
-  const openSearch = () => {
+  const _openSearch = () => {
     setIsSearchOpen(true);
     setTimeout(() => searchInputRef.current?.focus(), 100);
   };
@@ -116,7 +116,7 @@ const Header = () => {
     setIsNewsDropdownOpen(false);
   };
 
-  const toggleAppsDropdown = () => {
+  const _toggleAppsDropdown = () => {
     setIsAppsDropdownOpen((prev) => !prev);
     setIsDropdownOpen(false);
     setIsNewsDropdownOpen(false);

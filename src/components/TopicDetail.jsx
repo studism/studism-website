@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 
 const TopicDetail = () => {
   const { topicId } = useParams();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [topic, setTopic] = useState(null);
   const [relatedTopics, setRelatedTopics] = useState([]);
   const [loading, setLoading] = useState(true);
