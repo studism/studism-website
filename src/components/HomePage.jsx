@@ -105,7 +105,9 @@ const HomePage = () => {
       promoImage: '/images/sakuraenglish-promo.png',
       category: t('apps.sakuraenglish.category'),
       features: t('apps.sakuraenglish.features', { returnObjects: true }),
-      color: '#FFB7C5'
+      color: '#FFB7C5',
+      appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
+      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish01&hl=ja'
     },
     {
       id: 'timelyze',
@@ -115,7 +117,9 @@ const HomePage = () => {
       promoImage: '/images/Timelyze1.0.7.jpg',
       category: t('apps.timelyze.category'),
       features: t('apps.timelyze.features', { returnObjects: true }),
-      color: '#7DD3FC'
+      color: '#7DD3FC',
+      appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
+      playStoreUrl: null
     },
     {
       id: 'studism',
@@ -125,7 +129,9 @@ const HomePage = () => {
       promoImage: '/images/Studism.png',
       category: t('apps.studism.category'),
       features: t('apps.studism.features', { returnObjects: true }),
-      color: '#A78BFA'
+      color: '#A78BFA',
+      appStoreUrl: 'https://apps.apple.com/jp/app/studism/id6754665143',
+      playStoreUrl: null
     }
   ];
 
@@ -832,10 +838,20 @@ const HomePage = () => {
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Link>
                       </Button>
-                      {!app.inDevelopment && (
-                        <Button variant="outline" size="default">
-                          <Download className="w-4 h-4 mr-2" />
-                          {t('common.download')}
+                      {app.appStoreUrl && (
+                        <Button variant="outline" size="default" asChild>
+                          <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer">
+                            <Download className="w-4 h-4 mr-2" />
+                            App Store
+                          </a>
+                        </Button>
+                      )}
+                      {app.playStoreUrl && (
+                        <Button variant="outline" size="default" asChild>
+                          <a href={app.playStoreUrl} target="_blank" rel="noopener noreferrer">
+                            <Download className="w-4 h-4 mr-2" />
+                            Google Play
+                          </a>
                         </Button>
                       )}
                     </div>
