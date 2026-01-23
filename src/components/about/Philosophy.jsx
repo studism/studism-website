@@ -31,7 +31,7 @@ const Philosophy = () => {
               <p className="text-3xl md:text-4xl font-bold text-primary leading-tight mb-4">
                 {t('philosophy.mission')}
               </p>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed" style={{ whiteSpace: 'pre-line' }}>
                 {t('philosophy.missionDesc')}
               </p>
             </div>
@@ -47,7 +47,7 @@ const Philosophy = () => {
               <p className="text-2xl md:text-3xl text-gray-700 leading-relaxed mb-4">
                 {t('philosophy.vision')}
               </p>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed" style={{ whiteSpace: 'pre-line' }}>
                 {t('philosophy.visionDesc')}
               </p>
             </div>
