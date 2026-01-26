@@ -89,6 +89,25 @@ const AppDetail = () => {
       ],
       appStoreUrl: 'https://apps.apple.com/jp/app/%E8%B1%86%E3%83%9E%E3%83%A1/id6757949629',
       playStoreUrl: null
+    },
+    loopin: {
+      name: t('apps.loopin.name'),
+      icon: '/images/Loopin.png',
+      category: t('apps.loopin.category'),
+      description: t('apps.loopin.fullDescription'),
+      features: [
+        { icon: <Zap className="w-5 h-5" />, title: t('apps.loopin.featureTitle1'), description: t('apps.loopin.featureDesc1'), image: '/images/Loopin.png' },
+        { icon: <Star className="w-5 h-5" />, title: t('apps.loopin.featureTitle2'), description: t('apps.loopin.featureDesc2'), image: '/images/Loopin.png' },
+        { icon: <Users className="w-5 h-5" />, title: t('apps.loopin.featureTitle3'), description: t('apps.loopin.featureDesc3'), image: '/images/Loopin.png' }
+      ],
+      screenshots: [
+        { title: t('apps.loopin.screenshotTitle1'), description: t('apps.loopin.screenshotDesc1'), image: '/images/Loopin.png' },
+        { title: t('apps.loopin.screenshotTitle2'), description: t('apps.loopin.screenshotDesc2'), image: '/images/Loopin.png' },
+        { title: t('apps.loopin.screenshotTitle3'), description: t('apps.loopin.screenshotDesc3'), image: '/images/Loopin.png' }
+      ],
+      appStoreUrl: null,
+      playStoreUrl: null,
+      inDevelopment: true
     }
   };
 

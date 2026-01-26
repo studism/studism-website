@@ -146,6 +146,19 @@ const HomePage = () => {
       color: '#86EFAC',
       appStoreUrl: 'https://apps.apple.com/jp/app/%E8%B1%86%E3%83%9E%E3%83%A1/id6757949629',
       playStoreUrl: null
+    },
+    {
+      id: 'loopin',
+      name: t('apps.loopin.name'),
+      description: t('apps.loopin.description'),
+      icon: '/images/Loopin.png',
+      promoImage: '/images/Loopin.png',
+      category: t('apps.loopin.category'),
+      features: t('apps.loopin.features', { returnObjects: true }),
+      color: '#F472B6',
+      appStoreUrl: null,
+      playStoreUrl: null,
+      inDevelopment: true
     }
   ];
 

@@ -44,6 +44,14 @@ const AppsPage = () => {
       description: t('apps.mamemame.description'),
       features: t('apps.mamemame.features', { returnObjects: true }),
     },
+    {
+      slug: 'loopin',
+      name: 'Loopin',
+      icon: '/images/Loopin.png',
+      category: t('apps.loopin.category'),
+      description: t('apps.loopin.description'),
+      features: t('apps.loopin.features', { returnObjects: true }),
+    },
   ];
 
   return (

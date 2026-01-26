@@ -145,6 +145,26 @@
       "screenshotTitle3": "学習トラッキング",
       "screenshotDesc3": "復習や、習得済み単語を可視化してサポート",
       "inDevelopment": "開発中"
+    },
+    "loopin": {
+      "name": "Loopin",
+      "description": "開発中のアプリです。詳細は近日公開予定。",
+      "category": "開発中",
+      "features": ["Coming Soon"],
+      "fullDescription": "開発中のアプリです。詳細は近日公開予定です。",
+      "featureTitle1": "Coming Soon",
+      "featureDesc1": "詳細は近日公開予定",
+      "featureTitle2": "Coming Soon",
+      "featureDesc2": "詳細は近日公開予定",
+      "featureTitle3": "Coming Soon",
+      "featureDesc3": "詳細は近日公開予定",
+      "screenshotTitle1": "Coming Soon",
+      "screenshotDesc1": "詳細は近日公開予定",
+      "screenshotTitle2": "Coming Soon",
+      "screenshotDesc2": "詳細は近日公開予定",
+      "screenshotTitle3": "Coming Soon",
+      "screenshotDesc3": "詳細は近日公開予定",
+      "inDevelopment": "開発中"
     }
   },
   "footer": {
@@ -363,6 +383,11 @@
     "mamemame": {
       "title": "豆マメ",
       "description": "古文単語をクイズ形式で楽しく学習",
+      "category": "アプリ"
+    },
+    "loopin": {
+      "title": "Loopin",
+      "description": "開発中のアプリです",
       "category": "アプリ"
     },
     "home": {
