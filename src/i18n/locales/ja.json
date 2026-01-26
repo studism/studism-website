@@ -1,7 +1,7 @@
 {
   "common": {
     "siteName": "Studism",
-    "tagline": "わかる、つながる、世界が変わる",
+    "tagline": "わかる、つながる、世界が広がる",
     "learnMore": "詳細を見る",
     "viewAll": "一覧を見る →",
     "download": "ダウンロード",
@@ -109,7 +109,7 @@
     },
     "studism": {
       "name": "Studism",
-      "description": "学習する人たちの集いの場所に。わかる、つながる、世界がひろがる。",
+      "description": "学習する人たちの集いの場所に。わかる、つながる、世界が広がる。",
       "fullDescription": "Studismは、学生同士がつながり、学び合える新しい学習SNSです。勉強の悩みを共有したり、わからない問題を質問したり、学習に役立つ動画を見つけたり。Studismがあなたの学習をサポートします。",
       "category": "SNS",
       "features": ["質問フォーム", "アプリ間の連携", "学習動画"],

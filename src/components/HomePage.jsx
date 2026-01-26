@@ -522,7 +522,7 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center text-white drop-shadow-lg">
-            わかる、つながる、世界が変わる
+            わかる、つながる、世界が広がる
           </h2>
         </div>
       </section>
