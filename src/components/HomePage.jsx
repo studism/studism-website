@@ -16,6 +16,8 @@ const HomePage = () => {
   const heroImages = [
     { src: '/images/sakuraenglish-promo.png', alt: 'SakuraEnglish' },
     { src: '/images/Timelyze1.0.7.jpg', alt: 'Timelyze' },
+    { src: '/images/Studism_slide.png', alt: 'Studism' },
+    { src: '/images/Mamemame.png', alt: '豆マメ' },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -508,6 +510,48 @@ const HomePage = () => {
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />
                 <span className="text-sm md:text-base font-medium text-gray-800">Timelyze</span>
+              </Link>
+            </div>
+            <div className="flex flex-col">
+              {/* Progress Bar */}
+              <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
+                <div
+                  className="h-full bg-primary transition-all duration-100 ease-linear"
+                  style={{ width: currentSlide === 2 ? `${progress}%` : '0%' }}
+                />
+              </div>
+              <Link
+                to="/app/studism"
+                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 2 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+                onMouseEnter={() => setCurrentSlide(2)}
+              >
+                <img
+                  src="/images/studism-logo.png"
+                  alt="Studism"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
+                />
+                <span className="text-sm md:text-base font-medium text-gray-800">Studism</span>
+              </Link>
+            </div>
+            <div className="flex flex-col">
+              {/* Progress Bar */}
+              <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
+                <div
+                  className="h-full bg-primary transition-all duration-100 ease-linear"
+                  style={{ width: currentSlide === 3 ? `${progress}%` : '0%' }}
+                />
+              </div>
+              <Link
+                to="/app/mamemame"
+                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 3 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+                onMouseEnter={() => setCurrentSlide(3)}
+              >
+                <img
+                  src="/images/Mamemame.png"
+                  alt="豆マメ"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
+                />
+                <span className="text-sm md:text-base font-medium text-gray-800">豆マメ</span>
               </Link>
             </div>
           </div>
