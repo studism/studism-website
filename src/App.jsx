@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
@@ -19,9 +19,54 @@ import Officers from './components/about/Officers';
 import Philosophy from './components/about/Philosophy';
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  const handleVideoEnd = () => {
+    // 動画終了後1秒待ってからフェードアウト開始
+    setTimeout(() => {
+      setFadeOut(true);
+      // フェードアウトアニメーション後にスプラッシュを非表示
+      setTimeout(() => {
+        setShowSplash(false);
+      }, 500);
+    }, 1000);
+  };
+
+  // スプラッシュスクリーン表示中はスクロールを無効化
+  useEffect(() => {
+    if (showSplash) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showSplash]);
+
   return (
     <Router>
-      <div className="min-h-screen bg-background">
+      {/* Splash Screen */}
+      {showSplash && (
+        <div
+          className={`fixed inset-0 z-[9999] bg-white flex items-center justify-center transition-opacity duration-500 ${
+            fadeOut ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          <video
+            autoPlay
+            muted
+            playsInline
+            onEnded={handleVideoEnd}
+            className="max-w-full max-h-full object-contain"
+          >
+            <source src="/images/animation/StudismRogo1.mp4" type="video/mp4" />
+          </video>
+        </div>
+      )}
+
+      <div className={`min-h-screen bg-background ${showSplash ? 'invisible' : 'visible'}`}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<GeneralContact />} />
