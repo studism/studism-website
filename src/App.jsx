@@ -19,7 +19,9 @@ import Officers from './components/about/Officers';
 import Philosophy from './components/about/Philosophy';
 
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
+  // セッション中に既に表示済みかチェック
+  const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
+  const [showSplash, setShowSplash] = useState(!hasSeenSplash);
   const [fadeOut, setFadeOut] = useState(false);
 
   const handleVideoEnd = () => {
@@ -29,6 +31,8 @@ function App() {
       // フェードアウトアニメーション後にスプラッシュを非表示
       setTimeout(() => {
         setShowSplash(false);
+        // セッションに表示済みを記録
+        sessionStorage.setItem('hasSeenSplash', 'true');
       }, 500);
     }, 1000);
   };
