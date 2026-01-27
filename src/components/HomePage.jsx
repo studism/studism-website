@@ -482,7 +482,7 @@ const HomePage = () => {
       {/* Promotion Banners Section */}
       <section className="py-3 md:py-4 bg-white border-b">
         <div className="container mx-auto px-2 md:px-4">
-          <div className="flex justify-start md:justify-center items-center gap-4 md:gap-16 overflow-x-auto scrollbar-hide pb-2">
+          <div className="flex justify-center items-center gap-3 sm:gap-6 md:gap-16 overflow-x-auto scrollbar-hide pb-2">
             <div className="flex flex-col flex-shrink-0">
               {/* Progress Bar */}
               <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
