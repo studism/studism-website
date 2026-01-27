@@ -4,14 +4,14 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   // GitHub Pagesのベースパス設定
-  // 独自ドメインを使用する場合は base: '/' に設定
-  base: '/studism-website/',
+  // 開発時は '/'、本番時は '/studism-website/'
+  base: mode === 'production' ? '/studism-website/' : '/',
   plugins: [react(),tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-})
+}))
