@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
 import AppDetail from './components/AppDetail';
@@ -17,6 +17,26 @@ import TopMessage from './components/about/TopMessage';
 import Company from './components/about/Company';
 import Officers from './components/about/Officers';
 import Philosophy from './components/about/Philosophy';
+
+// GitHub Pages用のベースパス
+const basename = import.meta.env.BASE_URL;
+
+// 404リダイレクト処理用コンポーネント
+function RedirectHandler() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirectPath = sessionStorage.getItem('redirectPath');
+    if (redirectPath) {
+      sessionStorage.removeItem('redirectPath');
+      // ベースパスを除去してナビゲート
+      const path = redirectPath.replace('/studism-website', '') || '/';
+      navigate(path, { replace: true });
+    }
+  }, [navigate]);
+
+  return null;
+}
 
 function App() {
   // セッション中に既に表示済みかチェック
@@ -50,7 +70,10 @@ function App() {
   }, [showSplash]);
 
   return (
-    <Router>
+    <Router basename={basename}>
+      {/* 404リダイレクト処理 */}
+      <RedirectHandler />
+
       {/* Splash Screen */}
       {showSplash && (
         <div
@@ -65,7 +88,7 @@ function App() {
             onEnded={handleVideoEnd}
             className="w-full h-full object-cover"
           >
-            <source src="/images/animation/StudismRogo1.mp4" type="video/mp4" />
+            <source src={`${basename}images/animation/StudismRogo1.mp4`} type="video/mp4" />
           </video>
         </div>
       )}

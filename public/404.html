@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studism</title>
+    <script>
+      // GitHub Pages SPA対応
+      // 404ページにアクセスした場合、index.htmlにリダイレクトしてReact Routerで処理する
+      const path = window.location.pathname;
+      const search = window.location.search;
+      const hash = window.location.hash;
+
+      // セッションストレージにリダイレクト先を保存
+      sessionStorage.setItem('redirectPath', path + search + hash);
+
+      // index.htmlにリダイレクト
+      window.location.replace('/studism-website/');
+    </script>
+  </head>
+  <body>
+    <p>リダイレクト中...</p>
+  </body>
+</html>
