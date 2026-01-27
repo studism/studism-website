@@ -86,7 +86,7 @@ function App() {
             muted
             playsInline
             onEnded={handleVideoEnd}
-            className="w-full h-full object-cover"
+            className="w-auto h-auto max-w-full max-h-full object-contain md:w-full md:h-full md:object-cover"
           >
             <source src={`${basename}images/animation/StudismRogo1.mp4`} type="video/mp4" />
           </video>

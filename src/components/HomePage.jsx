@@ -458,9 +458,9 @@ const HomePage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-[50vh] md:h-[calc(100vh-220px)] overflow-hidden">
+      <section className="relative h-[50vh] md:h-[calc(100vh-220px)] overflow-hidden bg-slate-100">
         {/* Background Slideshow */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-slate-100">
           {heroImages.map((image, index) => (
             <div
               key={index}
