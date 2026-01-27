@@ -7,7 +7,7 @@ import path from 'path'
 export default defineConfig({
   // GitHub Pagesのベースパス設定
   // 独自ドメインを使用する場合は base: '/' に設定
-  base: '/',
+  base: '/studism-website/',
   plugins: [react(),tailwindcss()],
   resolve: {
     alias: {
