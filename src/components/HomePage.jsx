@@ -460,18 +460,18 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-slate-100">
         {/* Background Slideshow */}
-        <div className="relative w-full">
+        <div className="relative w-full aspect-[4/3] md:aspect-[16/9] max-h-[50vh] md:max-h-[70vh]">
           {heroImages.map((image, index) => (
             <div
               key={index}
-              className={`${index === 0 ? 'relative' : 'absolute inset-0'} transition-opacity duration-1000 ${
+              className={`absolute inset-0 transition-opacity duration-1000 ${
                 index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-auto max-h-[60vh] md:max-h-[calc(100vh-220px)] object-contain mx-auto"
+                className="w-full h-full object-contain"
               />
             </div>
           ))}
