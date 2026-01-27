@@ -5,9 +5,8 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-  // GitHub Pagesのベースパス設定
-  // 開発時は '/'、本番時は '/studism-website/'
-  base: mode === 'production' ? '/studism-website/' : '/',
+  // カスタムドメイン使用時はベースパスは '/'
+  base: '/',
   plugins: [react(),tailwindcss()],
   resolve: {
     alias: {

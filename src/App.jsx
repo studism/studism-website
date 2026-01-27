@@ -29,8 +29,8 @@ function RedirectHandler() {
     const redirectPath = sessionStorage.getItem('redirectPath');
     if (redirectPath) {
       sessionStorage.removeItem('redirectPath');
-      // ベースパスを除去してナビゲート
-      const path = redirectPath.replace('/studism-website', '') || '/';
+      // パスをそのままナビゲート
+      const path = redirectPath || '/';
       navigate(path, { replace: true });
     }
   }, [navigate]);
