@@ -54,7 +54,7 @@ function App() {
       {/* Splash Screen */}
       {showSplash && (
         <div
-          className={`fixed inset-0 z-[9999] bg-white flex items-center justify-center transition-opacity duration-500 ${
+          className={`fixed inset-0 z-[9999] bg-white flex items-center justify-center transition-opacity duration-700 ease-out ${
             fadeOut ? 'opacity-0' : 'opacity-100'
           }`}
         >
@@ -70,26 +70,29 @@ function App() {
         </div>
       )}
 
-      <div className={`min-h-screen bg-background ${showSplash ? 'invisible' : 'visible'}`}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/contact" element={<GeneralContact />} />
-          <Route path="/privacy" element={<GeneralPrivacy />} />
-          <Route path="/news" element={<NewsList />} />
-          <Route path="/news/:newsId" element={<NewsDetail />} />
-          <Route path="/topics" element={<TopicsList />} />
-          <Route path="/topics/:topicId" element={<TopicDetail />} />
-          <Route path="/apps" element={<AppsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/about/message" element={<TopMessage />} />
-          <Route path="/about/company" element={<Company />} />
-          <Route path="/about/officers" element={<Officers />} />
-          <Route path="/about/philosophy" element={<Philosophy />} />
-          <Route path="/app/:appSlug" element={<AppDetail />} />
-          <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />
-          <Route path="/app/:appSlug/contact" element={<Contact />} />
-        </Routes>
-      </div>
+      {/* メインコンテンツ - スプラッシュ終了後にマウント */}
+      {!showSplash && (
+        <div className="min-h-screen bg-background animate-fade-in">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<GeneralContact />} />
+            <Route path="/privacy" element={<GeneralPrivacy />} />
+            <Route path="/news" element={<NewsList />} />
+            <Route path="/news/:newsId" element={<NewsDetail />} />
+            <Route path="/topics" element={<TopicsList />} />
+            <Route path="/topics/:topicId" element={<TopicDetail />} />
+            <Route path="/apps" element={<AppsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/about/message" element={<TopMessage />} />
+            <Route path="/about/company" element={<Company />} />
+            <Route path="/about/officers" element={<Officers />} />
+            <Route path="/about/philosophy" element={<Philosophy />} />
+            <Route path="/app/:appSlug" element={<AppDetail />} />
+            <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />
+            <Route path="/app/:appSlug/contact" element={<Contact />} />
+          </Routes>
+        </div>
+      )}
     </Router>
   );
 }
