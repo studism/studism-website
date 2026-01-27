@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, Search } from 'lucide-react';
+import { ChevronDown, Search, Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Header = () => {
@@ -12,6 +12,8 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileSubmenu, setMobileSubmenu] = useState(null);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const appsDropdownRef = useRef(null);
@@ -35,6 +37,18 @@ const Header = () => {
     { title: t('searchData.appList.title'), description: t('searchData.appList.description'), category: t('searchData.appList.category'), path: '/#apps', keywords: ['アプリ', '製品', 'apps', 'products'] },
     { title: t('searchData.about.title'), description: t('searchData.about.description'), category: t('searchData.about.category'), path: '/#about', keywords: ['会社', '企業', 'ミッション', 'ビジョン', 'company', 'about', 'mission'] },
   ];
+
+  // モバイルメニューが開いているときはスクロールを無効化
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   // クリック外で閉じる
   useEffect(() => {
@@ -99,6 +113,7 @@ const Header = () => {
   const handleSearchResultClick = (path) => {
     setSearchQuery('');
     setIsSearchOpen(false);
+    setIsMobileMenuOpen(false);
     if (path.startsWith('/#')) {
       // ハッシュリンクの場合
       window.location.href = path;
@@ -131,6 +146,11 @@ const Header = () => {
     setIsAppsDropdownOpen(false);
   };
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    setMobileSubmenu(null);
+  };
+
   return (
     <header className="relative z-50">
       {/* Upper Header - Logo & Tagline */}
@@ -139,18 +159,19 @@ const Header = () => {
           <div className="flex items-center justify-between">
             <Link
               to="/"
-              className="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer"
+              className="flex items-center space-x-2 md:space-x-3 hover:opacity-80 transition-opacity cursor-pointer"
+              onClick={closeMobileMenu}
             >
-              <img src="/images/studism-logo.png" alt="Studism" className="w-10 h-10" />
+              <img src="/images/studism-logo.png" alt="Studism" className="w-8 h-8 md:w-10 md:h-10" />
               <div className="flex items-center space-x-2">
-                <span className="text-xl font-bold text-foreground">{t('common.siteName')}</span>
-                <span className="text-sm text-muted-foreground hidden sm:inline">| {t('common.tagline')}</span>
+                <span className="text-lg md:text-xl font-bold text-foreground">{t('common.siteName')}</span>
+                <span className="text-sm text-muted-foreground hidden md:inline">| {t('common.tagline')}</span>
               </div>
             </Link>
 
             <div className="flex items-center gap-2 md:gap-4">
-              {/* SNSリンク */}
-              <div className="flex items-center gap-1">
+              {/* SNSリンク - デスクトップのみ */}
+              <div className="hidden md:flex items-center gap-1">
                 <a
                   href="https://x.com/Studism_Stdism"
                   target="_blank"
@@ -175,8 +196,8 @@ const Header = () => {
                 </a>
               </div>
 
-              {/* 検索 */}
-              <div className="relative" ref={searchRef}>
+              {/* 検索 - デスクトップのみ */}
+              <div className="relative hidden md:block" ref={searchRef}>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
@@ -190,41 +211,50 @@ const Header = () => {
                   />
                 </div>
 
-              {/* 検索結果ドロップダウン */}
-              {isSearchOpen && searchResults.length > 0 && (
-                <div className="absolute top-full right-0 mt-2 w-72 md:w-80 bg-white rounded-lg shadow-xl border z-50 max-h-80 overflow-y-auto">
-                  {searchResults.map((result, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleSearchResultClick(result.path)}
-                      className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b last:border-b-0 transition-colors"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">
-                          {result.category}
-                        </span>
-                        <span className="font-medium text-gray-800">{result.title}</span>
-                      </div>
-                      <p className="text-sm text-gray-500 mt-1">{result.description}</p>
-                    </button>
-                  ))}
-                </div>
-              )}
+                {/* 検索結果ドロップダウン */}
+                {isSearchOpen && searchResults.length > 0 && (
+                  <div className="absolute top-full right-0 mt-2 w-72 md:w-80 bg-white rounded-lg shadow-xl border z-50 max-h-80 overflow-y-auto">
+                    {searchResults.map((result, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSearchResultClick(result.path)}
+                        className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b last:border-b-0 transition-colors"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                            {result.category}
+                          </span>
+                          <span className="font-medium text-gray-800">{result.title}</span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1">{result.description}</p>
+                      </button>
+                    ))}
+                  </div>
+                )}
 
-              {/* 検索結果なし */}
-              {isSearchOpen && searchQuery.trim() !== '' && searchResults.length === 0 && (
-                <div className="absolute top-full right-0 mt-2 w-72 md:w-80 bg-white rounded-lg shadow-xl border z-50 p-4">
-                  <p className="text-sm text-gray-500 text-center">{t('common.noResults')}</p>
-                </div>
-              )}
+                {/* 検索結果なし */}
+                {isSearchOpen && searchQuery.trim() !== '' && searchResults.length === 0 && (
+                  <div className="absolute top-full right-0 mt-2 w-72 md:w-80 bg-white rounded-lg shadow-xl border z-50 p-4">
+                    <p className="text-sm text-gray-500 text-center">{t('common.noResults')}</p>
+                  </div>
+                )}
               </div>
+
+              {/* ハンバーガーメニュー - モバイルのみ */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
+                aria-label="メニュー"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Lower Header - Navigation */}
-      <div className="bg-primary relative">
+      {/* Lower Header - Navigation (デスクトップのみ) */}
+      <div className="bg-primary relative hidden md:block">
         <div className="container mx-auto px-4 md:px-8">
           <nav className="flex items-center justify-center md:justify-start space-x-1 md:space-x-2 overflow-x-auto">
             {/* 企業情報 Dropdown */}
@@ -260,10 +290,154 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Full-width Dropdown Menu - 企業情報 */}
+      {/* モバイルメニュー */}
+      <div
+        className={`fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300 ${
+          isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={closeMobileMenu}
+      />
+      <div
+        className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white z-50 md:hidden transform transition-transform duration-300 ease-out overflow-y-auto ${
+          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="p-4 border-b flex items-center justify-between">
+          <span className="font-bold text-lg">メニュー</span>
+          <button onClick={closeMobileMenu} className="p-2">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* モバイル検索 */}
+        <div className="p-4 border-b">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t('common.search')}
+              className="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+          {searchResults.length > 0 && (
+            <div className="mt-2 border rounded-lg max-h-48 overflow-y-auto">
+              {searchResults.map((result, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSearchResultClick(result.path)}
+                  className="w-full px-3 py-2 text-left hover:bg-gray-50 border-b last:border-b-0 text-sm"
+                >
+                  <span className="font-medium">{result.title}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* モバイルナビゲーション */}
+        <nav className="p-4">
+          {/* 企業情報 */}
+          <div className="border-b">
+            <button
+              onClick={() => setMobileSubmenu(mobileSubmenu === 'company' ? null : 'company')}
+              className="w-full flex items-center justify-between py-3 text-left font-medium"
+            >
+              {t('header.companyInfo')}
+              <ChevronDown className={`w-5 h-5 transition-transform ${mobileSubmenu === 'company' ? 'rotate-180' : ''}`} />
+            </button>
+            {mobileSubmenu === 'company' && (
+              <div className="pb-3 pl-4 space-y-2">
+                <Link to="/about" onClick={closeMobileMenu} className="block py-2 text-gray-600">{t('header.companyInfoTop')}</Link>
+                <Link to="/about/message" onClick={closeMobileMenu} className="block py-2 text-gray-600">トップメッセージ</Link>
+                <Link to="/about/company" onClick={closeMobileMenu} className="block py-2 text-gray-600">会社概要</Link>
+                <Link to="/about/officers" onClick={closeMobileMenu} className="block py-2 text-gray-600">役員一覧</Link>
+                <Link to="/about/philosophy" onClick={closeMobileMenu} className="block py-2 text-gray-600">企業理念</Link>
+              </div>
+            )}
+          </div>
+
+          {/* アプリ */}
+          <div className="border-b">
+            <button
+              onClick={() => setMobileSubmenu(mobileSubmenu === 'apps' ? null : 'apps')}
+              className="w-full flex items-center justify-between py-3 text-left font-medium"
+            >
+              アプリ
+              <ChevronDown className={`w-5 h-5 transition-transform ${mobileSubmenu === 'apps' ? 'rotate-180' : ''}`} />
+            </button>
+            {mobileSubmenu === 'apps' && (
+              <div className="pb-3 pl-4 space-y-2">
+                <Link to="/apps" onClick={closeMobileMenu} className="block py-2 text-gray-600">アプリ一覧</Link>
+                <Link to="/app/sakuraenglish" onClick={closeMobileMenu} className="block py-2 text-gray-600">SakuraEnglish</Link>
+                <Link to="/app/timelyze" onClick={closeMobileMenu} className="block py-2 text-gray-600">Timelyze</Link>
+                <Link to="/app/studism" onClick={closeMobileMenu} className="block py-2 text-gray-600">Studism</Link>
+                <Link to="/app/mamemame" onClick={closeMobileMenu} className="block py-2 text-gray-600">豆マメ</Link>
+                <Link to="/app/loopin" onClick={closeMobileMenu} className="block py-2 text-gray-600">Loopin</Link>
+              </div>
+            )}
+          </div>
+
+          {/* お知らせ */}
+          <div className="border-b">
+            <button
+              onClick={() => setMobileSubmenu(mobileSubmenu === 'news' ? null : 'news')}
+              className="w-full flex items-center justify-between py-3 text-left font-medium"
+            >
+              {t('header.news')}
+              <ChevronDown className={`w-5 h-5 transition-transform ${mobileSubmenu === 'news' ? 'rotate-180' : ''}`} />
+            </button>
+            {mobileSubmenu === 'news' && (
+              <div className="pb-3 pl-4 space-y-2">
+                <Link to="/news" onClick={closeMobileMenu} className="block py-2 text-gray-600">ニュース一覧</Link>
+                <Link to="/topics" onClick={closeMobileMenu} className="block py-2 text-gray-600">トピック一覧</Link>
+              </div>
+            )}
+          </div>
+
+          {/* お問い合わせ */}
+          <Link to="/contact" onClick={closeMobileMenu} className="block py-3 font-medium border-b">
+            {t('header.contact')}
+          </Link>
+
+          {/* プライバシーポリシー */}
+          <Link to="/privacy" onClick={closeMobileMenu} className="block py-3 font-medium border-b">
+            {t('header.privacyPolicy')}
+          </Link>
+        </nav>
+
+        {/* SNSリンク */}
+        <div className="p-4 border-t mt-auto">
+          <div className="flex items-center justify-center gap-4">
+            <a
+              href="https://x.com/Studism_Stdism"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 text-gray-600 hover:text-black transition-colors bg-gray-100 rounded-full"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a
+              href="https://www.instagram.com/studism_stdism/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 text-gray-600 hover:text-pink-600 transition-colors bg-gray-100 rounded-full"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Full-width Dropdown Menu - 企業情報 (デスクトップのみ) */}
       <div
         ref={dropdownRef}
-        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-[max-height] duration-1000 linear ${
+        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-[max-height] duration-1000 linear hidden md:block ${
           isDropdownOpen ? 'max-h-[600px]' : 'max-h-0'
         }`}
       >
@@ -417,10 +591,10 @@ const Header = () => {
           </div>
         </div>
 
-      {/* Full-width Dropdown Menu - お知らせ */}
+      {/* Full-width Dropdown Menu - お知らせ (デスクトップのみ) */}
       <div
         ref={newsDropdownRef}
-        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-[max-height] duration-1000 linear ${
+        className={`absolute left-0 right-0 bg-white shadow-xl border-t-4 border-primary z-40 overflow-hidden transition-[max-height] duration-1000 linear hidden md:block ${
           isNewsDropdownOpen ? 'max-h-[400px]' : 'max-h-0'
         }`}
       >

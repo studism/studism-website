@@ -458,7 +458,7 @@ const HomePage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-[calc(100vh-220px)] overflow-hidden">
+      <section className="relative h-[50vh] md:h-[calc(100vh-220px)] overflow-hidden">
         {/* Background Slideshow */}
         <div className="absolute inset-0">
           {heroImages.map((image, index) => (
@@ -471,7 +471,7 @@ const HomePage = () => {
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-contain bg-slate-100"
+                className="w-full h-full object-contain md:object-contain bg-slate-100"
               />
             </div>
           ))}
@@ -480,10 +480,10 @@ const HomePage = () => {
       </section>
 
       {/* Promotion Banners Section */}
-      <section className="py-4 bg-white border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-center items-center gap-8 md:gap-16">
-            <div className="flex flex-col">
+      <section className="py-3 md:py-4 bg-white border-b">
+        <div className="container mx-auto px-2 md:px-4">
+          <div className="flex justify-start md:justify-center items-center gap-4 md:gap-16 overflow-x-auto scrollbar-hide pb-2">
+            <div className="flex flex-col flex-shrink-0">
               {/* Progress Bar */}
               <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
                 <div
@@ -491,20 +491,19 @@ const HomePage = () => {
                   style={{ width: currentSlide === 0 ? `${progress}%` : '0%' }}
                 />
               </div>
-              <Link
-                to="/app/sakuraenglish"
-                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 0 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
-                onMouseEnter={() => setCurrentSlide(0)}
+              <button
+                onClick={() => setCurrentSlide(0)}
+                className={`flex items-center gap-2 md:gap-3 group transition-opacity ${currentSlide === 0 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
               >
                 <img
                   src="/images/sakuraenglish.jpg"
                   alt="SakuraEnglish"
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />
-                <span className="text-sm md:text-base font-medium text-gray-800">SakuraEnglish</span>
-              </Link>
+                <span className="text-xs md:text-base font-medium text-gray-800 hidden sm:block">SakuraEnglish</span>
+              </button>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-shrink-0">
               {/* Progress Bar */}
               <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
                 <div
@@ -512,20 +511,19 @@ const HomePage = () => {
                   style={{ width: currentSlide === 1 ? `${progress}%` : '0%' }}
                 />
               </div>
-              <Link
-                to="/app/timelyze"
-                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 1 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
-                onMouseEnter={() => setCurrentSlide(1)}
+              <button
+                onClick={() => setCurrentSlide(1)}
+                className={`flex items-center gap-2 md:gap-3 group transition-opacity ${currentSlide === 1 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
               >
                 <img
                   src="/images/Timelyze1.0.7.jpg"
                   alt="Timelyze"
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />
-                <span className="text-sm md:text-base font-medium text-gray-800">Timelyze</span>
-              </Link>
+                <span className="text-xs md:text-base font-medium text-gray-800 hidden sm:block">Timelyze</span>
+              </button>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-shrink-0">
               {/* Progress Bar */}
               <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
                 <div
@@ -533,20 +531,19 @@ const HomePage = () => {
                   style={{ width: currentSlide === 2 ? `${progress}%` : '0%' }}
                 />
               </div>
-              <Link
-                to="/app/studism"
-                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 2 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
-                onMouseEnter={() => setCurrentSlide(2)}
+              <button
+                onClick={() => setCurrentSlide(2)}
+                className={`flex items-center gap-2 md:gap-3 group transition-opacity ${currentSlide === 2 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
               >
                 <img
                   src="/images/studism-logo.png"
                   alt="Studism"
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />
-                <span className="text-sm md:text-base font-medium text-gray-800">Studism</span>
-              </Link>
+                <span className="text-xs md:text-base font-medium text-gray-800 hidden sm:block">Studism</span>
+              </button>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-shrink-0">
               {/* Progress Bar */}
               <div className="h-1 bg-gray-200 rounded-full mb-2 overflow-hidden">
                 <div
@@ -554,18 +551,17 @@ const HomePage = () => {
                   style={{ width: currentSlide === 3 ? `${progress}%` : '0%' }}
                 />
               </div>
-              <Link
-                to="/app/mamemame"
-                className={`flex items-center gap-3 group transition-opacity ${currentSlide === 3 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
-                onMouseEnter={() => setCurrentSlide(3)}
+              <button
+                onClick={() => setCurrentSlide(3)}
+                className={`flex items-center gap-2 md:gap-3 group transition-opacity ${currentSlide === 3 ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
               >
                 <img
                   src="/images/Mamemame.png"
                   alt="豆マメ"
                   className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover"
                 />
-                <span className="text-sm md:text-base font-medium text-gray-800">豆マメ</span>
-              </Link>
+                <span className="text-xs md:text-base font-medium text-gray-800 hidden sm:block">豆マメ</span>
+              </button>
             </div>
           </div>
         </div>
@@ -573,13 +569,13 @@ const HomePage = () => {
 
       {/* Tagline Section */}
       <section
-        className="py-48 md:py-72 relative bg-cover bg-center"
+        className="py-24 md:py-48 lg:py-72 relative bg-cover bg-center"
         style={{ backgroundImage: "url('/images/Network1.1.png')" }}
       >
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center text-white drop-shadow-lg">
-            わかる、つながる、世界が広がる
+          <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold text-center text-white drop-shadow-lg leading-relaxed">
+            わかる、つながる、<br className="md:hidden" />世界が広がる
           </h2>
         </div>
       </section>
