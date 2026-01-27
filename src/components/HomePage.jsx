@@ -458,25 +458,24 @@ const HomePage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-[50vh] md:h-[calc(100vh-220px)] overflow-hidden bg-slate-100">
+      <section className="relative overflow-hidden bg-slate-100">
         {/* Background Slideshow */}
-        <div className="absolute inset-0 bg-slate-100">
+        <div className="relative w-full">
           {heroImages.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
+              className={`${index === 0 ? 'relative' : 'absolute inset-0'} transition-opacity duration-1000 ${
                 index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-contain md:object-contain bg-slate-100"
+                className="w-full h-auto max-h-[60vh] md:max-h-[calc(100vh-220px)] object-contain mx-auto"
               />
             </div>
           ))}
         </div>
-
       </section>
 
       {/* Promotion Banners Section */}
