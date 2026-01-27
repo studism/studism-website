@@ -95,7 +95,7 @@ function App() {
 
       {/* メインコンテンツ - スプラッシュ終了後にマウント */}
       {!showSplash && (
-        <div className="min-h-screen bg-background animate-fade-in">
+        <div className="min-h-screen bg-background animate-fade-in overflow-x-hidden">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<GeneralContact />} />
