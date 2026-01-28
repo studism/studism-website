@@ -58,16 +58,28 @@ function App() {
   // モバイルで動画を自動再生
   useEffect(() => {
     if (showSplash && videoRef.current) {
+      const video = videoRef.current;
+
       const playVideo = async () => {
         try {
-          await videoRef.current.play();
+          video.muted = true; // 確実にミュートにする
+          await video.play();
         } catch (error) {
-          // 自動再生が失敗した場合はスプラッシュをスキップ
           console.log('Video autoplay failed:', error);
-          setShowSplash(false);
+          // 自動再生失敗時はタップで再生できるようにする
         }
       };
-      playVideo();
+
+      // 動画が読み込まれたら再生
+      if (video.readyState >= 3) {
+        playVideo();
+      } else {
+        video.addEventListener('canplay', playVideo, { once: true });
+      }
+
+      return () => {
+        video.removeEventListener('canplay', playVideo);
+      };
     }
   }, [showSplash]);
 
@@ -94,6 +106,13 @@ function App() {
           className={`fixed inset-0 z-[9999] bg-white flex items-center justify-center transition-opacity duration-700 ease-out ${
             fadeOut ? 'opacity-0' : 'opacity-100'
           }`}
+          onClick={() => {
+            // タップで再生を試みる
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(() => {});
+            }
+          }}
         >
           <video
             ref={videoRef}
@@ -101,6 +120,7 @@ function App() {
             muted
             playsInline
             webkit-playsinline="true"
+            preload="auto"
             onEnded={handleVideoEnd}
             className="w-auto h-auto max-w-full max-h-full object-contain md:w-full md:h-full md:object-cover"
           >
