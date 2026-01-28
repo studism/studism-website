@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
@@ -42,6 +42,7 @@ function App() {
   // 毎回スプラッシュを表示
   const [showSplash, setShowSplash] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const videoRef = useRef(null);
 
   const handleVideoEnd = () => {
     // 動画終了後1秒待ってからフェードアウト開始
@@ -53,6 +54,22 @@ function App() {
       }, 500);
     }, 1000);
   };
+
+  // モバイルで動画を自動再生
+  useEffect(() => {
+    if (showSplash && videoRef.current) {
+      const playVideo = async () => {
+        try {
+          await videoRef.current.play();
+        } catch (error) {
+          // 自動再生が失敗した場合はスプラッシュをスキップ
+          console.log('Video autoplay failed:', error);
+          setShowSplash(false);
+        }
+      };
+      playVideo();
+    }
+  }, [showSplash]);
 
   // スプラッシュスクリーン表示中はスクロールを無効化
   useEffect(() => {
@@ -79,9 +96,11 @@ function App() {
           }`}
         >
           <video
+            ref={videoRef}
             autoPlay
             muted
             playsInline
+            webkit-playsinline="true"
             onEnded={handleVideoEnd}
             className="w-auto h-auto max-w-full max-h-full object-contain md:w-full md:h-full md:object-cover"
           >
