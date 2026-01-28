@@ -39,9 +39,8 @@ function RedirectHandler() {
 }
 
 function App() {
-  // セッション中に既に表示済みかチェック
-  const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
-  const [showSplash, setShowSplash] = useState(!hasSeenSplash);
+  // 毎回スプラッシュを表示
+  const [showSplash, setShowSplash] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
 
   const handleVideoEnd = () => {
@@ -51,8 +50,6 @@ function App() {
       // フェードアウトアニメーション後にスプラッシュを非表示
       setTimeout(() => {
         setShowSplash(false);
-        // セッションに表示済みを記録
-        sessionStorage.setItem('hasSeenSplash', 'true');
       }, 500);
     }, 1000);
   };
