@@ -88,7 +88,7 @@ function App() {
             onEnded={handleVideoEnd}
             className="w-auto h-auto max-w-full max-h-full object-contain md:w-full md:h-full md:object-cover"
           >
-            <source src={`${basename}images/animation/StudismRogo1.mp4`} type="video/mp4" />
+            <source src={`${basename}images/animation/StudismRogoM1.mp4`} type="video/mp4" />
           </video>
         </div>
       )}
