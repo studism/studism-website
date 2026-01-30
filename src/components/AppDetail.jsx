@@ -130,9 +130,6 @@ const AppDetail = () => {
                     />
                   </div>
                   <CardHeader className="text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto text-primary mb-2">
-                      {feature.icon}
-                    </div>
                     <CardTitle className="text-lg">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
@@ -156,7 +153,6 @@ const AppDetail = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <Card className="hover:shadow-lg transition-shadow">
                   <CardHeader className="text-center">
-                    <Shield className="w-8 h-8 text-primary mx-auto" />
                     <CardTitle>プライバシーポリシー</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
@@ -172,7 +168,6 @@ const AppDetail = () => {
                 </Card>
                 <Card className="hover:shadow-lg transition-shadow">
                   <CardHeader className="text-center">
-                    <MessageCircle className="w-8 h-8 text-primary mx-auto" />
                     <CardTitle>お問い合わせ</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
