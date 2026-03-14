@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Zap, BookOpen, Clock, Trophy, Download, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Zap, BookOpen, Clock, Trophy, Download } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -190,70 +190,6 @@ const FeaturesSection = () => (
   </section>
 );
 
-/* ═══════════ APPS ═══════════ */
-const APPS = [
-  { id:'sakuraenglish', name:'SakuraEnglish', sub:'英語を、桜のように咲かせよう', desc:'レベル別クイズ・カスタム単語リスト・復習機能で、スマホひとつで本格英語学習。', icon:'/images/sakuraenglish.png', badge:'語学学習', feats:[{e:'🎯',t:'レベル別クイズ'},{e:'📝',t:'カスタム単語リスト'},{e:'🔄',t:'スマート復習'}], grad:'linear-gradient(135deg,#ec4899 0%,#f97316 55%,#fbbf24 100%)', glow:'rgba(236,72,153,0.35)' },
-  { id:'timelyze',      name:'Timelyze',      sub:'時間を、最強の武器にしよう',   desc:'学習時間の記録・グラフ化・目標管理がこれ一本。毎日のルーティンが楽しくなる。', icon:'/images/timelyze.png',      badge:'生産性',   feats:[{e:'⏱',t:'時間記録・追跡'},{e:'📊',t:'データ可視化'},{e:'🎯',t:'目標管理'}],       grad:'linear-gradient(135deg,#6366f1 0%,#3b82f6 55%,#06b6d4 100%)', glow:'rgba(99,102,241,0.35)' },
-];
-const AppsSection = () => (
-  <section id="apps" className="py-28 relative overflow-hidden" style={{ background:'#070711' }}>
-    <span className="absolute left-0 bottom-0 font-black select-none pointer-events-none hidden xl:block" style={{ fontSize:200, lineHeight:0.85, color:'transparent', WebkitTextStroke:'1px rgba(255,255,255,0.025)', letterSpacing:'-0.06em' }}>APP</span>
-
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-      <div className="text-center mb-16 space-y-4">
-        <p className="text-sm font-black tracking-widest uppercase" style={{ color:'#fcd34d' }}>Our Apps</p>
-        <h2 className="font-black leading-tight text-white" style={{ fontSize:'clamp(2.2rem,5vw,3.5rem)', letterSpacing:'-0.03em' }}>
-          2つのアプリで<br />
-          <span style={{ background:'linear-gradient(135deg,#fcd34d,#f97316)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>学びが変わる</span>
-        </h2>
-      </div>
-
-      <div className="space-y-7 max-w-4xl mx-auto">
-        {APPS.map(app => (
-          <div key={app.id} className="group relative rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.018] hover:-translate-y-1"
-            style={{ background:app.grad, boxShadow:`0 24px 80px ${app.glow}, 0 4px 20px rgba(0,0,0,0.5)` }}>
-            {/* scan line */}
-            <div className="absolute left-0 w-full h-px scan-line pointer-events-none" style={{ background:'linear-gradient(90deg,transparent,rgba(255,255,255,0.45),transparent)' }} />
-            {/* gloss */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background:'linear-gradient(145deg,rgba(255,255,255,0.14) 0%,transparent 55%)' }} />
-
-            <div className="relative p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-[2rem] flex items-center justify-center group-hover:rotate-3 transition-transform duration-400"
-                style={{ background:'rgba(255,255,255,0.18)', backdropFilter:'blur(12px)', border:'1.5px solid rgba(255,255,255,0.3)' }}>
-                <img src={app.icon} alt={app.name} className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-2xl" />
-              </div>
-
-              <div className="flex-1 text-center md:text-left space-y-3">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-black text-white/80 bg-white/15 border border-white/25">{app.badge}</span>
-                <h3 className="text-3xl md:text-4xl font-black text-white leading-tight">{app.name}</h3>
-                <p className="font-bold" style={{ color:'rgba(255,255,255,0.75)' }}>{app.sub}</p>
-                <p className="text-sm leading-relaxed max-w-md" style={{ color:'rgba(255,255,255,0.6)' }}>{app.desc}</p>
-                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                  {app.feats.map((f,j) => (
-                    <span key={j} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white" style={{ background:'rgba(255,255,255,0.14)', border:'1px solid rgba(255,255,255,0.2)' }}>
-                      {f.e} {f.t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex-shrink-0 flex flex-col gap-3">
-                <Link to={`/app/${app.id}`} className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-black text-sm transition-all hover:scale-105"
-                  style={{ background:'rgba(255,255,255,0.95)', color:'#1e1b4b', boxShadow:'0 4px 20px rgba(0,0,0,0.25)' }}>
-                  詳細を見る <ArrowRight className="w-4 h-4" />
-                </Link>
-                <button className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm text-white transition-all hover:bg-white/25"
-                  style={{ background:'rgba(255,255,255,0.12)', border:'1px solid rgba(255,255,255,0.25)' }}>
-                  <Download className="w-4 h-4" /> ダウンロード
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
 
 /* ═══════════ CTA ═══════════ */
 const CTASection = () => (
@@ -331,7 +267,6 @@ export default function HomePage() {
       <Hero />
       <Marquee />
       <FeaturesSection />
-      <AppsSection />
       <CTASection />
       <NewsSection />
       <Footer />
