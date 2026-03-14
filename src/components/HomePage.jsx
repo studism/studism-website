@@ -126,7 +126,7 @@ function Hero() {
               const isMain = offset === 0;
               return (
                 <div key={offset} className="relative flex-shrink-0"
-                  style={{ width: 'clamp(180px, 22vw, 260px)', marginLeft: offset === 1 ? '-2rem' : 0, zIndex: isMain ? 1 : 2 }}>
+                  style={{ width: 'clamp(180px, 22vw, 260px)' }}>
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
                     style={{ width: '80%', height: 40, background: 'radial-gradient(ellipse, rgba(124,58,237,0.3), transparent 70%)', filter: 'blur(12px)' }} />
                   <div className={`relative rounded-[2.6rem] ${isMain ? 'animate-float' : 'animate-float-slow'}`}
