@@ -29,15 +29,30 @@ function Hero() {
   return (
     <section className="relative overflow-hidden" style={{ background: '#FAFAFE', minHeight: 'calc(100vh - 68px)' }}>
 
-      {/* ── 背景：メッシュグラデーション ── */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 70% 60% at 80% 10%, rgba(167,139,250,0.13) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(244,114,182,0.10) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 60% 90%, rgba(251,191,36,0.08) 0%, transparent 60%)',
-      }} />
-      {/* グリッドパターン */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px)',
-        backgroundSize: '56px 56px',
-      }} />
+      {/* ── 背景：ポップカラーブロブ群 ── */}
+      {/* 大きなブロブ */}
+      <div className="absolute pointer-events-none animate-float-slow"
+        style={{ top: '-8%', right: '-4%', width: 520, height: 520, borderRadius: '63% 37% 54% 46% / 44% 58% 42% 56%', background: 'linear-gradient(135deg,#C4B5FD,#A78BFA)', opacity: 0.35, filter: 'blur(1px)' }} />
+      <div className="absolute pointer-events-none animate-float-slow"
+        style={{ bottom: '-10%', left: '-6%', width: 440, height: 440, borderRadius: '42% 58% 47% 53% / 56% 38% 62% 44%', background: 'linear-gradient(135deg,#FCA5A5,#F472B6)', opacity: 0.3, filter: 'blur(1px)', animationDelay: '2s' }} />
+      <div className="absolute pointer-events-none animate-float"
+        style={{ top: '30%', left: '-3%', width: 260, height: 260, borderRadius: '50%', background: 'linear-gradient(135deg,#6EE7B7,#34D399)', opacity: 0.28, filter: 'blur(1px)', animationDelay: '1s' }} />
+      <div className="absolute pointer-events-none animate-float"
+        style={{ top: '5%', left: '35%', width: 180, height: 180, borderRadius: '50%', background: 'linear-gradient(135deg,#FDE68A,#FCD34D)', opacity: 0.4, filter: 'blur(1px)', animationDelay: '0.5s' }} />
+      <div className="absolute pointer-events-none animate-float-slow"
+        style={{ bottom: '5%', right: '20%', width: 200, height: 200, borderRadius: '50%', background: 'linear-gradient(135deg,#7DD3FC,#38BDF8)', opacity: 0.3, filter: 'blur(1px)', animationDelay: '1.5s' }} />
+      <div className="absolute pointer-events-none animate-float"
+        style={{ top: '55%', right: '5%', width: 140, height: 140, borderRadius: '50%', background: 'linear-gradient(135deg,#FB923C,#FBBF24)', opacity: 0.3, filter: 'blur(1px)', animationDelay: '2.5s' }} />
+
+      {/* 小さな装飾ドット */}
+      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '18%', left: '18%', width: 18, height: 18, borderRadius: '50%', background: '#F472B6', opacity: 0.7 }} />
+      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '72%', right: '38%', width: 14, height: 14, borderRadius: '50%', background: '#34D399', opacity: 0.7, animationDelay: '0.8s' }} />
+      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '42%', right: '12%', width: 10, height: 10, borderRadius: '50%', background: '#FBBF24', opacity: 0.8, animationDelay: '1.6s' }} />
+      <div className="absolute pointer-events-none animate-pulse-glow" style={{ bottom: '22%', left: '28%', width: 12, height: 12, borderRadius: '50%', background: '#A78BFA', opacity: 0.7, animationDelay: '0.4s' }} />
+      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '12%', right: '32%', width: 8, height: 8, borderRadius: '50%', background: '#38BDF8', opacity: 0.8, animationDelay: '1.2s' }} />
+
+      {/* 薄いオーバーレイで読みやすさ確保 */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(250,250,254,0.45)' }} />
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col justify-center" style={{ minHeight: 'inherit' }}>
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center py-16">
