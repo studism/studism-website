@@ -7,7 +7,8 @@ const Header = () => {
       <div className="container mx-auto px-6 md:px-12 lg:px-20 py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 hover:opacity-85 transition-opacity">
-            <img src="/images/Studismlogo.png" alt="Studism" className="h-12 w-auto" />
+            <img src="/images/背景透過 2.png" alt="Studism bird" className="h-10 w-auto" />
+            <img src="/images/Studism横影なし 2.png" alt="Studism" className="h-9 w-auto" />
           </Link>
           <nav className="hidden md:flex items-center gap-1">
             {[
