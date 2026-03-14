@@ -1,139 +1,170 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, ArrowRight } from 'lucide-react';
+import { ArrowRight, Zap, Sparkles } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-/* ═══════════ HERO ═══════════ */
+/* ════════════════════════════
+   HERO
+════════════════════════════ */
 const Hero = () => (
-  <section className="relative overflow-hidden flex items-center" style={{ minHeight: 'calc(100vh - 68px)', background: '#070711' }}>
+  <section className="relative overflow-hidden" style={{ minHeight: 'calc(100vh - 68px)', background: '#FAFAFE' }}>
 
-    {/* mesh gradient */}
-    <div className="absolute inset-0 pointer-events-none">
-      <div style={{ position:'absolute', top:'-15%', right:'-10%', width:700, height:700, borderRadius:'50%', background:'radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 65%)', filter:'blur(80px)' }} />
-      <div style={{ position:'absolute', bottom:'-20%', left:'-10%', width:600, height:600, borderRadius:'50%', background:'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 65%)', filter:'blur(80px)' }} />
-      <div style={{ position:'absolute', top:'40%', left:'42%', width:400, height:400, borderRadius:'50%', background:'radial-gradient(circle, rgba(6,182,212,0.07) 0%, transparent 70%)', filter:'blur(60px)' }} />
-    </div>
+    {/* ── 背景のカラフルなブロブ ── */}
+    <div className="absolute pointer-events-none" style={{ top: '-12%', right: '-8%', width: 500, height: 500, borderRadius: '60% 40% 55% 45% / 45% 60% 40% 55%', background: 'linear-gradient(135deg, #FFB3C8, #FF8FAB)', opacity: 0.25, filter: 'blur(2px)' }} />
+    <div className="absolute pointer-events-none" style={{ bottom: '-14%', left: '-6%', width: 420, height: 420, borderRadius: '40% 60% 45% 55% / 55% 40% 60% 45%', background: 'linear-gradient(135deg, #B5F0E0, #67E8B0)', opacity: 0.3, filter: 'blur(2px)' }} />
+    <div className="absolute pointer-events-none" style={{ top: '55%', right: '30%', width: 220, height: 220, borderRadius: '50%', background: '#FFE5A0', opacity: 0.35, filter: 'blur(1px)' }} />
+    <div className="absolute pointer-events-none" style={{ top: '8%', left: '32%', width: 140, height: 140, borderRadius: '50%', background: '#C4B5FD', opacity: 0.3, filter: 'blur(1px)' }} />
 
-    {/* subtle dot grid */}
-    <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage:'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)', backgroundSize:'40px 40px' }} />
+    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex items-center" style={{ minHeight: 'inherit' }}>
+      <div className="grid lg:grid-cols-2 gap-12 items-center w-full py-16">
 
-    {/* ghost text */}
-    <span className="absolute right-0 bottom-0 font-black select-none pointer-events-none hidden xl:block" style={{ fontSize:240, lineHeight:0.85, color:'transparent', WebkitTextStroke:'1px rgba(255,255,255,0.03)', letterSpacing:'-0.06em' }}>
-      STUDY
-    </span>
+        {/* ── 左：テキスト ── */}
+        <div className="space-y-8">
 
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 py-20">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-        {/* ── text ── */}
-        <div className="space-y-9">
-          {/* eyebrow */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase" style={{ background:'rgba(99,102,241,0.12)', border:'1px solid rgba(99,102,241,0.3)', color:'#818cf8' }}>
-            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+          {/* バッジ */}
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-black text-sm"
+            style={{ background: 'linear-gradient(135deg, #EDE9FE, #DDD6FE)', color: '#6D28D9' }}>
+            <Sparkles className="w-4 h-4" />
             学習アプリ — 完全無料
           </div>
 
-          {/* headline */}
-          <div className="space-y-1">
-            <p className="text-xl font-bold" style={{ color:'rgba(255,255,255,0.35)' }}>勉強が、もっと</p>
-            <h1 className="font-black leading-none" style={{ fontSize:'clamp(4rem,10vw,8rem)', letterSpacing:'-0.04em' }}>
-              <span style={{ display:'block', background:'linear-gradient(135deg,#c7d2fe 0%,#818cf8 40%,#06b6d4 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
-                たのしく
-              </span>
-              <span style={{ display:'block', color:'#fff' }}>
-                なる。
+          {/* ヘッドライン */}
+          <div>
+            <p className="text-lg font-bold mb-2" style={{ color: '#94A3B8' }}>勉強が、もっと</p>
+            <h1 className="font-black leading-none" style={{ fontSize: 'clamp(3.5rem, 9vw, 7rem)', letterSpacing: '-0.04em', color: '#1E1B4B' }}>
+              たのしく
+              <br />
+              <span style={{ background: 'linear-gradient(135deg, #A78BFA 0%, #F472B6 50%, #FB923C 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                なろう。
               </span>
             </h1>
           </div>
 
-          <p className="text-lg leading-relaxed" style={{ color:'rgba(255,255,255,0.5)', maxWidth:'26rem' }}>
+          <p className="text-lg leading-relaxed" style={{ color: '#64748B', maxWidth: '26rem' }}>
             Studismのアプリで、英語学習も時間管理も
-            ゲーム感覚で続けられる。今日から変わろう。
+            自分のペースで楽しく続けられる。
           </p>
 
-          {/* CTAs */}
+          {/* ボタン */}
           <div className="flex flex-wrap gap-4">
-            <a href="#apps" className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-sm text-white transition-all duration-300 hover:scale-105 group"
-              style={{ background:'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow:'0 8px 32px rgba(99,102,241,0.4)' }}>
+            <a href="#news"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-sm text-white transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+              style={{ background: 'linear-gradient(135deg, #7C3AED, #A855F7)', boxShadow: '0 8px 28px rgba(124,58,237,0.35)' }}>
               <Zap className="w-4 h-4" />
               今すぐはじめる
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#about" className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-black text-sm transition-all hover:scale-105 hover:bg-white/8"
-              style={{ border:'1.5px solid rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.7)' }}>
-              詳しく見る
-            </a>
+            <Link to="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-black text-sm transition-all hover:scale-105"
+              style={{ background: '#fff', color: '#7C3AED', border: '2.5px solid #DDD6FE', boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}>
+              お問い合わせ
+            </Link>
           </div>
 
-          {/* stats */}
-          <div className="flex items-center gap-8 pt-2">
+          {/* ミニスタット */}
+          <div className="flex items-center gap-6 pt-2 flex-wrap">
             {[
-              { n:'2',    l:'Apps',    c:'#818cf8' },
-              { n:'4.8★', l:'Rating',  c:'#fcd34d' },
-              { n:'Free', l:'完全無料', c:'#34d399' },
-            ].map((s,i) => (
-              <div key={i}>
-                <div className="text-2xl font-black" style={{ color:s.c }}>{s.n}</div>
-                <div className="text-xs font-bold uppercase tracking-wider" style={{ color:'rgba(255,255,255,0.25)' }}>{s.l}</div>
+              { n: '2',      l: 'アプリ公開中', bg: '#EDE9FE', c: '#6D28D9' },
+              { n: '4.8',    l: '平均評価',     bg: '#FEF3C7', c: '#92400E' },
+              { n: '無料',   l: '完全無料',     bg: '#DCFCE7', c: '#166534' },
+            ].map((s, i) => (
+              <div key={i} className="px-4 py-2.5 rounded-2xl text-center" style={{ background: s.bg }}>
+                <div className="text-xl font-black" style={{ color: s.c }}>{s.n}</div>
+                <div className="text-xs font-bold" style={{ color: s.c, opacity: 0.7 }}>{s.l}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── visual ── */}
-        <div className="flex items-center justify-center relative">
-          {/* outer ring */}
-          <div className="absolute rounded-full animate-spin-slow" style={{ width:'88%', height:'88%', background:'conic-gradient(from 0deg,#6366f1,#8b5cf6,#06b6d4,#6366f1)', opacity:0.15, padding:1 }} />
-          {/* glow disk */}
-          <div className="absolute rounded-full animate-pulse-glow" style={{ width:'65%', height:'65%', background:'radial-gradient(circle,rgba(99,102,241,0.28) 0%,rgba(139,92,246,0.12) 55%,transparent 80%)' }} />
-          {/* inner ring */}
-          <div className="absolute rounded-full" style={{ width:'56%', height:'56%', border:'1px dashed rgba(99,102,241,0.2)', animation:'spin-slow 25s linear infinite reverse' }} />
+        {/* ── 右：カラフルなビジュアル ── */}
+        <div className="flex items-center justify-center relative" style={{ minHeight: 460 }}>
 
-          {/* center card */}
-          <div className="relative z-10 w-56 h-56 md:w-72 md:h-72 rounded-[3rem] flex flex-col items-center justify-center gap-4 animate-float-slow"
-            style={{ background:'rgba(255,255,255,0.04)', backdropFilter:'blur(20px)', border:'1px solid rgba(255,255,255,0.08)', boxShadow:'0 32px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)' }}>
-            {/* gloss */}
-            <div className="absolute inset-0 rounded-[3rem] overflow-hidden pointer-events-none">
-              <div style={{ position:'absolute', top:0, left:0, right:0, height:'50%', background:'linear-gradient(180deg,rgba(255,255,255,0.06),transparent)', borderRadius:'3rem 3rem 0 0' }} />
+          {/* メインの大きな円 */}
+          <div className="absolute rounded-full animate-float-slow"
+            style={{ width: 320, height: 320, background: 'linear-gradient(145deg, #EDE9FE 0%, #DDD6FE 50%, #C4B5FD 100%)', boxShadow: '0 24px 60px rgba(124,58,237,0.2)' }} />
+
+          {/* 中央カード */}
+          <div className="relative z-10 rounded-[2.5rem] px-10 py-10 text-center animate-float-slow"
+            style={{ background: '#fff', boxShadow: '0 20px 60px rgba(124,58,237,0.15)', border: '2px solid #EDE9FE', minWidth: 220, animationDelay: '0.3s' }}>
+            <div className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #7C3AED, #A855F7)' }}>
+              <span className="font-black text-white text-2xl">S</span>
             </div>
-            <span style={{ fontSize:64 }}>🎓</span>
-            <div className="text-center px-4">
-              <p className="font-black text-white text-lg leading-tight">Studism</p>
-              <p className="text-xs font-bold" style={{ color:'rgba(255,255,255,0.4)' }}>Learn · Grow · Shine</p>
+            <p className="font-black text-lg" style={{ color: '#1E1B4B' }}>Studism</p>
+            <p className="text-xs font-bold mt-1" style={{ color: '#94A3B8' }}>Learn · Grow · Shine</p>
+          </div>
+
+          {/* 浮かぶ小カード — SakuraEnglish */}
+          <div className="absolute z-20 rounded-2xl px-4 py-3 animate-float"
+            style={{ top: '6%', right: '4%', background: '#fff', boxShadow: '0 8px 28px rgba(244,114,182,0.2)', border: '2px solid #FCE7F3' }}>
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: 'linear-gradient(135deg, #EC4899, #F97316)' }}>
+                <img src="/images/sakuraenglish.png" alt="SakuraEnglish" className="w-6 h-6 object-contain" />
+              </div>
+              <div>
+                <p className="text-xs font-black" style={{ color: '#1E1B4B' }}>SakuraEnglish</p>
+                <p className="text-xs" style={{ color: '#94A3B8' }}>語学学習</p>
+              </div>
             </div>
           </div>
 
-          {/* floating chips */}
-          {[
-            { label:'📚 語学学習', top:'6%',  right:'2%',  c:'#818cf8', d:'0s'   },
-            { label:'⏱ 時間管理', bottom:'18%', right:'-2%', c:'#67e8f9', d:'1.2s' },
-            { label:'🆓 無料',    top:'38%', left:'-4%',  c:'#34d399', d:'0.6s' },
-            { label:'⭐ 4.8',    bottom:'6%',  left:'6%',   c:'#fcd34d', d:'1.8s' },
-          ].map((ch,i) => (
-            <div key={i} className="absolute hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black animate-sticker"
-              style={{ top:ch.top, right:ch.right, bottom:ch.bottom, left:ch.left, background:`${ch.c}14`, border:`1px solid ${ch.c}35`, color:ch.c, animationDelay:ch.d, '--r':'0deg', boxShadow:`0 4px 20px ${ch.c}20` }}>
-              {ch.label}
+          {/* 浮かぶ小カード — Timelyze */}
+          <div className="absolute z-20 rounded-2xl px-4 py-3 animate-float"
+            style={{ bottom: '10%', left: '2%', background: '#fff', boxShadow: '0 8px 28px rgba(99,102,241,0.2)', border: '2px solid #E0E7FF', animationDelay: '1.5s' }}>
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: 'linear-gradient(135deg, #6366F1, #06B6D4)' }}>
+                <img src="/images/timelyze.png" alt="Timelyze" className="w-6 h-6 object-contain" />
+              </div>
+              <div>
+                <p className="text-xs font-black" style={{ color: '#1E1B4B' }}>Timelyze</p>
+                <p className="text-xs" style={{ color: '#94A3B8' }}>時間管理</p>
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* 評価バッジ */}
+          <div className="absolute z-20 rounded-2xl px-4 py-2.5 animate-float"
+            style={{ bottom: '22%', right: '0%', background: '#FFFBEB', boxShadow: '0 6px 20px rgba(251,191,36,0.25)', border: '2px solid #FDE68A', animationDelay: '0.8s' }}>
+            <div className="flex items-center gap-1.5">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-3 h-3" viewBox="0 0 20 20" fill="#FBBF24"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                ))}
+              </div>
+              <span className="text-xs font-black" style={{ color: '#92400E' }}>4.8</span>
+            </div>
+          </div>
+
+          {/* 装飾の小さな円 */}
+          <div className="absolute rounded-full animate-pulse-glow" style={{ top: '30%', left: '8%', width: 16, height: 16, background: '#F472B6' }} />
+          <div className="absolute rounded-full animate-pulse-glow" style={{ top: '70%', right: '10%', width: 12, height: 12, background: '#34D399', animationDelay: '1s' }} />
+          <div className="absolute rounded-full animate-pulse-glow" style={{ top: '15%', left: '22%', width: 10, height: 10, background: '#FBBF24', animationDelay: '0.5s' }} />
         </div>
+
       </div>
     </div>
   </section>
 );
 
-/* ═══════════ MARQUEE ═══════════ */
-const WORDS = ['STUDY SMART','LEVEL UP','STAY FOCUSED','HAVE FUN','FREE TO USE','iOS & ANDROID','LEARN DAILY','BE AWESOME'];
-const COLORS = ['#818cf8','#67e8f9','#c084fc','#fcd34d','#34d399','#f9a8d4','#a5f3fc','#fca5a5'];
+/* ════════════════════════════
+   MARQUEE
+════════════════════════════ */
+const WORDS  = ['STUDY SMART', 'LEVEL UP', 'STAY FOCUSED', 'HAVE FUN', 'FREE TO USE', 'iOS & ANDROID', 'LEARN DAILY', 'BE AWESOME'];
+const COLORS = ['#7C3AED', '#EC4899', '#F97316', '#059669', '#2563EB', '#DB2777', '#D97706', '#7C3AED'];
+
 const Marquee = () => (
-  <div className="overflow-hidden py-3.5 select-none" style={{ background:'rgba(255,255,255,0.02)', borderTop:'1px solid rgba(255,255,255,0.05)', borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+  <div className="overflow-hidden select-none py-4"
+    style={{ background: '#1E1B4B', borderTop: '3px solid #7C3AED', borderBottom: '3px solid #7C3AED' }}>
     <div className="flex animate-marquee whitespace-nowrap">
-      {[0,1].map(k => (
+      {[0, 1].map(k => (
         <div key={k} className="flex items-center gap-10 px-10 flex-shrink-0">
-          {WORDS.map((w,i) => (
-            <span key={i} className="flex items-center gap-4">
-              <span className="text-sm font-black tracking-widest" style={{ color:COLORS[i%8] }}>{w}</span>
-              <span style={{ color:'rgba(255,255,255,0.08)' }}>◆</span>
+          {WORDS.map((w, i) => (
+            <span key={i} className="flex items-center gap-4 text-sm font-black tracking-widest">
+              <span style={{ color: COLORS[i % 8] }}>{w}</span>
+              <span style={{ color: 'rgba(255,255,255,0.15)' }}>◆</span>
             </span>
           ))}
         </div>
@@ -142,34 +173,47 @@ const Marquee = () => (
   </div>
 );
 
-
-/* ═══════════ NEWS ═══════════ */
+/* ════════════════════════════
+   NEWS
+════════════════════════════ */
 const NEWS = [
-  { date:'2025年11月22日', title:'公式ウェブサイトをリニューアルオープンしました',          type:'お知らせ',    c:'#818cf8', e:'🎉' },
-  { date:'2025年11月20日', title:'お問い合わせフォームのシステムを更新しました',            type:'アップデート', c:'#67e8f9', e:'🔧' },
-  { date:'2025年11月15日', title:'「SakuraEnglish」に新しい単語リストを追加しました',       type:'アップデート', c:'#34d399', e:'📚' },
+  { date: '2025年11月22日', title: '公式ウェブサイトをリニューアルオープンしました', type: 'お知らせ',    bg: '#EDE9FE', border: '#C4B5FD', c: '#6D28D9' },
+  { date: '2025年11月20日', title: 'お問い合わせフォームのシステムを更新しました',    type: 'アップデート', bg: '#E0F2FE', border: '#7DD3FC', c: '#0369A1' },
+  { date: '2025年11月15日', title: '「SakuraEnglish」に新しい単語リストを追加しました', type: 'アップデート', bg: '#FCE7F3', border: '#F9A8D4', c: '#9D174D' },
 ];
+
 const NewsSection = () => (
-  <section id="news" className="py-24" style={{ background:'#070711' }}>
-    <div className="container mx-auto px-6 md:px-12 lg:px-20">
+  <section id="news" className="py-24 relative overflow-hidden" style={{ background: '#F8F7FF' }}>
+    {/* 装飾ブロブ */}
+    <div className="absolute pointer-events-none" style={{ top: 0, right: 0, width: 300, height: 300, borderRadius: '0 0 0 100%', background: 'linear-gradient(135deg, #EDE9FE, #DDD6FE)', opacity: 0.5 }} />
+    <div className="absolute pointer-events-none" style={{ bottom: 0, left: 0, width: 240, height: 240, borderRadius: '0 100% 0 0', background: 'linear-gradient(135deg, #FCE7F3, #FBCFE8)', opacity: 0.5 }} />
+
+    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
       <div className="text-center mb-14 space-y-3">
-        <p className="text-sm font-black tracking-widest uppercase" style={{ color:'#34d399' }}>News</p>
-        <h2 className="font-black text-white" style={{ fontSize:'clamp(2rem,4vw,3rem)', letterSpacing:'-0.03em' }}>最新情報</h2>
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full font-black text-sm"
+          style={{ background: '#EDE9FE', color: '#6D28D9' }}>
+          最新情報
+        </div>
+        <h2 className="font-black" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-0.03em', color: '#1E1B4B' }}>
+          お知らせ
+        </h2>
       </div>
+
       <div className="max-w-2xl mx-auto space-y-4">
-        {NEWS.map((n,i) => (
-          <div key={i} className="flex items-start gap-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 cursor-default"
-            style={{ background:'rgba(255,255,255,0.03)', border:`1px solid ${n.c}20` }}
-            onMouseEnter={e => e.currentTarget.style.background=`${n.c}08`}
-            onMouseLeave={e => e.currentTarget.style.background='rgba(255,255,255,0.03)'}>
-            <span className="text-2xl flex-shrink-0">{n.e}</span>
+        {NEWS.map((n, i) => (
+          <div key={i}
+            className="flex items-start gap-4 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            style={{ background: n.bg, border: `2px solid ${n.border}` }}>
             <div className="flex-1 space-y-1.5">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-black" style={{ background:`${n.c}18`, color:n.c }}>{n.type}</span>
-                <span className="text-xs font-mono" style={{ color:'rgba(255,255,255,0.2)' }}>{n.date}</span>
+                <span className="px-3 py-1 rounded-full text-xs font-black text-white" style={{ background: n.c }}>
+                  {n.type}
+                </span>
+                <span className="text-xs font-bold" style={{ color: n.c, opacity: 0.6 }}>{n.date}</span>
               </div>
-              <p className="text-sm font-semibold" style={{ color:'rgba(255,255,255,0.7)' }}>{n.title}</p>
+              <p className="text-sm font-bold leading-relaxed" style={{ color: '#1E1B4B' }}>{n.title}</p>
             </div>
+            <ArrowRight className="w-4 h-4 flex-shrink-0 mt-1" style={{ color: n.c }} />
           </div>
         ))}
       </div>
@@ -177,11 +221,13 @@ const NewsSection = () => (
   </section>
 );
 
-/* ═══════════ PAGE ═══════════ */
+/* ════════════════════════════
+   PAGE
+════════════════════════════ */
 export default function HomePage() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
-    <div style={{ background:'#070711' }}>
+    <div style={{ background: '#FAFAFE' }}>
       <Header />
       <Hero />
       <Marquee />
