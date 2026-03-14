@@ -73,10 +73,7 @@ function Hero() {
             style={{
               fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
               letterSpacing: '-0.04em',
-              background: feat.grad,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              color: '#1E1B4B',
             }}>
             {feat.text}
           </h1>
