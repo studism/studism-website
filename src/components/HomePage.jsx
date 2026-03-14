@@ -37,7 +37,7 @@ function Hero() {
   const ssIdx = idx % SCREENSHOTS.length;
 
   return (
-    <section className="relative overflow-hidden" style={{ background: '#E0F4FF', minHeight: 'calc(100vh - 68px)' }}>
+    <section className="relative overflow-hidden" style={{ background: '#7DD3F0', minHeight: 'calc(100vh - 68px)' }}>
 
       {/* ── 背景：学習記号 ── */}
       {[
