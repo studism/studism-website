@@ -37,7 +37,7 @@ function Hero() {
   const ssIdx = idx % SCREENSHOTS.length;
 
   return (
-    <section className="relative overflow-hidden" style={{ background: '#AAFFFF', minHeight: 'calc(100vh - 68px)' }}>
+    <section className="relative overflow-hidden" style={{ background: '#5DCFEA', minHeight: 'calc(100vh - 68px)' }}>
 
       {/* ── 背景：学習記号 ── */}
       {[
@@ -78,7 +78,7 @@ function Hero() {
           style={{
             top: item.top, left: item.left,
             fontSize: item.size, fontWeight: 900,
-            color: '#0369A1',
+            color: '#ffffff',
             opacity: item.op,
             transform: `rotate(${item.rot}deg)`,
             animationDelay: item.delay,
