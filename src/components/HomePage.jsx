@@ -11,11 +11,11 @@ const SCREENSHOTS = [
 ];
 
 const FEATURES = [
-  { text: 'レベル別クイズで\n着実にステップアップ',   grad: 'linear-gradient(135deg,#7C3AED,#A855F7)' },
-  { text: 'カスタム単語リストで\n自分だけの学習を',   grad: 'linear-gradient(135deg,#EC4899,#F97316)' },
-  { text: '復習リマインダーで\n毎日続けられる',       grad: 'linear-gradient(135deg,#0EA5E9,#06B6D4)' },
-  { text: 'ゲーム感覚で\n楽しく英語力アップ',         grad: 'linear-gradient(135deg,#10B981,#34D399)' },
-  { text: '発音チェックで\nネイティブに近づこう',     grad: 'linear-gradient(135deg,#F59E0B,#FB923C)' },
+  { text: 'レベル別クイズで着実にステップアップ',   grad: 'linear-gradient(135deg,#7C3AED,#A855F7)' },
+  { text: 'カスタム単語リストで自分だけの学習を',   grad: 'linear-gradient(135deg,#EC4899,#F97316)' },
+  { text: '復習リマインダーで毎日続けられる',       grad: 'linear-gradient(135deg,#0EA5E9,#06B6D4)' },
+  { text: 'ゲーム感覚で楽しく英語力アップ',         grad: 'linear-gradient(135deg,#10B981,#34D399)' },
+  { text: '発音チェックでネイティブに近づこう',     grad: 'linear-gradient(135deg,#F59E0B,#FB923C)' },
 ];
 
 function Hero() {
@@ -69,10 +69,10 @@ function Hero() {
         {/* ══ 上段：機能テキスト（全幅・大） ══ */}
         <div className="pt-12 pb-10 text-center"
           style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(10px)', transition: 'opacity 0.35s ease, transform 0.35s ease' }}>
-          <h1 className="font-black leading-tight whitespace-pre-line"
+          <h1 className="font-black"
             style={{
-              fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
-              letterSpacing: '-0.04em',
+              fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)',
+              letterSpacing: '-0.02em',
               color: '#1E1B4B',
             }}>
             {feat.text}
