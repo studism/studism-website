@@ -78,26 +78,12 @@ function Hero() {
             </div>
 
             {/* コピー */}
-            <div className="text-center lg:text-left space-y-4">
+            <div className="text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black tracking-wider"
                 style={{ background: 'linear-gradient(135deg,#EDE9FE,#DDD6FE)', color: '#6D28D9', border: '1px solid #C4B5FD' }}>
                 <Sparkles className="w-3 h-3" />
                 完全無料の学習アプリ
               </div>
-              <h1 className="font-black leading-[1.05]" style={{ fontSize: 'clamp(2.8rem, 6vw, 5.2rem)', letterSpacing: '-0.04em', color: '#1E1B4B' }}>
-                勉強が、
-                <br />
-                <span style={{
-                  background: 'linear-gradient(135deg,#7C3AED 0%,#EC4899 50%,#F97316 100%)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                }}>
-                  もっとたのしく。
-                </span>
-              </h1>
-              <p className="text-[0.95rem] leading-relaxed" style={{ color: '#64748B', maxWidth: '22rem' }}>
-                Studismのアプリで、英語学習も時間管理も<br />
-                自分のペースで楽しく続けられる。
-              </p>
             </div>
 
             {/* CTA */}
