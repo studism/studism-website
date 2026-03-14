@@ -10,6 +10,13 @@ const SCREENSHOTS = [
   '/images/screenshots/SakuraEnglish-ss03.webp',
 ];
 
+const FEATURES = [
+  { text: 'レベル別クイズで\n着実にステップアップ',   grad: 'linear-gradient(135deg,#7C3AED,#A855F7)' },
+  { text: 'カスタム単語リストで\n自分だけの学習を',   grad: 'linear-gradient(135deg,#EC4899,#F97316)' },
+  { text: '復習リマインダーで\n毎日続けられる',       grad: 'linear-gradient(135deg,#0EA5E9,#06B6D4)' },
+  { text: 'ゲーム感覚で\n楽しく英語力アップ',         grad: 'linear-gradient(135deg,#10B981,#34D399)' },
+  { text: '発音チェックで\nネイティブに近づこう',     grad: 'linear-gradient(135deg,#F59E0B,#FB923C)' },
+];
 
 function Hero() {
   const [idx, setIdx] = useState(0);
@@ -19,12 +26,15 @@ function Hero() {
     const id = setInterval(() => {
       setVisible(false);
       setTimeout(() => {
-        setIdx(i => (i + 1) % SCREENSHOTS.length);
+        setIdx(i => (i + 1) % FEATURES.length);
         setVisible(true);
       }, 350);
-    }, 3200);
+    }, 3000);
     return () => clearInterval(id);
   }, []);
+
+  const feat = FEATURES[idx];
+  const ssIdx = idx % SCREENSHOTS.length;
 
   return (
     <section className="relative overflow-hidden" style={{ background: '#FAFAFE', minHeight: 'calc(100vh - 68px)' }}>
@@ -55,92 +65,87 @@ function Hero() {
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(250,250,254,0.45)' }} />
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col justify-center" style={{ minHeight: 'inherit' }}>
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center py-16">
 
-          {/* ══ 左カラム ══ */}
-          <div className="flex flex-col items-center lg:items-start gap-8 order-2 lg:order-1">
+        {/* ══ 上段：機能テキスト（全幅・大） ══ */}
+        <div className="pt-12 pb-10 text-center"
+          style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(10px)', transition: 'opacity 0.35s ease, transform 0.35s ease' }}>
+          <h1 className="font-black leading-tight whitespace-pre-line"
+            style={{
+              fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
+              letterSpacing: '-0.04em',
+              background: feat.grad,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+            {feat.text}
+          </h1>
+          <div className="flex justify-center gap-2 mt-5">
+            {FEATURES.map((f, i) => (
+              <button key={i} onClick={() => { setIdx(i); setVisible(true); }}
+                style={{
+                  width: i === idx ? 28 : 8, height: 8, borderRadius: 99,
+                  background: i === idx ? feat.grad : 'rgba(124,58,237,0.2)',
+                  border: 'none', padding: 0, cursor: 'pointer',
+                  transition: 'width 0.3s ease',
+                }} />
+            ))}
+          </div>
+        </div>
 
-            {/* アイコン */}
+        {/* ══ 下段：アイコン（左）＋スマホ（右） ══ */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center pb-12">
+
+          {/* ── 左：アイコン＋検索ボックス ── */}
+          <div className="flex flex-col items-center gap-6 order-2 lg:order-1">
             <div className="relative animate-float-slow">
-              {/* グロウリング */}
-              <div className="absolute inset-0 rounded-full animate-pulse-glow" style={{
-                background: 'radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%)',
-                transform: 'scale(1.6)',
+              <div className="absolute inset-0 animate-pulse-glow pointer-events-none" style={{
+                background: 'radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 65%)',
+                transform: 'scale(1.7)', borderRadius: '50%',
               }} />
               <img
                 src="/images/Studismicon.png"
                 alt="Studism"
-                style={{ width: 'clamp(160px, 22vw, 240px)', height: 'auto', position: 'relative', borderRadius: '28%', filter: 'drop-shadow(0 20px 48px rgba(124,58,237,0.30))' }}
+                style={{ width: 'clamp(220px, 30vw, 320px)', height: 'auto', position: 'relative', borderRadius: '28%', filter: 'drop-shadow(0 24px 56px rgba(124,58,237,0.32))' }}
               />
             </div>
-
-            {/* 検索ボックス */}
-            <div className="w-full" style={{ maxWidth: 280 }}>
-              <div className="flex items-center gap-3 px-4 py-3 rounded-2xl"
-                style={{
-                  background: 'rgba(255,255,255,0.92)',
-                  backdropFilter: 'blur(16px)',
-                  border: '1.5px solid #EDE9FE',
-                  boxShadow: '0 4px 20px rgba(124,58,237,0.10), 0 1px 4px rgba(0,0,0,0.04)',
-                }}>
+            <div style={{ width: 'clamp(220px, 30vw, 320px)' }}>
+              <div className="flex items-center gap-3 px-4 py-3.5 rounded-2xl"
+                style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(16px)', border: '1.5px solid #EDE9FE', boxShadow: '0 4px 20px rgba(124,58,237,0.10)' }}>
                 <Search className="w-4 h-4 flex-shrink-0" style={{ color: '#A78BFA' }} />
-                <span className="font-black text-sm" style={{ color: '#1E1B4B', letterSpacing: '-0.01em' }}>Studism</span>
-                <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', color: '#fff' }}>
+                <span className="font-black text-sm" style={{ color: '#1E1B4B' }}>Studism</span>
+                <span className="ml-auto text-[10px] font-bold px-2.5 py-1 rounded-full"
+                  style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', color: '#fff' }}>
                   無料
                 </span>
               </div>
             </div>
-
           </div>
 
-          {/* ══ 右カラム：スマホ ══ */}
+          {/* ── 右：スマホ ── */}
           <div className="flex items-center justify-center order-1 lg:order-2">
             <div className="relative" style={{ width: 'clamp(220px, 28vw, 300px)' }}>
-
-              {/* グロウ */}
               <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
                 style={{ width: '80%', height: 60, background: 'radial-gradient(ellipse, rgba(124,58,237,0.35), transparent 70%)', filter: 'blur(16px)' }} />
-
-              {/* スマホ本体 */}
               <div className="relative animate-float rounded-[3rem]"
-                style={{
-                  padding: '10px 8px',
-                  background: 'linear-gradient(160deg,#3B1F8C,#1E1B4B)',
-                  boxShadow: '0 40px 90px rgba(30,27,75,0.45), 0 8px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)',
-                }}>
-
-                {/* Dynamic Island */}
-                <div className="absolute top-3.5 left-1/2 -translate-x-1/2 z-10 rounded-full"
-                  style={{ width: 90, height: 22, background: '#0D0B1E' }} />
-
-                {/* サイドボタン装飾 */}
+                style={{ padding: '10px 8px', background: 'linear-gradient(160deg,#3B1F8C,#1E1B4B)', boxShadow: '0 40px 90px rgba(30,27,75,0.45), 0 8px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)' }}>
+                <div className="absolute top-3.5 left-1/2 -translate-x-1/2 z-10 rounded-full" style={{ width: 90, height: 22, background: '#0D0B1E' }} />
                 <div className="absolute right-[-3px] top-24 rounded-r-sm" style={{ width: 3, height: 32, background: 'rgba(255,255,255,0.12)' }} />
                 <div className="absolute left-[-3px] top-20 rounded-l-sm" style={{ width: 3, height: 24, background: 'rgba(255,255,255,0.12)' }} />
                 <div className="absolute left-[-3px] top-28 rounded-l-sm" style={{ width: 3, height: 24, background: 'rgba(255,255,255,0.12)' }} />
-
-                {/* スクリーン */}
                 <div className="rounded-[2.4rem] overflow-hidden" style={{ aspectRatio: '9/19.5', background: '#000' }}>
-                  <img
-                    src={SCREENSHOTS[idx % SCREENSHOTS.length]}
-                    alt="SakuraEnglish"
-                    className="w-full h-full object-cover"
-                    style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }}
-                  />
+                  <img src={SCREENSHOTS[idx % SCREENSHOTS.length]} alt="SakuraEnglish" className="w-full h-full object-cover"
+                    style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }} />
                 </div>
-
-                {/* 画面上のグレア */}
                 <div className="absolute top-10 left-4 right-4 rounded-3xl pointer-events-none"
                   style={{ height: '35%', background: 'linear-gradient(180deg, rgba(255,255,255,0.04), transparent)' }} />
               </div>
-
               {/* アプリバッジ */}
-              <div className="absolute z-20 animate-float"
-                style={{ top: '10%', right: '-18%', animationDelay: '0.5s' }}>
+              <div className="absolute z-20 animate-float" style={{ top: '10%', right: '-18%', animationDelay: '0.5s' }}>
                 <div className="rounded-2xl px-3.5 py-2.5"
-                  style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', boxShadow: '0 8px 32px rgba(236,72,153,0.18), 0 2px 8px rgba(0,0,0,0.06)', border: '1.5px solid rgba(249,168,212,0.4)' }}>
+                  style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', boxShadow: '0 8px 32px rgba(236,72,153,0.18)', border: '1.5px solid rgba(249,168,212,0.4)' }}>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'linear-gradient(135deg,#EC4899,#F97316)' }}>
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg,#EC4899,#F97316)' }}>
                       <img src="/images/sakuraenglish.png" alt="" className="w-5 h-5 object-contain" />
                     </div>
                     <div>
@@ -150,10 +155,8 @@ function Hero() {
                   </div>
                 </div>
               </div>
-
               {/* 評価バッジ */}
-              <div className="absolute z-20 animate-float"
-                style={{ bottom: '18%', left: '-16%', animationDelay: '1.2s' }}>
+              <div className="absolute z-20 animate-float" style={{ bottom: '18%', left: '-16%', animationDelay: '1.2s' }}>
                 <div className="rounded-2xl px-3.5 py-2.5"
                   style={{ background: 'rgba(255,251,235,0.95)', backdropFilter: 'blur(12px)', boxShadow: '0 6px 24px rgba(251,191,36,0.22)', border: '1.5px solid #FDE68A' }}>
                   <div className="flex items-center gap-1.5">
@@ -169,17 +172,12 @@ function Hero() {
                   <p className="text-[9px] font-bold mt-0.5" style={{ color: '#B45309' }}>App Store Rating</p>
                 </div>
               </div>
-
-              {/* 装飾ドット */}
               <div className="absolute rounded-full animate-pulse-glow" style={{ top: '28%', left: '-20px', width: 12, height: 12, background: '#A78BFA' }} />
               <div className="absolute rounded-full animate-pulse-glow" style={{ bottom: '38%', right: '-16px', width: 9, height: 9, background: '#34D399', animationDelay: '0.7s' }} />
               <div className="absolute rounded-full animate-pulse-glow" style={{ top: '62%', left: '-10px', width: 7, height: 7, background: '#FBBF24', animationDelay: '1.4s' }} />
             </div>
           </div>
-
         </div>
-
-
       </div>
     </section>
   );
