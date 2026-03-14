@@ -120,13 +120,13 @@ function Hero() {
           </div>
 
           {/* ── 右：スマホ×2 ── */}
-          <div className="flex items-center justify-center gap-8 order-1 lg:order-2">
+          <div className="flex items-center justify-center gap-14 order-1 lg:order-2">
             {[0, 1].map((offset) => {
               const ssIdx = (idx + offset) % SCREENSHOTS.length;
               const isMain = offset === 0;
               return (
                 <div key={offset} className="relative flex-shrink-0"
-                  style={{ width: 'clamp(180px, 22vw, 260px)' }}>
+                  style={{ width: 'clamp(200px, 26vw, 310px)' }}>
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
                     style={{ width: '80%', height: 40, background: 'radial-gradient(ellipse, rgba(124,58,237,0.3), transparent 70%)', filter: 'blur(12px)' }} />
                   <div className={`relative rounded-[2.6rem] ${isMain ? 'animate-float' : 'animate-float-slow'}`}
