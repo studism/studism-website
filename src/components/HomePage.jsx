@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Zap, BookOpen, Clock, Trophy, Download } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -142,87 +142,6 @@ const Marquee = () => (
   </div>
 );
 
-/* ═══════════ FEATURES ═══════════ */
-const FEATS = [
-  { icon:<BookOpen className="w-7 h-7"/>, title:'語学力を爆上げ',   desc:'レベル別クイズでゲーム感覚に英語習得。カスタムリストで自分だけの学習ルートを。', tag:'語学学習',     c:'#818cf8', app:'sakuraenglish' },
-  { icon:<Clock    className="w-7 h-7"/>, title:'時間を武器にする', desc:'学習時間を記録・可視化。毎日の習慣が、最強の武器になる仕組みを提供。',           tag:'時間管理',     c:'#67e8f9', app:'timelyze'     },
-  { icon:<Trophy   className="w-7 h-7"/>, title:'目標を達成する',   desc:'明確な目標設定とデータで三日坊主とサヨナラ。継続が圧倒的な差を生む。',           tag:'モチベーション', c:'#34d399', app:'timelyze'     },
-];
-const FeaturesSection = () => (
-  <section id="about" className="py-28 relative overflow-hidden" style={{ background:'#07070f' }}>
-    <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage:'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize:'32px 32px' }} />
-    <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background:'radial-gradient(circle,rgba(99,102,241,0.07),transparent 70%)', filter:'blur(80px)' }} />
-
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-      <div className="text-center mb-16 space-y-4">
-        <p className="text-sm font-black tracking-widest uppercase" style={{ color:'#818cf8' }}>Why Studism?</p>
-        <h2 className="font-black leading-tight" style={{ fontSize:'clamp(2.2rem,5vw,3.5rem)', letterSpacing:'-0.03em' }}>
-          <span style={{ color:'#fff' }}>選ばれる</span>
-          <span style={{ background:'linear-gradient(135deg,#818cf8,#67e8f9)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}> 3つの理由</span>
-        </h2>
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {FEATS.map((f,i) => (
-          <Link key={i} to={`/app/${f.app}`}
-            className="group block rounded-3xl p-8 space-y-6 transition-all duration-400 hover:-translate-y-3"
-            style={{ background:'rgba(255,255,255,0.03)', border:`1px solid rgba(255,255,255,0.07)`, boxShadow:'0 0 0 0 transparent', ':hover': { boxShadow:`0 20px 60px ${f.c}15` } }}
-            onMouseEnter={e => e.currentTarget.style.boxShadow=`0 20px 60px ${f.c}18`}
-            onMouseLeave={e => e.currentTarget.style.boxShadow='none'}>
-            <div className="flex items-start justify-between">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
-                style={{ background:`${f.c}14`, color:f.c }}>
-                {f.icon}
-              </div>
-              <span className="px-2.5 py-1 rounded-full text-xs font-black" style={{ background:`${f.c}14`, color:f.c }}>{f.tag}</span>
-            </div>
-            <div>
-              <h3 className="text-xl font-black text-white mb-2">{f.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color:'rgba(255,255,255,0.45)' }}>{f.desc}</p>
-            </div>
-            <div className="flex items-center gap-1 text-sm font-black group-hover:gap-2.5 transition-all" style={{ color:f.c }}>
-              詳しく見る <ArrowRight className="w-4 h-4" />
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-
-/* ═══════════ CTA ═══════════ */
-const CTASection = () => (
-  <section className="relative overflow-hidden py-28" style={{ background:'#07070f' }}>
-    <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage:'linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)', backgroundSize:'60px 60px' }} />
-    <div className="absolute inset-0 pointer-events-none" style={{ background:'radial-gradient(ellipse 80% 50% at 50% 50%,rgba(99,102,241,0.08),transparent 70%)' }} />
-
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 text-center">
-      <div className="max-w-3xl mx-auto space-y-8">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase" style={{ background:'rgba(99,102,241,0.12)', border:'1px solid rgba(99,102,241,0.3)', color:'#818cf8' }}>
-          ⚡ さあ、はじめよう
-        </div>
-        <h2 className="font-black leading-tight" style={{ fontSize:'clamp(2.5rem,7vw,5rem)', letterSpacing:'-0.04em' }}>
-          <span style={{ color:'#fff' }}>今日から<br />学びが</span>
-          <span style={{ background:'linear-gradient(135deg,#818cf8 0%,#67e8f9 50%,#c084fc 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}> まるで変わる。</span>
-        </h2>
-        <p className="text-lg leading-relaxed mx-auto" style={{ color:'rgba(255,255,255,0.45)', maxWidth:'28rem' }}>
-          無料でダウンロード。英語学習も時間管理も、Studismなら楽しく続けられる。
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-          <a href="#apps" className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-2xl font-black text-base text-white transition-all hover:scale-105"
-            style={{ background:'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow:'0 8px 40px rgba(99,102,241,0.45)' }}>
-            <Download className="w-5 h-5" /> 無料でダウンロード
-          </a>
-          <Link to="/contact" className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-2xl font-bold text-base transition-all hover:scale-105 hover:bg-white/8"
-            style={{ border:'1.5px solid rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.6)' }}>
-            お問い合わせ
-          </Link>
-        </div>
-      </div>
-    </div>
-  </section>
-);
 
 /* ═══════════ NEWS ═══════════ */
 const NEWS = [
@@ -266,8 +185,6 @@ export default function HomePage() {
       <Header />
       <Hero />
       <Marquee />
-      <FeaturesSection />
-      <CTASection />
       <NewsSection />
       <Footer />
     </div>
