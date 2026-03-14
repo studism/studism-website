@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Search } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
-/* ════════════════════════════
-   HERO
-════════════════════════════ */
-const FEATURES = [
-  { icon: '✦', label: 'レベル別クイズで着実にステップアップ',   sub: 'Adaptive Quiz',       color: '#7C3AED', light: '#EDE9FE' },
-  { icon: '✦', label: 'カスタム単語リストで自分だけの学習を',   sub: 'Custom Wordlist',     color: '#DB2777', light: '#FCE7F3' },
-  { icon: '✦', label: '復習リマインダーで毎日続けられる',       sub: 'Smart Reminder',      color: '#0369A1', light: '#E0F2FE' },
-  { icon: '✦', label: 'ゲーム感覚で楽しく英語力アップ',         sub: 'Gamified Learning',   color: '#059669', light: '#DCFCE7' },
-  { icon: '✦', label: '発音チェックでネイティブに近づこう',     sub: 'Pronunciation Check', color: '#B45309', light: '#FEF3C7' },
-];
 
 const SCREENSHOTS = [
   '/images/screenshots/SakuraEnglish-ss01.webp',
@@ -35,14 +24,12 @@ function Hero() {
     const id = setInterval(() => {
       setVisible(false);
       setTimeout(() => {
-        setIdx(i => (i + 1) % FEATURES.length);
+        setIdx(i => (i + 1) % SCREENSHOTS.length);
         setVisible(true);
       }, 350);
     }, 3200);
     return () => clearInterval(id);
   }, []);
-
-  const feat = FEATURES[idx];
 
   return (
     <section className="relative overflow-hidden" style={{ background: '#FAFAFE', minHeight: 'calc(100vh - 68px)' }}>
@@ -77,12 +64,20 @@ function Hero() {
               />
             </div>
 
-            {/* コピー */}
-            <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black tracking-wider"
-                style={{ background: 'linear-gradient(135deg,#EDE9FE,#DDD6FE)', color: '#6D28D9', border: '1px solid #C4B5FD' }}>
-                <Sparkles className="w-3 h-3" />
-                完全無料の学習アプリ
+            {/* 検索ボックス */}
+            <div className="w-full" style={{ maxWidth: 280 }}>
+              <div className="flex items-center gap-3 px-4 py-3 rounded-2xl"
+                style={{
+                  background: 'rgba(255,255,255,0.92)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1.5px solid #EDE9FE',
+                  boxShadow: '0 4px 20px rgba(124,58,237,0.10), 0 1px 4px rgba(0,0,0,0.04)',
+                }}>
+                <Search className="w-4 h-4 flex-shrink-0" style={{ color: '#A78BFA' }} />
+                <span className="font-black text-sm" style={{ color: '#1E1B4B', letterSpacing: '-0.01em' }}>Studism</span>
+                <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', color: '#fff' }}>
+                  無料
+                </span>
               </div>
             </div>
 
@@ -201,42 +196,6 @@ function Hero() {
 
         </div>
 
-        {/* ══ 機能テキスト切り替えバー ══ */}
-        <div className="pb-16 flex justify-center">
-          <div className="relative overflow-hidden rounded-2xl px-6 py-4 w-full"
-            style={{
-              maxWidth: 600,
-              background: 'rgba(255,255,255,0.85)',
-              backdropFilter: 'blur(16px)',
-              border: '1.5px solid rgba(124,58,237,0.12)',
-              boxShadow: '0 4px 24px rgba(124,58,237,0.08), 0 1px 4px rgba(0,0,0,0.04)',
-            }}>
-            {/* 左アクセントバー */}
-            <div className="absolute left-0 top-3 bottom-3 w-1 rounded-full transition-all duration-500"
-              style={{ background: `linear-gradient(180deg, ${feat.color}, ${feat.color}80)` }} />
-
-            <div className="flex items-center gap-4 pl-3"
-              style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(6px)', transition: 'opacity 0.35s ease, transform 0.35s ease' }}>
-              <div className="flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center font-black text-sm text-white"
-                style={{ background: `linear-gradient(135deg, ${feat.color}, ${feat.color}bb)`, boxShadow: `0 4px 12px ${feat.color}40` }}>
-                ✦
-              </div>
-              <div className="flex-1">
-                <p className="text-[10px] font-black uppercase tracking-widest mb-0.5" style={{ color: feat.color, opacity: 0.7 }}>{feat.sub}</p>
-                <p className="text-sm font-black leading-snug" style={{ color: '#1E1B4B' }}>{feat.label}</p>
-              </div>
-            </div>
-
-            {/* インジケーター */}
-            <div className="flex justify-center gap-1.5 mt-3">
-              {FEATURES.map((f, i) => (
-                <button key={i} onClick={() => { setIdx(i); setVisible(true); }}
-                  className="rounded-full transition-all duration-300"
-                  style={{ width: i === idx ? 22 : 6, height: 6, background: i === idx ? feat.color : '#E2E8F0', cursor: 'pointer', border: 'none', padding: 0 }} />
-              ))}
-            </div>
-          </div>
-        </div>
 
       </div>
     </section>
