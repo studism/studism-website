@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Download, Smartphone, BarChart3, Target, ChevronLeft, ChevronRight, Star, Users, Zap } from 'lucide-react';
+import { ArrowRight, Download, Search } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -10,589 +9,417 @@ const apps = [
   {
     id: 'sakuraenglish',
     name: 'SakuraEnglish',
-    tagline: '英語力を、桜のように咲かせよう',
-    description: 'レベル別の英単語クイズで効率的に語彙力を強化。カスタム単語リスト機能で自分だけの学習プランを作成できます。',
+    description: 'レベル別の英単語クイズで効率的に語彙力を強化。カスタム単語リストで自分だけの学習プランを作成。',
     icon: '/images/sakuraenglish.png',
     category: '語学学習',
-    features: ['レベル別クイズ', 'カスタム単語リスト', '復習機能', 'オフライン対応'],
-    // Hero background aurora colors
-    aurora: ['#ff6b9d', '#ff4f6d', '#ff8c42'],
-    // Glow color for icon
-    glow: 'rgba(255,107,157,0.5)',
-    // Section accent
-    accent: '#ff4f6d',
-    accentLight: '#fff0f3',
-    accentBadge: 'bg-rose-100 text-rose-700 border-rose-200',
-    gradientFrom: '#ff6b9d',
-    gradientTo: '#ff4f6d',
-    btnClass: 'from-rose-500 to-pink-500',
-    orbColor: 'rgba(255,107,157,0.15)',
+    features: ['レベル別クイズ', 'カスタム単語リスト', '復習機能'],
+    color: '#3b82f6',
+    btnGradient: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+    shadow: 'rgba(59,130,246,0.35)',
   },
   {
     id: 'timelyze',
     name: 'Timelyze',
-    tagline: '時間を、自分の味方につけよう',
-    description: '学習時間の記録・管理を簡単に。直感的な操作で学習習慣を身につけ、目標達成まで継続的にサポートします。',
+    description: '学習時間の記録・管理を簡単に。直感的な操作で学習習慣を身につけ、目標達成をサポート。',
     icon: '/images/timelyze.png',
     category: '生産性',
-    features: ['時間記録・追跡', 'データ可視化', '目標管理', 'ウィジェット'],
-    aurora: ['#7c3aed', '#6366f1', '#38bdf8'],
-    glow: 'rgba(124,58,237,0.5)',
-    accent: '#7c3aed',
-    accentLight: '#f5f3ff',
-    accentBadge: 'bg-violet-100 text-violet-700 border-violet-200',
-    gradientFrom: '#7c3aed',
-    gradientTo: '#6366f1',
-    btnClass: 'from-violet-600 to-indigo-500',
-    orbColor: 'rgba(124,58,237,0.15)',
-  }
+    features: ['時間記録・追跡', 'データ可視化', '目標管理'],
+    color: '#f59e0b',
+    btnGradient: 'linear-gradient(135deg, #f59e0b, #d97706)',
+    shadow: 'rgba(245,158,11,0.35)',
+  },
 ];
 
-/* ─── Floating particles ─── */
-const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
-  id: i,
-  size: 4 + Math.random() * 6,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  delay: Math.random() * 4,
-  duration: 4 + Math.random() * 5,
-}));
+/* ─── Floating bubbles config ─── */
+const BUBBLES = [
+  { size: 18, x: 8,  y: 12, delay: 0,   dur: 5,   color: '#f87171' },
+  { size: 12, x: 15, y: 35, delay: 1.2, dur: 6,   color: '#fbbf24' },
+  { size: 22, x: 88, y: 8,  delay: 0.5, dur: 7,   color: '#34d399' },
+  { size: 14, x: 92, y: 30, delay: 2,   dur: 5.5, color: '#60a5fa' },
+  { size: 10, x: 75, y: 15, delay: 0.8, dur: 6.5, color: '#a78bfa' },
+  { size: 16, x: 60, y: 5,  delay: 1.5, dur: 4.5, color: '#f472b6' },
+  { size: 8,  x: 45, y: 25, delay: 3,   dur: 5,   color: '#fbbf24' },
+  { size: 20, x: 30, y: 10, delay: 0.3, dur: 7.5, color: '#34d399' },
+  { size: 11, x: 82, y: 50, delay: 2.5, dur: 6,   color: '#f87171' },
+  { size: 14, x: 5,  y: 55, delay: 1,   dur: 5.5, color: '#60a5fa' },
+];
 
-/* ─── Hero Slideshow ─── */
+/* ─── Rainbow Wave SVG ─── */
+const RainbowWave = ({ flip = false }) => (
+  <div className={`w-full pointer-events-none select-none ${flip ? 'rotate-180' : ''}`} style={{ lineHeight: 0 }}>
+    <svg viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full">
+      <defs>
+        <linearGradient id="rw1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stopColor="#ef4444" />
+          <stop offset="20%"  stopColor="#f97316" />
+          <stop offset="40%"  stopColor="#facc15" />
+          <stop offset="60%"  stopColor="#4ade80" />
+          <stop offset="80%"  stopColor="#60a5fa" />
+          <stop offset="100%" stopColor="#a855f7" />
+        </linearGradient>
+        <linearGradient id="rw2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stopColor="#f97316" />
+          <stop offset="25%"  stopColor="#facc15" />
+          <stop offset="50%"  stopColor="#34d399" />
+          <stop offset="75%"  stopColor="#818cf8" />
+          <stop offset="100%" stopColor="#ec4899" />
+        </linearGradient>
+        <linearGradient id="rw3" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stopColor="#fde68a" />
+          <stop offset="33%"  stopColor="#6ee7b7" />
+          <stop offset="66%"  stopColor="#93c5fd" />
+          <stop offset="100%" stopColor="#f9a8d4" />
+        </linearGradient>
+      </defs>
+      {/* Main thick ribbon */}
+      <path d="M0,120 C200,40 400,160 720,80 C1040,0 1240,140 1440,60 L1440,180 L0,180 Z" fill="url(#rw1)" opacity="0.9" />
+      <path d="M0,140 C300,60 500,170 800,90 C1100,10 1300,150 1440,80 L1440,180 L0,180 Z" fill="url(#rw2)" opacity="0.7" />
+      <path d="M0,155 C250,100 600,170 900,110 C1150,60 1350,160 1440,100 L1440,180 L0,180 Z" fill="url(#rw3)" opacity="0.5" />
+      {/* White foam on top */}
+      <path d="M0,118 C200,38 400,158 720,78 C1040,-2 1240,138 1440,58" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="3" />
+    </svg>
+  </div>
+);
+
+/* ─── Feature Card ─── */
+const FeatureCard = ({ icon, title, desc, btnLabel, btnGradient, shadow }) => (
+  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center text-center space-y-5 border border-blue-50">
+    <div className="w-20 h-20 flex items-center justify-center">
+      <img src={icon} alt={title} className="w-full h-full object-contain drop-shadow-lg" />
+    </div>
+    <div className="space-y-2">
+      <h3 className="text-xl font-black text-blue-900">{title}</h3>
+      <p className="text-sm text-blue-400/80 leading-relaxed">{desc}</p>
+    </div>
+    <button
+      className="px-7 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-300 hover:scale-105"
+      style={{ background: btnGradient, boxShadow: `0 6px 20px ${shadow}` }}
+    >
+      {btnLabel}
+    </button>
+  </div>
+);
+
+/* ─── App Slideshow ─── */
 const AppSlideshow = () => {
   const [current, setCurrent] = useState(0);
-  const [prev, setPrev] = useState(null);
-  const [transitioning, setTransitioning] = useState(false);
-  const [progressKey, setProgressKey] = useState(0);
+  const [fading, setFading] = useState(false);
   const timerRef = useRef(null);
 
-  const goTo = useCallback((nextIndex) => {
-    if (transitioning || nextIndex === current) return;
-    setPrev(current);
-    setTransitioning(true);
-    setCurrent(nextIndex);
-    setProgressKey(k => k + 1);
-    setTimeout(() => { setPrev(null); setTransitioning(false); }, 600);
-  }, [current, transitioning]);
-
-  const goNext = useCallback(() => goTo((current + 1) % apps.length), [current, goTo]);
-  const goPrev = useCallback(() => goTo((current - 1 + apps.length) % apps.length), [current, goTo]);
+  const goTo = useCallback((idx) => {
+    if (idx === current) return;
+    setFading(true);
+    setTimeout(() => { setCurrent(idx); setFading(false); }, 300);
+  }, [current]);
 
   useEffect(() => {
-    timerRef.current = setTimeout(goNext, 5000);
+    timerRef.current = setTimeout(() => goTo((current + 1) % apps.length), 5000);
     return () => clearTimeout(timerRef.current);
-  }, [current, goNext]);
+  }, [current, goTo]);
 
   const app = apps[current];
 
   return (
-    <section className="relative min-h-[calc(100vh-72px)] overflow-hidden bg-[#06060f] flex flex-col">
+    <div className={`transition-all duration-300 ${fading ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
+      <div className="bg-white rounded-3xl p-8 shadow-xl border border-blue-50 overflow-hidden relative">
+        {/* Glow bg */}
+        <div className="absolute inset-0 opacity-5 rounded-3xl" style={{ background: `radial-gradient(ellipse at 80% 50%, ${app.color}, transparent)` }} />
 
-      {/* ── Aurora Background ── */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        <div
-          className="absolute inset-0 transition-all duration-1000"
-          style={{
-            background: `radial-gradient(ellipse 80% 60% at 70% 50%, ${app.aurora[0]}22, transparent 70%),
-                         radial-gradient(ellipse 50% 50% at 20% 80%, ${app.aurora[1]}18, transparent 60%),
-                         radial-gradient(ellipse 40% 40% at 80% 10%, ${app.aurora[2]}14, transparent 60%)`,
-          }}
-        />
-        {/* Grid overlay */}
-        <div className="absolute inset-0 grid-overlay opacity-60" />
+        <div className="relative flex flex-col sm:flex-row items-center gap-6">
+          <div
+            className="w-20 h-20 flex-shrink-0 rounded-[1.4rem] flex items-center justify-center shadow-xl"
+            style={{ background: `linear-gradient(145deg, ${app.color}dd, ${app.color}99)`, boxShadow: `0 12px 40px ${app.shadow}` }}
+          >
+            <img src={app.icon} alt={app.name} className="w-14 h-14 object-contain rounded-xl" />
+          </div>
+          <div className="flex-1 text-center sm:text-left space-y-2">
+            <div className="flex items-center gap-2 justify-center sm:justify-start">
+              <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: `${app.color}18`, color: app.color }}>{app.category}</span>
+            </div>
+            <h3 className="text-xl font-black text-blue-900">{app.name}</h3>
+            <p className="text-sm text-blue-400/80 leading-relaxed">{app.description}</p>
+            <div className="flex flex-wrap gap-2 justify-center sm:justify-start pt-1">
+              {app.features.map(f => (
+                <span key={f} className="text-xs px-3 py-1 rounded-full font-medium" style={{ background: `${app.color}15`, color: app.color }}>{f}</span>
+              ))}
+            </div>
+          </div>
+          <div className="flex-shrink-0 flex flex-col gap-2">
+            <Link
+              to={`/app/${app.id}`}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold text-white transition-all duration-300 hover:scale-105"
+              style={{ background: app.btnGradient, boxShadow: `0 6px 20px ${app.shadow}` }}
+            >
+              詳しく見る <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <button className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-semibold text-blue-400 bg-blue-50 hover:bg-blue-100 transition-colors">
+              <Download className="w-3.5 h-3.5" /> DL
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* ── Floating Particles ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
-        {PARTICLES.map(p => (
-          <div
-            key={p.id}
-            className="absolute rounded-full"
+      {/* Dots */}
+      <div className="flex justify-center gap-2 mt-4">
+        {apps.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            className="rounded-full transition-all duration-300"
             style={{
-              width: p.size,
-              height: p.size,
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              background: app.glow,
-              animation: `particle-drift ${p.duration}s ease-in-out ${p.delay}s infinite`,
-              filter: 'blur(1px)',
+              width: i === current ? 24 : 8,
+              height: 8,
+              background: i === current ? apps[current].color : '#cbd5e1',
             }}
           />
         ))}
       </div>
-
-      {/* ── Main content ── */}
-      <div className="flex-1 flex items-center relative z-10">
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-16">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            {/* Left: Text */}
-            <div
-              key={`text-${current}`}
-              className="space-y-8 animate-fade-up"
-              style={{ animationDelay: '0.05s' }}
-            >
-              {/* Category pill */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border"
-                style={{ borderColor: `${app.accent}40` }}>
-                <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: app.accent }} />
-                <span className="text-xs font-bold uppercase tracking-widest text-white/70">{app.category}</span>
-              </div>
-
-              {/* App name */}
-              <div>
-                <h1
-                  className="text-6xl lg:text-8xl font-black leading-none tracking-tighter gradient-text"
-                  style={{ backgroundImage: `linear-gradient(135deg, #fff 30%, ${app.aurora[0]})` }}
-                >
-                  {app.name}
-                </h1>
-                <p className="mt-3 text-lg lg:text-xl font-medium text-white/50 tracking-wide">
-                  {app.tagline}
-                </p>
-              </div>
-
-              {/* Description */}
-              <p className="text-base lg:text-lg text-white/60 leading-relaxed max-w-md">
-                {app.description}
-              </p>
-
-              {/* Feature badges */}
-              <div className="flex flex-wrap gap-2">
-                {app.features.map((f, i) => (
-                  <span
-                    key={f}
-                    className="px-3 py-1.5 rounded-full text-xs font-semibold text-white glass"
-                    style={{
-                      borderColor: `${app.accent}50`,
-                      animationDelay: `${i * 0.08}s`,
-                    }}
-                  >
-                    {f}
-                  </span>
-                ))}
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Link
-                  to={`/app/${app.id}`}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-white text-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
-                  style={{
-                    background: `linear-gradient(135deg, ${app.gradientFrom}, ${app.gradientTo})`,
-                    boxShadow: `0 8px 32px ${app.glow}`,
-                  }}
-                >
-                  詳しく見る
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <button className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl font-semibold text-white/80 text-sm glass hover:bg-white/10 transition-all duration-300">
-                  <Download className="w-4 h-4" />
-                  ダウンロード
-                </button>
-              </div>
-            </div>
-
-            {/* Right: App icon with orbs */}
-            <div
-              key={`icon-${current}`}
-              className="flex items-center justify-center animate-slide-right"
-              style={{ animationDelay: '0.1s' }}
-            >
-              <div className="relative flex items-center justify-center w-64 h-64 lg:w-80 lg:h-80">
-
-                {/* Outer spinning ring */}
-                <div
-                  className="absolute inset-0 rounded-full animate-spin-slow"
-                  style={{
-                    background: `conic-gradient(from 0deg, transparent 60%, ${app.gradientFrom}80, transparent 100%)`,
-                  }}
-                />
-
-                {/* Pulsing glow ring */}
-                <div
-                  className="absolute inset-4 rounded-full animate-pulse-glow"
-                  style={{ background: `radial-gradient(circle, ${app.glow}, transparent 70%)` }}
-                />
-
-                {/* Orbiting dot */}
-                <div
-                  className="absolute w-4 h-4 rounded-full"
-                  style={{
-                    background: app.gradientFrom,
-                    boxShadow: `0 0 12px ${app.glow}`,
-                    animation: `orbit 8s linear infinite`,
-                    top: '50%',
-                    left: '50%',
-                    marginTop: '-8px',
-                    marginLeft: '-8px',
-                  }}
-                />
-
-                {/* Icon container */}
-                <div
-                  className="relative z-10 w-44 h-44 lg:w-56 lg:h-56 rounded-[2.5rem] flex items-center justify-center animate-float shadow-2xl"
-                  style={{
-                    background: `linear-gradient(145deg, ${app.gradientFrom}dd, ${app.gradientTo}dd)`,
-                    boxShadow: `0 30px 80px ${app.glow}, 0 0 0 1px ${app.accent}30`,
-                  }}
-                >
-                  {/* Gloss overlay */}
-                  <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden">
-                    <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-white/10 rounded-full blur-xl" />
-                  </div>
-                  <img
-                    src={app.icon}
-                    alt={app.name}
-                    className="w-28 h-28 lg:w-36 lg:h-36 object-contain rounded-2xl relative z-10 drop-shadow-xl"
-                  />
-                </div>
-
-                {/* Floating mini badges */}
-                <div
-                  className="absolute -top-2 -right-2 lg:top-4 lg:right-0 glass px-3 py-2 rounded-2xl animate-float-slow text-white/90 text-xs font-bold shadow-xl"
-                  style={{ animationDelay: '1s', borderColor: `${app.accent}40` }}
-                >
-                  ⭐ 4.8
-                </div>
-                <div
-                  className="absolute -bottom-2 -left-4 lg:bottom-6 lg:-left-4 glass px-3 py-2 rounded-2xl animate-float-slow text-white/90 text-xs font-bold shadow-xl"
-                  style={{ animationDelay: '2.5s', borderColor: `${app.accent}40` }}
-                >
-                  🎯 無料
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Bottom Controls ── */}
-      <div className="relative z-10 pb-8 px-6 md:px-12 lg:px-20">
-        {/* Progress bars */}
-        <div className="flex gap-2 mb-6">
-          {apps.map((a, i) => (
-            <div key={i} className="h-0.5 flex-1 rounded-full bg-white/15 overflow-hidden">
-              {i === current && (
-                <div
-                  key={progressKey}
-                  className="h-full rounded-full hero-progress-bar"
-                  style={{ background: `linear-gradient(90deg, ${app.gradientFrom}, ${app.gradientTo})` }}
-                />
-              )}
-              {i < current && (
-                <div className="h-full w-full rounded-full" style={{ background: app.gradientFrom, opacity: 0.5 }} />
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-between">
-          {/* Dot indicators + app names */}
-          <div className="flex items-center gap-4">
-            {apps.map((a, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className="flex items-center gap-2 group"
-              >
-                <div
-                  className="w-2 h-2 rounded-full transition-all duration-300"
-                  style={{
-                    background: i === current ? app.accent : 'rgba(255,255,255,0.2)',
-                    transform: i === current ? 'scale(1.4)' : 'scale(1)',
-                  }}
-                />
-                <span className={`text-xs font-medium transition-all duration-300 ${i === current ? 'text-white' : 'text-white/30 group-hover:text-white/60'}`}>
-                  {a.name}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          {/* Arrow controls */}
-          <div className="flex gap-2">
-            <button
-              onClick={goPrev}
-              className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/15 transition-colors text-white/70 hover:text-white"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={goNext}
-              className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/15 transition-colors text-white/70 hover:text-white"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   );
 };
-
-/* ─── Stats Band ─── */
-const StatsBand = () => (
-  <div className="bg-[#0d0d1a] border-y border-white/5 py-10">
-    <div className="container mx-auto px-6 md:px-12 lg:px-20">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        {[
-          { value: '2', label: 'アプリ公開中', icon: <Smartphone className="w-5 h-5" /> },
-          { value: '4.8', label: '平均評価', icon: <Star className="w-5 h-5" /> },
-          { value: '無料', label: '全アプリ', icon: <Zap className="w-5 h-5" /> },
-          { value: 'iOS/Android', label: '対応プラットフォーム', icon: <Users className="w-5 h-5" /> },
-        ].map((s, i) => (
-          <div key={i} className="space-y-2">
-            <div className="flex justify-center text-white/30 mb-1">{s.icon}</div>
-            <div className="text-3xl font-black text-white">{s.value}</div>
-            <div className="text-xs text-white/40 uppercase tracking-wider">{s.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-);
-
-/* ─── About Section ─── */
-const AboutSection = () => (
-  <section id="about" className="py-28 bg-[#0a0a14] relative overflow-hidden">
-    {/* Subtle grid */}
-    <div className="absolute inset-0 grid-overlay opacity-40 pointer-events-none" />
-
-    {/* Gradient blobs */}
-    <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-violet-900/20 blur-[120px] pointer-events-none" />
-    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-rose-900/15 blur-[100px] pointer-events-none" />
-
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center space-y-5 mb-20">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-white/50 glass border border-white/10">
-            About Us
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">
-            Studismについて
-          </h2>
-          <p className="text-lg text-white/50 leading-relaxed max-w-2xl mx-auto">
-            「学びを、もっと自由に、もっと楽しく」をミッションに掲げ、
-            教育とテクノロジーを融合させた革新的な学習アプリケーションを開発しています。
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: <Smartphone className="w-7 h-7" />,
-              color: '#7c3aed',
-              title: 'モバイルファースト',
-              desc: 'いつでもどこでも学習できる、シンプルで使いやすいアプリケーション設計'
-            },
-            {
-              icon: <BarChart3 className="w-7 h-7" />,
-              color: '#ff4f6d',
-              title: '学習データ可視化',
-              desc: '詳細な学習データの記録と分析で、効率的な学習サイクルをサポート'
-            },
-            {
-              icon: <Target className="w-7 h-7" />,
-              color: '#f59e0b',
-              title: 'カスタマイズ機能',
-              desc: '自分に合った学習プランと目標設定で、継続的な成長を実現'
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="relative group p-8 rounded-3xl glass border border-white/8 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
-            >
-              {/* Hover glow */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"
-                style={{ background: `radial-gradient(ellipse at 50% 100%, ${item.color}20, transparent 70%)` }}
-              />
-              <div className="relative z-10 space-y-5">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                  style={{ background: `${item.color}20`, color: item.color }}
-                >
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                <p className="text-sm text-white/50 leading-relaxed">{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-/* ─── Apps Section ─── */
-const AppsSection = () => (
-  <section id="apps" className="py-28 bg-[#06060f] relative overflow-hidden">
-    <div className="absolute inset-0 grid-overlay opacity-30 pointer-events-none" />
-
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-      <div className="text-center space-y-5 mb-20">
-        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-white/50 glass border border-white/10">
-          Our Apps
-        </span>
-        <h2 className="text-4xl lg:text-5xl font-black text-white">アプリ一覧</h2>
-        <p className="text-lg text-white/40 max-w-xl mx-auto">
-          Studismが開発した学習アプリケーションをご紹介します。
-        </p>
-      </div>
-
-      <div className="space-y-8 max-w-4xl mx-auto">
-        {apps.map((app, idx) => (
-          <div
-            key={app.id}
-            className="group relative rounded-3xl overflow-hidden"
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
-          >
-            {/* Background glow on hover */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-              style={{ background: `radial-gradient(ellipse 80% 80% at ${idx === 0 ? '80%' : '20%'} 50%, ${app.glow.replace('0.5', '0.08')}, transparent 70%)` }}
-            />
-
-            <div className="relative z-10 p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-
-              {/* Icon */}
-              <div className="flex-shrink-0">
-                <div
-                  className="w-24 h-24 md:w-28 md:h-28 rounded-[1.75rem] flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform duration-500"
-                  style={{
-                    background: `linear-gradient(145deg, ${app.gradientFrom}, ${app.gradientTo})`,
-                    boxShadow: `0 20px 60px ${app.glow}`,
-                  }}
-                >
-                  <img src={app.icon} alt={app.name} className="w-16 h-16 md:w-20 md:h-20 object-contain rounded-xl" />
-                </div>
-              </div>
-
-              {/* Text */}
-              <div className="flex-1 space-y-4 text-center md:text-left">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-widest" style={{ color: app.accent }}>{app.category}</span>
-                  <h3 className="text-3xl font-black text-white mt-1">{app.name}</h3>
-                </div>
-                <p className="text-white/50 text-sm leading-relaxed max-w-lg">{app.description}</p>
-                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                  {app.features.map(f => (
-                    <span
-                      key={f}
-                      className="px-3 py-1 rounded-full text-xs font-medium text-white/70"
-                      style={{ background: `${app.accent}18`, border: `1px solid ${app.accent}30` }}
-                    >
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Buttons */}
-              <div className="flex-shrink-0 flex flex-col gap-3">
-                <Link
-                  to={`/app/${app.id}`}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-white text-sm transition-all duration-300 hover:scale-105 hover:shadow-xl group/btn"
-                  style={{
-                    background: `linear-gradient(135deg, ${app.gradientFrom}, ${app.gradientTo})`,
-                    boxShadow: `0 4px 20px ${app.glow}`,
-                  }}
-                >
-                  詳細を見る
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
-                </Link>
-                <button className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-semibold text-white/60 text-sm glass hover:bg-white/10 transition-all duration-300">
-                  <Download className="w-4 h-4" />
-                  ダウンロード
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-/* ─── News Section ─── */
-const typeStyles = {
-  'アップデート': { dot: '#7c3aed', badge: 'text-violet-400 bg-violet-950 border-violet-800' },
-  'お知らせ':     { dot: '#ff4f6d', badge: 'text-rose-400 bg-rose-950 border-rose-800' },
-  '新機能':       { dot: '#f59e0b', badge: 'text-amber-400 bg-amber-950 border-amber-800' },
-};
-
-const news = [
-  { date: '2025年11月22日', title: '公式ウェブサイトをリニューアルオープンしました', type: 'お知らせ' },
-  { date: '2025年11月20日', title: 'お問い合わせフォームのシステムを更新し、よりスムーズにご利用いただけるようになりました', type: 'アップデート' },
-  { date: '2025年11月15日', title: '「SakuraEnglish」に新しい単語リストを追加しました', type: 'アップデート' },
-];
-
-const NewsSection = () => (
-  <section id="news" className="py-28 bg-[#0a0a14] relative overflow-hidden">
-    <div className="absolute inset-0 grid-overlay opacity-30 pointer-events-none" />
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
-
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-      <div className="text-center space-y-5 mb-20">
-        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-white/50 glass border border-white/10">
-          News
-        </span>
-        <h2 className="text-4xl lg:text-5xl font-black text-white">最新情報・お知らせ</h2>
-        <p className="text-lg text-white/40">アプリのアップデート情報や新機能のお知らせ</p>
-      </div>
-
-      <div className="max-w-2xl mx-auto relative">
-        {/* Vertical timeline line */}
-        <div className="absolute left-4 top-4 bottom-4 w-px bg-gradient-to-b from-violet-700/60 via-rose-700/40 to-transparent" />
-
-        <div className="space-y-6 pl-12">
-          {news.map((item, i) => {
-            const style = typeStyles[item.type] || typeStyles['お知らせ'];
-            return (
-              <div
-                key={i}
-                className="relative group p-6 rounded-2xl glass border border-white/8 hover:border-white/20 transition-all duration-400 hover:bg-white/5"
-              >
-                {/* Timeline dot */}
-                <div
-                  className="absolute -left-[2.55rem] top-7 w-3 h-3 rounded-full ring-2 ring-[#0a0a14] shadow-lg"
-                  style={{ background: style.dot, boxShadow: `0 0 10px ${style.dot}80` }}
-                />
-
-                <div className="flex items-start gap-4">
-                  <span className={`px-2.5 py-1 rounded-lg text-xs font-bold border flex-shrink-0 ${style.badge}`}>
-                    {item.type}
-                  </span>
-                  <div className="space-y-1.5">
-                    <p className="text-xs text-white/30 font-mono">{item.date}</p>
-                    <p className="text-sm text-white/80 font-medium leading-relaxed group-hover:text-white transition-colors">
-                      {item.title}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  </section>
-);
 
 /* ─── Main Page ─── */
 const HomePage = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <div className="min-h-screen bg-[#06060f]">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #e8f4fd 0%, #f0f8ff 40%, #ffffff 100%)' }}>
       <Header />
-      <AppSlideshow />
-      <StatsBand />
-      <AboutSection />
-      <AppsSection />
-      <NewsSection />
+
+      {/* ───── Hero ───── */}
+      <section className="relative overflow-hidden pt-10 pb-0">
+        {/* Floating bubbles */}
+        {BUBBLES.map((b, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              width: b.size,
+              height: b.size,
+              left: `${b.x}%`,
+              top: `${b.y}%`,
+              background: b.color,
+              opacity: 0.7,
+              animation: `float ${b.dur}s ease-in-out ${b.delay}s infinite`,
+            }}
+          />
+        ))}
+
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[480px]">
+
+            {/* Left */}
+            <div className="space-y-7">
+              <div className="space-y-3">
+                <h1 className="text-5xl lg:text-6xl font-black leading-tight" style={{ color: '#1e40af' }}>
+                  Welcome to<br />
+                  <span style={{ background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                    Studism!
+                  </span>
+                </h1>
+                <p className="text-lg text-blue-500/80 leading-relaxed max-w-md">
+                  アプリを通じて学びをもっと自由に、もっと楽しく。<br />
+                  Studismと一緒に、毎日の学習を充実させよう！
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="#apps"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-white text-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                  style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 8px 24px rgba(59,130,246,0.4)' }}
+                >
+                  Get Started
+                </a>
+                <a
+                  href="#about"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-blue-600 text-sm bg-white border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:scale-105"
+                >
+                  Learn More
+                </a>
+              </div>
+            </div>
+
+            {/* Right — mascot */}
+            <div className="flex items-end justify-center lg:justify-end relative">
+              <img
+                src="/images/poripori.png"
+                alt="Studism マスコット"
+                className="w-auto max-h-[400px] lg:max-h-[480px] object-contain drop-shadow-2xl animate-float-slow"
+                style={{ filter: 'drop-shadow(0 20px 40px rgba(59,130,246,0.25))' }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Rainbow wave */}
+        <div className="relative -mb-1 mt-4">
+          <RainbowWave />
+        </div>
+      </section>
+
+      {/* ───── Feature/App intro ───── */}
+      <section id="about" className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(180deg, #fff 0%, #eff6ff 100%)' }}>
+        {/* Floating bubbles (subtle) */}
+        {BUBBLES.slice(0, 5).map((b, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full pointer-events-none opacity-30"
+            style={{
+              width: b.size * 1.4,
+              height: b.size * 1.4,
+              left: `${b.x}%`,
+              bottom: `${b.y / 2}%`,
+              background: b.color,
+              animation: `float ${b.dur + 1}s ease-in-out ${b.delay + 0.5}s infinite`,
+            }}
+          />
+        ))}
+
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+          <div className="text-center space-y-4 mb-14">
+            <h2 className="text-4xl lg:text-5xl font-black" style={{ color: '#1e40af' }}>
+              Welcome to
+            </h2>
+            <p className="text-lg text-blue-500">
+              Studismのアプリで学びを加速させよう。
+              <span className="font-bold text-blue-600"> 今すぐ無料で</span>はじめられます！
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-7 max-w-5xl mx-auto">
+            <FeatureCard
+              icon="/images/sakuraenglish.png"
+              title="語学学習ツール"
+              desc="レベル別クイズで英語力を効率よくアップ。自分のペースで楽しく学習できます。"
+              btnLabel="Learn More"
+              btnGradient="linear-gradient(135deg, #3b82f6, #2563eb)"
+              shadow="rgba(59,130,246,0.4)"
+            />
+            <FeatureCard
+              icon="/images/Studismicon.png"
+              title="学習のヒント"
+              desc="効果的な学習法・テクニックを紹介。習慣化のコツをつかもう。"
+              btnLabel="Learn More"
+              btnGradient="linear-gradient(135deg, #f59e0b, #d97706)"
+              shadow="rgba(245,158,11,0.4)"
+            />
+            <FeatureCard
+              icon="/images/timelyze.png"
+              title="時間管理サポート"
+              desc="学習時間を記録・可視化して、目標達成をサポートします。"
+              btnLabel="Learn More"
+              btnGradient="linear-gradient(135deg, #22c55e, #16a34a)"
+              shadow="rgba(34,197,94,0.4)"
+            />
+          </div>
+        </div>
+
+        {/* Rainbow wave bottom */}
+        <div className="relative mt-16 -mb-1">
+          <RainbowWave />
+        </div>
+      </section>
+
+      {/* ───── Apps Section ───── */}
+      <section id="apps" className="py-20 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #fff 0%, #e8f4fd 100%)' }}>
+        {BUBBLES.slice(5).map((b, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full pointer-events-none opacity-40"
+            style={{
+              width: b.size,
+              height: b.size,
+              right: `${b.x / 5}%`,
+              top: `${b.y}%`,
+              background: b.color,
+              animation: `float ${b.dur}s ease-in-out ${b.delay}s infinite`,
+            }}
+          />
+        ))}
+
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+          <div className="text-center space-y-4 mb-14">
+            <h2 className="text-4xl lg:text-5xl font-black" style={{ color: '#1e40af' }}>アプリ一覧</h2>
+            <p className="text-lg text-blue-400/80">Studismが開発した学習アプリをご紹介します</p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <AppSlideshow />
+          </div>
+        </div>
+      </section>
+
+      {/* ───── Search / CTA ───── */}
+      <section className="py-16 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #e8f4fd 0%, #dbeafe 100%)' }}>
+        {/* Rainbow wave top */}
+        <div className="absolute top-0 left-0 w-full rotate-180 pointer-events-none" style={{ lineHeight: 0 }}>
+          <RainbowWave />
+        </div>
+
+        {BUBBLES.map((b, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full pointer-events-none opacity-40"
+            style={{
+              width: b.size,
+              height: b.size,
+              left: `${b.x}%`,
+              bottom: `${b.y / 2}%`,
+              background: b.color,
+              animation: `float ${b.dur}s ease-in-out ${b.delay}s infinite`,
+            }}
+          />
+        ))}
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-lg mx-auto">
+            <div className="flex items-center bg-white rounded-2xl shadow-xl border border-blue-100 overflow-hidden px-4 py-1">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="flex-1 py-3 text-sm text-blue-900 placeholder-blue-300 outline-none bg-transparent"
+              />
+              <button
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0 transition-all hover:scale-105"
+                style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)' }}
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───── News Section ───── */}
+      <section id="news" className="py-20 bg-white">
+        <div className="container mx-auto px-6 md:px-12 lg:px-20">
+          <div className="text-center space-y-4 mb-14">
+            <h2 className="text-4xl font-black" style={{ color: '#1e40af' }}>最新情報・お知らせ</h2>
+            <p className="text-blue-400/80">アプリのアップデート情報や新機能のお知らせ</p>
+          </div>
+          <div className="max-w-2xl mx-auto space-y-4">
+            {[
+              { date: '2025年11月22日', title: '公式ウェブサイトをリニューアルオープンしました', type: 'お知らせ', color: '#3b82f6' },
+              { date: '2025年11月20日', title: 'お問い合わせフォームのシステムを更新しました', type: 'アップデート', color: '#a855f7' },
+              { date: '2025年11月15日', title: '「SakuraEnglish」に新しい単語リストを追加しました', type: 'アップデート', color: '#22c55e' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4 bg-white rounded-2xl p-6 shadow-md border border-blue-50 hover:shadow-lg transition-shadow">
+                <span
+                  className="px-3 py-1.5 rounded-full text-xs font-bold text-white flex-shrink-0"
+                  style={{ background: item.color }}
+                >
+                  {item.type}
+                </span>
+                <div className="space-y-1">
+                  <p className="text-xs text-blue-300">{item.date}</p>
+                  <p className="text-sm font-semibold text-blue-900">{item.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
