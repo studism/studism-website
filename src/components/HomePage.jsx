@@ -1,153 +1,180 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Zap, Sparkles } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 /* ════════════════════════════
    HERO
 ════════════════════════════ */
-const Hero = () => (
-  <section className="relative overflow-hidden" style={{ minHeight: 'calc(100vh - 68px)', background: '#FAFAFE' }}>
+const FEATURES = [
+  { label: 'レベル別クイズで着実にステップアップ',   color: '#7C3AED', bg: '#EDE9FE' },
+  { label: 'カスタム単語リストで自分だけの学習を',   color: '#DB2777', bg: '#FCE7F3' },
+  { label: '復習リマインダーで毎日続けられる',       color: '#0369A1', bg: '#E0F2FE' },
+  { label: 'ゲーム感覚で楽しく英語力アップ',         color: '#166534', bg: '#DCFCE7' },
+  { label: '発音チェック機能でネイティブに近づこう', color: '#92400E', bg: '#FEF3C7' },
+];
 
-    {/* ── 背景のカラフルなブロブ ── */}
-    <div className="absolute pointer-events-none" style={{ top: '-12%', right: '-8%', width: 500, height: 500, borderRadius: '60% 40% 55% 45% / 45% 60% 40% 55%', background: 'linear-gradient(135deg, #FFB3C8, #FF8FAB)', opacity: 0.25, filter: 'blur(2px)' }} />
-    <div className="absolute pointer-events-none" style={{ bottom: '-14%', left: '-6%', width: 420, height: 420, borderRadius: '40% 60% 45% 55% / 55% 40% 60% 45%', background: 'linear-gradient(135deg, #B5F0E0, #67E8B0)', opacity: 0.3, filter: 'blur(2px)' }} />
-    <div className="absolute pointer-events-none" style={{ top: '55%', right: '30%', width: 220, height: 220, borderRadius: '50%', background: '#FFE5A0', opacity: 0.35, filter: 'blur(1px)' }} />
-    <div className="absolute pointer-events-none" style={{ top: '8%', left: '32%', width: 140, height: 140, borderRadius: '50%', background: '#C4B5FD', opacity: 0.3, filter: 'blur(1px)' }} />
+const SCREENSHOTS = [
+  '/images/screenshots/SakuraEnglish-ss01.webp',
+  '/images/screenshots/SakuraEnglish-ss02.webp',
+  '/images/screenshots/SakuraEnglish-ss03.webp',
+];
 
-    <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex items-center" style={{ minHeight: 'inherit' }}>
-      <div className="grid lg:grid-cols-2 gap-12 items-center w-full py-16">
+function Hero() {
+  const [featureIdx, setFeatureIdx] = useState(0);
+  const [ssIdx, setSsIdx] = useState(0);
+  const [fade, setFade] = useState(true);
 
-        {/* ── 左：テキスト ── */}
-        <div className="space-y-8">
+  useEffect(() => {
+    const id = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setFeatureIdx(i => (i + 1) % FEATURES.length);
+        setSsIdx(i => (i + 1) % SCREENSHOTS.length);
+        setFade(true);
+      }, 300);
+    }, 3000);
+    return () => clearInterval(id);
+  }, []);
 
-          {/* バッジ */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-black text-sm"
-            style={{ background: 'linear-gradient(135deg, #EDE9FE, #DDD6FE)', color: '#6D28D9' }}>
-            <Sparkles className="w-4 h-4" />
-            学習アプリ — 完全無料
+  const feat = FEATURES[featureIdx];
+
+  return (
+    <section className="relative overflow-hidden" style={{ minHeight: 'calc(100vh - 68px)', background: '#FAFAFE' }}>
+
+      {/* 背景ブロブ */}
+      <div className="absolute pointer-events-none" style={{ top: '-10%', right: '-6%', width: 480, height: 480, borderRadius: '60% 40% 55% 45% / 45% 60% 40% 55%', background: 'linear-gradient(135deg,#FFB3C8,#FF8FAB)', opacity: 0.22, filter: 'blur(2px)' }} />
+      <div className="absolute pointer-events-none" style={{ bottom: '-12%', left: '-5%', width: 400, height: 400, borderRadius: '40% 60% 45% 55% / 55% 40% 60% 45%', background: 'linear-gradient(135deg,#B5F0E0,#67E8B0)', opacity: 0.28, filter: 'blur(2px)' }} />
+      <div className="absolute pointer-events-none" style={{ top: '50%', right: '28%', width: 200, height: 200, borderRadius: '50%', background: '#FFE5A0', opacity: 0.32, filter: 'blur(1px)' }} />
+
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col justify-center" style={{ minHeight: 'inherit' }}>
+
+        {/* ── 上段：左＝Studismアイコン ／ 右＝スマホ ── */}
+        <div className="grid lg:grid-cols-2 gap-10 items-center pt-16 pb-10">
+
+          {/* 左：Studismアイコン＋キャッチコピー */}
+          <div className="flex flex-col items-center lg:items-start gap-7">
+            <div className="animate-float-slow">
+              <img
+                src="/images/Studismicon.png"
+                alt="Studism"
+                className="drop-shadow-2xl"
+                style={{ width: 'clamp(180px, 28vw, 300px)', height: 'auto' }}
+              />
+            </div>
+            <div className="text-center lg:text-left space-y-3">
+              <h1 className="font-black leading-tight" style={{ fontSize: 'clamp(2.6rem, 6vw, 5rem)', letterSpacing: '-0.04em', color: '#1E1B4B' }}>
+                勉強が、もっと
+                <br />
+                <span style={{ background: 'linear-gradient(135deg,#A78BFA 0%,#F472B6 50%,#FB923C 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  たのしく。
+                </span>
+              </h1>
+              <p className="text-base leading-relaxed" style={{ color: '#64748B', maxWidth: '24rem' }}>
+                Studismのアプリで、英語学習も時間管理も
+                自分のペースで楽しく続けられる。
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+              <a href="#news"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-black text-sm text-white transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+                style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', boxShadow: '0 8px 28px rgba(124,58,237,0.35)' }}>
+                <Zap className="w-4 h-4" />
+                今すぐはじめる
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <Link to="/contact"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-black text-sm transition-all hover:scale-105"
+                style={{ background: '#fff', color: '#7C3AED', border: '2.5px solid #DDD6FE', boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}>
+                お問い合わせ
+              </Link>
+            </div>
           </div>
 
-          {/* ヘッドライン */}
-          <div>
-            <p className="text-lg font-bold mb-2" style={{ color: '#94A3B8' }}>勉強が、もっと</p>
-            <h1 className="font-black leading-none" style={{ fontSize: 'clamp(3.5rem, 9vw, 7rem)', letterSpacing: '-0.04em', color: '#1E1B4B' }}>
-              たのしく
-              <br />
-              <span style={{ background: 'linear-gradient(135deg, #A78BFA 0%, #F472B6 50%, #FB923C 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                なろう。
-              </span>
-            </h1>
-          </div>
-
-          <p className="text-lg leading-relaxed" style={{ color: '#64748B', maxWidth: '26rem' }}>
-            Studismのアプリで、英語学習も時間管理も
-            自分のペースで楽しく続けられる。
-          </p>
-
-          {/* ボタン */}
-          <div className="flex flex-wrap gap-4">
-            <a href="#news"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-sm text-white transition-all duration-300 hover:scale-105 hover:shadow-xl group"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #A855F7)', boxShadow: '0 8px 28px rgba(124,58,237,0.35)' }}>
-              <Zap className="w-4 h-4" />
-              今すぐはじめる
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-black text-sm transition-all hover:scale-105"
-              style={{ background: '#fff', color: '#7C3AED', border: '2.5px solid #DDD6FE', boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}>
-              お問い合わせ
-            </Link>
-          </div>
-
-          {/* ミニスタット */}
-          <div className="flex items-center gap-6 pt-2 flex-wrap">
-            {[
-              { n: '2',      l: 'アプリ公開中', bg: '#EDE9FE', c: '#6D28D9' },
-              { n: '4.8',    l: '平均評価',     bg: '#FEF3C7', c: '#92400E' },
-              { n: '無料',   l: '完全無料',     bg: '#DCFCE7', c: '#166534' },
-            ].map((s, i) => (
-              <div key={i} className="px-4 py-2.5 rounded-2xl text-center" style={{ background: s.bg }}>
-                <div className="text-xl font-black" style={{ color: s.c }}>{s.n}</div>
-                <div className="text-xs font-bold" style={{ color: s.c, opacity: 0.7 }}>{s.l}</div>
+          {/* 右：スマホフレーム＋スクリーンショット */}
+          <div className="flex items-center justify-center">
+            <div className="relative animate-float" style={{ width: 'clamp(200px, 26vw, 280px)' }}>
+              {/* スマホ外枠 */}
+              <div className="relative rounded-[2.8rem] overflow-hidden"
+                style={{ padding: '10px', background: 'linear-gradient(145deg,#2D2064,#7C3AED)', boxShadow: '0 30px 80px rgba(124,58,237,0.4), 0 8px 24px rgba(0,0,0,0.2)' }}>
+                {/* インカメラ */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 w-20 h-5 rounded-full" style={{ background: '#1A1040' }} />
+                {/* スクリーン */}
+                <div className="rounded-[2.2rem] overflow-hidden" style={{ aspectRatio: '9/19.5', background: '#000' }}>
+                  <img
+                    src={SCREENSHOTS[ssIdx]}
+                    alt="SakuraEnglish screenshot"
+                    className="w-full h-full object-cover transition-opacity duration-300"
+                    style={{ opacity: fade ? 1 : 0 }}
+                  />
+                </div>
               </div>
-            ))}
+
+              {/* 浮かぶバッジ：アプリ名 */}
+              <div className="absolute -right-6 top-8 rounded-2xl px-3.5 py-2.5 animate-float"
+                style={{ background: '#fff', boxShadow: '0 8px 28px rgba(236,72,153,0.2)', border: '2px solid #FCE7F3', animationDelay: '0.4s' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'linear-gradient(135deg,#EC4899,#F97316)' }}>
+                    <img src="/images/sakuraenglish.png" alt="" className="w-5 h-5 object-contain" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-black" style={{ color: '#1E1B4B' }}>SakuraEnglish</p>
+                    <p className="text-xs" style={{ color: '#94A3B8' }}>語学学習</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 評価バッジ */}
+              <div className="absolute -left-6 bottom-16 rounded-2xl px-3 py-2 animate-float"
+                style={{ background: '#FFFBEB', boxShadow: '0 6px 20px rgba(251,191,36,0.25)', border: '2px solid #FDE68A', animationDelay: '1s' }}>
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-3 h-3" viewBox="0 0 20 20" fill="#FBBF24">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                  <span className="text-xs font-black ml-0.5" style={{ color: '#92400E' }}>4.8</span>
+                </div>
+              </div>
+
+              {/* 装飾ドット */}
+              <div className="absolute rounded-full animate-pulse-glow" style={{ top: '20%', left: '-14px', width: 14, height: 14, background: '#F472B6' }} />
+              <div className="absolute rounded-full animate-pulse-glow" style={{ bottom: '30%', right: '-12px', width: 11, height: 11, background: '#34D399', animationDelay: '0.8s' }} />
+            </div>
           </div>
         </div>
 
-        {/* ── 右：カラフルなビジュアル ── */}
-        <div className="flex items-center justify-center relative" style={{ minHeight: 460 }}>
-
-          {/* メインの大きな円 */}
-          <div className="absolute rounded-full animate-float-slow"
-            style={{ width: 320, height: 320, background: 'linear-gradient(145deg, #EDE9FE 0%, #DDD6FE 50%, #C4B5FD 100%)', boxShadow: '0 24px 60px rgba(124,58,237,0.2)' }} />
-
-          {/* 中央カード */}
-          <div className="relative z-10 rounded-[2.5rem] px-10 py-10 text-center animate-float-slow"
-            style={{ background: '#fff', boxShadow: '0 20px 60px rgba(124,58,237,0.15)', border: '2px solid #EDE9FE', minWidth: 220, animationDelay: '0.3s' }}>
-            <div className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #A855F7)' }}>
-              <span className="font-black text-white text-2xl">S</span>
-            </div>
-            <p className="font-black text-lg" style={{ color: '#1E1B4B' }}>Studism</p>
-            <p className="text-xs font-bold mt-1" style={{ color: '#94A3B8' }}>Learn · Grow · Shine</p>
-          </div>
-
-          {/* 浮かぶ小カード — SakuraEnglish */}
-          <div className="absolute z-20 rounded-2xl px-4 py-3 animate-float"
-            style={{ top: '6%', right: '4%', background: '#fff', boxShadow: '0 8px 28px rgba(244,114,182,0.2)', border: '2px solid #FCE7F3' }}>
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #EC4899, #F97316)' }}>
-                <img src="/images/sakuraenglish.png" alt="SakuraEnglish" className="w-6 h-6 object-contain" />
-              </div>
-              <div>
-                <p className="text-xs font-black" style={{ color: '#1E1B4B' }}>SakuraEnglish</p>
-                <p className="text-xs" style={{ color: '#94A3B8' }}>語学学習</p>
-              </div>
+        {/* ── 下段：機能テキスト切り替え ── */}
+        <div className="pb-16 flex justify-center">
+          <div className="rounded-3xl px-8 py-5 text-center transition-all duration-300"
+            style={{
+              background: feat.bg,
+              border: `2px solid ${feat.color}22`,
+              boxShadow: `0 8px 32px ${feat.color}18`,
+              minWidth: 'clamp(260px, 60vw, 540px)',
+              opacity: fade ? 1 : 0,
+              transform: fade ? 'translateY(0)' : 'translateY(8px)',
+              transition: 'opacity 0.3s ease, transform 0.3s ease',
+            }}>
+            <p className="text-base md:text-lg font-black" style={{ color: feat.color }}>
+              {feat.label}
+            </p>
+            {/* インジケーター */}
+            <div className="flex justify-center gap-1.5 mt-3">
+              {FEATURES.map((_, i) => (
+                <div key={i} className="rounded-full transition-all duration-300"
+                  style={{ width: i === featureIdx ? 20 : 6, height: 6, background: i === featureIdx ? feat.color : `${feat.color}40` }} />
+              ))}
             </div>
           </div>
-
-          {/* 浮かぶ小カード — Timelyze */}
-          <div className="absolute z-20 rounded-2xl px-4 py-3 animate-float"
-            style={{ bottom: '10%', left: '2%', background: '#fff', boxShadow: '0 8px 28px rgba(99,102,241,0.2)', border: '2px solid #E0E7FF', animationDelay: '1.5s' }}>
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #6366F1, #06B6D4)' }}>
-                <img src="/images/timelyze.png" alt="Timelyze" className="w-6 h-6 object-contain" />
-              </div>
-              <div>
-                <p className="text-xs font-black" style={{ color: '#1E1B4B' }}>Timelyze</p>
-                <p className="text-xs" style={{ color: '#94A3B8' }}>時間管理</p>
-              </div>
-            </div>
-          </div>
-
-          {/* 評価バッジ */}
-          <div className="absolute z-20 rounded-2xl px-4 py-2.5 animate-float"
-            style={{ bottom: '22%', right: '0%', background: '#FFFBEB', boxShadow: '0 6px 20px rgba(251,191,36,0.25)', border: '2px solid #FDE68A', animationDelay: '0.8s' }}>
-            <div className="flex items-center gap-1.5">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-3 h-3" viewBox="0 0 20 20" fill="#FBBF24"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                ))}
-              </div>
-              <span className="text-xs font-black" style={{ color: '#92400E' }}>4.8</span>
-            </div>
-          </div>
-
-          {/* 装飾の小さな円 */}
-          <div className="absolute rounded-full animate-pulse-glow" style={{ top: '30%', left: '8%', width: 16, height: 16, background: '#F472B6' }} />
-          <div className="absolute rounded-full animate-pulse-glow" style={{ top: '70%', right: '10%', width: 12, height: 12, background: '#34D399', animationDelay: '1s' }} />
-          <div className="absolute rounded-full animate-pulse-glow" style={{ top: '15%', left: '22%', width: 10, height: 10, background: '#FBBF24', animationDelay: '0.5s' }} />
         </div>
 
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+}
 
 /* ════════════════════════════
    MARQUEE
