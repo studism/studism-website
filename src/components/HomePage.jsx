@@ -73,7 +73,7 @@ function Hero() {
               <img
                 src="/images/Studismicon.png"
                 alt="Studism"
-                style={{ width: 'clamp(160px, 22vw, 240px)', height: 'auto', position: 'relative', filter: 'drop-shadow(0 20px 48px rgba(124,58,237,0.30))' }}
+                style={{ width: 'clamp(160px, 22vw, 240px)', height: 'auto', position: 'relative', borderRadius: '28%', filter: 'drop-shadow(0 20px 48px rgba(124,58,237,0.30))' }}
               />
             </div>
 
