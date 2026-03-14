@@ -119,60 +119,64 @@ function Hero() {
             </div>
           </div>
 
-          {/* ── 右：スマホ ── */}
-          <div className="flex items-center justify-center order-1 lg:order-2">
-            <div className="relative" style={{ width: 'clamp(220px, 28vw, 300px)' }}>
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
-                style={{ width: '80%', height: 60, background: 'radial-gradient(ellipse, rgba(124,58,237,0.35), transparent 70%)', filter: 'blur(16px)' }} />
-              <div className="relative animate-float rounded-[3rem]"
-                style={{ padding: '10px 8px', background: 'linear-gradient(160deg,#3B1F8C,#1E1B4B)', boxShadow: '0 40px 90px rgba(30,27,75,0.45), 0 8px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)' }}>
-                <div className="absolute top-3.5 left-1/2 -translate-x-1/2 z-10 rounded-full" style={{ width: 90, height: 22, background: '#0D0B1E' }} />
-                <div className="absolute right-[-3px] top-24 rounded-r-sm" style={{ width: 3, height: 32, background: 'rgba(255,255,255,0.12)' }} />
-                <div className="absolute left-[-3px] top-20 rounded-l-sm" style={{ width: 3, height: 24, background: 'rgba(255,255,255,0.12)' }} />
-                <div className="absolute left-[-3px] top-28 rounded-l-sm" style={{ width: 3, height: 24, background: 'rgba(255,255,255,0.12)' }} />
-                <div className="rounded-[2.4rem] overflow-hidden" style={{ aspectRatio: '9/19.5', background: '#000' }}>
-                  <img src={SCREENSHOTS[idx % SCREENSHOTS.length]} alt="SakuraEnglish" className="w-full h-full object-cover"
-                    style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }} />
-                </div>
-                <div className="absolute top-10 left-4 right-4 rounded-3xl pointer-events-none"
-                  style={{ height: '35%', background: 'linear-gradient(180deg, rgba(255,255,255,0.04), transparent)' }} />
-              </div>
-              {/* アプリバッジ */}
-              <div className="absolute z-20 animate-float" style={{ top: '10%', right: '-18%', animationDelay: '0.5s' }}>
-                <div className="rounded-2xl px-3.5 py-2.5"
-                  style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', boxShadow: '0 8px 32px rgba(236,72,153,0.18)', border: '1.5px solid rgba(249,168,212,0.4)' }}>
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg,#EC4899,#F97316)' }}>
-                      <img src="/images/sakuraenglish.png" alt="" className="w-5 h-5 object-contain" />
+          {/* ── 右：スマホ×2 ── */}
+          <div className="flex items-end justify-center gap-4 order-1 lg:order-2">
+            {[0, 1].map((offset) => {
+              const ssIdx = (idx + offset) % SCREENSHOTS.length;
+              const isMain = offset === 0;
+              return (
+                <div key={offset} className="relative flex-shrink-0"
+                  style={{ width: isMain ? 'clamp(140px, 17vw, 200px)' : 'clamp(120px, 14vw, 170px)', marginBottom: isMain ? 0 : '2rem' }}>
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
+                    style={{ width: '80%', height: 40, background: 'radial-gradient(ellipse, rgba(124,58,237,0.3), transparent 70%)', filter: 'blur(12px)' }} />
+                  <div className={`relative rounded-[2.6rem] ${isMain ? 'animate-float' : 'animate-float-slow'}`}
+                    style={{ padding: '8px 6px', background: 'linear-gradient(160deg,#3B1F8C,#1E1B4B)', boxShadow: isMain ? '0 32px 72px rgba(30,27,75,0.45), inset 0 1px 0 rgba(255,255,255,0.08)' : '0 20px 48px rgba(30,27,75,0.30), inset 0 1px 0 rgba(255,255,255,0.06)', animationDelay: isMain ? '0s' : '1s' }}>
+                    <div className="absolute top-2.5 left-1/2 -translate-x-1/2 z-10 rounded-full" style={{ width: 64, height: 16, background: '#0D0B1E' }} />
+                    <div className="absolute right-[-2px] top-16 rounded-r-sm" style={{ width: 2, height: 24, background: 'rgba(255,255,255,0.12)' }} />
+                    <div className="absolute left-[-2px] top-14 rounded-l-sm" style={{ width: 2, height: 18, background: 'rgba(255,255,255,0.12)' }} />
+                    <div className="absolute left-[-2px] top-20 rounded-l-sm" style={{ width: 2, height: 18, background: 'rgba(255,255,255,0.12)' }} />
+                    <div className="rounded-[2.1rem] overflow-hidden" style={{ aspectRatio: '9/19.5', background: '#000' }}>
+                      <img src={SCREENSHOTS[ssIdx]} alt="SakuraEnglish" className="w-full h-full object-cover"
+                        style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }} />
                     </div>
-                    <div>
-                      <p className="text-[11px] font-black leading-tight" style={{ color: '#1E1B4B' }}>SakuraEnglish</p>
-                      <p className="text-[10px] font-medium" style={{ color: '#94A3B8' }}>語学学習</p>
-                    </div>
+                    <div className="absolute top-8 left-3 right-3 rounded-3xl pointer-events-none"
+                      style={{ height: '30%', background: 'linear-gradient(180deg, rgba(255,255,255,0.04), transparent)' }} />
                   </div>
-                </div>
-              </div>
-              {/* 評価バッジ */}
-              <div className="absolute z-20 animate-float" style={{ bottom: '18%', left: '-16%', animationDelay: '1.2s' }}>
-                <div className="rounded-2xl px-3.5 py-2.5"
-                  style={{ background: 'rgba(255,251,235,0.95)', backdropFilter: 'blur(12px)', boxShadow: '0 6px 24px rgba(251,191,36,0.22)', border: '1.5px solid #FDE68A' }}>
-                  <div className="flex items-center gap-1.5">
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} className="w-3 h-3" viewBox="0 0 20 20" fill="#FBBF24">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
+                  {/* メインのスマホにだけバッジ */}
+                  {isMain && (
+                    <div className="absolute z-20 animate-float" style={{ top: '8%', right: '-22%', animationDelay: '0.5s' }}>
+                      <div className="rounded-2xl px-3 py-2"
+                        style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', boxShadow: '0 8px 28px rgba(236,72,153,0.18)', border: '1.5px solid rgba(249,168,212,0.4)' }}>
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg,#EC4899,#F97316)' }}>
+                            <img src="/images/sakuraenglish.png" alt="" className="w-4 h-4 object-contain" />
+                          </div>
+                          <div>
+                            <p className="text-[10px] font-black leading-tight" style={{ color: '#1E1B4B' }}>SakuraEnglish</p>
+                            <p className="text-[9px] font-medium" style={{ color: '#94A3B8' }}>語学学習</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-[11px] font-black" style={{ color: '#92400E' }}>4.8</span>
-                  </div>
-                  <p className="text-[9px] font-bold mt-0.5" style={{ color: '#B45309' }}>App Store Rating</p>
+                  )}
+                  {!isMain && (
+                    <div className="absolute z-20 animate-float" style={{ bottom: '12%', left: '-22%', animationDelay: '1.2s' }}>
+                      <div className="rounded-2xl px-3 py-2"
+                        style={{ background: 'rgba(255,251,235,0.95)', backdropFilter: 'blur(12px)', boxShadow: '0 6px 20px rgba(251,191,36,0.22)', border: '1.5px solid #FDE68A' }}>
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <svg key={i} className="w-2.5 h-2.5" viewBox="0 0 20 20" fill="#FBBF24">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                          <span className="text-[10px] font-black ml-0.5" style={{ color: '#92400E' }}>4.8</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div className="absolute rounded-full animate-pulse-glow" style={{ top: '28%', left: '-20px', width: 12, height: 12, background: '#A78BFA' }} />
-              <div className="absolute rounded-full animate-pulse-glow" style={{ bottom: '38%', right: '-16px', width: 9, height: 9, background: '#34D399', animationDelay: '0.7s' }} />
-              <div className="absolute rounded-full animate-pulse-glow" style={{ top: '62%', left: '-10px', width: 7, height: 7, background: '#FBBF24', animationDelay: '1.4s' }} />
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>
