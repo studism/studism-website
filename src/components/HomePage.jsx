@@ -120,7 +120,7 @@ function Hero() {
           </div>
 
           {/* ── 右：スマホ×2 ── */}
-          <div className="flex items-center justify-center gap-4 order-1 lg:order-2">
+          <div className="flex items-center justify-center gap-8 order-1 lg:order-2">
             {[0, 1].map((offset) => {
               const ssIdx = (idx + offset) % SCREENSHOTS.length;
               const isMain = offset === 0;
