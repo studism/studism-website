@@ -37,32 +37,57 @@ function Hero() {
   const ssIdx = idx % SCREENSHOTS.length;
 
   return (
-    <section className="relative overflow-hidden" style={{ background: '#FAFAFE', minHeight: 'calc(100vh - 68px)' }}>
+    <section className="relative overflow-hidden" style={{ background: '#E0F4FF', minHeight: 'calc(100vh - 68px)' }}>
 
-      {/* ── 背景：ポップカラーブロブ群 ── */}
-      {/* 大きなブロブ */}
-      <div className="absolute pointer-events-none animate-float-slow"
-        style={{ top: '-8%', right: '-4%', width: 520, height: 520, borderRadius: '63% 37% 54% 46% / 44% 58% 42% 56%', background: 'linear-gradient(135deg,#C4B5FD,#A78BFA)', opacity: 0.35, filter: 'blur(1px)' }} />
-      <div className="absolute pointer-events-none animate-float-slow"
-        style={{ bottom: '-10%', left: '-6%', width: 440, height: 440, borderRadius: '42% 58% 47% 53% / 56% 38% 62% 44%', background: 'linear-gradient(135deg,#FCA5A5,#F472B6)', opacity: 0.3, filter: 'blur(1px)', animationDelay: '2s' }} />
-      <div className="absolute pointer-events-none animate-float"
-        style={{ top: '30%', left: '-3%', width: 260, height: 260, borderRadius: '50%', background: 'linear-gradient(135deg,#6EE7B7,#34D399)', opacity: 0.28, filter: 'blur(1px)', animationDelay: '1s' }} />
-      <div className="absolute pointer-events-none animate-float"
-        style={{ top: '5%', left: '35%', width: 180, height: 180, borderRadius: '50%', background: 'linear-gradient(135deg,#FDE68A,#FCD34D)', opacity: 0.4, filter: 'blur(1px)', animationDelay: '0.5s' }} />
-      <div className="absolute pointer-events-none animate-float-slow"
-        style={{ bottom: '5%', right: '20%', width: 200, height: 200, borderRadius: '50%', background: 'linear-gradient(135deg,#7DD3FC,#38BDF8)', opacity: 0.3, filter: 'blur(1px)', animationDelay: '1.5s' }} />
-      <div className="absolute pointer-events-none animate-float"
-        style={{ top: '55%', right: '5%', width: 140, height: 140, borderRadius: '50%', background: 'linear-gradient(135deg,#FB923C,#FBBF24)', opacity: 0.3, filter: 'blur(1px)', animationDelay: '2.5s' }} />
-
-      {/* 小さな装飾ドット */}
-      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '18%', left: '18%', width: 18, height: 18, borderRadius: '50%', background: '#F472B6', opacity: 0.7 }} />
-      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '72%', right: '38%', width: 14, height: 14, borderRadius: '50%', background: '#34D399', opacity: 0.7, animationDelay: '0.8s' }} />
-      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '42%', right: '12%', width: 10, height: 10, borderRadius: '50%', background: '#FBBF24', opacity: 0.8, animationDelay: '1.6s' }} />
-      <div className="absolute pointer-events-none animate-pulse-glow" style={{ bottom: '22%', left: '28%', width: 12, height: 12, borderRadius: '50%', background: '#A78BFA', opacity: 0.7, animationDelay: '0.4s' }} />
-      <div className="absolute pointer-events-none animate-pulse-glow" style={{ top: '12%', right: '32%', width: 8, height: 8, borderRadius: '50%', background: '#38BDF8', opacity: 0.8, animationDelay: '1.2s' }} />
-
-      {/* 薄いオーバーレイで読みやすさ確保 */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(250,250,254,0.45)' }} />
+      {/* ── 背景：学習記号 ── */}
+      {[
+        { s: '∑',     top: '6%',  left: '3%',  size: 52, rot: -15, op: 0.18, delay: '0s'   },
+        { s: '∫',     top: '18%', left: '8%',  size: 44, rot: 10,  op: 0.15, delay: '0.5s' },
+        { s: 'π',     top: '38%', left: '2%',  size: 48, rot: -8,  op: 0.18, delay: '1s'   },
+        { s: '√',     top: '58%', left: '6%',  size: 40, rot: 5,   op: 0.15, delay: '1.5s' },
+        { s: '∞',     top: '72%', left: '12%', size: 36, rot: -12, op: 0.18, delay: '0.8s' },
+        { s: 'Δ',     top: '85%', left: '4%',  size: 44, rot: 8,   op: 0.15, delay: '2s'   },
+        { s: 'θ',     top: '92%', left: '20%', size: 38, rot: -6,  op: 0.16, delay: '0.3s' },
+        { s: 'E=mc²', top: '5%',  left: '22%', size: 22, rot: -10, op: 0.20, delay: '0.6s' },
+        { s: 'α',     top: '14%', left: '30%', size: 42, rot: 12,  op: 0.15, delay: '1.2s' },
+        { s: 'λ',     top: '30%', left: '25%', size: 36, rot: -5,  op: 0.15, delay: '1.8s' },
+        { s: 'H₂O',   top: '48%', left: '20%', size: 24, rot: 8,   op: 0.20, delay: '0.4s' },
+        { s: '≈',     top: '62%', left: '28%', size: 44, rot: -10, op: 0.16, delay: '2.2s' },
+        { s: 'CO₂',   top: '78%', left: '22%', size: 22, rot: 6,   op: 0.20, delay: '1.1s' },
+        { s: 'F=ma',  top: '88%', left: '35%', size: 20, rot: -8,  op: 0.20, delay: '0.7s' },
+        { s: 'β',     top: '8%',  left: '48%', size: 40, rot: 15,  op: 0.14, delay: '1.4s' },
+        { s: '±',     top: '22%', left: '55%', size: 46, rot: -12, op: 0.16, delay: '0.9s' },
+        { s: 'pH',    top: '42%', left: '50%', size: 26, rot: 7,   op: 0.18, delay: '2.4s' },
+        { s: '∂',     top: '68%', left: '52%', size: 42, rot: -9,  op: 0.15, delay: '0.2s' },
+        { s: 'mol',   top: '82%', left: '48%', size: 22, rot: 11,  op: 0.18, delay: '1.6s' },
+        { s: 'γ',     top: '10%', left: '68%', size: 38, rot: -14, op: 0.15, delay: '0.5s' },
+        { s: 'NaCl',  top: '25%', left: '72%', size: 20, rot: 9,   op: 0.18, delay: '1.3s' },
+        { s: 'ω',     top: '44%', left: '68%', size: 40, rot: -7,  op: 0.16, delay: '2.0s' },
+        { s: '÷',     top: '60%', left: '74%', size: 44, rot: 13,  op: 0.15, delay: '0.6s' },
+        { s: 'σ',     top: '75%', left: '68%', size: 36, rot: -11, op: 0.16, delay: '1.7s' },
+        { s: 'v=λf',  top: '90%', left: '65%', size: 18, rot: 6,   op: 0.20, delay: '0.4s' },
+        { s: 'φ',     top: '4%',  left: '82%', size: 42, rot: -8,  op: 0.15, delay: '1.0s' },
+        { s: '×',     top: '18%', left: '88%', size: 40, rot: 20,  op: 0.16, delay: '2.1s' },
+        { s: 'ε',     top: '35%', left: '84%', size: 36, rot: -15, op: 0.15, delay: '0.3s' },
+        { s: '∇',     top: '55%', left: '88%', size: 40, rot: 8,   op: 0.16, delay: '1.5s' },
+        { s: 'ℏ',     top: '70%', left: '82%', size: 38, rot: -10, op: 0.15, delay: '0.8s' },
+        { s: 'O₂',    top: '82%', left: '88%', size: 22, rot: 12,  op: 0.18, delay: '2.3s' },
+        { s: 'μ',     top: '94%', left: '80%', size: 36, rot: -6,  op: 0.15, delay: '1.2s' },
+      ].map((item, i) => (
+        <div key={i} className="absolute pointer-events-none select-none animate-float"
+          style={{
+            top: item.top, left: item.left,
+            fontSize: item.size, fontWeight: 900,
+            color: '#0369A1',
+            opacity: item.op,
+            transform: `rotate(${item.rot}deg)`,
+            animationDelay: item.delay,
+            fontFamily: 'Georgia, serif',
+            lineHeight: 1,
+          }}>
+          {item.s}
+        </div>
+      ))}
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col" style={{ minHeight: 'inherit', paddingTop: 0, paddingBottom: 0 }}>
 
