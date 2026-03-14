@@ -10,11 +10,6 @@ const SCREENSHOTS = [
   '/images/screenshots/SakuraEnglish-ss03.webp',
 ];
 
-const STATS = [
-  { value: '2',   label: 'Apps' },
-  { value: '4.8', label: 'Rating' },
-  { value: 'Free', label: 'Always' },
-];
 
 function Hero() {
   const [idx, setIdx] = useState(0);
@@ -81,33 +76,6 @@ function Hero() {
               </div>
             </div>
 
-            {/* CTA */}
-            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-              <a href="#news"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-black text-sm text-white transition-all duration-200 hover:scale-105 group"
-                style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', boxShadow: '0 8px 32px rgba(124,58,237,0.38), inset 0 1px 0 rgba(255,255,255,0.15)' }}>
-                アプリを見る
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <Link to="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-black text-sm transition-all duration-200 hover:scale-105"
-                style={{ background: '#fff', color: '#7C3AED', border: '2px solid #DDD6FE', boxShadow: '0 4px 16px rgba(124,58,237,0.08)' }}>
-                お問い合わせ
-              </Link>
-            </div>
-
-            {/* スタット */}
-            <div className="flex items-center gap-2">
-              {STATS.map((s, i) => (
-                <React.Fragment key={i}>
-                  <div className="text-center px-4 py-2 rounded-2xl" style={{ background: 'rgba(124,58,237,0.05)', border: '1.5px solid #EDE9FE' }}>
-                    <div className="text-lg font-black" style={{ color: '#1E1B4B' }}>{s.value}</div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#94A3B8' }}>{s.label}</div>
-                  </div>
-                  {i < STATS.length - 1 && <div style={{ width: 1, height: 28, background: '#E2E8F0' }} />}
-                </React.Fragment>
-              ))}
-            </div>
           </div>
 
           {/* ══ 右カラム：スマホ ══ */}
