@@ -64,7 +64,7 @@ function Hero() {
       {/* 薄いオーバーレイで読みやすさ確保 */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(250,250,254,0.45)' }} />
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col" style={{ minHeight: 'inherit' }}>
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col" style={{ minHeight: 'inherit', paddingTop: 0, paddingBottom: 0 }}>
 
         {/* ══ 上段：機能テキスト（最上部固定） ══ */}
         <div className="pt-8 pb-4 text-center"
@@ -91,10 +91,10 @@ function Hero() {
         </div>
 
         {/* ══ 下段：アイコン（左）＋スマホ（右） ══ */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center pb-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center flex-1 pb-10">
 
           {/* ── 左：アイコン＋検索ボックス ── */}
-          <div className="flex flex-col items-center gap-6 order-2 lg:order-1">
+          <div className="flex flex-col items-center justify-center gap-6 order-2 lg:order-1">
             <div className="relative animate-float-slow">
               <div className="absolute inset-0 animate-pulse-glow pointer-events-none" style={{
                 background: 'radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 65%)',
@@ -120,7 +120,7 @@ function Hero() {
           </div>
 
           {/* ── 右：スマホ×2 ── */}
-          <div className="flex items-end justify-center gap-4 order-1 lg:order-2">
+          <div className="flex items-center justify-center gap-4 order-1 lg:order-2">
             {[0, 1].map((offset) => {
               const ssIdx = (idx + offset) % SCREENSHOTS.length;
               const isMain = offset === 0;
