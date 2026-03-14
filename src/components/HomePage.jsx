@@ -64,11 +64,11 @@ function Hero() {
       {/* 薄いオーバーレイで読みやすさ確保 */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(250,250,254,0.45)' }} />
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col justify-center" style={{ minHeight: 'inherit' }}>
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col" style={{ minHeight: 'inherit' }}>
 
-        {/* ══ 上段：機能テキスト（全幅・大） ══ */}
-        <div className="pt-6 pb-6 text-center"
-          style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(10px)', transition: 'opacity 0.35s ease, transform 0.35s ease' }}>
+        {/* ══ 上段：機能テキスト（最上部固定） ══ */}
+        <div className="pt-8 pb-4 text-center"
+          style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.35s ease, transform 0.35s ease' }}>
           <h1 className="font-black"
             style={{
               fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)',
@@ -126,7 +126,7 @@ function Hero() {
               const isMain = offset === 0;
               return (
                 <div key={offset} className="relative flex-shrink-0"
-                  style={{ width: isMain ? 'clamp(180px, 22vw, 260px)' : 'clamp(155px, 18vw, 220px)', marginBottom: isMain ? 0 : '3rem' }}>
+                  style={{ width: 'clamp(180px, 22vw, 260px)', marginLeft: offset === 1 ? '-2rem' : 0, zIndex: isMain ? 1 : 2 }}>
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
                     style={{ width: '80%', height: 40, background: 'radial-gradient(ellipse, rgba(124,58,237,0.3), transparent 70%)', filter: 'blur(12px)' }} />
                   <div className={`relative rounded-[2.6rem] ${isMain ? 'animate-float' : 'animate-float-slow'}`}
