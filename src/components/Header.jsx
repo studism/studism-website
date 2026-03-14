@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const NAV = [
-  { href: '/',       label: 'Home' },
-  { href: '/#about', label: 'About' },
-  { href: '/#apps',  label: 'Features' },
-  { href: '/#news',  label: 'Blog' },
-];
-
-const Header = () => {
+export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 24);
+    const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
@@ -19,51 +12,44 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.80)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: scrolled ? '3px solid transparent' : '3px solid transparent',
-        backgroundClip: 'padding-box',
-        boxShadow: scrolled ? '0 4px 24px rgba(59,130,246,0.12)' : 'none',
+        background: scrolled ? 'rgba(7,7,17,0.92)' : 'rgba(7,7,17,0.5)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        borderBottom: `1px solid ${scrolled ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.04)'}`,
+        boxShadow: scrolled ? '0 4px 32px rgba(0,0,0,0.6)' : 'none',
       }}>
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 py-4 flex items-center justify-between">
 
-      {/* rainbow underline */}
-      {scrolled && (
-        <div className="absolute bottom-0 left-0 w-full h-0.5"
-          style={{ background: 'linear-gradient(90deg,#ef4444,#f97316,#facc15,#4ade80,#60a5fa,#a855f7)' }} />
-      )}
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-white text-base"
+            style={{ background:'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow:'0 4px 14px rgba(99,102,241,0.4)' }}>
+            S
+          </div>
+          <span className="font-black text-white text-lg tracking-tight">Studism</span>
+        </Link>
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 py-3.5">
-        <div className="flex items-center justify-between">
-
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 hover:opacity-85 transition-opacity group">
-            <img src="/images/背景透過 2.png" alt="bird" className="h-10 w-auto group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300" />
-            <img src="/images/Studism横影なし 2.png" alt="Studism" className="h-8 w-auto" />
+        {/* Nav */}
+        <nav className="hidden md:flex items-center gap-1">
+          {[
+            { href:'/',       label:'Home'     },
+            { href:'/#about', label:'About'    },
+            { href:'/#apps',  label:'Apps'     },
+            { href:'/#news',  label:'News'     },
+          ].map(({ href, label }) => (
+            <a key={href} href={href}
+              className="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-white/6 hover:text-white"
+              style={{ color:'rgba(255,255,255,0.5)' }}>
+              {label}
+            </a>
+          ))}
+          <Link to="/contact"
+            className="ml-3 px-6 py-2.5 rounded-xl text-sm font-black text-white transition-all hover:scale-105"
+            style={{ background:'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow:'0 4px 16px rgba(99,102,241,0.35)' }}>
+            Contact
           </Link>
-
-          {/* Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {NAV.map(({ href, label }) => (
-              <a key={href} href={href}
-                className="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-blue-50"
-                style={{ color: '#1e40af' }}>
-                {label}
-              </a>
-            ))}
-            <Link to="/contact"
-              className="ml-3 px-6 py-2.5 rounded-full text-sm font-black text-white transition-all hover:scale-105 hover:shadow-lg"
-              style={{
-                background: 'linear-gradient(135deg,#3b82f6,#2563eb)',
-                boxShadow: '0 4px 16px rgba(59,130,246,0.4)',
-              }}>
-              Sign Up
-            </Link>
-          </nav>
-        </div>
+        </nav>
       </div>
     </header>
   );
-};
-
-export default Header;
+}

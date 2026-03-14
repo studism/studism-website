@@ -313,3 +313,56 @@ html {
 }
 .card-glow:hover::before { opacity: 1; }
 
+/* ── Neon glow utilities ── */
+.neon-blue { text-shadow: 0 0 20px rgba(0,212,255,0.9), 0 0 60px rgba(0,212,255,0.5), 0 0 120px rgba(0,212,255,0.25); }
+.neon-pink { text-shadow: 0 0 20px rgba(255,0,110,0.9), 0 0 60px rgba(255,0,110,0.5); }
+.neon-lime { text-shadow: 0 0 20px rgba(0,255,136,0.9), 0 0 60px rgba(0,255,136,0.5); }
+
+/* ── Outline text ── */
+.text-ghost {
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.06);
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+.text-ghost-blue {
+  -webkit-text-stroke: 1.5px rgba(0,212,255,0.10);
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Neon border card ── */
+.neon-card {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+.neon-card:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-6px);
+}
+
+/* ── Gradient animated border ── */
+@keyframes border-spin {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
+}
+
+/* ── Line scan ── */
+@keyframes scan-line {
+  0%   { top: -4px; opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.scan-line { animation: scan-line 3s ease-in-out infinite; }
+
+/* ── Hero entrance ── */
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(30px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-hero { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-hero-delay { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards; opacity: 0; }
+.animate-hero-delay2 { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards; opacity: 0; }
+
