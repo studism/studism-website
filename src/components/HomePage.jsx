@@ -12,7 +12,7 @@ const SLIDES = [
     label: 'Education Technology',
     heading: '学びを、もっと\n自由に、楽しく。',
     sub: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業です。',
-    bg: 'linear-gradient(135deg, rgba(91,33,182,0.78) 0%, rgba(124,58,237,0.65) 55%, rgba(167,139,250,0.5) 100%), url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1920&q=80&fit=crop) center/cover no-repeat',
+    bg: 'linear-gradient(135deg, rgba(15,40,110,0.82) 0%, rgba(30,64,175,0.70) 55%, rgba(59,130,246,0.55) 100%), url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1920&q=80&fit=crop) center/cover no-repeat',
     visual: (
       <>
         <div style={{ position: 'absolute', top: '8%', right: '18%', width: '180px', height: '180px',
@@ -31,7 +31,7 @@ const SLIDES = [
     label: 'Language Learning App',
     heading: '英語学習を、\nもっと楽しく。',
     sub: 'レベル別英単語クイズで、効率的に語彙力を強化。SakuraEnglishで始める新しい学習体験。',
-    bg: 'linear-gradient(135deg, rgba(157,23,77,0.78) 0%, rgba(219,39,119,0.65) 55%, rgba(244,114,182,0.5) 100%), url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80&fit=crop) center/cover no-repeat',
+    bg: 'linear-gradient(135deg, rgba(12,74,110,0.82) 0%, rgba(14,165,233,0.68) 55%, rgba(125,211,252,0.5) 100%), url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80&fit=crop) center/cover no-repeat',
     visual: (
       <>
         <div style={{
@@ -87,7 +87,7 @@ const SLIDES = [
     label: 'Our Mission',
     heading: 'テクノロジーと教育で、\n未来を変える。',
     sub: 'すべての人が自分のペースで、自分らしく学べる世界を。Studismのミッションです。',
-    bg: 'linear-gradient(135deg, rgba(76,29,149,0.82) 0%, rgba(109,40,217,0.7) 50%, rgba(147,51,234,0.6) 100%), url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80&fit=crop) center/cover no-repeat',
+    bg: 'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,58,138,0.75) 50%, rgba(37,99,235,0.6) 100%), url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80&fit=crop) center/cover no-repeat',
     visual: (
       <>
         <div style={{ position: 'absolute', top: '10%', right: '40%', width: '60px', height: '60px',
@@ -193,7 +193,7 @@ function HeroSection() {
       {/* ─── コントロールバー ─── */}
       <div style={{
         background: '#fff',
-        borderBottom: '1px solid #EDE9FE',
+        borderBottom: '1px solid #DBEAFE',
         height: '52px', display: 'flex', alignItems: 'center',
         padding: '0 40px', position: 'relative',
       }}>
@@ -202,15 +202,15 @@ function HeroSection() {
           {SLIDES.map((_, i) => (
             <button key={i} onClick={() => goTo(i)} style={{
               flex: 1, height: '3px', border: 'none', cursor: 'pointer', padding: 0,
-              background: '#EDE9FE', position: 'relative', overflow: 'hidden', borderRadius: '999px',
+              background: '#DBEAFE', position: 'relative', overflow: 'hidden', borderRadius: '999px',
             }}>
               {i < current && (
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,#8B5CF6,#C084FC)', borderRadius: '999px' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,#1D4ED8,#3B82F6)', borderRadius: '999px' }} />
               )}
               {i === current && (
                 <div style={{
                   position: 'absolute', top: 0, left: 0, height: '100%',
-                  background: 'linear-gradient(90deg,#8B5CF6,#C084FC)',
+                  background: 'linear-gradient(90deg,#1D4ED8,#3B82F6)',
                   width: `${progress}%`,
                   transition: progress === 0 ? 'none' : `width ${INTERVAL / 1000 - 0.3}s linear`,
                   borderRadius: '999px',
@@ -224,7 +224,7 @@ function HeroSection() {
         <button onClick={() => setPaused(p => !p)} style={{
           position: 'absolute', left: '50%', transform: 'translateX(-50%)',
           width: '32px', height: '32px', borderRadius: '50%',
-          border: 'none', background: 'linear-gradient(135deg,#8B5CF6,#C084FC)',
+          border: 'none', background: 'linear-gradient(135deg,#1D4ED8,#3B82F6)',
           cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '11px', color: '#fff',
           boxShadow: '0 3px 10px rgba(139,92,246,0.3)',
@@ -234,7 +234,7 @@ function HeroSection() {
 
         {/* Scroll down（右） */}
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px',
-          color: '#A78BFA', fontSize: '0.78rem', fontWeight: 600, letterSpacing: '0.04em' }}>
+          color: '#3B82F6', fontSize: '0.78rem', fontWeight: 600, letterSpacing: '0.04em' }}>
           <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
             <path d="M6 1v14M1 10l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -256,10 +256,10 @@ const APPS = [
     icon: '/images/sakuraenglish.png',
     lead: '英語学習を、もっと楽しく。',
     description: 'レベル別英単語クイズで効率的に語彙力を強化。5段階の難易度とカスタム単語リスト機能で、自分だけの学習プランを作成できます。',
-    photoBg: 'linear-gradient(135deg, #BE185D 0%, #EC4899 55%, #FBCFE8 100%)',
-    accent: '#DB2777',
-    accentLight: '#FCE7F3',
-    shadowColor: 'rgba(219,39,119,0.14)',
+    photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 55%, #93C5FD 100%)',
+    accent: '#2563EB',
+    accentLight: '#DBEAFE',
+    shadowColor: 'rgba(37,99,235,0.14)',
   },
   {
     slug: 'timelyze',
@@ -281,10 +281,10 @@ const APPS = [
     icon: null,
     lead: '新しいアプリを準備中です。',
     description: '',
-    photoBg: 'linear-gradient(135deg, #065F46 0%, #10B981 55%, #A7F3D0 100%)',
-    accent: '#10B981',
-    accentLight: '#D1FAE5',
-    shadowColor: 'rgba(16,185,129,0.14)',
+    photoBg: 'linear-gradient(135deg, #0C4A6E 0%, #0EA5E9 55%, #BAE6FD 100%)',
+    accent: '#0EA5E9',
+    accentLight: '#E0F2FE',
+    shadowColor: 'rgba(14,165,233,0.14)',
     comingSoon: true,
   },
   {
@@ -294,10 +294,10 @@ const APPS = [
     icon: null,
     lead: '新しいアプリを準備中です。',
     description: '',
-    photoBg: 'linear-gradient(135deg, #92400E 0%, #F59E0B 55%, #FDE68A 100%)',
-    accent: '#D97706',
-    accentLight: '#FEF3C7',
-    shadowColor: 'rgba(217,119,6,0.14)',
+    photoBg: 'linear-gradient(135deg, #172554 0%, #1D4ED8 55%, #BFDBFE 100%)',
+    accent: '#1D4ED8',
+    accentLight: '#DBEAFE',
+    shadowColor: 'rgba(29,78,216,0.14)',
     comingSoon: true,
   },
   {
@@ -307,10 +307,10 @@ const APPS = [
     icon: null,
     lead: '新しいアプリを準備中です。',
     description: '',
-    photoBg: 'linear-gradient(135deg, #4C1D95 0%, #8B5CF6 55%, #DDD6FE 100%)',
-    accent: '#7C3AED',
-    accentLight: '#EDE9FE',
-    shadowColor: 'rgba(124,58,237,0.14)',
+    photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 55%, #BFDBFE 100%)',
+    accent: '#1D4ED8',
+    accentLight: '#DBEAFE',
+    shadowColor: 'rgba(29,78,216,0.14)',
     comingSoon: true,
   },
 ];
@@ -331,13 +331,13 @@ function Services() {
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
           <div>
-            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
-              Services
+            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#1D4ED8', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
+              App一覧
             </h2>
             <Link to="/app/sakuraenglish" style={{
               textDecoration: 'none', color: '#1a1a1a', fontSize: '0.88rem', fontWeight: 700,
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              paddingBottom: '6px', borderBottom: '2px solid #7C3AED',
+              paddingBottom: '6px', borderBottom: '2px solid #1D4ED8',
             }}>
               View more
               <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -361,7 +361,7 @@ function Services() {
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '14px', color: '#555', transition: 'border-color 0.2s, color 0.2s',
             }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#7C3AED'; e.currentTarget.style.color = '#7C3AED'; }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#1D4ED8'; e.currentTarget.style.color = '#1D4ED8'; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = '#ddd'; e.currentTarget.style.color = '#555'; }}
             >
               {arrow}
@@ -418,7 +418,7 @@ function Services() {
               {/* タイトル */}
               <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0, paddingRight: '16px',
                 transition: 'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
+                onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
                 onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
               >
                 {app.lead}
@@ -438,9 +438,9 @@ function Services() {
 ════════════════════════════ */
 const NEWS = [
   {
-    date: '2025.11.22', category: 'お知らせ', categoryColor: '#7C3AED',
+    date: '2025.11.22', category: 'お知らせ', categoryColor: '#2563EB',
     title: '公式ウェブサイトをリニューアルオープンしました',
-    thumb: 'linear-gradient(135deg, rgba(109,40,217,0.7), rgba(167,139,250,0.6)), url(https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&fit=crop) center/cover no-repeat',
+    thumb: 'linear-gradient(135deg, rgba(30,58,138,0.7), rgba(59,130,246,0.6)), url(https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&fit=crop) center/cover no-repeat',
     pickup: true,
   },
   {
@@ -450,9 +450,9 @@ const NEWS = [
     pickup: false,
   },
   {
-    date: '2025.11.15', category: 'アップデート', categoryColor: '#DB2777',
+    date: '2025.11.15', category: 'アップデート', categoryColor: '#0369A1',
     title: '「SakuraEnglish」に新しい単語リストを追加しました',
-    thumb: 'linear-gradient(135deg, rgba(157,23,77,0.7), rgba(244,114,182,0.6)), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80&fit=crop) center/cover no-repeat',
+    thumb: 'linear-gradient(135deg, rgba(12,74,110,0.7), rgba(14,165,233,0.6)), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80&fit=crop) center/cover no-repeat',
     pickup: false,
   },
 ];
@@ -473,13 +473,13 @@ function NewsSection() {
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
           <div>
-            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
+            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#1D4ED8', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
               News
             </h2>
             <a href="#" style={{
               textDecoration: 'none', color: '#1a1a1a', fontSize: '0.88rem', fontWeight: 700,
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              paddingBottom: '6px', borderBottom: '2px solid #7C3AED',
+              paddingBottom: '6px', borderBottom: '2px solid #1D4ED8',
             }}>
               View more
               <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -503,7 +503,7 @@ function NewsSection() {
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '14px', color: '#555', transition: 'border-color 0.2s, color 0.2s',
             }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#7C3AED'; e.currentTarget.style.color = '#7C3AED'; }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#1D4ED8'; e.currentTarget.style.color = '#1D4ED8'; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = '#ddd'; e.currentTarget.style.color = '#555'; }}
             >
               {arrow}
@@ -533,7 +533,7 @@ function NewsSection() {
               {n.pickup && (
                 <div style={{
                   position: 'absolute', top: '12px', left: '12px',
-                  background: '#7C3AED', color: '#fff',
+                  background: '#1D4ED8', color: '#fff',
                   fontSize: '0.72rem', fontWeight: 800, padding: '4px 12px',
                   borderRadius: '999px', letterSpacing: '0.04em',
                 }}>
@@ -557,7 +557,7 @@ function NewsSection() {
             {/* タイトル */}
             <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0, paddingRight: '16px',
               transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
+              onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
               onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
             >
               {n.title}
@@ -578,7 +578,7 @@ function MissionBanner() {
   return (
     <section style={{
       position: 'relative', overflow: 'hidden',
-      background: 'linear-gradient(135deg, #4C1D95 0%, #6D28D9 40%, #9333EA 70%, #C084FC 100%)',
+      background: 'linear-gradient(135deg, #0F2D6E 0%, #1D4ED8 40%, #2563EB 70%, #3B82F6 100%)',
       padding: '100px 0',
     }}>
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.07) 1.5px, transparent 1.5px)', backgroundSize: '24px 24px', zIndex: 0 }} />
@@ -611,7 +611,7 @@ function MissionBanner() {
         <Link to="/contact" style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
           padding: '14px 36px',
-          background: '#fff', color: '#6D28D9',
+          background: '#fff', color: '#1D4ED8',
           textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.04em',
           borderRadius: '999px',
           boxShadow: '0 6px 24px rgba(0,0,0,0.14)',
@@ -621,7 +621,7 @@ function MissionBanner() {
           onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(0,0,0,0.14)'; }}
         >
           お問い合わせ
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#6D28D9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#1D4ED8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </Link>
       </div>
     </section>
