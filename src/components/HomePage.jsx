@@ -334,7 +334,7 @@ function Services() {
       <div ref={scrollRef} style={{
         display: 'flex', gap: '2px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: 'max(0px, calc((100vw - 1200px) / 2 - 60px))',
+        paddingLeft: 'max(0px, calc((100vw - 1200px) / 2 - 100px))',
       }}>
         {APPS.map(app => (
           <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '340px', maxWidth: '340px', flexShrink: 0 }}>
@@ -464,7 +464,7 @@ function NewsSection() {
       <div ref={scrollRef} style={{
         display: 'flex', gap: '2px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: 'max(0px, calc((100vw - 1200px) / 2 - 60px))',
+        paddingLeft: 'max(0px, calc((100vw - 1200px) / 2 - 100px))',
       }}>
         {NEWS.map((n, i) => (
           <article key={i} style={{
