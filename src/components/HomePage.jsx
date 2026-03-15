@@ -1,176 +1,103 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const SCREENSHOTS = [
-  '/images/screenshots/SakuraEnglish-ss01.webp',
-  '/images/screenshots/SakuraEnglish-ss02.webp',
-  '/images/screenshots/SakuraEnglish-ss03.webp',
-];
-
-const FEATURES = [
-  { text: 'レベル別クイズで着実にステップアップ',   grad: 'linear-gradient(135deg,#7C3AED,#A855F7)' },
-  { text: 'カスタム単語リストで自分だけの学習を',   grad: 'linear-gradient(135deg,#EC4899,#F97316)' },
-  { text: '復習リマインダーで毎日続けられる',       grad: 'linear-gradient(135deg,#0EA5E9,#06B6D4)' },
-  { text: 'ゲーム感覚で楽しく英語力アップ',         grad: 'linear-gradient(135deg,#10B981,#34D399)' },
-  { text: '発音チェックでネイティブに近づこう',     grad: 'linear-gradient(135deg,#F59E0B,#FB923C)' },
-];
-
+/* ════════════════════════════
+   Hero セクション
+════════════════════════════ */
 function Hero() {
-  const [idx, setIdx] = useState(0);
-  const [visible, setVisible] = useState(true);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setVisible(false);
-      setTimeout(() => {
-        setIdx(i => (i + 1) % FEATURES.length);
-        setVisible(true);
-      }, 350);
-    }, 3000);
-    return () => clearInterval(id);
-  }, []);
-
-  const feat = FEATURES[idx];
-  const ssIdx = idx % SCREENSHOTS.length;
-
   return (
-    <section className="relative overflow-hidden" style={{ background: '#5DCFEA', minHeight: 'calc(100vh - 68px)' }}>
+    <section className="relative overflow-hidden" style={{ background: '#FAFAFE', minHeight: 'calc(100vh - 68px)' }}>
+      {/* 薄い紫グラデーション装飾 */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 80% 60% at 70% 50%, rgba(168,85,247,0.07) 0%, transparent 70%)',
+      }} />
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 50% 40% at 20% 80%, rgba(93,207,234,0.08) 0%, transparent 60%)',
+      }} />
 
-      {/* ── 背景：学習記号 ── */}
-      {[
-        { s: '∑',     top: '6%',  left: '3%',  size: 52, rot: -15, op: 0.18, delay: '0s'   },
-        { s: '∫',     top: '18%', left: '8%',  size: 44, rot: 10,  op: 0.15, delay: '0.5s' },
-        { s: 'π',     top: '38%', left: '2%',  size: 48, rot: -8,  op: 0.18, delay: '1s'   },
-        { s: '√',     top: '58%', left: '6%',  size: 40, rot: 5,   op: 0.15, delay: '1.5s' },
-        { s: '∞',     top: '72%', left: '12%', size: 36, rot: -12, op: 0.18, delay: '0.8s' },
-        { s: 'Δ',     top: '85%', left: '4%',  size: 44, rot: 8,   op: 0.15, delay: '2s'   },
-        { s: 'θ',     top: '92%', left: '20%', size: 38, rot: -6,  op: 0.16, delay: '0.3s' },
-        { s: 'E=mc²', top: '5%',  left: '22%', size: 22, rot: -10, op: 0.20, delay: '0.6s' },
-        { s: 'α',     top: '14%', left: '30%', size: 42, rot: 12,  op: 0.15, delay: '1.2s' },
-        { s: 'λ',     top: '30%', left: '25%', size: 36, rot: -5,  op: 0.15, delay: '1.8s' },
-        { s: 'H₂O',   top: '48%', left: '20%', size: 24, rot: 8,   op: 0.20, delay: '0.4s' },
-        { s: '≈',     top: '62%', left: '28%', size: 44, rot: -10, op: 0.16, delay: '2.2s' },
-        { s: 'CO₂',   top: '78%', left: '22%', size: 22, rot: 6,   op: 0.20, delay: '1.1s' },
-        { s: 'F=ma',  top: '88%', left: '35%', size: 20, rot: -8,  op: 0.20, delay: '0.7s' },
-        { s: 'β',     top: '8%',  left: '48%', size: 40, rot: 15,  op: 0.14, delay: '1.4s' },
-        { s: '±',     top: '22%', left: '55%', size: 46, rot: -12, op: 0.16, delay: '0.9s' },
-        { s: 'pH',    top: '42%', left: '50%', size: 26, rot: 7,   op: 0.18, delay: '2.4s' },
-        { s: '∂',     top: '68%', left: '52%', size: 42, rot: -9,  op: 0.15, delay: '0.2s' },
-        { s: 'mol',   top: '82%', left: '48%', size: 22, rot: 11,  op: 0.18, delay: '1.6s' },
-        { s: 'γ',     top: '10%', left: '68%', size: 38, rot: -14, op: 0.15, delay: '0.5s' },
-        { s: 'NaCl',  top: '25%', left: '72%', size: 20, rot: 9,   op: 0.18, delay: '1.3s' },
-        { s: 'ω',     top: '44%', left: '68%', size: 40, rot: -7,  op: 0.16, delay: '2.0s' },
-        { s: '÷',     top: '60%', left: '74%', size: 44, rot: 13,  op: 0.15, delay: '0.6s' },
-        { s: 'σ',     top: '75%', left: '68%', size: 36, rot: -11, op: 0.16, delay: '1.7s' },
-        { s: 'v=λf',  top: '90%', left: '65%', size: 18, rot: 6,   op: 0.20, delay: '0.4s' },
-        { s: 'φ',     top: '4%',  left: '82%', size: 42, rot: -8,  op: 0.15, delay: '1.0s' },
-        { s: '×',     top: '18%', left: '88%', size: 40, rot: 20,  op: 0.16, delay: '2.1s' },
-        { s: 'ε',     top: '35%', left: '84%', size: 36, rot: -15, op: 0.15, delay: '0.3s' },
-        { s: '∇',     top: '55%', left: '88%', size: 40, rot: 8,   op: 0.16, delay: '1.5s' },
-        { s: 'ℏ',     top: '70%', left: '82%', size: 38, rot: -10, op: 0.15, delay: '0.8s' },
-        { s: 'O₂',    top: '82%', left: '88%', size: 22, rot: 12,  op: 0.18, delay: '2.3s' },
-        { s: 'μ',     top: '94%', left: '80%', size: 36, rot: -6,  op: 0.15, delay: '1.2s' },
-      ].map((item, i) => (
-        <div key={i} className="absolute pointer-events-none select-none animate-float"
-          style={{
-            top: item.top, left: item.left,
-            fontSize: item.size, fontWeight: 900,
-            color: '#ffffff',
-            opacity: item.op,
-            transform: `rotate(${item.rot}deg)`,
-            animationDelay: item.delay,
-            fontFamily: 'Georgia, serif',
-            lineHeight: 1,
-          }}>
-          {item.s}
-        </div>
-      ))}
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex items-center"
+        style={{ minHeight: 'calc(100vh - 68px)' }}>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full py-16">
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col" style={{ minHeight: 'inherit', paddingTop: 0, paddingBottom: 0 }}>
-
-        {/* ══ 上段：機能テキスト（最上部固定） ══ */}
-        <div className="pt-8 pb-4 text-center"
-          style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.35s ease, transform 0.35s ease' }}>
-          <h1 className="font-black"
-            style={{
-              fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)',
-              letterSpacing: '-0.02em',
-              color: '#1E1B4B',
-            }}>
-            {feat.text}
-          </h1>
-          <div className="flex justify-center gap-2 mt-5">
-            {FEATURES.map((f, i) => (
-              <button key={i} onClick={() => { setIdx(i); setVisible(true); }}
-                style={{
-                  width: i === idx ? 28 : 8, height: 8, borderRadius: 99,
-                  background: i === idx ? feat.grad : 'rgba(124,58,237,0.2)',
-                  border: 'none', padding: 0, cursor: 'pointer',
-                  transition: 'width 0.3s ease',
-                }} />
-            ))}
-          </div>
-        </div>
-
-        {/* ══ 下段：アイコン（左）＋スマホ（右） ══ */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center flex-1 pb-10">
-
-          {/* ── 左：アイコン＋検索ボックス ── */}
-          <div className="flex flex-col items-center justify-center gap-6 order-2 lg:order-1">
-            <div className="relative animate-float-slow">
-              <div className="absolute inset-0 animate-pulse-glow pointer-events-none" style={{
-                background: 'radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 65%)',
-                transform: 'scale(1.7)', borderRadius: '50%',
-              }} />
+          {/* 左：テキスト */}
+          <div className="flex flex-col gap-7 order-2 lg:order-1">
+            <div>
               <img
-                src="/images/Studismicon.png"
+                src="/images/studism-logo.png"
                 alt="Studism"
-                style={{ width: 'clamp(220px, 30vw, 320px)', height: 'auto', position: 'relative', borderRadius: '28%', filter: 'drop-shadow(0 24px 56px rgba(124,58,237,0.32))' }}
+                style={{ height: 'clamp(36px, 6vw, 52px)', width: 'auto', objectFit: 'contain' }}
               />
             </div>
-            <div style={{ width: 'clamp(220px, 30vw, 320px)' }}>
-              <div className="flex items-center gap-3 px-4 py-3.5 rounded-2xl"
-                style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(16px)', border: '1.5px solid #EDE9FE', boxShadow: '0 4px 20px rgba(124,58,237,0.10)' }}>
-                <Search className="w-4 h-4 flex-shrink-0" style={{ color: '#A78BFA' }} />
-                <span className="font-black text-sm" style={{ color: '#1E1B4B' }}>Studism</span>
-                <span className="ml-auto text-[10px] font-bold px-2.5 py-1 rounded-full"
-                  style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', color: '#fff' }}>
-                  無料
-                </span>
-              </div>
+
+            <h1 className="font-black leading-tight"
+              style={{
+                fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
+                color: '#1E1B4B',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.15,
+              }}>
+              学びを、もっと自由に。<br />
+              もっと楽しく。
+            </h1>
+
+            <p className="font-medium leading-relaxed"
+              style={{
+                fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                color: '#64748B',
+                maxWidth: '480px',
+              }}>
+              Studismは、テクノロジーの力で学習体験を変えるアプリを開発しています。
+              英語学習から時間管理まで、あなたの成長をサポートします。
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 mt-2">
+              <Link to="/app/sakuraenglish"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl font-black text-sm transition-all duration-200 hover:scale-105 active:scale-95"
+                style={{
+                  background: 'linear-gradient(135deg, #7C3AED, #A855F7)',
+                  color: '#ffffff',
+                  boxShadow: '0 8px 24px rgba(124,58,237,0.30)',
+                  textDecoration: 'none',
+                }}>
+                アプリを見る
+              </Link>
+              <a href="https://apps.apple.com/jp/developer/studism/id1234567890"
+                target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl font-black text-sm transition-all duration-200 hover:scale-105 active:scale-95"
+                style={{
+                  background: 'rgba(124,58,237,0.06)',
+                  color: '#7C3AED',
+                  border: '1.5px solid rgba(124,58,237,0.20)',
+                  textDecoration: 'none',
+                }}>
+                App Storeで探す
+              </a>
             </div>
           </div>
 
-          {/* ── 右：スマホ×2 ── */}
-          <div className="flex items-center justify-center gap-14 order-1 lg:order-2">
-            {[0, 1].map((offset) => {
-              const ssIdx = (idx + offset) % SCREENSHOTS.length;
-              const isMain = offset === 0;
-              return (
-                <div key={offset} className="relative flex-shrink-0"
-                  style={{ width: 'clamp(200px, 26vw, 310px)' }}>
-                  <div className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
-                    style={{ width: '80%', height: 40, background: 'radial-gradient(ellipse, rgba(124,58,237,0.3), transparent 70%)', filter: 'blur(12px)' }} />
-                  <div className={`relative rounded-[2.6rem] ${isMain ? 'animate-float' : 'animate-float-slow'}`}
-                    style={{ padding: '8px 6px', background: 'linear-gradient(160deg,#3B1F8C,#1E1B4B)', boxShadow: isMain ? '0 32px 72px rgba(30,27,75,0.45), inset 0 1px 0 rgba(255,255,255,0.08)' : '0 20px 48px rgba(30,27,75,0.30), inset 0 1px 0 rgba(255,255,255,0.06)', animationDelay: isMain ? '0s' : '1s' }}>
-                    <div className="absolute top-2.5 left-1/2 -translate-x-1/2 z-10 rounded-full" style={{ width: 64, height: 16, background: '#0D0B1E' }} />
-                    <div className="absolute right-[-2px] top-16 rounded-r-sm" style={{ width: 2, height: 24, background: 'rgba(255,255,255,0.12)' }} />
-                    <div className="absolute left-[-2px] top-14 rounded-l-sm" style={{ width: 2, height: 18, background: 'rgba(255,255,255,0.12)' }} />
-                    <div className="absolute left-[-2px] top-20 rounded-l-sm" style={{ width: 2, height: 18, background: 'rgba(255,255,255,0.12)' }} />
-                    <div className="rounded-[2.1rem] overflow-hidden" style={{ aspectRatio: '9/19.5', background: '#000' }}>
-                      <img src={SCREENSHOTS[ssIdx]} alt="SakuraEnglish" className="w-full h-full object-cover"
-                        style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }} />
-                    </div>
-                    <div className="absolute top-8 left-3 right-3 rounded-3xl pointer-events-none"
-                      style={{ height: '30%', background: 'linear-gradient(180deg, rgba(255,255,255,0.04), transparent)' }} />
-                  </div>
-                </div>
-              );
-            })}
+          {/* 右：ペンギンマスコット */}
+          <div className="flex items-center justify-center order-1 lg:order-2">
+            <div className="relative">
+              <div className="absolute inset-0 animate-pulse-glow pointer-events-none" style={{
+                background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 65%)',
+                transform: 'scale(1.5)', borderRadius: '50%',
+              }} />
+              <img
+                src="/images/背景透過 2.png"
+                alt="Studismマスコット"
+                className="animate-float-slow"
+                style={{
+                  width: 'clamp(260px, 36vw, 460px)',
+                  height: 'auto',
+                  position: 'relative',
+                  filter: 'drop-shadow(0 24px 56px rgba(124,58,237,0.18))',
+                }}
+              />
+            </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -178,8 +105,183 @@ function Hero() {
 }
 
 /* ════════════════════════════
-   MARQUEE
+   Mission セクション
 ════════════════════════════ */
+const MISSION_CARDS = [
+  {
+    icon: '🆓',
+    title: '完全無料',
+    description: 'すべての基本機能を無料でお使いいただけます。課金なしでも充実した学習体験を。',
+    grad: 'linear-gradient(135deg, #7C3AED, #A855F7)',
+  },
+  {
+    icon: '✨',
+    title: '使いやすさ',
+    description: 'シンプルで直感的なUIデザイン。アプリを開いた瞬間から学習をスタートできます。',
+    grad: 'linear-gradient(135deg, #0EA5E9, #5DCFEA)',
+  },
+  {
+    icon: '🔥',
+    title: '毎日続けられる',
+    description: 'リマインダーや習熟度トラッキングで、学習を楽しく継続できる仕組みを提供します。',
+    grad: 'linear-gradient(135deg, #EC4899, #F97316)',
+  },
+];
+
+function Mission() {
+  return (
+    <section style={{ background: '#E0F9FF', padding: '80px 0' }}>
+      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+        <div className="text-center mb-14 max-w-2xl mx-auto">
+          <span className="inline-block text-xs font-black px-3 py-1 rounded-full mb-4"
+            style={{ background: 'rgba(93,207,234,0.25)', color: '#0EA5E9', letterSpacing: '0.1em' }}>
+            MISSION
+          </span>
+          <h2 className="font-black mb-5"
+            style={{ fontSize: 'clamp(1.6rem, 3.2vw, 2.4rem)', color: '#1E1B4B', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+            私たちのミッション
+          </h2>
+          <p className="font-medium leading-relaxed" style={{ color: '#64748B', fontSize: '1rem' }}>
+            テクノロジーと教育の力で、すべての人の学びをもっと楽しく、もっと効果的にする
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          {MISSION_CARDS.map((card, i) => (
+            <div key={i}
+              className="rounded-3xl p-8 text-center transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: 'rgba(255,255,255,0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1.5px solid rgba(255,255,255,0.90)',
+                boxShadow: '0 4px 32px rgba(93,207,234,0.15)',
+              }}>
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                style={{ background: card.grad, fontSize: '1.6rem' }}>
+                {card.icon}
+              </div>
+              <h3 className="font-black mb-3" style={{ fontSize: '1.1rem', color: '#1E1B4B' }}>
+                {card.title}
+              </h3>
+              <p className="text-sm font-medium leading-relaxed" style={{ color: '#64748B' }}>
+                {card.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════
+   Apps セクション
+════════════════════════════ */
+const APPS = [
+  {
+    slug: 'sakuraenglish',
+    name: 'SakuraEnglish',
+    icon: '/images/sakuraenglish.png',
+    category: '語学学習',
+    description: 'レベル別英単語クイズで効率的に語彙力を強化。5段階の難易度とカスタム単語リスト機能で自分だけの学習プランを作成できます。',
+    grad: 'linear-gradient(135deg, #7C3AED 0%, #5DCFEA 100%)',
+    badgeColor: '#7C3AED',
+    badgeBg: 'rgba(124,58,237,0.08)',
+  },
+  {
+    slug: 'timelyze',
+    name: 'Timelyze',
+    icon: '/images/timelyze.png',
+    category: '生産性',
+    description: '学習時間の記録・管理を簡単に。タイマー機能、教科別集計、グラフ可視化で継続的な学習習慣をサポートします。',
+    grad: 'linear-gradient(135deg, #0EA5E9 0%, #A855F7 100%)',
+    badgeColor: '#0EA5E9',
+    badgeBg: 'rgba(14,165,233,0.08)',
+  },
+];
+
+function Apps() {
+  return (
+    <section style={{ background: '#FAFAFE', padding: '80px 0' }}>
+      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+        <div className="text-center mb-14">
+          <span className="inline-block text-xs font-black px-3 py-1 rounded-full mb-4"
+            style={{ background: 'rgba(124,58,237,0.08)', color: '#7C3AED', letterSpacing: '0.1em' }}>
+            APPS
+          </span>
+          <h2 className="font-black"
+            style={{ fontSize: 'clamp(1.6rem, 3.2vw, 2.4rem)', color: '#1E1B4B', letterSpacing: '-0.02em' }}>
+            私たちのアプリ
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {APPS.map((app) => (
+            <div key={app.slug}
+              className="rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group"
+              style={{
+                background: '#ffffff',
+                border: '2px solid transparent',
+                backgroundClip: 'padding-box',
+                boxShadow: '0 4px 24px rgba(124,58,237,0.08)',
+                position: 'relative',
+              }}>
+              {/* グラデーションボーダー */}
+              <div className="absolute inset-0 rounded-3xl pointer-events-none"
+                style={{
+                  padding: '2px',
+                  background: app.grad,
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }} />
+
+              {/* カラーバー */}
+              <div className="h-1.5 w-full" style={{ background: app.grad }} />
+
+              <div className="p-8">
+                {/* アイコン＋カテゴリ */}
+                <div className="flex items-start gap-5 mb-5">
+                  <img
+                    src={app.icon}
+                    alt={app.name}
+                    style={{ width: 72, height: 72, borderRadius: '22%', flexShrink: 0, boxShadow: '0 4px 16px rgba(124,58,237,0.15)' }}
+                  />
+                  <div className="flex flex-col gap-2 pt-1">
+                    <span className="inline-block text-xs font-black px-2.5 py-1 rounded-full w-fit"
+                      style={{ background: app.badgeBg, color: app.badgeColor, letterSpacing: '0.05em' }}>
+                      {app.category}
+                    </span>
+                    <h3 className="font-black" style={{ fontSize: '1.4rem', color: '#1E1B4B', letterSpacing: '-0.02em' }}>
+                      {app.name}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* 説明 */}
+                <p className="text-sm font-medium leading-relaxed mb-7" style={{ color: '#64748B' }}>
+                  {app.description}
+                </p>
+
+                {/* ボタン */}
+                <Link to={`/app/${app.slug}`}
+                  className="inline-flex items-center justify-center w-full gap-2 py-3.5 rounded-2xl font-black text-sm transition-all duration-200 hover:opacity-90 active:scale-98"
+                  style={{
+                    background: app.grad,
+                    color: '#ffffff',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 16px rgba(124,58,237,0.18)',
+                  }}>
+                  詳細を見る
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ════════════════════════════
    PAGE
@@ -190,6 +292,8 @@ export default function HomePage() {
     <div style={{ background: '#FAFAFE' }}>
       <Header />
       <Hero />
+      <Mission />
+      <Apps />
       <Footer />
     </div>
   );
