@@ -7,9 +7,7 @@ import Footer from '@/components/Footer';
    スライドデータ
 ════════════════════════════ */
 const HERO = {
-  label: 'Education Technology',
-  heading: '学びを、もっと\n自由に、楽しく。',
-  sub: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業です。',
+  heading: '学びをもっと\n自由に、もっと\n楽しく。',
 };
 
 /* ════════════════════════════
@@ -31,24 +29,12 @@ function HeroSection() {
 
       {/* 右半分：テキスト */}
       <div style={{ flex: 1, paddingRight: '7%', zIndex: 10 }}>
-        <div style={{
-          display: 'inline-flex', alignItems: 'center',
-          background: '#EFF6FF', border: '1px solid #BFDBFE',
-          borderRadius: '999px', padding: '5px 14px', marginBottom: '20px',
-        }}>
-          <span style={{ color: '#1D4ED8', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-            {HERO.label}
-          </span>
-        </div>
         <h1 style={{
           color: '#0a0a0a', fontSize: 'clamp(2.8rem, 4.2vw, 4.5rem)',
-          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: '0 0 20px', whiteSpace: 'pre-line',
+          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
         }}>
           {HERO.heading}
         </h1>
-        <p style={{ color: '#555', fontSize: 'clamp(0.9rem, 1.2vw, 1.05rem)', fontWeight: 400, lineHeight: 1.85, margin: 0 }}>
-          {HERO.sub}
-        </p>
       </div>
     </section>
   );
