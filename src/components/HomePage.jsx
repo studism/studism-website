@@ -324,14 +324,14 @@ function Services() {
   };
 
   return (
-    <section style={{ background: '#fff', padding: '72px 0 80px' }}>
+    <section style={{ background: '#fff', padding: '48px 0 80px' }}>
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', maxWidth: '1200px' }}>
           <div>
-            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#1D4ED8', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
+            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#1D4ED8', margin: '0 0 16px', letterSpacing: '-0.02em', lineHeight: 1 }}>
               App一覧
             </h2>
             <Link to="/app/sakuraenglish" style={{
@@ -353,7 +353,7 @@ function Services() {
         </div>
 
         {/* ← → ボタン（右寄せ） */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: '16px' }}>
           {['←', '→'].map((arrow, i) => (
             <button key={i} onClick={() => scroll(i === 0 ? -1 : 1)} style={{
               width: '40px', height: '40px', borderRadius: '50%',
