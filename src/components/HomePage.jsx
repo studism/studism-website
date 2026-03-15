@@ -67,14 +67,14 @@ function HeroSection() {
       </div>
 
       {/* 右半分：テキスト */}
-      <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10,
-        background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(8px)',
-        borderRadius: '24px', padding: '40px 48px' }}>
+      <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10 }}>
         <h1 style={{
-          color: '#0a0a0a', fontSize: 'clamp(4rem, 7vw, 8rem)',
-          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
+          fontSize: 'clamp(4rem, 7vw, 8rem)',
+          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.15, margin: 0,
         }}>
-          {HERO.heading}
+          <span style={{ display: 'block', color: '#FF3D8B' }}>学びをもっと</span>
+          <span style={{ display: 'block', color: '#1D4ED8' }}>自由に、もっと</span>
+          <span style={{ display: 'block', color: '#22C55E' }}>楽しく。</span>
         </h1>
       </div>
     </section>
