@@ -379,32 +379,46 @@ function Services() {
         {APPS.map(app => (
           <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '340px', maxWidth: '340px', flexShrink: 0 }}>
             <article>
-              {/* サムネイル */}
+              {/* サムネイル：アイコン＋名前 */}
               <div style={{
                 width: '100%', aspectRatio: '4/3',
                 background: app.photoBg,
                 overflow: 'hidden',
                 position: 'relative', marginBottom: '16px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                gap: '14px',
               }}>
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
+
+                {/* アイコン or プレースホルダー */}
                 {app.comingSoon ? (
                   <div style={{
-                    background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.35)',
-                    borderRadius: '12px', padding: '10px 20px',
-                    color: '#fff', fontSize: '0.85rem', fontWeight: 800,
-                    letterSpacing: '0.1em', position: 'relative', zIndex: 1,
+                    width: '100px', height: '100px', borderRadius: '26px',
+                    background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(12px)',
+                    border: '1.5px solid rgba(255,255,255,0.38)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    position: 'relative', zIndex: 1,
+                    boxShadow: '0 12px 32px rgba(0,0,0,0.18)',
                   }}>
-                    COMING SOON
+                    <span style={{ fontSize: '2rem', color: 'rgba(255,255,255,0.55)' }}>?</span>
                   </div>
                 ) : (
                   <img src={app.icon} alt={app.name} style={{
-                    width: '80px', height: '80px', borderRadius: '20px',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.2)',
+                    width: '100px', height: '100px', borderRadius: '26px',
+                    boxShadow: '0 12px 32px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.22)',
                     position: 'relative', zIndex: 1,
                   }} />
                 )}
+
+                {/* アプリ名 */}
+                <p style={{
+                  margin: 0, position: 'relative', zIndex: 1,
+                  color: '#fff', fontSize: '1rem', fontWeight: 800,
+                  letterSpacing: '0.01em',
+                  textShadow: '0 1px 8px rgba(0,0,0,0.2)',
+                }}>
+                  {app.comingSoon ? 'Coming Soon' : app.name}
+                </p>
               </div>
 
               {/* カテゴリ */}
@@ -415,7 +429,7 @@ function Services() {
                 </span>
               </div>
 
-              {/* タイトル */}
+              {/* リード文 */}
               <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0, paddingRight: '16px',
                 transition: 'color 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
