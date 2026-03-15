@@ -276,77 +276,102 @@ const APPS = [
 ];
 
 function Services() {
+  const scrollRef = useRef(null);
+
+  const scroll = (dir) => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({ left: dir * 340, behavior: 'smooth' });
+  };
+
   return (
-    <section style={{ background: 'linear-gradient(180deg, #FDFBFF 0%, #F5F0FF 100%)', padding: '80px 0 0' }}>
+    <section style={{ background: '#fff', padding: '72px 0 80px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
 
-        {/* セクションヘッダー */}
-        <div style={{ marginBottom: '48px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
-          paddingBottom: '20px', borderBottom: '1px solid #EDE9FE' }}>
-          <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 900, margin: 0, color: '#5B21B6', letterSpacing: '-0.03em' }}>
-            サービス
-          </h2>
-          <Link to="/app/sakuraenglish" style={{ textDecoration: 'none', color: '#8B5CF6', fontSize: '0.82rem', fontWeight: 700,
-            display: 'flex', alignItems: 'center', gap: '6px' }}>
-            すべて見る
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </Link>
+        {/* ヘッダー行 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+          {/* 左: Services + View more */}
+          <div>
+            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
+              Services
+            </h2>
+            <Link to="/app/sakuraenglish" style={{
+              textDecoration: 'none', color: '#1a1a1a', fontSize: '0.88rem', fontWeight: 700,
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              paddingBottom: '6px', borderBottom: '2px solid #7C3AED',
+            }}>
+              View more
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: '24px', height: '24px', borderRadius: '50%', border: '1.5px solid #aaa', fontSize: '12px' }}>
+                →
+              </span>
+            </Link>
+          </div>
+
+          {/* 右: 説明テキスト */}
+          <p style={{ fontSize: '0.92rem', color: '#555', lineHeight: 1.8, maxWidth: '420px', paddingTop: '6px', margin: 0 }}>
+            Studismが提供する教育テクノロジーアプリを紹介します。<br />
+            学習をもっと楽しく、もっと効率的に。
+          </p>
         </div>
 
-        {/* サービスカード */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
-          {APPS.map(app => (
-            <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
-              <article style={{ background: '#fff', overflow: 'hidden', borderRadius: '20px',
-                boxShadow: `0 6px 32px ${app.shadowColor}, 0 1px 4px rgba(0,0,0,0.04)`,
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = `0 16px 48px ${app.shadowColor}, 0 2px 8px rgba(0,0,0,0.06)`; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 6px 32px ${app.shadowColor}, 0 1px 4px rgba(0,0,0,0.04)`; }}>
+        {/* ← → ボタン（右寄せ） */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: '24px' }}>
+          {['←', '→'].map((arrow, i) => (
+            <button key={i} onClick={() => scroll(i === 0 ? -1 : 1)} style={{
+              width: '40px', height: '40px', borderRadius: '50%',
+              border: '1.5px solid #ddd', background: '#fff',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '14px', color: '#555', transition: 'border-color 0.2s, color 0.2s',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#7C3AED'; e.currentTarget.style.color = '#7C3AED'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#ddd'; e.currentTarget.style.color = '#555'; }}
+            >
+              {arrow}
+            </button>
+          ))}
+        </div>
 
-                {/* 写真ブロック */}
+        {/* カード横スクロール */}
+        <div ref={scrollRef} style={{
+          display: 'flex', gap: '20px',
+          overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
+          paddingBottom: '4px',
+        }}>
+          {APPS.map(app => (
+            <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '300px', maxWidth: '300px', flexShrink: 0 }}>
+              <article>
+                {/* サムネイル */}
                 <div style={{
-                  width: '100%', aspectRatio: '16/8',
+                  width: '100%', aspectRatio: '4/3',
                   background: app.photoBg,
-                  position: 'relative', overflow: 'hidden',
+                  borderRadius: '8px', overflow: 'hidden',
+                  position: 'relative', marginBottom: '16px',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
                   <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
-                  <div style={{ position: 'absolute', top: '-24px', right: '-24px', width: '120px', height: '120px',
-                    borderRadius: '50%', background: 'rgba(255,255,255,0.1)' }} />
                   <img src={app.icon} alt={app.name} style={{
-                    width: '84px', height: '84px', borderRadius: '22px',
-                    boxShadow: '0 12px 36px rgba(0,0,0,0.2), 0 0 0 4px rgba(255,255,255,0.22)',
+                    width: '72px', height: '72px', borderRadius: '18px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.2)',
                     position: 'relative', zIndex: 1,
                   }} />
-                  <div style={{
-                    position: 'absolute', top: '18px', left: '20px',
-                    background: 'rgba(255,255,255,0.22)', backdropFilter: 'blur(10px)',
-                    padding: '4px 12px', borderRadius: '999px',
-                    color: '#fff', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.06em',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                  }}>
-                    {app.category}
-                  </div>
                 </div>
 
-                {/* テキスト */}
-                <div style={{ padding: '26px 28px 32px' }}>
-                  <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase',
-                    marginBottom: '10px', color: app.accent }}>
-                    {app.name}
-                  </p>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#1E1B4B', letterSpacing: '-0.02em', marginBottom: '12px', lineHeight: 1.3 }}>
-                    {app.lead}
-                  </h3>
-                  <p style={{ fontSize: '0.88rem', color: '#6B7280', lineHeight: 1.85 }}>
-                    {app.description}
-                  </p>
-                  <div style={{ marginTop: '18px', display: 'inline-flex', alignItems: 'center', gap: '6px',
-                    color: app.accent, fontSize: '0.82rem', fontWeight: 700 }}>
-                    詳細を見る
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
+                {/* カテゴリ ＋ 名前 */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: app.accent,
+                    border: `1px solid ${app.accent}`, padding: '2px 10px', borderRadius: '999px', whiteSpace: 'nowrap' }}>
+                    {app.category}
+                  </span>
                 </div>
+
+                {/* タイトル */}
+                <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0,
+                  transition: 'color 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
+                >
+                  {app.lead}
+                </p>
               </article>
             </Link>
           ))}
