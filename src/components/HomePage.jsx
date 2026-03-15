@@ -18,7 +18,7 @@ function HeroSection() {
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
       background: '#ffffff',
-      borderBottom: '1px solid #e0e0e0',
+      borderTop: '2px solid #111', borderBottom: '2px solid #111',
       display: 'flex', alignItems: 'center',
     }}>
       {/* 左半分：画像（中央からはみ出して大きく） */}
