@@ -430,7 +430,7 @@ function NewsSection() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
           <div>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#0f0f0f', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
-              News
+              お知らせ
             </h2>
             <a href="#" style={{
               textDecoration: 'none', color: '#1a1a1a', fontSize: '0.88rem', fontWeight: 700,
