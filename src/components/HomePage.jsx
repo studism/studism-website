@@ -306,17 +306,6 @@ function Services() {
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#1D4ED8', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
               App一覧
             </h2>
-            <Link to="/app/sakuraenglish" style={{
-              textDecoration: 'none', color: '#1a1a1a', fontSize: '0.88rem', fontWeight: 700,
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              paddingBottom: '4px', borderBottom: '2px solid #1D4ED8',
-            }}>
-              View more
-              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                width: '24px', height: '24px', borderRadius: '50%', border: '1.5px solid #aaa', fontSize: '12px' }}>
-                →
-              </span>
-            </Link>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <p style={{ fontSize: '0.88rem', color: '#555', lineHeight: 1.7, margin: 0, textAlign: 'right' }}>
