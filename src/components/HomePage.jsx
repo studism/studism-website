@@ -286,7 +286,7 @@ function Services() {
   return (
     <section style={{ background: '#fff', padding: '72px 0 80px' }}>
       {/* ヘッダー＋ボタン */}
-      <div style={{ padding: '0 40px 0 max(0px, calc((100vw - 1200px) / 2 - 110px))' }}>
+      <div style={{ padding: '0 40px' }}>
 
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
@@ -334,7 +334,7 @@ function Services() {
       <div ref={scrollRef} style={{
         display: 'flex', gap: '2px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: 'max(40px, calc((100vw - 1200px) / 2 + 40px))',
+        paddingLeft: '40px',
       }}>
         {APPS.map(app => (
           <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '340px', maxWidth: '340px', flexShrink: 0 }}>
@@ -416,7 +416,7 @@ function NewsSection() {
   return (
     <section style={{ background: '#fff', padding: '72px 0 80px' }}>
       {/* ヘッダー＋ボタン */}
-      <div style={{ padding: '0 40px 0 max(0px, calc((100vw - 1200px) / 2 - 110px))' }}>
+      <div style={{ padding: '0 40px' }}>
 
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
@@ -464,7 +464,7 @@ function NewsSection() {
       <div ref={scrollRef} style={{
         display: 'flex', gap: '2px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: 'max(40px, calc((100vw - 1200px) / 2 + 40px))',
+        paddingLeft: '40px',
       }}>
         {NEWS.map((n, i) => (
           <article key={i} style={{
