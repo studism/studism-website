@@ -125,49 +125,6 @@ function Hero() {
               }}
             />
 
-            {/* SakuraEnglishカード */}
-            <div className="absolute animate-float"
-              style={{
-                left: '2%', top: '6%', zIndex: 4,
-                background: 'rgba(255,255,255,0.07)',
-                backdropFilter: 'blur(24px)',
-                WebkitBackdropFilter: 'blur(24px)',
-                borderRadius: '20px',
-                padding: '12px 18px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.12)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                display: 'flex', alignItems: 'center', gap: '12px',
-                animationDelay: '0.7s',
-              }}>
-              <img src="/images/sakuraenglish.png" alt="SakuraEnglish"
-                style={{ width: 38, height: 38, borderRadius: '11px', flexShrink: 0 }} />
-              <div>
-                <p className="font-black text-xs" style={{ color: '#F1F5F9' }}>SakuraEnglish</p>
-                <p style={{ fontSize: '10px', color: 'rgba(148,163,184,0.8)', fontWeight: 600 }}>語学学習アプリ</p>
-              </div>
-            </div>
-
-            {/* Timelyzeカード */}
-            <div className="absolute animate-float"
-              style={{
-                right: '1%', top: '28%', zIndex: 4,
-                background: 'rgba(255,255,255,0.07)',
-                backdropFilter: 'blur(24px)',
-                WebkitBackdropFilter: 'blur(24px)',
-                borderRadius: '20px',
-                padding: '12px 18px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.12)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                display: 'flex', alignItems: 'center', gap: '12px',
-                animationDelay: '2.8s',
-              }}>
-              <img src="/images/timelyze.png" alt="Timelyze"
-                style={{ width: 38, height: 38, borderRadius: '11px', flexShrink: 0 }} />
-              <div>
-                <p className="font-black text-xs" style={{ color: '#F1F5F9' }}>Timelyze</p>
-                <p style={{ fontSize: '10px', color: 'rgba(148,163,184,0.8)', fontWeight: 600 }}>時間管理アプリ</p>
-              </div>
-            </div>
 
           </div>
 
