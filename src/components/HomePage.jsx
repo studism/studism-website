@@ -329,7 +329,7 @@ function Services() {
       <div style={{ padding: '0 40px 0 120px' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', maxWidth: '1200px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '36px', maxWidth: '1200px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#1D4ED8', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
               App一覧
