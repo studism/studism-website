@@ -128,27 +128,32 @@ export default function Header() {
         borderBottom: '1px solid #e8e8e8',
         boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.06)' : 'none',
       }}>
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 py-4 flex items-center justify-between">
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
-        <Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-          <div className="w-9 h-9 rounded-2xl flex items-center justify-center font-black text-white text-base flex-shrink-0"
-            style={{ background: '#7C3AED', boxShadow: 'none' }}>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <div style={{
+            width: '36px', height: '36px', background: '#7C3AED',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff', fontWeight: 900, fontSize: '1rem',
+          }}>
             S
           </div>
-          <span className="font-black text-lg" style={{ color: '#1E1B4B' }}>Studism</span>
+          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
-          <a href="/"
-            className="px-4 py-2 text-sm font-bold transition-all duration-200 hover:text-purple-700"
-            style={{ color: '#333' }}>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+          <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: '#333', textDecoration: 'none', letterSpacing: '0.01em' }}
+            onMouseEnter={e => e.target.style.color = '#7C3AED'}
+            onMouseLeave={e => e.target.style.color = '#333'}>
             Home
           </a>
           <NewsDropdown />
           <AppsDropdown />
-          <Link to="/contact"
-            className="ml-3 px-6 py-2.5 rounded-2xl text-sm font-black text-white transition-all hover:scale-105"
-            style={{ background: '#7C3AED', boxShadow: 'none' }}>
+          <Link to="/contact" style={{
+            marginLeft: '16px', padding: '9px 22px',
+            background: '#7C3AED', color: '#fff',
+            textDecoration: 'none', fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.04em',
+          }}>
             Contact
           </Link>
         </nav>

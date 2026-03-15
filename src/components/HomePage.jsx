@@ -1,211 +1,208 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 /* ════════════════════════════
-   Hero セクション
+   Hero（フルワイド・写真風）
 ════════════════════════════ */
 function Hero() {
   return (
-    <section className="relative overflow-hidden" style={{ background: '#ffffff', minHeight: 'calc(100vh - 68px)' }}>
+    <section style={{ position: 'relative', width: '100%', height: '90vh', overflow: 'hidden', background: '#0f0520' }}>
 
-      {/* 上部アクセントライン */}
+      {/* 写真風グラデーション背景 */}
       <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: '4px',
-        background: 'linear-gradient(90deg, #7C3AED 0%, #A855F7 40%, #5DCFEA 100%)',
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(135deg, #0f0520 0%, #2d0d5e 35%, #5b21b6 65%, #7c3aed 100%)',
+      }} />
+      {/* オーバーレイ */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 100%)',
+      }} />
+      {/* テクスチャーパターン */}
+      <div style={{
+        position: 'absolute', inset: 0, opacity: 0.06,
+        backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)',
+        backgroundSize: '32px 32px',
       }} />
 
-      {/* 右側カラーブロック */}
-      <div className="absolute top-0 right-0 bottom-0 pointer-events-none hidden lg:block" style={{
-        width: '46%',
-        background: 'linear-gradient(160deg, #F5F0FF 0%, #EEF6FF 100%)',
-      }} />
+      {/* キャラクター：Studism横影なし（左寄り） */}
+      <img
+        src="/images/Studism横影なし 2.png"
+        alt="Studism"
+        className="animate-float-slow"
+        style={{
+          position: 'absolute',
+          bottom: '0',
+          left: '50%',
+          transform: 'translateX(-55%)',
+          height: '82%',
+          width: 'auto',
+          objectFit: 'contain',
+          zIndex: 2,
+          opacity: 0.92,
+        }}
+      />
+      {/* キャラクター：ペンギン（右寄り） */}
+      <img
+        src="/images/背景透過 2.png"
+        alt="マスコット"
+        className="animate-float"
+        style={{
+          position: 'absolute',
+          bottom: '0',
+          right: '8%',
+          height: '68%',
+          width: 'auto',
+          objectFit: 'contain',
+          zIndex: 3,
+          animationDelay: '1.2s',
+          opacity: 0.95,
+        }}
+      />
 
-      <div className="container mx-auto px-8 md:px-14 lg:px-20 relative z-10 flex items-center"
-        style={{ minHeight: 'calc(100vh - 68px)' }}>
-        <div className="grid lg:grid-cols-2 gap-0 items-center w-full py-20">
-
-          {/* 左：テキスト */}
-          <div className="flex flex-col gap-8 order-2 lg:order-1 lg:pr-16">
-
-            {/* 小見出し */}
-            <p className="font-bold text-sm tracking-widest uppercase"
-              style={{ color: '#7C3AED', letterSpacing: '0.15em' }}>
-              Education Technology
-            </p>
-
-            {/* 大見出し */}
-            <h1 className="font-black leading-none"
-              style={{ fontSize: 'clamp(3rem, 6vw, 5.2rem)', color: '#0f0f0f', letterSpacing: '-0.04em', lineHeight: 1.0 }}>
-              学びを、<br />
-              もっと<br />
-              <span style={{ color: '#7C3AED' }}>自由に。</span>
-            </h1>
-
-            {/* 区切り */}
-            <div style={{ width: '48px', height: '3px', background: '#7C3AED', borderRadius: '2px' }} />
-
-            {/* 説明 */}
-            <p style={{ fontSize: '1.05rem', color: '#555', lineHeight: 1.9, fontWeight: 400, maxWidth: '400px' }}>
-              Studismは、テクノロジーの力で学習体験を変えるアプリを開発する教育テクノロジー企業です。英語学習から時間管理まで、すべての人の成長をサポートします。
-            </p>
-
-            {/* CTAボタン */}
-            <div className="flex gap-4 flex-wrap pt-2">
-              <Link to="/app/sakuraenglish"
-                className="inline-flex items-center gap-2 px-8 py-4 font-bold text-sm transition-all duration-200 hover:opacity-80"
-                style={{
-                  background: '#7C3AED', color: '#fff',
-                  textDecoration: 'none', letterSpacing: '0.02em',
-                }}>
-                アプリを見る
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-              <Link to="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 font-bold text-sm transition-all duration-200 hover:bg-gray-50"
-                style={{
-                  background: 'transparent', color: '#0f0f0f',
-                  border: '1.5px solid #0f0f0f', textDecoration: 'none',
-                  letterSpacing: '0.02em',
-                }}>
-                お問い合わせ
-              </Link>
-            </div>
-          </div>
-
-          {/* 右：キャラクター */}
-          <div className="relative order-1 lg:order-2 flex items-end justify-center"
-            style={{ minHeight: '500px' }}>
-
-            {/* Studism横影なし（大・後ろ） */}
-            <img
-              src="/images/Studism横影なし 2.png"
-              alt="Studism"
-              className="animate-float-slow"
-              style={{
-                width: 'clamp(200px, 28vw, 380px)',
-                height: 'auto',
-                position: 'absolute',
-                bottom: '0',
-                left: '4%',
-                zIndex: 1,
-              }}
-            />
-
-            {/* ペンギン（前・右） */}
-            <img
-              src="/images/背景透過 2.png"
-              alt="Studismマスコット"
-              className="animate-float"
-              style={{
-                width: 'clamp(170px, 22vw, 320px)',
-                height: 'auto',
-                position: 'absolute',
-                bottom: '0',
-                right: '4%',
-                zIndex: 2,
-                animationDelay: '1.2s',
-              }}
-            />
-          </div>
-
-        </div>
+      {/* テキスト：左下 */}
+      <div style={{
+        position: 'absolute', bottom: '14%', left: '5%',
+        zIndex: 10, maxWidth: '580px',
+      }}>
+        <p style={{
+          color: 'rgba(255,255,255,0.65)', fontSize: '0.8rem',
+          fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase',
+          marginBottom: '16px',
+        }}>
+          Education Technology
+        </p>
+        <h1 style={{
+          color: '#ffffff',
+          fontSize: 'clamp(3rem, 6.5vw, 5.5rem)',
+          fontWeight: 900,
+          letterSpacing: '-0.04em',
+          lineHeight: 1.0,
+          margin: 0,
+        }}>
+          学びを、もっと<br />自由に、<br />楽しく。
+        </h1>
       </div>
+
+      {/* スクロールインジケーター */}
+      <div style={{
+        position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
+        zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+      }}>
+        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em' }}>
+          SCROLL
+        </span>
+        <div style={{
+          width: '1px', height: '48px',
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0))',
+        }} />
+      </div>
+
     </section>
   );
 }
 
 /* ════════════════════════════
-   Apps セクション（リクルート風カード）
+   サービス紹介
 ════════════════════════════ */
 const APPS = [
   {
     slug: 'sakuraenglish',
     name: 'SakuraEnglish',
-    icon: '/images/sakuraenglish.png',
     category: '語学学習',
-    description: 'レベル別英単語クイズで効率的に語彙力を強化。5段階の難易度とカスタム単語リスト機能で自分だけの学習プランを作成できます。',
+    icon: '/images/sakuraenglish.png',
+    lead: '英語学習を、もっと楽しく。',
+    description: 'レベル別英単語クイズで効率的に語彙力を強化。5段階の難易度とカスタム単語リスト機能で、自分だけの学習プランを作成できます。',
+    photoBg: 'linear-gradient(135deg, #4c1d95 0%, #7c3aed 40%, #ec4899 100%)',
     accent: '#7C3AED',
   },
   {
     slug: 'timelyze',
     name: 'Timelyze',
+    category: '生産性・時間管理',
     icon: '/images/timelyze.png',
-    category: '生産性',
-    description: '学習時間の記録・管理を簡単に。タイマー機能、教科別集計、グラフ可視化で継続的な学習習慣をサポートします。',
+    lead: '学習時間を、見える化する。',
+    description: '学習時間の記録・管理を簡単に。タイマー機能、教科別集計、グラフ可視化で、継続的な学習習慣をサポートします。',
+    photoBg: 'linear-gradient(135deg, #0c4a6e 0%, #0ea5e9 50%, #06b6d4 100%)',
     accent: '#0EA5E9',
   },
 ];
 
-function Apps() {
+function Services() {
   return (
-    <section style={{ background: '#f7f7f7', padding: '100px 0' }}>
-      <div className="container mx-auto px-8 md:px-14 lg:px-20">
+    <section style={{ background: '#fff', padding: '80px 0 0' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
 
         {/* セクションヘッダー */}
-        <div className="flex items-end justify-between mb-14"
-          style={{ borderBottom: '1px solid #e0e0e0', paddingBottom: '24px' }}>
+        <div style={{ marginBottom: '48px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid #e8e8e8', paddingBottom: '20px' }}>
           <div>
-            <p className="font-bold text-xs tracking-widest uppercase mb-3" style={{ color: '#7C3AED', letterSpacing: '0.15em' }}>
-              Our Apps
+            <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.18em', color: '#7C3AED', textTransform: 'uppercase', marginBottom: '8px' }}>
+              Our Services
             </p>
-            <h2 className="font-black" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#0f0f0f', letterSpacing: '-0.03em' }}>
-              サービス一覧
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 900, color: '#0f0f0f', letterSpacing: '-0.03em', margin: 0 }}>
+              サービス
             </h2>
           </div>
-          <Link to="/app/sakuraenglish"
-            className="hidden md:inline-flex items-center gap-2 font-bold text-sm transition-all hover:gap-3"
-            style={{ color: '#7C3AED', textDecoration: 'none' }}>
+          <Link to="/app/sakuraenglish" style={{ textDecoration: 'none', color: '#7C3AED', fontSize: '0.82rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
             すべて見る
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Link>
         </div>
 
-        {/* カードグリッド */}
-        <div className="grid md:grid-cols-2 gap-1">
-          {APPS.map((app) => (
-            <Link key={app.slug} to={`/app/${app.slug}`}
-              className="group block transition-all duration-300"
-              style={{ textDecoration: 'none' }}>
-              <div className="relative overflow-hidden transition-all duration-300 group-hover:-translate-y-1"
-                style={{ background: '#ffffff' }}>
-                {/* 上部カラーライン */}
-                <div style={{ height: '3px', background: app.accent }} />
-
-                <div className="p-10">
-                  <div className="flex items-start gap-6">
-                    <img src={app.icon} alt={app.name}
-                      style={{ width: 64, height: 64, borderRadius: '16px', flexShrink: 0 }} />
-                    <div className="flex-1 pt-1">
-                      <p className="text-xs font-bold uppercase tracking-wider mb-2"
-                        style={{ color: app.accent, letterSpacing: '0.12em' }}>
-                        {app.category}
-                      </p>
-                      <h3 className="font-black mb-4"
-                        style={{ fontSize: '1.5rem', color: '#0f0f0f', letterSpacing: '-0.02em' }}>
-                        {app.name}
-                      </h3>
-                      <p className="text-sm leading-relaxed" style={{ color: '#666', lineHeight: 1.85 }}>
-                        {app.description}
-                      </p>
+        {/* サービスカード */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2px' }}>
+          {APPS.map(app => (
+            <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
+              <article style={{ background: '#fff', overflow: 'hidden' }}
+                onMouseEnter={e => e.currentTarget.querySelector('.card-inner').style.transform = 'translateY(-4px)'}
+                onMouseLeave={e => e.currentTarget.querySelector('.card-inner').style.transform = 'translateY(0)'}>
+                <div className="card-inner" style={{ transition: 'transform 0.3s ease' }}>
+                  {/* 写真ブロック */}
+                  <div style={{
+                    width: '100%', aspectRatio: '16/8',
+                    background: app.photoBg,
+                    position: 'relative', overflow: 'hidden',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    {/* テクスチャ */}
+                    <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                    {/* アプリアイコン */}
+                    <img src={app.icon} alt={app.name} style={{
+                      width: '80px', height: '80px', borderRadius: '22px',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
+                      position: 'relative', zIndex: 1,
+                    }} />
+                    {/* カテゴリラベル */}
+                    <div style={{
+                      position: 'absolute', top: '20px', left: '24px',
+                      background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)',
+                      padding: '5px 12px', borderRadius: '4px',
+                      color: '#fff', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.08em',
+                    }}>
+                      {app.category}
                     </div>
                   </div>
 
-                  {/* 詳細リンク */}
-                  <div className="flex items-center gap-2 mt-8 font-bold text-sm transition-all duration-200 group-hover:gap-3"
-                    style={{ color: app.accent }}>
-                    詳細を見る
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                  {/* テキスト */}
+                  <div style={{ padding: '28px 28px 36px' }}>
+                    <p style={{ fontSize: '0.75rem', color: app.accent, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '10px' }}>
+                      {app.name}
+                    </p>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#0f0f0f', letterSpacing: '-0.02em', marginBottom: '14px', lineHeight: 1.3 }}>
+                      {app.lead}
+                    </h3>
+                    <p style={{ fontSize: '0.9rem', color: '#555', lineHeight: 1.85 }}>
+                      {app.description}
+                    </p>
+                    <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '6px', color: app.accent, fontSize: '0.82rem', fontWeight: 700 }}>
+                      詳細を見る
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </article>
             </Link>
           ))}
         </div>
@@ -215,28 +212,110 @@ function Apps() {
 }
 
 /* ════════════════════════════
-   会社概要ストリップ
+   ニュース
 ════════════════════════════ */
-function CompanyStrip() {
+const NEWS = [
+  { date: '2025.11.22', category: 'お知らせ', title: '公式ウェブサイトをリニューアルオープンしました', bg: 'linear-gradient(135deg, #4c1d95, #7c3aed)' },
+  { date: '2025.11.20', category: 'アップデート', title: 'お問い合わせフォームのシステムを更新しました', bg: 'linear-gradient(135deg, #0c4a6e, #0ea5e9)' },
+  { date: '2025.11.15', category: 'アップデート', title: '「SakuraEnglish」に新しい単語リストを追加しました', bg: 'linear-gradient(135deg, #831843, #ec4899)' },
+];
+
+function NewsSection() {
   return (
-    <section style={{ background: '#0f0f0f', padding: '80px 0' }}>
-      <div className="container mx-auto px-8 md:px-14 lg:px-20">
-        <div className="grid md:grid-cols-3 gap-0" style={{ borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
-          {[
-            { num: '2',    unit: 'アプリ',   label: 'リリース済みアプリ数' },
-            { num: '100%', unit: '無料',     label: 'すべての基本機能' },
-            { num: 'iOS',  unit: '対応',     label: 'モバイルプラットフォーム' },
-          ].map((s, i) => (
-            <div key={i} className="px-12 py-8"
-              style={{ borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="font-black text-5xl" style={{ color: '#ffffff', letterSpacing: '-0.03em' }}>{s.num}</span>
-                <span className="font-bold text-lg" style={{ color: '#7C3AED' }}>{s.unit}</span>
+    <section style={{ background: '#f5f5f5', padding: '80px 0' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+
+        {/* ヘッダー */}
+        <div style={{ marginBottom: '40px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid #ddd', paddingBottom: '20px' }}>
+          <div>
+            <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.18em', color: '#7C3AED', textTransform: 'uppercase', marginBottom: '8px' }}>
+              News
+            </p>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 900, color: '#0f0f0f', letterSpacing: '-0.03em', margin: 0 }}>
+              ニュース
+            </h2>
+          </div>
+        </div>
+
+        {/* カードグリッド */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
+          {NEWS.map((n, i) => (
+            <article key={i} style={{ background: '#fff', overflow: 'hidden', cursor: 'pointer' }}>
+              {/* サムネイル写真風 */}
+              <div style={{
+                width: '100%', aspectRatio: '16/9',
+                background: n.bg,
+                position: 'relative',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
+                <span style={{ fontSize: '2.5rem', opacity: 0.4 }}>
+                  {i === 0 ? '📢' : i === 1 ? '⚙️' : '📚'}
+                </span>
               </div>
-              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.02em' }}>{s.label}</p>
-            </div>
+
+              {/* テキスト */}
+              <div style={{ padding: '20px 22px 26px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 700, color: '#7C3AED',
+                    border: '1px solid #7C3AED', padding: '2px 8px', letterSpacing: '0.06em',
+                  }}>
+                    {n.category}
+                  </span>
+                  <span style={{ fontSize: '0.75rem', color: '#999', fontWeight: 500 }}>{n.date}</span>
+                </div>
+                <p style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f0f0f', lineHeight: 1.6, margin: 0 }}>
+                  {n.title}
+                </p>
+              </div>
+            </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════════════
+   会社ミッションバナー
+════════════════════════════ */
+function MissionBanner() {
+  return (
+    <section style={{
+      position: 'relative', overflow: 'hidden',
+      background: '#0f0520', padding: '100px 0',
+    }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(124,58,237,0.30) 0%, transparent 70%)',
+      }} />
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
+        <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.2em', color: 'rgba(167,139,250,0.8)', textTransform: 'uppercase', marginBottom: '24px' }}>
+          Our Mission
+        </p>
+        <h2 style={{
+          fontSize: 'clamp(2rem, 5vw, 4rem)',
+          fontWeight: 900, color: '#ffffff',
+          letterSpacing: '-0.04em', lineHeight: 1.1,
+          margin: '0 0 28px',
+        }}>
+          テクノロジーと教育の力で、<br />
+          <span style={{ color: '#a78bfa' }}>すべての人の学びを変える。</span>
+        </h2>
+        <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.9, maxWidth: '560px', margin: '0 auto 40px' }}>
+          Studismは、「学びを、もっと自由に、もっと楽しく」というビジョンのもと、最高の教育テクノロジーアプリを届け続けます。
+        </p>
+        <Link to="/contact" style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px',
+          padding: '14px 36px', background: '#7C3AED', color: '#fff',
+          textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.04em',
+        }}>
+          お問い合わせ
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </Link>
       </div>
     </section>
   );
@@ -248,11 +327,12 @@ function CompanyStrip() {
 export default function HomePage() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
-    <div style={{ background: '#ffffff' }}>
+    <div style={{ background: '#fff' }}>
       <Header />
       <Hero />
-      <Apps />
-      <CompanyStrip />
+      <Services />
+      <NewsSection />
+      <MissionBanner />
       <Footer />
     </div>
   );
