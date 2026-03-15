@@ -17,12 +17,10 @@ function HeroSection() {
   return (
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
-      background: 'url(/images/classroom.png) center/cover no-repeat',
+      background: '#ffffff',
       borderBottom: '1px solid #e0e0e0',
       display: 'flex', alignItems: 'center',
     }}>
-      {/* 背景オーバーレイ */}
-      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 0 }} />
       {/* 左半分：画像（中央からはみ出して大きく） */}
       <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 2 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
@@ -33,7 +31,7 @@ function HeroSection() {
       {/* 右半分：テキスト */}
       <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10 }}>
         <h1 style={{
-          color: '#ffffff', fontSize: 'clamp(4rem, 7vw, 8rem)',
+          color: '#0a0a0a', fontSize: 'clamp(4rem, 7vw, 8rem)',
           fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
         }}>
           {HERO.heading}
