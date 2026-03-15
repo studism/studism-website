@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 
 const APPS = [
@@ -13,7 +13,7 @@ const NEWS_ITEMS = [
   { date: '2025年11月15日', title: '「SakuraEnglish」に新しい単語リストを追加しました', type: 'アップデート', c: '#9D174D', bg: '#FCE7F3' },
 ];
 
-function NewsDropdown() {
+function NewsDropdown({ transparent }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -23,12 +23,14 @@ function NewsDropdown() {
     return () => document.removeEventListener('mousedown', fn);
   }, []);
 
+  const baseColor = transparent ? 'rgba(255,255,255,0.9)' : '#333';
+
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-purple-50"
-        style={{ color: open ? '#7C3AED' : '#333' }}
+        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200"
+        style={{ color: open ? (transparent ? '#fff' : '#7C3AED') : baseColor, background: 'transparent' }}
       >
         News
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -56,7 +58,7 @@ function NewsDropdown() {
   );
 }
 
-function AppsDropdown() {
+function AppsDropdown({ transparent }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -66,12 +68,14 @@ function AppsDropdown() {
     return () => document.removeEventListener('mousedown', fn);
   }, []);
 
+  const baseColor = transparent ? 'rgba(255,255,255,0.9)' : '#333';
+
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-purple-50"
-        style={{ color: open ? '#7C3AED' : '#333' }}
+        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200"
+        style={{ color: open ? (transparent ? '#fff' : '#7C3AED') : baseColor, background: 'transparent' }}
       >
         Apps
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -113,19 +117,23 @@ function AppsDropdown() {
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+  const transparent = isHome && !scrolled;
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  const textColor = transparent ? 'rgba(255,255,255,0.9)' : '#333';
+
   return (
     <header className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        background: '#ffffff',
-        backdropFilter: 'none',
-        WebkitBackdropFilter: 'none',
-        borderBottom: '1px solid #e8e8e8',
+        background: transparent ? 'transparent' : '#ffffff',
+        borderBottom: transparent ? 'none' : '1px solid #e8e8e8',
         boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.06)' : 'none',
       }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
@@ -138,21 +146,24 @@ export default function Header() {
           }}>
             S
           </div>
-          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
+          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: transparent ? '#fff' : '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
         </Link>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-          <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: '#333', textDecoration: 'none', letterSpacing: '0.01em' }}
-            onMouseEnter={e => e.target.style.color = '#7C3AED'}
-            onMouseLeave={e => e.target.style.color = '#333'}>
+          <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: textColor, textDecoration: 'none', letterSpacing: '0.01em' }}
+            onMouseEnter={e => e.target.style.color = transparent ? '#fff' : '#7C3AED'}
+            onMouseLeave={e => e.target.style.color = textColor}>
             Home
           </a>
-          <NewsDropdown />
-          <AppsDropdown />
+          <NewsDropdown transparent={transparent} />
+          <AppsDropdown transparent={transparent} />
           <Link to="/contact" style={{
             marginLeft: '16px', padding: '9px 22px',
-            background: '#7C3AED', color: '#fff',
+            background: transparent ? 'rgba(255,255,255,0.2)' : '#7C3AED',
+            border: transparent ? '1px solid rgba(255,255,255,0.5)' : 'none',
+            color: '#fff',
             textDecoration: 'none', fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.04em',
+            borderRadius: transparent ? '6px' : '0',
           }}>
             Contact
           </Link>

@@ -137,7 +137,7 @@ function HeroSection() {
   return (
     <>
       {/* ─── スライド本体 ─── */}
-      <section style={{ position: 'relative', width: '100%', height: '70vh', overflow: 'hidden', background: '#5B21B6' }}>
+      <section style={{ position: 'relative', width: '100%', height: '70vh', overflow: 'hidden', background: '#1E3A8A', marginTop: '-64px' }}>
         <div style={{
           position: 'absolute', inset: 0, zIndex: 0,
           background: slide.bg,
