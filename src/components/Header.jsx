@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 
 const APPS = [
@@ -8,12 +8,12 @@ const APPS = [
 ];
 
 const NEWS_ITEMS = [
-  { date: '2025年11月22日', title: '公式ウェブサイトをリニューアルオープンしました', type: 'お知らせ',    c: '#6D28D9', bg: '#EDE9FE' },
+  { date: '2025年11月22日', title: '公式ウェブサイトをリニューアルオープンしました', type: 'お知らせ',    c: '#1D4ED8', bg: '#DBEAFE' },
   { date: '2025年11月20日', title: 'お問い合わせフォームのシステムを更新しました',    type: 'アップデート', c: '#0369A1', bg: '#E0F2FE' },
-  { date: '2025年11月15日', title: '「SakuraEnglish」に新しい単語リストを追加しました', type: 'アップデート', c: '#9D174D', bg: '#FCE7F3' },
+  { date: '2025年11月15日', title: '「SakuraEnglish」に新しい単語リストを追加しました', type: 'アップデート', c: '#0369A1', bg: '#E0F2FE' },
 ];
 
-function NewsDropdown({ transparent }) {
+function NewsDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -23,14 +23,12 @@ function NewsDropdown({ transparent }) {
     return () => document.removeEventListener('mousedown', fn);
   }, []);
 
-  const baseColor = transparent ? 'rgba(255,255,255,0.9)' : '#333';
-
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200"
-        style={{ color: open ? (transparent ? '#fff' : '#7C3AED') : baseColor, background: 'transparent' }}
+        className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
+        style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
         News
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -38,7 +36,7 @@ function NewsDropdown({ transparent }) {
 
       {open && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80 rounded-3xl overflow-hidden z-50"
-          style={{ background: '#fff', border: '2px solid #EDE9FE', boxShadow: '0 20px 60px rgba(124,58,237,0.15), 0 4px 16px rgba(0,0,0,0.08)' }}>
+          style={{ background: '#fff', border: '2px solid #DBEAFE', boxShadow: '0 20px 60px rgba(29,78,216,0.12), 0 4px 16px rgba(0,0,0,0.08)' }}>
           <div className="px-4 pt-4 pb-1">
             <p className="text-xs font-black uppercase tracking-widest" style={{ color: '#CBD5E1' }}>最新情報</p>
           </div>
@@ -58,7 +56,7 @@ function NewsDropdown({ transparent }) {
   );
 }
 
-function AppsDropdown({ transparent }) {
+function AppsDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -68,14 +66,12 @@ function AppsDropdown({ transparent }) {
     return () => document.removeEventListener('mousedown', fn);
   }, []);
 
-  const baseColor = transparent ? 'rgba(255,255,255,0.9)' : '#333';
-
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200"
-        style={{ color: open ? (transparent ? '#fff' : '#7C3AED') : baseColor, background: 'transparent' }}
+        className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
+        style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
         Apps
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -83,14 +79,14 @@ function AppsDropdown({ transparent }) {
 
       {open && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 rounded-3xl overflow-hidden z-50"
-          style={{ background: '#fff', border: '2px solid #EDE9FE', boxShadow: '0 20px 60px rgba(124,58,237,0.15), 0 4px 16px rgba(0,0,0,0.08)' }}>
+          style={{ background: '#fff', border: '2px solid #DBEAFE', boxShadow: '0 20px 60px rgba(29,78,216,0.12), 0 4px 16px rgba(0,0,0,0.08)' }}>
           <div className="px-4 pt-4 pb-1">
             <p className="text-xs font-black uppercase tracking-widest" style={{ color: '#CBD5E1' }}>アプリ一覧</p>
           </div>
 
           {APPS.map(app => (
             <Link key={app.id} to={`/app/${app.id}`} onClick={() => setOpen(false)}
-              className="group flex items-center gap-3 px-4 py-3.5 mx-2 mb-1 rounded-2xl transition-all duration-200 hover:bg-purple-50">
+              className="group flex items-center gap-3 px-4 py-3.5 mx-2 mb-1 rounded-2xl transition-all duration-200 hover:bg-blue-50">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform"
                 style={{ background: app.grad, boxShadow: `0 4px 12px ${app.shadow}` }}>
                 <img src={app.icon} alt={app.name} className="w-7 h-7 object-contain" />
@@ -99,13 +95,13 @@ function AppsDropdown({ transparent }) {
                 <p className="font-black text-sm" style={{ color: '#1E1B4B' }}>{app.name}</p>
                 <p className="text-xs font-medium" style={{ color: '#94A3B8' }}>{app.desc}</p>
               </div>
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200" style={{ color: '#7C3AED' }} />
+              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200" style={{ color: '#1D4ED8' }} />
             </Link>
           ))}
 
           <div className="mx-4 my-2" style={{ height: 1, background: '#F1F5F9' }} />
           <Link to="/#apps" onClick={() => setOpen(false)}
-            className="flex items-center justify-center gap-1.5 py-3 text-xs font-black transition-colors hover:text-purple-700"
+            className="flex items-center justify-center gap-1.5 py-3 text-xs font-black transition-colors hover:text-blue-700"
             style={{ color: '#94A3B8' }}>
             すべてのアプリ <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -117,9 +113,6 @@ function AppsDropdown({ transparent }) {
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const { pathname } = useLocation();
-  const isHome = pathname === '/';
-  const transparent = isHome && !scrolled;
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -127,34 +120,40 @@ export default function Header() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const textColor = transparent ? 'rgba(255,255,255,0.9)' : '#333';
-
   return (
     <header className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        background: transparent ? 'transparent' : '#ffffff',
-        borderBottom: transparent ? 'none' : '1px solid #e8e8e8',
+        background: '#ffffff',
+        borderBottom: '1px solid #e8e8e8',
         boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.06)' : 'none',
       }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
-        <div />
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <div style={{
+            width: '36px', height: '36px', background: '#1D4ED8',
+            borderRadius: '8px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff', fontWeight: 900, fontSize: '1rem',
+          }}>
+            S
+          </div>
+          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
+        </Link>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-          <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: textColor, textDecoration: 'none', letterSpacing: '0.01em' }}
-            onMouseEnter={e => e.target.style.color = transparent ? '#fff' : '#7C3AED'}
-            onMouseLeave={e => e.target.style.color = textColor}>
+          <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: '#333', textDecoration: 'none', letterSpacing: '0.01em' }}
+            onMouseEnter={e => e.target.style.color = '#1D4ED8'}
+            onMouseLeave={e => e.target.style.color = '#333'}>
             Home
           </a>
-          <NewsDropdown transparent={transparent} />
-          <AppsDropdown transparent={transparent} />
+          <NewsDropdown />
+          <AppsDropdown />
           <Link to="/contact" style={{
             marginLeft: '16px', padding: '9px 22px',
-            background: transparent ? 'rgba(255,255,255,0.2)' : '#7C3AED',
-            border: transparent ? '1px solid rgba(255,255,255,0.5)' : 'none',
-            color: '#fff',
+            background: '#1D4ED8', color: '#fff',
             textDecoration: 'none', fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.04em',
-            borderRadius: transparent ? '6px' : '0',
+            borderRadius: '4px',
           }}>
             Contact
           </Link>

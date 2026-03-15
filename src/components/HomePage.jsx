@@ -146,7 +146,7 @@ function HeroSection() {
   return (
     <>
       {/* ─── スライド本体 ─── */}
-      <section style={{ position: 'relative', width: '100%', height: '81vh', overflow: 'hidden', background: '#1E3A8A', marginTop: '-64px' }}>
+      <section style={{ position: 'relative', width: '100%', height: '81vh', overflow: 'hidden', background: '#1E3A8A' }}>
         <div style={{
           position: 'absolute', inset: 0, zIndex: 0,
           background: slide.bg,
@@ -310,7 +310,6 @@ function Services() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <p style={{ fontSize: '0.88rem', color: '#555', lineHeight: 1.7, margin: 0, textAlign: 'right' }}>
               Studismが提供する教育テクノロジーアプリを紹介します。<br />
-              学習をもっと楽しく、もっと効率的に。
             </p>
             <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
               {['←', '→'].map((arrow, i) => (
