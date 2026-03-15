@@ -18,14 +18,14 @@ function HeroSection() {
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
       background: '#ffffff',
-      borderTop: '2px solid #111', borderBottom: '2px solid #111',
+      borderBottom: '1px solid #e8e8e8',
       display: 'flex', alignItems: 'center',
     }}>
       {/* 左半分：画像（中央からはみ出して大きく） */}
       <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 2 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
-          style={{ position: 'absolute', bottom: '-33%', left: '6%', transform: 'none',
-            height: '160%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+          style={{ position: 'absolute', bottom: '-8%', left: '2%', transform: 'none',
+            height: '108%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </div>
 
       {/* 右半分：テキスト */}
