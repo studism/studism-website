@@ -301,32 +301,13 @@ function Services() {
       <div style={{ padding: '0 40px 0 120px' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '56px', maxWidth: '1200px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
-              アプリ一覧
-            </h2>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <p style={{ fontSize: '0.88rem', color: '#555', lineHeight: 1.7, margin: 0, textAlign: 'right' }}>
-              Studismが提供する教育テクノロジーアプリを紹介します。<br />
-            </p>
-            <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-              {['←', '→'].map((arrow, i) => (
-                <button key={i} onClick={() => scroll(i === 0 ? -1 : 1)} style={{
-                  width: '40px', height: '40px', borderRadius: '50%',
-                  border: '1.5px solid #ddd', background: '#fff',
-                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '14px', color: '#555', transition: 'border-color 0.2s, color 0.2s',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#1D4ED8'; e.currentTarget.style.color = '#1D4ED8'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = '#ddd'; e.currentTarget.style.color = '#555'; }}
-                >
-                  {arrow}
-                </button>
-              ))}
-            </div>
-          </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '56px' }}>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
+            アプリ一覧
+          </h2>
+          <p style={{ fontSize: '0.88rem', color: '#555', margin: 0 }}>
+            Studismが提供する教育テクノロジーアプリを紹介します。
+          </p>
         </div>
       </div>
 
