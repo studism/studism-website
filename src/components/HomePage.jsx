@@ -117,32 +117,21 @@ const SLIDES = [
 function HeroSection() {
   const INTERVAL = 5500;
   const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
-  const [progress, setProgress] = useState(0);
 
-  const advance = (next) => {
+  const advance = () => {
     setTransitioning(true);
     setTimeout(() => {
-      setCurrent(next !== undefined ? next : c => (c + 1) % SLIDES.length);
+      setCurrent(c => (c + 1) % SLIDES.length);
       setTransitioning(false);
-      setProgress(0);
-      setTimeout(() => setProgress(100), 30);
     }, 350);
   };
 
   useEffect(() => {
-    setProgress(0);
-    setTimeout(() => setProgress(100), 30);
-  }, []);
-
-  useEffect(() => {
-    if (paused) return;
     const timer = setInterval(() => advance(), INTERVAL);
     return () => clearInterval(timer);
-  }, [paused, current]);
+  }, [current]);
 
-  const goTo = (i) => { if (i !== current) advance(i); };
   const slide = SLIDES[current];
 
   return (
