@@ -30,7 +30,7 @@ function HeroSection() {
       {/* 右半分：テキスト */}
       <div style={{ flex: 1, paddingRight: '7%', zIndex: 10 }}>
         <h1 style={{
-          color: '#0a0a0a', fontSize: 'clamp(3.4rem, 5.5vw, 6rem)',
+          color: '#0a0a0a', fontSize: 'clamp(4rem, 7vw, 8rem)',
           fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
         }}>
           {HERO.heading}
