@@ -12,7 +12,7 @@ const SLIDES = [
     label: 'Education Technology',
     heading: '学びを、もっと\n自由に、楽しく。',
     sub: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業です。',
-    bg: 'linear-gradient(135deg, #5B21B6 0%, #7C3AED 50%, #A78BFA 100%)',
+    bg: 'linear-gradient(135deg, rgba(91,33,182,0.78) 0%, rgba(124,58,237,0.65) 55%, rgba(167,139,250,0.5) 100%), url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1920&q=80&fit=crop) center/cover no-repeat',
     visual: (
       <>
         <div style={{ position: 'absolute', top: '8%', right: '18%', width: '180px', height: '180px',
@@ -31,7 +31,7 @@ const SLIDES = [
     label: 'Language Learning App',
     heading: '英語学習を、\nもっと楽しく。',
     sub: 'レベル別英単語クイズで、効率的に語彙力を強化。SakuraEnglishで始める新しい学習体験。',
-    bg: 'linear-gradient(135deg, #9D174D 0%, #DB2777 50%, #F472B6 100%)',
+    bg: 'linear-gradient(135deg, rgba(157,23,77,0.78) 0%, rgba(219,39,119,0.65) 55%, rgba(244,114,182,0.5) 100%), url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80&fit=crop) center/cover no-repeat',
     visual: (
       <>
         <div style={{
@@ -87,7 +87,7 @@ const SLIDES = [
     label: 'Our Mission',
     heading: 'テクノロジーと教育で、\n未来を変える。',
     sub: 'すべての人が自分のペースで、自分らしく学べる世界を。Studismのミッションです。',
-    bg: 'linear-gradient(135deg, #4C1D95 0%, #6D28D9 45%, #9333EA 75%, #C084FC 100%)',
+    bg: 'linear-gradient(135deg, rgba(76,29,149,0.82) 0%, rgba(109,40,217,0.7) 50%, rgba(147,51,234,0.6) 100%), url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80&fit=crop) center/cover no-repeat',
     visual: (
       <>
         <div style={{ position: 'absolute', top: '10%', right: '40%', width: '60px', height: '60px',
