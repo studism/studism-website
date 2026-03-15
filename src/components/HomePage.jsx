@@ -272,9 +272,6 @@ function Services() {
         {/* セクションヘッダー */}
         <div style={{ marginBottom: '48px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid #e8e8e8', paddingBottom: '20px' }}>
           <div>
-            <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.18em', color: '#7C3AED', textTransform: 'uppercase', marginBottom: '8px' }}>
-              Our Services
-            </p>
             <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 900, color: '#0f0f0f', letterSpacing: '-0.03em', margin: 0 }}>
               サービス
             </h2>
