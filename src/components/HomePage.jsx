@@ -17,29 +17,38 @@ const HERO = {
 ════════════════════════════ */
 function HeroSection() {
   return (
-    <section style={{ position: 'relative', width: '100%', height: '75vh', overflow: 'hidden', background: '#ffffff', borderBottom: '1px solid #e0e0e0' }}>
-      {/* 画像（左側） */}
-      <img src="/images/ポリポリ3.png" alt="ポリポリ"
-        style={{ position: 'absolute', top: '50%', left: '5%', transform: 'translateY(-50%)',
-          height: '130%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+    <section style={{
+      position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
+      background: 'linear-gradient(135deg, #f0f6ff 0%, #ffffff 50%, #fafbff 100%)',
+      borderBottom: '1px solid #e0e0e0',
+    }}>
+      {/* 薄いドット背景 */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(#c7d8f5 1px, transparent 1px)', backgroundSize: '32px 32px', opacity: 0.35 }} />
 
-      {/* テキスト（右側） */}
-      <div style={{ position: 'absolute', right: '6%', top: '50%', transform: 'translateY(-50%)', zIndex: 10, maxWidth: '44%' }}>
+      {/* 画像（左側・底部接地） */}
+      <img src="/images/ポリポリ3.png" alt="ポリポリ"
+        style={{ position: 'absolute', bottom: 0, left: '3%',
+          height: '95%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+
+      {/* テキスト（右側・中央揃え） */}
+      <div style={{ position: 'absolute', right: '8%', top: '50%', transform: 'translateY(-50%)', zIndex: 10, maxWidth: '42%' }}>
         <div style={{
           display: 'inline-flex', alignItems: 'center',
-          background: 'rgba(0,0,0,0.08)', backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(0,0,0,0.15)',
-          borderRadius: '999px', padding: '5px 14px', marginBottom: '18px',
+          background: '#EFF6FF', border: '1px solid #BFDBFE',
+          borderRadius: '999px', padding: '5px 14px', marginBottom: '20px',
         }}>
-          <span style={{ color: '#333', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+          <span style={{ color: '#1D4ED8', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
             {HERO.label}
           </span>
         </div>
-        <h1 style={{ color: '#0f0f0f', fontSize: 'clamp(2.6rem, 5.8vw, 5.2rem)',
-          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, margin: '0 0 18px', whiteSpace: 'pre-line' }}>
+        <h1 style={{
+          color: '#0a0a0a', fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
+          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.08, margin: '0 0 20px', whiteSpace: 'pre-line',
+        }}>
           {HERO.heading}
         </h1>
-        <p style={{ color: '#555', fontSize: 'clamp(0.85rem, 1.4vw, 1rem)', fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
+        <p style={{ color: '#555', fontSize: 'clamp(0.85rem, 1.3vw, 1rem)', fontWeight: 400, lineHeight: 1.8, margin: 0 }}>
           {HERO.sub}
         </p>
       </div>
