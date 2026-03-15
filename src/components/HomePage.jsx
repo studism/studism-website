@@ -185,6 +185,8 @@ function HeroSection() {
             fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
             {slide.sub}
           </p>
+        </div>
+
         {/* ─── スライドインジケーター（ヒーロー下部） ─── */}
         <div style={{
           position: 'absolute', bottom: '20px', left: '6%', zIndex: 10,
