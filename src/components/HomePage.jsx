@@ -117,7 +117,6 @@ const SLIDES = [
 function HeroSection() {
   const INTERVAL = 5500;
   const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -137,10 +136,9 @@ function HeroSection() {
   }, []);
 
   useEffect(() => {
-    if (paused) return;
     const timer = setInterval(() => advance(), INTERVAL);
     return () => clearInterval(timer);
-  }, [paused, current]);
+  }, [current]);
 
   const goTo = (i) => { if (i !== current) advance(i); };
   const slide = SLIDES[current];
@@ -219,25 +217,6 @@ function HeroSection() {
           ))}
         </div>
 
-        {/* ポーズ／再生ボタン（中央） */}
-        <button onClick={() => setPaused(p => !p)} style={{
-          position: 'absolute', left: '50%', transform: 'translateX(-50%)',
-          width: '32px', height: '32px', borderRadius: '50%',
-          border: 'none', background: 'linear-gradient(135deg,#1D4ED8,#3B82F6)',
-          cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '11px', color: '#fff', boxShadow: '0 3px 10px rgba(29,78,216,0.3)',
-        }}>
-          {paused ? '▶' : '⏸'}
-        </button>
-
-        {/* Scroll down（右） */}
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px',
-          color: '#3B82F6', fontSize: '0.78rem', fontWeight: 600, letterSpacing: '0.04em' }}>
-          <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
-            <path d="M6 1v14M1 10l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Scroll down
-        </div>
       </div>
     </>
   );
