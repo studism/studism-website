@@ -296,7 +296,7 @@ function Services() {
   };
 
   return (
-    <section style={{ background: '#fff', padding: '40px 0 80px' }}>
+    <section style={{ background: '#fff', padding: '40px 0 32px' }}>
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
@@ -400,7 +400,7 @@ function NewsSection() {
   };
 
   return (
-    <section style={{ background: '#fff', padding: '72px 0 80px' }}>
+    <section style={{ background: '#fff', padding: '40px 0 80px' }}>
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
