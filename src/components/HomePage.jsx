@@ -389,7 +389,7 @@ function Services() {
                 {/* アイコン */}
                 {!app.comingSoon && (
                   <img src={app.icon} alt={app.name} style={{
-                    width: '160px', height: '160px', borderRadius: '36px',
+                    width: '220px', height: '220px', borderRadius: '48px',
                     boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
                   }} />
                 )}
