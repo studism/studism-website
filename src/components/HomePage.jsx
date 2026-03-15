@@ -21,17 +21,7 @@ function HeroSection() {
       borderBottom: '1px solid #e0e0e0',
       display: 'flex', alignItems: 'center',
     }}>
-      {/* カラフルな背景ブロブ */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: '-15%', left: '-8%', width: '45%', height: '65%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(96,165,250,0.5) 0%, transparent 65%)' }} />
-        <div style={{ position: 'absolute', top: '5%', right: '0%', width: '40%', height: '60%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(147,197,253,0.4) 0%, transparent 65%)' }} />
-        <div style={{ position: 'absolute', bottom: '-15%', left: '20%', width: '50%', height: '60%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.4) 0%, transparent 65%)' }} />
-      </div>
-
-      {/* 左半分：画像（中央からはみ出して大きく） */}
+{/* 左半分：画像（中央からはみ出して大きく） */}
       <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 2 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
           style={{ position: 'absolute', bottom: '-33%', left: '6%', transform: 'none',
