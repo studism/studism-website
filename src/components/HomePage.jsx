@@ -217,63 +217,48 @@ function Apps() {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {APPS.map((app) => (
-            <div key={app.slug}
-              className="rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group"
-              style={{
-                background: '#ffffff',
-                border: '2px solid transparent',
-                backgroundClip: 'padding-box',
-                boxShadow: '0 4px 24px rgba(124,58,237,0.08)',
-                position: 'relative',
-              }}>
-              {/* グラデーションボーダー */}
-              <div className="absolute inset-0 rounded-3xl pointer-events-none"
-                style={{
-                  padding: '2px',
-                  background: app.grad,
-                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                }} />
+            <div key={app.slug} style={{ padding: '2px', borderRadius: '28px', background: app.grad, boxShadow: '0 4px 24px rgba(124,58,237,0.15)' }}
+              className="transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div className="rounded-3xl overflow-hidden" style={{ background: '#ffffff' }}>
+                {/* カラーバー */}
+                <div className="h-1.5 w-full" style={{ background: app.grad }} />
 
-              {/* カラーバー */}
-              <div className="h-1.5 w-full" style={{ background: app.grad }} />
-
-              <div className="p-8">
-                {/* アイコン＋カテゴリ */}
-                <div className="flex items-start gap-5 mb-5">
-                  <img
-                    src={app.icon}
-                    alt={app.name}
-                    style={{ width: 72, height: 72, borderRadius: '22%', flexShrink: 0, boxShadow: '0 4px 16px rgba(124,58,237,0.15)' }}
-                  />
-                  <div className="flex flex-col gap-2 pt-1">
-                    <span className="inline-block text-xs font-black px-2.5 py-1 rounded-full w-fit"
-                      style={{ background: app.badgeBg, color: app.badgeColor, letterSpacing: '0.05em' }}>
-                      {app.category}
-                    </span>
-                    <h3 className="font-black" style={{ fontSize: '1.4rem', color: '#1E1B4B', letterSpacing: '-0.02em' }}>
-                      {app.name}
-                    </h3>
+                <div className="p-8">
+                  {/* アイコン＋カテゴリ */}
+                  <div className="flex items-start gap-5 mb-5">
+                    <img
+                      src={app.icon}
+                      alt={app.name}
+                      style={{ width: 72, height: 72, borderRadius: '22%', flexShrink: 0, boxShadow: '0 4px 16px rgba(124,58,237,0.15)' }}
+                    />
+                    <div className="flex flex-col gap-2 pt-1">
+                      <span className="inline-block text-xs font-black px-2.5 py-1 rounded-full w-fit"
+                        style={{ background: app.badgeBg, color: app.badgeColor, letterSpacing: '0.05em' }}>
+                        {app.category}
+                      </span>
+                      <h3 className="font-black" style={{ fontSize: '1.4rem', color: '#1E1B4B', letterSpacing: '-0.02em' }}>
+                        {app.name}
+                      </h3>
+                    </div>
                   </div>
+
+                  {/* 説明 */}
+                  <p className="text-sm font-medium leading-relaxed mb-7" style={{ color: '#64748B' }}>
+                    {app.description}
+                  </p>
+
+                  {/* ボタン */}
+                  <Link to={`/app/${app.slug}`}
+                    className="inline-flex items-center justify-center w-full gap-2 py-3.5 rounded-2xl font-black text-sm transition-all duration-200 hover:opacity-90"
+                    style={{
+                      background: app.grad,
+                      color: '#ffffff',
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 16px rgba(124,58,237,0.18)',
+                    }}>
+                    詳細を見る
+                  </Link>
                 </div>
-
-                {/* 説明 */}
-                <p className="text-sm font-medium leading-relaxed mb-7" style={{ color: '#64748B' }}>
-                  {app.description}
-                </p>
-
-                {/* ボタン */}
-                <Link to={`/app/${app.slug}`}
-                  className="inline-flex items-center justify-center w-full gap-2 py-3.5 rounded-2xl font-black text-sm transition-all duration-200 hover:opacity-90 active:scale-98"
-                  style={{
-                    background: app.grad,
-                    color: '#ffffff',
-                    textDecoration: 'none',
-                    boxShadow: '0 4px 16px rgba(124,58,237,0.18)',
-                  }}>
-                  詳細を見る
-                </Link>
               </div>
             </div>
           ))}
