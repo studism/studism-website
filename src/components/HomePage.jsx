@@ -272,6 +272,46 @@ const APPS = [
     accent: '#2563EB',
     accentLight: '#DBEAFE',
     shadowColor: 'rgba(37,99,235,0.14)',
+    comingSoon: false,
+  },
+  {
+    slug: 'app3',
+    name: 'Coming Soon',
+    category: '近日公開',
+    icon: null,
+    lead: '新しいアプリを準備中です。',
+    description: '',
+    photoBg: 'linear-gradient(135deg, #065F46 0%, #10B981 55%, #A7F3D0 100%)',
+    accent: '#10B981',
+    accentLight: '#D1FAE5',
+    shadowColor: 'rgba(16,185,129,0.14)',
+    comingSoon: true,
+  },
+  {
+    slug: 'app4',
+    name: 'Coming Soon',
+    category: '近日公開',
+    icon: null,
+    lead: '新しいアプリを準備中です。',
+    description: '',
+    photoBg: 'linear-gradient(135deg, #92400E 0%, #F59E0B 55%, #FDE68A 100%)',
+    accent: '#D97706',
+    accentLight: '#FEF3C7',
+    shadowColor: 'rgba(217,119,6,0.14)',
+    comingSoon: true,
+  },
+  {
+    slug: 'app5',
+    name: 'Coming Soon',
+    category: '近日公開',
+    icon: null,
+    lead: '新しいアプリを準備中です。',
+    description: '',
+    photoBg: 'linear-gradient(135deg, #4C1D95 0%, #8B5CF6 55%, #DDD6FE 100%)',
+    accent: '#7C3AED',
+    accentLight: '#EDE9FE',
+    shadowColor: 'rgba(124,58,237,0.14)',
+    comingSoon: true,
   },
 ];
 
@@ -348,11 +388,23 @@ function Services() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
-                <img src={app.icon} alt={app.name} style={{
-                  width: '80px', height: '80px', borderRadius: '20px',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.2)',
-                  position: 'relative', zIndex: 1,
-                }} />
+                {app.comingSoon ? (
+                  <div style={{
+                    background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255,255,255,0.35)',
+                    borderRadius: '12px', padding: '10px 20px',
+                    color: '#fff', fontSize: '0.85rem', fontWeight: 800,
+                    letterSpacing: '0.1em', position: 'relative', zIndex: 1,
+                  }}>
+                    COMING SOON
+                  </div>
+                ) : (
+                  <img src={app.icon} alt={app.name} style={{
+                    width: '80px', height: '80px', borderRadius: '20px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.2)',
+                    position: 'relative', zIndex: 1,
+                  }} />
+                )}
               </div>
 
               {/* カテゴリ */}
