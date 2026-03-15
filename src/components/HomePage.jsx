@@ -15,7 +15,7 @@ const SLIDES = [
     bg: '#ffffff',
     visual: (
       <>
-        <img src="/images/ポポリリ 2.png" alt="ポポリリ"
+        <img src="/images/poporiri.png" alt="ポポリリ"
           style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
             height: '80%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </>
