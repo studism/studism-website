@@ -185,29 +185,23 @@ function HeroSection() {
             fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
             {slide.sub}
           </p>
-        </div>
-      </section>
-
-      {/* ─── コントロールバー ─── */}
-      <div style={{
-        background: '#fff', borderBottom: '1px solid #DBEAFE',
-        height: '52px', display: 'flex', alignItems: 'center',
-        padding: '0 40px', position: 'relative',
-      }}>
-        {/* ライン式インジケーター（左） */}
-        <div style={{ display: 'flex', gap: '6px', flex: 1, maxWidth: '480px' }}>
+        {/* ─── スライドインジケーター（ヒーロー下部） ─── */}
+        <div style={{
+          position: 'absolute', bottom: '20px', left: '6%', zIndex: 10,
+          display: 'flex', gap: '6px', width: '240px',
+        }}>
           {SLIDES.map((_, i) => (
             <button key={i} onClick={() => goTo(i)} style={{
               flex: 1, height: '3px', border: 'none', cursor: 'pointer', padding: 0,
-              background: '#DBEAFE', position: 'relative', overflow: 'hidden', borderRadius: '999px',
+              background: 'rgba(255,255,255,0.3)', position: 'relative', overflow: 'hidden', borderRadius: '999px',
             }}>
               {i < current && (
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,#1D4ED8,#3B82F6)', borderRadius: '999px' }} />
+                <div style={{ position: 'absolute', inset: 0, background: '#fff', borderRadius: '999px' }} />
               )}
               {i === current && (
                 <div style={{
                   position: 'absolute', top: 0, left: 0, height: '100%',
-                  background: 'linear-gradient(90deg,#1D4ED8,#3B82F6)',
+                  background: '#fff',
                   width: `${progress}%`,
                   transition: progress === 0 ? 'none' : `width ${INTERVAL / 1000 - 0.3}s linear`,
                   borderRadius: '999px',
@@ -216,8 +210,7 @@ function HeroSection() {
             </button>
           ))}
         </div>
-
-      </div>
+      </section>
     </>
   );
 }
