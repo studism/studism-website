@@ -49,36 +49,6 @@ function Hero() {
           {/* 左：テキスト */}
           <div className="flex flex-col gap-7 order-2 lg:order-1">
 
-            {/* バッジ */}
-            <div>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black"
-                style={{
-                  background: 'rgba(139,92,246,0.18)',
-                  color: '#C4B5FD',
-                  border: '1px solid rgba(139,92,246,0.35)',
-                  backdropFilter: 'blur(10px)',
-                  letterSpacing: '0.07em',
-                }}>
-                <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#A78BFA' }} />
-                EDUCATION TECHNOLOGY COMPANY
-              </span>
-            </div>
-
-            {/* Studismロゴ（白反転） */}
-            <div>
-              <img
-                src="/images/studism-logo.png"
-                alt="Studism"
-                style={{
-                  height: 'clamp(46px, 6.5vw, 68px)',
-                  width: 'auto',
-                  objectFit: 'contain',
-                  display: 'block',
-                  filter: 'brightness(0) invert(1)',
-                }}
-              />
-            </div>
-
             {/* グラデーションキャッチコピー */}
             <h1 className="font-black" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)', letterSpacing: '-0.03em', lineHeight: 1.06 }}>
               <span style={{ color: '#F1F5F9' }}>学びを、</span>
