@@ -20,8 +20,8 @@ function HeroSection() {
     <section style={{ position: 'relative', width: '100%', height: '75vh', overflow: 'hidden', background: '#ffffff', borderBottom: '1px solid #e0e0e0' }}>
       {/* 画像（左側） */}
       <img src="/images/ポリポリ3.png" alt="ポリポリ"
-        style={{ position: 'absolute', top: '50%', left: '-2%', transform: 'translateY(-50%)',
-          height: '110%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+        style={{ position: 'absolute', top: '50%', left: '5%', transform: 'translateY(-50%)',
+          height: '130%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
 
       {/* テキスト（右側） */}
       <div style={{ position: 'absolute', right: '6%', top: '50%', transform: 'translateY(-50%)', zIndex: 10, maxWidth: '44%' }}>
