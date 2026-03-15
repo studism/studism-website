@@ -337,7 +337,7 @@ function Services() {
         paddingLeft: '40px',
       }}>
         {APPS.map(app => (
-          <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: 'calc(33vw - 20px)', maxWidth: 'calc(33vw - 20px)', flexShrink: 0 }}>
+          <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '340px', maxWidth: '340px', flexShrink: 0 }}>
             <article>
               {/* サムネイル */}
               <div style={{
@@ -468,7 +468,7 @@ function NewsSection() {
       }}>
         {NEWS.map((n, i) => (
           <article key={i} style={{
-            minWidth: 'calc(33vw - 20px)', maxWidth: 'calc(33vw - 20px)', flexShrink: 0,
+            minWidth: '340px', maxWidth: '340px', flexShrink: 0,
             cursor: 'pointer',
           }}>
             {/* サムネイル */}
