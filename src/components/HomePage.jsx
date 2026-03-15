@@ -26,7 +26,7 @@ function HeroSection() {
       <div style={{ position: 'relative', width: '50%', height: '100%', flexShrink: 0 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
           style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
-            height: '108%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+            height: '120%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </div>
 
       {/* 右半分：テキスト */}
@@ -41,12 +41,12 @@ function HeroSection() {
           </span>
         </div>
         <h1 style={{
-          color: '#0a0a0a', fontSize: 'clamp(2.6rem, 5vw, 4.8rem)',
+          color: '#0a0a0a', fontSize: 'clamp(3.2rem, 6.5vw, 6rem)',
           fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.08, margin: '0 0 20px', whiteSpace: 'pre-line',
         }}>
           {HERO.heading}
         </h1>
-        <p style={{ color: '#555', fontSize: 'clamp(0.85rem, 1.3vw, 1rem)', fontWeight: 400, lineHeight: 1.8, margin: 0 }}>
+        <p style={{ color: '#555', fontSize: 'clamp(0.95rem, 1.5vw, 1.15rem)', fontWeight: 400, lineHeight: 1.8, margin: 0 }}>
           {HERO.sub}
         </p>
       </div>
