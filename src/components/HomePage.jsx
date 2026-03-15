@@ -55,7 +55,7 @@ function Hero() {
               <img
                 src="/images/studism-logo.png"
                 alt="Studism"
-                style={{ height: 'clamp(42px, 6vw, 62px)', width: 'auto', objectFit: 'contain' }}
+                style={{ height: 'clamp(48px, 7vw, 72px)', width: 'auto', objectFit: 'contain', display: 'block' }}
               />
             </div>
 
@@ -122,10 +122,10 @@ function Hero() {
           {/* 右：マスコット＋フローティングカード */}
           <div className="flex items-center justify-center order-1 lg:order-2 relative" style={{ minHeight: '460px' }}>
 
-            {/* ペンギンマスコット（影なし） */}
+            {/* Studism横影なし */}
             <img
-              src="/images/背景透過 2.png"
-              alt="Studismマスコット"
+              src="/images/Studism横影なし 2.png"
+              alt="Studism"
               className="animate-float-slow"
               style={{
                 width: 'clamp(260px, 36vw, 440px)',
