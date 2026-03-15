@@ -415,9 +415,7 @@ function NewsSection() {
                 boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
               }}>
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '10px 10px' }} />
-                <span style={{ fontSize: '1.5rem' }}>
-                  {i === 0 ? '📢' : i === 1 ? '⚙️' : '📚'}
-                </span>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.22)', position: 'relative', zIndex: 1 }} />
               </div>
 
               {/* テキスト */}
