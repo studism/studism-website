@@ -51,10 +51,8 @@ function HeroSection() {
       {/* 右半分：テキスト */}
       <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10 }}>
         <h1 style={{
-          fontSize: 'clamp(4rem, 7vw, 8rem)',
+          color: '#0a0a0a', fontSize: 'clamp(4rem, 7vw, 8rem)',
           fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
-          background: 'linear-gradient(135deg, #E5006A 0%, #FF6B00 40%, #7C00CC 100%)',
-          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
         }}>
           {HERO.heading}
         </h1>
