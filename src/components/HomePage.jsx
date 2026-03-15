@@ -23,7 +23,7 @@ function HeroSection() {
       {/* 左半分：画像（中央からはみ出して大きく） */}
       <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
-          style={{ position: 'absolute', bottom: '-33%', left: '0%', transform: 'none',
+          style={{ position: 'absolute', bottom: '-33%', left: '6%', transform: 'none',
             height: '160%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </div>
 
