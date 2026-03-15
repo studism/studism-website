@@ -190,57 +190,6 @@ function HeroSection() {
         </div>
       </section>
 
-      {/* ─── コントロールバー ─── */}
-      <div style={{
-        background: '#fff',
-        borderBottom: '1px solid #DBEAFE',
-        height: '52px', display: 'flex', alignItems: 'center',
-        padding: '0 40px', position: 'relative',
-      }}>
-        {/* ライン式インジケーター（左） */}
-        <div style={{ display: 'flex', gap: '6px', flex: 1, maxWidth: '480px' }}>
-          {SLIDES.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)} style={{
-              flex: 1, height: '3px', border: 'none', cursor: 'pointer', padding: 0,
-              background: '#DBEAFE', position: 'relative', overflow: 'hidden', borderRadius: '999px',
-            }}>
-              {i < current && (
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,#1D4ED8,#3B82F6)', borderRadius: '999px' }} />
-              )}
-              {i === current && (
-                <div style={{
-                  position: 'absolute', top: 0, left: 0, height: '100%',
-                  background: 'linear-gradient(90deg,#1D4ED8,#3B82F6)',
-                  width: `${progress}%`,
-                  transition: progress === 0 ? 'none' : `width ${INTERVAL / 1000 - 0.3}s linear`,
-                  borderRadius: '999px',
-                }} />
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* ポーズ／再生ボタン（中央） */}
-        <button onClick={() => setPaused(p => !p)} style={{
-          position: 'absolute', left: '50%', transform: 'translateX(-50%)',
-          width: '32px', height: '32px', borderRadius: '50%',
-          border: 'none', background: 'linear-gradient(135deg,#1D4ED8,#3B82F6)',
-          cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '11px', color: '#fff',
-          boxShadow: '0 3px 10px rgba(139,92,246,0.3)',
-        }}>
-          {paused ? '▶' : '⏸'}
-        </button>
-
-        {/* Scroll down（右） */}
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px',
-          color: '#3B82F6', fontSize: '0.78rem', fontWeight: 600, letterSpacing: '0.04em' }}>
-          <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
-            <path d="M6 1v14M1 10l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Scroll down
-        </div>
-      </div>
     </>
   );
 }
