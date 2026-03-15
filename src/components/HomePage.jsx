@@ -390,19 +390,8 @@ function Services() {
               }}>
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
 
-                {/* アイコン or プレースホルダー */}
-                {app.comingSoon ? (
-                  <div style={{
-                    width: '100px', height: '100px', borderRadius: '26px',
-                    background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(12px)',
-                    border: '1.5px solid rgba(255,255,255,0.38)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    position: 'relative', zIndex: 1,
-                    boxShadow: '0 12px 32px rgba(0,0,0,0.18)',
-                  }}>
-                    <span style={{ fontSize: '2rem', color: 'rgba(255,255,255,0.55)' }}>?</span>
-                  </div>
-                ) : (
+                {/* アイコン */}
+                {!app.comingSoon && (
                   <img src={app.icon} alt={app.name} style={{
                     width: '100px', height: '100px', borderRadius: '26px',
                     boxShadow: '0 12px 32px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.22)',
