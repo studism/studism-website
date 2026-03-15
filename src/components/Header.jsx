@@ -127,7 +127,7 @@ export default function Header() {
         borderBottom: '1px solid #e8e8e8',
         boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.06)' : 'none',
       }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
+      <div style={{ width: '100%', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
           <img src="/images/Studismicon.png" alt="Studism icon" style={{ height: '36px', width: 'auto' }} />
