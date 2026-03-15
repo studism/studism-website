@@ -129,16 +129,9 @@ export default function Header() {
       }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{
-            width: '36px', height: '36px', background: '#1D4ED8',
-            borderRadius: '8px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#fff', fontWeight: 900, fontSize: '1rem',
-          }}>
-            S
-          </div>
-          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+          <img src="/images/Studismicon.png" alt="Studism icon" style={{ height: '36px', width: 'auto' }} />
+          <img src="/images/Studism横影なし 2.png" alt="Studism" style={{ height: '28px', width: 'auto' }} />
         </Link>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
