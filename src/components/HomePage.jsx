@@ -19,20 +19,18 @@ function HeroSection() {
   return (
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
-      background: 'linear-gradient(135deg, #f0f6ff 0%, #ffffff 50%, #fafbff 100%)',
-      borderBottom: '1px solid #e0e0e0',
+      background: '#ffffff', borderBottom: '1px solid #e0e0e0',
+      display: 'flex', alignItems: 'center',
     }}>
-      {/* 薄いドット背景 */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(#c7d8f5 1px, transparent 1px)', backgroundSize: '32px 32px', opacity: 0.35 }} />
+      {/* 左半分：画像 */}
+      <div style={{ position: 'relative', width: '50%', height: '100%', flexShrink: 0 }}>
+        <img src="/images/ポリポリ3.png" alt="ポリポリ"
+          style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+            height: '108%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+      </div>
 
-      {/* 画像（左側・底部接地） */}
-      <img src="/images/ポリポリ3.png" alt="ポリポリ"
-        style={{ position: 'absolute', bottom: 0, left: '3%',
-          height: '95%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
-
-      {/* テキスト（右側・中央揃え） */}
-      <div style={{ position: 'absolute', right: '8%', top: '50%', transform: 'translateY(-50%)', zIndex: 10, maxWidth: '42%' }}>
+      {/* 右半分：テキスト */}
+      <div style={{ flex: 1, paddingRight: '8%', zIndex: 10 }}>
         <div style={{
           display: 'inline-flex', alignItems: 'center',
           background: '#EFF6FF', border: '1px solid #BFDBFE',
@@ -43,7 +41,7 @@ function HeroSection() {
           </span>
         </div>
         <h1 style={{
-          color: '#0a0a0a', fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
+          color: '#0a0a0a', fontSize: 'clamp(2.6rem, 5vw, 4.8rem)',
           fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.08, margin: '0 0 20px', whiteSpace: 'pre-line',
         }}>
           {HERO.heading}
