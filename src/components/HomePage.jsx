@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -6,220 +6,44 @@ import Footer from '@/components/Footer';
 /* ════════════════════════════
    スライドデータ
 ════════════════════════════ */
-const SLIDES = [
-  {
-    id: 0,
-    label: 'Education Technology',
-    heading: '学びを、もっと\n自由に、楽しく。',
-    sub: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業です。',
-    bg: '#ffffff',
-    visual: (
-      <>
-        <img src="/images/ポリポリ3.png" alt="ポリポリ"
-          style={{ position: 'absolute', top: '50%', left: '-2%', transform: 'translateY(-50%)',
-            height: '110%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
-      </>
-    ),
-  },
-  {
-    id: 1,
-    label: 'Language Learning App',
-    heading: '英語学習を、\nもっと楽しく。',
-    sub: 'レベル別英単語クイズで、効率的に語彙力を強化。SakuraEnglishで始める新しい学習体験。',
-    bg: 'linear-gradient(135deg, rgba(12,74,110,0.82) 0%, rgba(14,165,233,0.68) 55%, rgba(125,211,252,0.5) 100%), url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80&fit=crop) center/cover no-repeat',
-    visual: (
-      <>
-        <div style={{
-          position: 'absolute', right: '10%', top: '50%', transform: 'translateY(-50%)',
-          width: 'clamp(220px, 30vw, 400px)', aspectRatio: '1',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
-          borderRadius: '50%', zIndex: 1,
-        }} />
-        <img src="/images/sakuraenglish.png" alt="SakuraEnglish" className="animate-float"
-          style={{
-            position: 'absolute', right: '14%', top: '50%',
-            transform: 'translateY(-50%)',
-            width: 'clamp(160px, 22vw, 300px)', height: 'auto',
-            borderRadius: '32px',
-            boxShadow: '0 24px 64px rgba(0,0,0,0.22), 0 0 0 6px rgba(255,255,255,0.18)',
-            zIndex: 3,
-          }} />
-        <img src="/images/背景透過 2.png" alt="マスコット" className="animate-float-slow"
-          style={{ position: 'absolute', bottom: 0, right: '4%', height: '55%', width: 'auto', zIndex: 4, animationDelay: '0.6s' }} />
-      </>
-    ),
-  },
-  {
-    id: 2,
-    label: 'Productivity App',
-    heading: '学習時間を、\n見える化する。',
-    sub: 'タイマー・グラフ・教科別集計で、あなたの学習習慣を強力にサポートするTimelyze。',
-    bg: 'linear-gradient(135deg, rgba(30,64,175,0.75) 0%, rgba(37,99,235,0.62) 55%, rgba(125,211,252,0.5) 100%), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1920&q=80&fit=crop) center/cover no-repeat',
-    visual: (
-      <>
-        <div style={{
-          position: 'absolute', right: '10%', top: '50%', transform: 'translateY(-50%)',
-          width: 'clamp(220px, 30vw, 400px)', aspectRatio: '1',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
-          borderRadius: '50%', zIndex: 1,
-        }} />
-        <img src="/images/timelyze.png" alt="Timelyze" className="animate-float"
-          style={{
-            position: 'absolute', right: '14%', top: '50%',
-            transform: 'translateY(-50%)',
-            width: 'clamp(160px, 22vw, 300px)', height: 'auto',
-            borderRadius: '32px',
-            boxShadow: '0 24px 64px rgba(0,0,0,0.22), 0 0 0 6px rgba(255,255,255,0.18)',
-            zIndex: 3,
-          }} />
-        <img src="/images/Studism横影なし 2.png" alt="Studism" className="animate-float-slow"
-          style={{ position: 'absolute', bottom: 0, right: '3%', height: '62%', width: 'auto', zIndex: 4, opacity: 0.88 }} />
-      </>
-    ),
-  },
-  {
-    id: 3,
-    label: 'Our Mission',
-    heading: 'テクノロジーと教育で、\n未来を変える。',
-    sub: 'すべての人が自分のペースで、自分らしく学べる世界を。Studismのミッションです。',
-    bg: 'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,58,138,0.75) 50%, rgba(37,99,235,0.6) 100%), url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80&fit=crop) center/cover no-repeat',
-    visual: (
-      <>
-        <div style={{ position: 'absolute', top: '10%', right: '40%', width: '60px', height: '60px',
-          borderRadius: '50%', background: 'rgba(255,255,255,0.12)', zIndex: 2 }} />
-        <div style={{ position: 'absolute', bottom: '20%', right: '30%', width: '36px', height: '36px',
-          borderRadius: '50%', background: 'rgba(255,255,255,0.1)', zIndex: 2 }} />
-        <div style={{
-          position: 'absolute', right: '6%', top: '50%', transform: 'translateY(-50%)',
-          zIndex: 3, textAlign: 'center',
-        }}>
-          <div style={{
-            fontSize: 'clamp(3.5rem, 7vw, 8rem)', fontWeight: 900,
-            color: 'rgba(255,255,255,0.08)', letterSpacing: '-0.05em', lineHeight: 1,
-            userSelect: 'none',
-          }}>STUDISM</div>
-          <img src="/images/背景透過 2.png" alt="マスコット" className="animate-float"
-            style={{ width: 'clamp(160px, 20vw, 260px)', height: 'auto', margin: '0 auto', display: 'block' }} />
-        </div>
-      </>
-    ),
-  },
-];
+const HERO = {
+  label: 'Education Technology',
+  heading: '学びを、もっと\n自由に、楽しく。',
+  sub: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業です。',
+};
 
 /* ════════════════════════════
-   Hero（スライドショー）
+   Hero
 ════════════════════════════ */
 function HeroSection() {
-  const INTERVAL = 5500;
-  const [current, setCurrent] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  const advance = (next) => {
-    setTransitioning(true);
-    setTimeout(() => {
-      setCurrent(next !== undefined ? next : c => (c + 1) % SLIDES.length);
-      setTransitioning(false);
-      setProgress(0);
-      setTimeout(() => setProgress(100), 30);
-    }, 350);
-  };
-
-  useEffect(() => {
-    setProgress(0);
-    setTimeout(() => setProgress(100), 30);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => advance(), INTERVAL);
-    return () => clearInterval(timer);
-  }, [current]);
-
-  const goTo = (i) => { if (i !== current) advance(i); };
-  const slide = SLIDES[current];
-
   return (
-    <>
-      {/* ─── スライド本体 ─── */}
-      <section style={{ position: 'relative', width: '100%', height: '75vh', overflow: 'hidden', background: '#1E3A8A', borderBottom: '1px solid #e0e0e0' }}>
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          background: slide.bg,
-          opacity: transitioning ? 0 : 1,
-          transition: 'opacity 0.35s ease',
-        }} />
-        {slide.bg !== '#ffffff' && (
-          <>
-            <div style={{ position: 'absolute', inset: 0, zIndex: 1, opacity: 0.06, pointerEvents: 'none',
-              backgroundImage: 'radial-gradient(#fff 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }} />
-            <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%)' }} />
-          </>
-        )}
+    <section style={{ position: 'relative', width: '100%', height: '75vh', overflow: 'hidden', background: '#ffffff', borderBottom: '1px solid #e0e0e0' }}>
+      {/* 画像（左側） */}
+      <img src="/images/ポリポリ3.png" alt="ポリポリ"
+        style={{ position: 'absolute', top: '50%', left: '-2%', transform: 'translateY(-50%)',
+          height: '110%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
 
-        <div style={{ position: 'absolute', inset: 0, zIndex: 2, opacity: transitioning ? 0 : 1, transition: 'opacity 0.35s ease' }}>
-          {slide.visual}
-        </div>
-
+      {/* テキスト（右側） */}
+      <div style={{ position: 'absolute', right: '6%', top: '50%', transform: 'translateY(-50%)', zIndex: 10, maxWidth: '44%' }}>
         <div style={{
-          position: 'absolute', bottom: '12%', zIndex: 10,
-          ...(slide.id === 0
-            ? { right: '6%', left: 'auto', textAlign: 'left' }
-            : { left: '6%' }
-          ),
-          opacity: transitioning ? 0 : 1, transition: 'opacity 0.35s ease', maxWidth: '44%',
+          display: 'inline-flex', alignItems: 'center',
+          background: 'rgba(0,0,0,0.08)', backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(0,0,0,0.15)',
+          borderRadius: '999px', padding: '5px 14px', marginBottom: '18px',
         }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center',
-            background: slide.bg === '#ffffff' ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)',
-            backdropFilter: 'blur(10px)',
-            border: slide.bg === '#ffffff' ? '1px solid rgba(0,0,0,0.15)' : '1px solid rgba(255,255,255,0.3)',
-            borderRadius: '999px', padding: '5px 14px', marginBottom: '18px',
-          }}>
-            <span style={{ color: slide.bg === '#ffffff' ? '#333' : '#fff', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-              {slide.label}
-            </span>
-          </div>
-          <h1 style={{ color: slide.bg === '#ffffff' ? '#0f0f0f' : '#ffffff',
-            fontSize: 'clamp(2.6rem, 5.8vw, 5.2rem)',
-            fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, margin: '0 0 18px', whiteSpace: 'pre-line',
-            textShadow: slide.bg === '#ffffff' ? 'none' : '0 2px 16px rgba(0,0,0,0.15)' }}>
-            {slide.heading}
-          </h1>
-          <p style={{ color: slide.bg === '#ffffff' ? '#555' : 'rgba(255,255,255,0.82)',
-            fontSize: 'clamp(0.85rem, 1.4vw, 1rem)',
-            fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
-            {slide.sub}
-          </p>
+          <span style={{ color: '#333', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+            {HERO.label}
+          </span>
         </div>
-
-        {/* ─── スライドインジケーター（ヒーロー下部） ─── */}
-        <div style={{
-          position: 'absolute', bottom: '20px', left: '6%', zIndex: 10,
-          display: 'flex', gap: '6px', width: '240px',
-        }}>
-          {SLIDES.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)} style={{
-              flex: 1, height: '3px', border: 'none', cursor: 'pointer', padding: 0,
-              background: 'rgba(255,255,255,0.3)', position: 'relative', overflow: 'hidden', borderRadius: '999px',
-            }}>
-              {i < current && (
-                <div style={{ position: 'absolute', inset: 0, background: '#fff', borderRadius: '999px' }} />
-              )}
-              {i === current && (
-                <div style={{
-                  position: 'absolute', top: 0, left: 0, height: '100%',
-                  background: '#fff',
-                  width: `${progress}%`,
-                  transition: progress === 0 ? 'none' : `width ${INTERVAL / 1000 - 0.3}s linear`,
-                  borderRadius: '999px',
-                }} />
-              )}
-            </button>
-          ))}
-        </div>
-      </section>
-    </>
+        <h1 style={{ color: '#0f0f0f', fontSize: 'clamp(2.6rem, 5.8vw, 5.2rem)',
+          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, margin: '0 0 18px', whiteSpace: 'pre-line' }}>
+          {HERO.heading}
+        </h1>
+        <p style={{ color: '#555', fontSize: 'clamp(0.85rem, 1.4vw, 1rem)', fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
+          {HERO.sub}
+        </p>
+      </div>
+    </section>
   );
 }
 
