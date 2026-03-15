@@ -285,11 +285,11 @@ function Services() {
 
   return (
     <section style={{ background: '#fff', padding: '72px 0 80px' }}>
-      {/* ヘッダー＋ボタン: max-width内 */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+      {/* ヘッダー＋ボタン */}
+      <div style={{ padding: '0 40px 0 max(0px, calc((100vw - 1200px) / 2 - 110px))' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
           <div>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
               Services
@@ -334,7 +334,7 @@ function Services() {
       <div ref={scrollRef} style={{
         display: 'flex', gap: '2px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: 'max(0px, calc((100vw - 1200px) / 2 - 110px))',
+        paddingLeft: 'max(40px, calc((100vw - 1200px) / 2 + 40px))',
       }}>
         {APPS.map(app => (
           <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '340px', maxWidth: '340px', flexShrink: 0 }}>
@@ -415,11 +415,11 @@ function NewsSection() {
 
   return (
     <section style={{ background: '#fff', padding: '72px 0 80px' }}>
-      {/* ヘッダー＋ボタン: max-width内 */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+      {/* ヘッダー＋ボタン */}
+      <div style={{ padding: '0 40px 0 max(0px, calc((100vw - 1200px) / 2 - 110px))' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
           <div>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
               News
@@ -464,7 +464,7 @@ function NewsSection() {
       <div ref={scrollRef} style={{
         display: 'flex', gap: '2px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: 'max(0px, calc((100vw - 1200px) / 2 - 110px))',
+        paddingLeft: 'max(40px, calc((100vw - 1200px) / 2 + 40px))',
       }}>
         {NEWS.map((n, i) => (
           <article key={i} style={{
