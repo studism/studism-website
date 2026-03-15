@@ -111,130 +111,125 @@ const SLIDES = [
 /* ════════════════════════════
    Hero（スライドショー）
 ════════════════════════════ */
-function Hero() {
+function HeroSection() {
+  const INTERVAL = 5500;
   const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const advance = (next) => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setCurrent(next !== undefined ? next : c => (c + 1) % SLIDES.length);
+      setTransitioning(false);
+      setProgress(0);
+      setTimeout(() => setProgress(100), 30);
+    }, 350);
+  };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTransitioning(true);
-      setTimeout(() => {
-        setCurrent(c => (c + 1) % SLIDES.length);
-        setTransitioning(false);
-      }, 400);
-    }, 5500);
-    return () => clearInterval(timer);
+    setProgress(0);
+    setTimeout(() => setProgress(100), 30);
   }, []);
 
-  const goTo = (i) => {
-    if (i === current) return;
-    setTransitioning(true);
-    setTimeout(() => { setCurrent(i); setTransitioning(false); }, 400);
-  };
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(() => advance(), INTERVAL);
+    return () => clearInterval(timer);
+  }, [paused, current]);
+
+  const goTo = (i) => { if (i !== current) advance(i); };
 
   const slide = SLIDES[current];
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: '82vh', overflow: 'hidden', background: '#0f0520' }}>
-
-      {/* 背景（トランジション付き） */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 0,
-        background: slide.bg,
-        transition: 'background 0.6s ease',
-        opacity: transitioning ? 0 : 1,
-        transitionProperty: 'opacity',
-        transitionDuration: '0.4s',
-      }} />
-
-      {/* テクスチャ */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1, opacity: 0.05,
-        backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)',
-        backgroundSize: '32px 32px', pointerEvents: 'none',
-      }} />
-      {/* ボトムオーバーレイ */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.5) 100%)',
-      }} />
-
-      {/* ビジュアル（スライド切替） */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 2,
-        opacity: transitioning ? 0 : 1,
-        transition: 'opacity 0.4s ease',
-      }}>
-        {slide.visual}
-      </div>
-
-      {/* テキスト（左下） */}
-      <div style={{
-        position: 'absolute', bottom: '16%', left: '5%', zIndex: 10,
-        opacity: transitioning ? 0 : 1,
-        transition: 'opacity 0.4s ease',
-        maxWidth: '52%',
-      }}>
-        <p style={{
-          color: 'rgba(255,255,255,0.6)', fontSize: '0.72rem',
-          fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase',
-          marginBottom: '14px',
-        }}>
-          {slide.label}
-        </p>
-        <h1 style={{
-          color: '#ffffff', fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
-          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, margin: '0 0 18px',
-          whiteSpace: 'pre-line',
-        }}>
-          {slide.heading}
-        </h1>
-        <p style={{
-          color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(0.82rem, 1.4vw, 1rem)',
-          fontWeight: 400, lineHeight: 1.75, margin: 0,
-        }}>
-          {slide.sub}
-        </p>
-      </div>
-
-      {/* ドットナビ */}
-      <div style={{
-        position: 'absolute', bottom: '36px', left: '5%', zIndex: 10,
-        display: 'flex', alignItems: 'center', gap: '10px',
-      }}>
-        {SLIDES.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} style={{
-            width: i === current ? '28px' : '8px',
-            height: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer',
-            background: i === current ? '#ffffff' : 'rgba(255,255,255,0.35)',
-            transition: 'all 0.3s ease', padding: 0,
-          }} />
-        ))}
-      </div>
-
-      {/* スライド番号 */}
-      <div style={{
-        position: 'absolute', bottom: '36px', right: '5%', zIndex: 10,
-        color: 'rgba(255,255,255,0.4)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em',
-      }}>
-        {String(current + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
-      </div>
-
-      {/* SCROLLインジケーター */}
-      <div style={{
-        position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
-        zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
-      }}>
-        <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em' }}>
-          SCROLL
-        </span>
+    <>
+      {/* ─── スライド本体 ─── */}
+      <section style={{ position: 'relative', width: '100%', height: '82vh', overflow: 'hidden', background: '#0f0520' }}>
         <div style={{
-          width: '1px', height: '40px',
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.45), transparent)',
+          position: 'absolute', inset: 0, zIndex: 0,
+          background: slide.bg,
+          opacity: transitioning ? 0 : 1,
+          transition: 'opacity 0.35s ease',
         }} />
-      </div>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 1, opacity: 0.05, pointerEvents: 'none',
+          backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.5) 100%)' }} />
 
-    </section>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 2, opacity: transitioning ? 0 : 1, transition: 'opacity 0.35s ease' }}>
+          {slide.visual}
+        </div>
+
+        <div style={{
+          position: 'absolute', bottom: '12%', left: '5%', zIndex: 10,
+          opacity: transitioning ? 0 : 1, transition: 'opacity 0.35s ease', maxWidth: '52%',
+        }}>
+          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.72rem', fontWeight: 700,
+            letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '14px' }}>
+            {slide.label}
+          </p>
+          <h1 style={{ color: '#ffffff', fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
+            fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, margin: '0 0 18px', whiteSpace: 'pre-line' }}>
+            {slide.heading}
+          </h1>
+          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(0.82rem, 1.4vw, 1rem)',
+            fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
+            {slide.sub}
+          </p>
+        </div>
+      </section>
+
+      {/* ─── リクルート風コントロールバー ─── */}
+      <div style={{
+        background: '#fff', borderBottom: '1px solid #e8e8e8',
+        height: '52px', display: 'flex', alignItems: 'center',
+        padding: '0 40px', position: 'relative',
+      }}>
+        {/* ライン式インジケーター（左） */}
+        <div style={{ display: 'flex', gap: '6px', flex: 1, maxWidth: '480px' }}>
+          {SLIDES.map((_, i) => (
+            <button key={i} onClick={() => goTo(i)} style={{
+              flex: 1, height: '2px', border: 'none', cursor: 'pointer', padding: 0,
+              background: '#ddd', position: 'relative', overflow: 'hidden',
+            }}>
+              {i < current && (
+                <div style={{ position: 'absolute', inset: 0, background: '#7C3AED' }} />
+              )}
+              {i === current && (
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, height: '100%',
+                  background: '#7C3AED',
+                  width: `${progress}%`,
+                  transition: progress === 0 ? 'none' : `width ${INTERVAL / 1000 - 0.3}s linear`,
+                }} />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* ポーズ／再生ボタン（中央） */}
+        <button onClick={() => setPaused(p => !p)} style={{
+          position: 'absolute', left: '50%', transform: 'translateX(-50%)',
+          width: '32px', height: '32px', borderRadius: '50%',
+          border: '1.5px solid #bbb', background: '#fff',
+          cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '11px', color: '#555',
+        }}>
+          {paused ? '▶' : '⏸'}
+        </button>
+
+        {/* Scroll down（右） */}
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px',
+          color: '#555', fontSize: '0.78rem', fontWeight: 500, letterSpacing: '0.02em' }}>
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
+            <path d="M6 1v14M1 10l5 5 5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Scroll down
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -356,52 +351,83 @@ function NewsSection() {
     <section style={{ background: '#f5f5f5', padding: '80px 0' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
 
-        {/* ヘッダー */}
-        <div style={{ marginBottom: '40px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid #ddd', paddingBottom: '20px' }}>
-          <div>
-            <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.18em', color: '#7C3AED', textTransform: 'uppercase', marginBottom: '8px' }}>
-              News
+        {/* リクルート風ヘッダー: 大きい "News" 左 ＋ 説明右 */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '48px', marginBottom: '48px', paddingBottom: '32px', borderBottom: '1px solid #ddd' }}>
+          <h2 style={{
+            fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+            fontWeight: 900, color: '#0f0f0f',
+            letterSpacing: '-0.04em', lineHeight: 1, margin: 0,
+            flexShrink: 0,
+          }}>
+            News
+          </h2>
+          <div style={{ paddingTop: '12px' }}>
+            <p style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.18em', color: '#7C3AED', textTransform: 'uppercase', marginBottom: '10px' }}>
+              最新情報
             </p>
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 900, color: '#0f0f0f', letterSpacing: '-0.03em', margin: 0 }}>
-              ニュース
-            </h2>
+            <p style={{ fontSize: '0.92rem', color: '#555', lineHeight: 1.75, margin: 0, maxWidth: '440px' }}>
+              Studismの最新ニュース、アプリアップデート、<br />
+              お知らせをお届けします。
+            </p>
           </div>
         </div>
 
-        {/* カードグリッド */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
+        {/* ニュースリスト */}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           {NEWS.map((n, i) => (
-            <article key={i} style={{ background: '#fff', overflow: 'hidden', cursor: 'pointer' }}>
-              {/* サムネイル写真風 */}
+            <article key={i} style={{
+              display: 'flex', alignItems: 'center', gap: '28px',
+              padding: '22px 0',
+              borderBottom: i < NEWS.length - 1 ? '1px solid #e0e0e0' : 'none',
+              cursor: 'pointer',
+            }}
+              onMouseEnter={e => { e.currentTarget.querySelector('.news-title').style.color = '#7C3AED'; }}
+              onMouseLeave={e => { e.currentTarget.querySelector('.news-title').style.color = '#0f0f0f'; }}
+            >
+              {/* サムネイル */}
               <div style={{
-                width: '100%', aspectRatio: '16/9',
-                background: n.bg,
-                position: 'relative',
+                width: '120px', height: '72px', flexShrink: 0,
+                background: n.bg, borderRadius: '4px',
+                position: 'relative', overflow: 'hidden',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
-                <span style={{ fontSize: '2.5rem', opacity: 0.4 }}>
+                <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
+                <span style={{ fontSize: '1.6rem', opacity: 0.5 }}>
                   {i === 0 ? '📢' : i === 1 ? '⚙️' : '📚'}
                 </span>
               </div>
 
               {/* テキスト */}
-              <div style={{ padding: '20px 22px 26px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
                   <span style={{
                     fontSize: '0.68rem', fontWeight: 700, color: '#7C3AED',
                     border: '1px solid #7C3AED', padding: '2px 8px', letterSpacing: '0.06em',
+                    whiteSpace: 'nowrap',
                   }}>
                     {n.category}
                   </span>
-                  <span style={{ fontSize: '0.75rem', color: '#999', fontWeight: 500 }}>{n.date}</span>
+                  <span style={{ fontSize: '0.78rem', color: '#999', fontWeight: 500 }}>{n.date}</span>
                 </div>
-                <p style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f0f0f', lineHeight: 1.6, margin: 0 }}>
+                <p className="news-title" style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f0f0f', lineHeight: 1.5, margin: 0, transition: 'color 0.2s' }}>
                   {n.title}
                 </p>
               </div>
+
+              {/* 矢印 */}
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, color: '#bbb' }}>
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </article>
           ))}
+        </div>
+
+        {/* もっと見るリンク */}
+        <div style={{ marginTop: '36px', textAlign: 'right' }}>
+          <a href="#" style={{ textDecoration: 'none', color: '#7C3AED', fontSize: '0.82rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            ニュース一覧
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -460,7 +486,7 @@ export default function HomePage() {
   return (
     <div style={{ background: '#fff' }}>
       <Header />
-      <Hero />
+      <HeroSection />
       <Services />
       <NewsSection />
       <MissionBanner />
