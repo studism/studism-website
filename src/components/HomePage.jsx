@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -360,100 +360,134 @@ function Services() {
    ニュース
 ════════════════════════════ */
 const NEWS = [
-  { date: '2025.11.22', category: 'お知らせ', categoryColor: '#7C3AED', categoryBg: '#EDE9FE', title: '公式ウェブサイトをリニューアルオープンしました', bg: 'linear-gradient(135deg, #6D28D9, #A78BFA)' },
-  { date: '2025.11.20', category: 'アップデート', categoryColor: '#2563EB', categoryBg: '#DBEAFE', title: 'お問い合わせフォームのシステムを更新しました', bg: 'linear-gradient(135deg, #1D4ED8, #60A5FA)' },
-  { date: '2025.11.15', category: 'アップデート', categoryColor: '#DB2777', categoryBg: '#FCE7F3', title: '「SakuraEnglish」に新しい単語リストを追加しました', bg: 'linear-gradient(135deg, #9D174D, #F472B6)' },
+  {
+    date: '2025.11.22', category: 'お知らせ', categoryColor: '#7C3AED',
+    title: '公式ウェブサイトをリニューアルオープンしました',
+    thumb: 'linear-gradient(135deg, rgba(109,40,217,0.7), rgba(167,139,250,0.6)), url(https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&fit=crop) center/cover no-repeat',
+    pickup: true,
+  },
+  {
+    date: '2025.11.20', category: 'アップデート', categoryColor: '#2563EB',
+    title: 'お問い合わせフォームのシステムを更新しました',
+    thumb: 'linear-gradient(135deg, rgba(29,78,216,0.7), rgba(96,165,250,0.6)), url(https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80&fit=crop) center/cover no-repeat',
+    pickup: false,
+  },
+  {
+    date: '2025.11.15', category: 'アップデート', categoryColor: '#DB2777',
+    title: '「SakuraEnglish」に新しい単語リストを追加しました',
+    thumb: 'linear-gradient(135deg, rgba(157,23,77,0.7), rgba(244,114,182,0.6)), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80&fit=crop) center/cover no-repeat',
+    pickup: false,
+  },
 ];
 
 function NewsSection() {
+  const scrollRef = useRef(null);
+
+  const scroll = (dir) => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({ left: dir * 320, behavior: 'smooth' });
+  };
+
   return (
-    <section style={{ background: '#F9F7FF', padding: '80px 0' }}>
+    <section style={{ background: '#fff', padding: '72px 0 80px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
 
-        {/* ヘッダー: 大きい "News" 左 ＋ 説明右 */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '48px', marginBottom: '48px',
-          paddingBottom: '32px', borderBottom: '1px solid #DDD6FE' }}>
-          <h2 style={{
-            fontSize: 'clamp(3.5rem, 7vw, 6rem)',
-            fontWeight: 900, margin: 0, flexShrink: 0, lineHeight: 1,
-            color: '#7C3AED',
-          }}>
-            News
-          </h2>
-          <div style={{ paddingTop: '14px' }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center',
-              background: '#EDE9FE', borderRadius: '999px', padding: '3px 12px', marginBottom: '12px',
+        {/* ヘッダー行 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+          {/* 左: News + View more */}
+          <div>
+            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
+              News
+            </h2>
+            <a href="#" style={{
+              textDecoration: 'none', color: '#1a1a1a', fontSize: '0.88rem', fontWeight: 700,
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              paddingBottom: '6px', borderBottom: '2px solid #7C3AED',
             }}>
-              <span style={{ color: '#7C3AED', fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.16em', textTransform: 'uppercase' }}>最新情報</span>
-            </div>
-            <p style={{ fontSize: '0.92rem', color: '#6B7280', lineHeight: 1.75, margin: 0, maxWidth: '440px' }}>
-              Studismの最新ニュース、アプリアップデート、<br />
-              お知らせをお届けします。
-            </p>
+              View more
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: '24px', height: '24px', borderRadius: '50%', border: '1.5px solid #aaa', fontSize: '12px' }}>
+                →
+              </span>
+            </a>
           </div>
+
+          {/* 右: 説明テキスト */}
+          <p style={{ fontSize: '0.92rem', color: '#555', lineHeight: 1.8, maxWidth: '420px', paddingTop: '6px', margin: 0 }}>
+            Studismの最新情報・アプリアップデートに関する発表、<br />
+            弊社からのお知らせを紹介します。
+          </p>
         </div>
 
-        {/* ニュースリスト */}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {NEWS.map((n, i) => (
-            <article key={i} style={{
-              display: 'flex', alignItems: 'center', gap: '28px',
-              padding: '20px 16px', borderRadius: '14px',
-              marginBottom: i < NEWS.length - 1 ? '4px' : 0,
-              cursor: 'pointer', transition: 'background 0.2s',
+        {/* ← → ボタン（右寄せ） */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: '24px' }}>
+          {['←', '→'].map((arrow, i) => (
+            <button key={i} onClick={() => scroll(i === 0 ? -1 : 1)} style={{
+              width: '40px', height: '40px', borderRadius: '50%',
+              border: '1.5px solid #ddd', background: '#fff',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '14px', color: '#555', transition: 'border-color 0.2s, color 0.2s',
             }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#EDE9FE'; e.currentTarget.querySelector('.news-title').style.color = '#6D28D9'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.querySelector('.news-title').style.color = '#1E1B4B'; }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#7C3AED'; e.currentTarget.style.color = '#7C3AED'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#ddd'; e.currentTarget.style.color = '#555'; }}
             >
-              {/* サムネイル */}
-              <div style={{
-                width: '112px', height: '68px', flexShrink: 0,
-                background: n.bg, borderRadius: '10px',
-                position: 'relative', overflow: 'hidden',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
-              }}>
-                <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '10px 10px' }} />
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.22)', position: 'relative', zIndex: 1 }} />
-              </div>
-
-              {/* テキスト */}
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                  <span style={{
-                    fontSize: '0.67rem', fontWeight: 700, color: n.categoryColor,
-                    background: n.categoryBg, padding: '3px 10px', borderRadius: '999px', letterSpacing: '0.04em',
-                    whiteSpace: 'nowrap',
-                  }}>
-                    {n.category}
-                  </span>
-                  <span style={{ fontSize: '0.78rem', color: '#9CA3AF', fontWeight: 500 }}>{n.date}</span>
-                </div>
-                <p className="news-title" style={{ fontSize: '0.93rem', fontWeight: 700, color: '#1E1B4B', lineHeight: 1.5, margin: 0, transition: 'color 0.2s' }}>
-                  {n.title}
-                </p>
-              </div>
-
-              {/* 矢印 */}
-              <div style={{ width: '30px', height: '30px', borderRadius: '50%', flexShrink: 0,
-                background: '#EDE9FE', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transition: 'background 0.2s' }}>
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="#7C3AED" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            </article>
+              {arrow}
+            </button>
           ))}
         </div>
 
-        {/* もっと見るリンク */}
-        <div style={{ marginTop: '36px', textAlign: 'right' }}>
-          <a href="#" style={{ textDecoration: 'none', color: '#7C3AED', fontSize: '0.82rem', fontWeight: 700,
-            display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            ニュース一覧
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </a>
+        {/* カード横スクロール */}
+        <div ref={scrollRef} style={{
+          display: 'flex', gap: '20px',
+          overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
+          paddingBottom: '4px',
+        }}>
+          {NEWS.map((n, i) => (
+            <article key={i} style={{
+              minWidth: '300px', maxWidth: '300px', flexShrink: 0,
+              cursor: 'pointer',
+            }}>
+              {/* サムネイル */}
+              <div style={{
+                width: '100%', aspectRatio: '4/3',
+                background: n.thumb,
+                borderRadius: '8px', overflow: 'hidden',
+                position: 'relative', marginBottom: '16px',
+              }}>
+                {n.pickup && (
+                  <div style={{
+                    position: 'absolute', top: '12px', left: '12px',
+                    background: '#7C3AED', color: '#fff',
+                    fontSize: '0.72rem', fontWeight: 800, padding: '4px 12px',
+                    borderRadius: '999px', letterSpacing: '0.04em',
+                  }}>
+                    Pick up
+                  </div>
+                )}
+              </div>
+
+              {/* 日付 ＋ カテゴリ */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+                <span style={{ fontSize: '0.8rem', color: '#888', fontWeight: 500 }}>{n.date}</span>
+                <span style={{
+                  fontSize: '0.72rem', fontWeight: 700, color: n.categoryColor,
+                  border: `1px solid ${n.categoryColor}`, padding: '2px 10px',
+                  borderRadius: '999px', whiteSpace: 'nowrap',
+                }}>
+                  {n.category}
+                </span>
+              </div>
+
+              {/* タイトル */}
+              <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0,
+                transition: 'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
+                onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
+              >
+                {n.title}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
