@@ -100,63 +100,6 @@ function Hero() {
               英語学習から時間管理まで、すべての人の成長をサポートします。
             </p>
 
-            {/* フィーチャーピル */}
-            <div className="flex flex-wrap gap-2">
-              {[
-                { label: 'iOS対応',  c: '#38BDF8', bg: 'rgba(56,189,248,0.12)',  bd: 'rgba(56,189,248,0.28)' },
-                { label: '完全無料', c: '#34D399', bg: 'rgba(52,211,153,0.12)',  bd: 'rgba(52,211,153,0.28)' },
-                { label: '語学学習', c: '#F472B6', bg: 'rgba(244,114,182,0.12)', bd: 'rgba(244,114,182,0.28)' },
-                { label: '時間管理', c: '#A78BFA', bg: 'rgba(167,139,250,0.12)', bd: 'rgba(167,139,250,0.28)' },
-              ].map((p) => (
-                <span key={p.label} className="px-3.5 py-1.5 rounded-full text-xs font-black"
-                  style={{ background: p.bg, color: p.c, border: `1px solid ${p.bd}`, letterSpacing: '0.04em' }}>
-                  {p.label}
-                </span>
-              ))}
-            </div>
-
-            {/* スタッツ */}
-            <div className="flex gap-10 py-1">
-              {[
-                { num: '2',    label: 'Apps' },
-                { num: '100%', label: 'Free' },
-                { num: 'iOS',  label: 'Platform' },
-              ].map((s, i) => (
-                <div key={i} className="flex flex-col gap-0.5">
-                  <span className="font-black text-3xl" style={{
-                    background: 'linear-gradient(135deg, #A78BFA, #F472B6)',
-                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                    letterSpacing: '-0.02em',
-                  }}>{s.num}</span>
-                  <span className="text-xs font-bold uppercase tracking-widest" style={{ color: 'rgba(148,163,184,0.65)' }}>{s.label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTAボタン */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-1">
-              <Link to="/app/sakuraenglish"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-black text-sm transition-all duration-200 hover:scale-105 active:scale-95"
-                style={{
-                  background: 'linear-gradient(135deg, #7C3AED, #A855F7)',
-                  color: '#ffffff',
-                  boxShadow: '0 8px 32px rgba(124,58,237,0.50)',
-                  textDecoration: 'none',
-                }}>
-                アプリを見る →
-              </Link>
-              <Link to="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-black text-sm transition-all duration-200 hover:scale-105 active:scale-95"
-                style={{
-                  background: 'rgba(255,255,255,0.07)',
-                  color: '#E2E8F0',
-                  border: '1.5px solid rgba(255,255,255,0.15)',
-                  backdropFilter: 'blur(10px)',
-                  textDecoration: 'none',
-                }}>
-                お問い合わせ
-              </Link>
-            </div>
           </div>
 
           {/* 右：両キャラクター */}
