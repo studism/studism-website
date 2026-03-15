@@ -372,51 +372,50 @@ function Services() {
 
       {/* カード横スクロール: 全幅 */}
       <div ref={scrollRef} style={{
-        display: 'flex', gap: '2px',
+        display: 'flex', gap: '32px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
         paddingLeft: '120px',
       }}>
         {APPS.map(app => (
-          <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '340px', maxWidth: '340px', flexShrink: 0 }}>
+          <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '260px', maxWidth: '260px', flexShrink: 0 }}>
             <article>
-              {/* アイコン＋名前 */}
-              <div style={{
-                width: '100%', aspectRatio: '4/3',
-                position: 'relative', marginBottom: '16px',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                gap: '14px',
-              }}>
-                {/* アイコン */}
-                {!app.comingSoon && (
+              {/* アイコン */}
+              <div style={{ marginBottom: '16px' }}>
+                {app.comingSoon ? (
+                  <div style={{
+                    width: '220px', height: '220px', borderRadius: '48px',
+                    background: '#F1F5F9',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
+                  </div>
+                ) : (
                   <img src={app.icon} alt={app.name} style={{
                     width: '220px', height: '220px', borderRadius: '48px',
                     boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                    display: 'block',
                   }} />
                 )}
-
-                {/* アプリ名 */}
-                <p style={{
-                  margin: 0,
-                  color: '#1a1a1a', fontSize: '1rem', fontWeight: 800,
-                  letterSpacing: '0.01em',
-                }}>
-                  {app.comingSoon ? 'Coming Soon' : app.name}
-                </p>
               </div>
 
               {/* カテゴリ */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', paddingRight: '16px' }}>
+              <div style={{ marginBottom: '8px' }}>
                 <span style={{ fontSize: '0.72rem', fontWeight: 700, color: app.accent,
                   border: `1px solid ${app.accent}`, padding: '2px 10px', borderRadius: '999px', whiteSpace: 'nowrap' }}>
                   {app.category}
                 </span>
               </div>
 
+              {/* アプリ名 */}
+              <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1rem', fontWeight: 800, letterSpacing: '0.01em' }}>
+                {app.comingSoon ? 'Coming Soon' : app.name}
+              </p>
+
               {/* リード文 */}
-              <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0, paddingRight: '16px',
+              <p style={{ fontSize: '0.85rem', fontWeight: 500, color: '#555', lineHeight: 1.6, margin: 0,
                 transition: 'color 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
-                onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
+                onMouseLeave={e => e.currentTarget.style.color = '#555'}
               >
                 {app.lead}
               </p>
