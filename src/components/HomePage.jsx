@@ -15,7 +15,7 @@ const SLIDES = [
     bg: '#ffffff',
     visual: (
       <>
-        <img src="/images/studism-yoko.png" alt="Studism"
+        <img src="/images/ポリポリ3.png" alt="ポリポリ"
           style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
             height: '100%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </>
