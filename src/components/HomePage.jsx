@@ -59,7 +59,7 @@ const SLIDES = [
     label: 'Productivity App',
     heading: '学習時間を、\n見える化する。',
     sub: 'タイマー・グラフ・教科別集計で、あなたの学習習慣を強力にサポートするTimelyze。',
-    bg: 'linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #7DD3FC 100%)',
+    bg: 'linear-gradient(135deg, rgba(30,64,175,0.75) 0%, rgba(37,99,235,0.62) 55%, rgba(125,211,252,0.5) 100%), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1920&q=80&fit=crop) center/cover no-repeat',
     visual: (
       <>
         <div style={{
