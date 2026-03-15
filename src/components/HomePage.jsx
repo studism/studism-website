@@ -21,14 +21,14 @@ function HeroSection() {
       display: 'flex', alignItems: 'center',
     }}>
       {/* 左半分：画像（中央からはみ出して大きく） */}
-      <div style={{ position: 'relative', width: '52%', height: '100%', flexShrink: 0 }}>
+      <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
           style={{ position: 'absolute', bottom: '-33%', left: '0%', transform: 'none',
             height: '160%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </div>
 
       {/* 右半分：テキスト */}
-      <div style={{ flex: 1, paddingRight: '7%', zIndex: 10 }}>
+      <div style={{ flex: 1, paddingRight: '5%', zIndex: 10 }}>
         <h1 style={{
           color: '#0a0a0a', fontSize: 'clamp(4rem, 7vw, 8rem)',
           fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
