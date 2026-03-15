@@ -303,7 +303,7 @@ function Services() {
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '56px', maxWidth: '1200px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
               アプリ一覧
             </h2>
           </div>
@@ -429,7 +429,7 @@ function NewsSection() {
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
           <div>
-            <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#0f0f0f', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
               お知らせ
             </h2>
             <a href="#" style={{
