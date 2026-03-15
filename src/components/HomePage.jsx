@@ -304,7 +304,7 @@ function Services() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '56px', maxWidth: '1200px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
-              App一覧
+              アプリ一覧
             </h2>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
