@@ -135,7 +135,7 @@ function Hero() {
   const slide = SLIDES[current];
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: '90vh', overflow: 'hidden', background: '#0f0520' }}>
+    <section style={{ position: 'relative', width: '100%', height: '82vh', overflow: 'hidden', background: '#0f0520' }}>
 
       {/* 背景（トランジション付き） */}
       <div style={{
