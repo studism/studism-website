@@ -38,7 +38,7 @@ function HeroSection() {
         <div style={{ position: 'absolute', bottom: '20%', left: '5%', width: '20%', height: '30%',
           borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,0,200,0.55) 0%, transparent 65%)' }} />
         {/* 白オーバーレイ */}
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.45)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.65)' }} />
       </div>
 
       {/* 左半分：画像（中央からはみ出して大きく） */}
