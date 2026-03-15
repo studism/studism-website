@@ -55,6 +55,8 @@ function HeroSection() {
         <div style={{ position: 'absolute', bottom: '14%', right: '4%', width: 10, height: 10, background: '#FF6B00', borderRadius: '50%', opacity: 0.65 }} />
         <div style={{ position: 'absolute', top: '30%', left: '58%', width: 32, height: 40, background: '#06B6D4', borderRadius: '40% 60% 55% 45% / 65% 35% 55% 45%', transform: 'rotate(-25deg)', opacity: 0.8 }} />
         <div style={{ position: 'absolute', top: '38%', left: '66%', width: 8,  height: 8,  background: '#06B6D4', borderRadius: '50%', opacity: 0.6 }} />
+        {/* 白オーバーレイ */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.55)' }} />
       </div>
 
       {/* 左半分：画像（中央からはみ出して大きく） */}
