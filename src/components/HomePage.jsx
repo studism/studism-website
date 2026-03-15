@@ -24,7 +24,7 @@ function HeroSection() {
       <div style={{ position: 'relative', width: '52%', height: '100%', flexShrink: 0 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
           style={{ position: 'absolute', bottom: '-12%', left: '50%', transform: 'translateX(-46%)',
-            height: '135%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+            height: '160%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </div>
 
       {/* 右半分：テキスト */}
