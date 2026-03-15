@@ -12,17 +12,12 @@ const SLIDES = [
     label: 'Education Technology',
     heading: '学びを、もっと\n自由に、楽しく。',
     sub: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業です。',
-    bg: 'linear-gradient(135deg, rgba(15,40,110,0.82) 0%, rgba(30,64,175,0.70) 55%, rgba(59,130,246,0.55) 100%), url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1920&q=80&fit=crop) center/cover no-repeat',
+    bg: '#ffffff',
     visual: (
       <>
-        <div style={{ position: 'absolute', top: '8%', right: '18%', width: '180px', height: '180px',
-          borderRadius: '50%', background: 'rgba(255,255,255,0.1)', zIndex: 1 }} />
-        <div style={{ position: 'absolute', bottom: '18%', right: '40%', width: '70px', height: '70px',
-          borderRadius: '50%', background: 'rgba(255,255,255,0.08)', zIndex: 1 }} />
-        <img src="/images/Studism横影なし 2.png" alt="Studism" className="animate-float-slow"
-          style={{ position: 'absolute', bottom: 0, right: '28%', height: '85%', width: 'auto', zIndex: 2, opacity: 0.97 }} />
-        <img src="/images/背景透過 2.png" alt="マスコット" className="animate-float"
-          style={{ position: 'absolute', bottom: 0, right: '5%', height: '72%', width: 'auto', zIndex: 3, animationDelay: '1.2s' }} />
+        <img src="/images/ポポリリ 2.png" alt="ポポリリ"
+          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+            height: '80%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </>
     ),
   },
@@ -153,10 +148,14 @@ function HeroSection() {
           opacity: transitioning ? 0 : 1,
           transition: 'opacity 0.35s ease',
         }} />
-        <div style={{ position: 'absolute', inset: 0, zIndex: 1, opacity: 0.06, pointerEvents: 'none',
-          backgroundImage: 'radial-gradient(#fff 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }} />
-        <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%)' }} />
+        {slide.bg !== '#ffffff' && (
+          <>
+            <div style={{ position: 'absolute', inset: 0, zIndex: 1, opacity: 0.06, pointerEvents: 'none',
+              backgroundImage: 'radial-gradient(#fff 1.5px, transparent 1.5px)', backgroundSize: '28px 28px' }} />
+            <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%)' }} />
+          </>
+        )}
 
         <div style={{ position: 'absolute', inset: 0, zIndex: 2, opacity: transitioning ? 0 : 1, transition: 'opacity 0.35s ease' }}>
           {slide.visual}
@@ -168,20 +167,23 @@ function HeroSection() {
         }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center',
-            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.3)',
+            background: slide.bg === '#ffffff' ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.2)',
+            backdropFilter: 'blur(10px)',
+            border: slide.bg === '#ffffff' ? '1px solid rgba(0,0,0,0.15)' : '1px solid rgba(255,255,255,0.3)',
             borderRadius: '999px', padding: '5px 14px', marginBottom: '18px',
           }}>
-            <span style={{ color: '#fff', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+            <span style={{ color: slide.bg === '#ffffff' ? '#333' : '#fff', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
               {slide.label}
             </span>
           </div>
-          <h1 style={{ color: '#ffffff', fontSize: 'clamp(2.6rem, 5.8vw, 5.2rem)',
+          <h1 style={{ color: slide.bg === '#ffffff' ? '#0f0f0f' : '#ffffff',
+            fontSize: 'clamp(2.6rem, 5.8vw, 5.2rem)',
             fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, margin: '0 0 18px', whiteSpace: 'pre-line',
-            textShadow: '0 2px 16px rgba(0,0,0,0.15)' }}>
+            textShadow: slide.bg === '#ffffff' ? 'none' : '0 2px 16px rgba(0,0,0,0.15)' }}>
             {slide.heading}
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.82)', fontSize: 'clamp(0.85rem, 1.4vw, 1rem)',
+          <p style={{ color: slide.bg === '#ffffff' ? '#555' : 'rgba(255,255,255,0.82)',
+            fontSize: 'clamp(0.85rem, 1.4vw, 1rem)',
             fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
             {slide.sub}
           </p>
