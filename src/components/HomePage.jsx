@@ -4,99 +4,233 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 /* ════════════════════════════
-   Hero（フルワイド・写真風）
+   スライドデータ
+════════════════════════════ */
+const SLIDES = [
+  {
+    id: 0,
+    label: 'Education Technology',
+    heading: '学びを、もっと\n自由に、楽しく。',
+    sub: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業です。',
+    bg: 'linear-gradient(135deg, #0f0520 0%, #2d0d5e 40%, #5b21b6 70%, #7c3aed 100%)',
+    visual: (
+      <>
+        <img src="/images/Studism横影なし 2.png" alt="Studism" className="animate-float-slow"
+          style={{ position: 'absolute', bottom: 0, right: '30%', height: '85%', width: 'auto', zIndex: 2, opacity: 0.95 }} />
+        <img src="/images/背景透過 2.png" alt="マスコット" className="animate-float"
+          style={{ position: 'absolute', bottom: 0, right: '6%', height: '70%', width: 'auto', zIndex: 3, animationDelay: '1.2s' }} />
+      </>
+    ),
+  },
+  {
+    id: 1,
+    label: 'Language Learning App',
+    heading: '英語学習を、\nもっと楽しく。',
+    sub: 'レベル別英単語クイズで、効率的に語彙力を強化。SakuraEnglishで始める新しい学習体験。',
+    bg: 'linear-gradient(135deg, #1a0533 0%, #6d28d9 45%, #db2777 100%)',
+    visual: (
+      <>
+        <div style={{
+          position: 'absolute', right: '12%', top: '50%', transform: 'translateY(-50%)',
+          width: 'clamp(200px, 28vw, 380px)', aspectRatio: '1',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+          borderRadius: '50%', zIndex: 1,
+        }} />
+        <img src="/images/sakuraenglish.png" alt="SakuraEnglish"
+          style={{
+            position: 'absolute', right: '14%', top: '50%',
+            transform: 'translateY(-50%)',
+            width: 'clamp(160px, 22vw, 300px)', height: 'auto',
+            borderRadius: '30%',
+            boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
+            zIndex: 3,
+          }} />
+        <img src="/images/背景透過 2.png" alt="マスコット" className="animate-float"
+          style={{ position: 'absolute', bottom: 0, right: '4%', height: '55%', width: 'auto', zIndex: 4, animationDelay: '0.8s', opacity: 0.9 }} />
+      </>
+    ),
+  },
+  {
+    id: 2,
+    label: 'Productivity App',
+    heading: '学習時間を、\n見える化する。',
+    sub: 'タイマー・グラフ・教科別集計で、あなたの学習習慣を強力にサポートするTimelyze。',
+    bg: 'linear-gradient(135deg, #0c2340 0%, #0369a1 45%, #06b6d4 100%)',
+    visual: (
+      <>
+        <div style={{
+          position: 'absolute', right: '12%', top: '50%', transform: 'translateY(-50%)',
+          width: 'clamp(200px, 28vw, 380px)', aspectRatio: '1',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+          borderRadius: '50%', zIndex: 1,
+        }} />
+        <img src="/images/timelyze.png" alt="Timelyze"
+          style={{
+            position: 'absolute', right: '14%', top: '50%',
+            transform: 'translateY(-50%)',
+            width: 'clamp(160px, 22vw, 300px)', height: 'auto',
+            borderRadius: '30%',
+            boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
+            zIndex: 3,
+          }} />
+        <img src="/images/Studism横影なし 2.png" alt="Studism" className="animate-float-slow"
+          style={{ position: 'absolute', bottom: 0, right: '3%', height: '60%', width: 'auto', zIndex: 4, opacity: 0.85 }} />
+      </>
+    ),
+  },
+  {
+    id: 3,
+    label: 'Our Mission',
+    heading: 'テクノロジーと教育で、\n未来を変える。',
+    sub: 'すべての人が自分のペースで、自分らしく学べる世界を。Studismのミッションです。',
+    bg: 'linear-gradient(160deg, #0a0a0a 0%, #0f0520 50%, #1a0533 100%)',
+    visual: (
+      <>
+        <div style={{
+          position: 'absolute', right: 0, top: 0, bottom: 0, width: '48%',
+          background: 'linear-gradient(135deg, rgba(124,58,237,0.25) 0%, rgba(6,182,212,0.15) 100%)',
+          zIndex: 1,
+        }} />
+        <div style={{
+          position: 'absolute', right: '8%', top: '50%', transform: 'translateY(-50%)',
+          zIndex: 3, textAlign: 'center',
+        }}>
+          <div style={{
+            fontSize: 'clamp(3rem, 6vw, 7rem)', fontWeight: 900,
+            color: 'rgba(255,255,255,0.08)', letterSpacing: '-0.05em', lineHeight: 1,
+            userSelect: 'none',
+          }}>STUDISM</div>
+          <img src="/images/背景透過 2.png" alt="マスコット" className="animate-float"
+            style={{ width: 'clamp(140px, 18vw, 240px)', height: 'auto', margin: '0 auto', display: 'block' }} />
+        </div>
+      </>
+    ),
+  },
+];
+
+/* ════════════════════════════
+   Hero（スライドショー）
 ════════════════════════════ */
 function Hero() {
+  const [current, setCurrent] = useState(0);
+  const [transitioning, setTransitioning] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTransitioning(true);
+      setTimeout(() => {
+        setCurrent(c => (c + 1) % SLIDES.length);
+        setTransitioning(false);
+      }, 400);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goTo = (i) => {
+    if (i === current) return;
+    setTransitioning(true);
+    setTimeout(() => { setCurrent(i); setTransitioning(false); }, 400);
+  };
+
+  const slide = SLIDES[current];
+
   return (
     <section style={{ position: 'relative', width: '100%', height: '90vh', overflow: 'hidden', background: '#0f0520' }}>
 
-      {/* 写真風グラデーション背景 */}
+      {/* 背景（トランジション付き） */}
       <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(135deg, #0f0520 0%, #2d0d5e 35%, #5b21b6 65%, #7c3aed 100%)',
+        position: 'absolute', inset: 0, zIndex: 0,
+        background: slide.bg,
+        transition: 'background 0.6s ease',
+        opacity: transitioning ? 0 : 1,
+        transitionProperty: 'opacity',
+        transitionDuration: '0.4s',
       }} />
-      {/* オーバーレイ */}
+
+      {/* テクスチャ */}
       <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 100%)',
-      }} />
-      {/* テクスチャーパターン */}
-      <div style={{
-        position: 'absolute', inset: 0, opacity: 0.06,
+        position: 'absolute', inset: 0, zIndex: 1, opacity: 0.05,
         backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)',
-        backgroundSize: '32px 32px',
+        backgroundSize: '32px 32px', pointerEvents: 'none',
+      }} />
+      {/* ボトムオーバーレイ */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.5) 100%)',
       }} />
 
-      {/* キャラクター：Studism横影なし（左寄り） */}
-      <img
-        src="/images/Studism横影なし 2.png"
-        alt="Studism"
-        className="animate-float-slow"
-        style={{
-          position: 'absolute',
-          bottom: '0',
-          left: '50%',
-          transform: 'translateX(-55%)',
-          height: '82%',
-          width: 'auto',
-          objectFit: 'contain',
-          zIndex: 2,
-          opacity: 0.92,
-        }}
-      />
-      {/* キャラクター：ペンギン（右寄り） */}
-      <img
-        src="/images/背景透過 2.png"
-        alt="マスコット"
-        className="animate-float"
-        style={{
-          position: 'absolute',
-          bottom: '0',
-          right: '8%',
-          height: '68%',
-          width: 'auto',
-          objectFit: 'contain',
-          zIndex: 3,
-          animationDelay: '1.2s',
-          opacity: 0.95,
-        }}
-      />
-
-      {/* テキスト：左下 */}
+      {/* ビジュアル（スライド切替） */}
       <div style={{
-        position: 'absolute', bottom: '14%', left: '5%',
-        zIndex: 10, maxWidth: '580px',
+        position: 'absolute', inset: 0, zIndex: 2,
+        opacity: transitioning ? 0 : 1,
+        transition: 'opacity 0.4s ease',
       }}>
-        <p style={{
-          color: 'rgba(255,255,255,0.65)', fontSize: '0.8rem',
-          fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase',
-          marginBottom: '16px',
-        }}>
-          Education Technology
-        </p>
-        <h1 style={{
-          color: '#ffffff',
-          fontSize: 'clamp(3rem, 6.5vw, 5.5rem)',
-          fontWeight: 900,
-          letterSpacing: '-0.04em',
-          lineHeight: 1.0,
-          margin: 0,
-        }}>
-          学びを、もっと<br />自由に、<br />楽しく。
-        </h1>
+        {slide.visual}
       </div>
 
-      {/* スクロールインジケーター */}
+      {/* テキスト（左下） */}
+      <div style={{
+        position: 'absolute', bottom: '16%', left: '5%', zIndex: 10,
+        opacity: transitioning ? 0 : 1,
+        transition: 'opacity 0.4s ease',
+        maxWidth: '52%',
+      }}>
+        <p style={{
+          color: 'rgba(255,255,255,0.6)', fontSize: '0.72rem',
+          fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase',
+          marginBottom: '14px',
+        }}>
+          {slide.label}
+        </p>
+        <h1 style={{
+          color: '#ffffff', fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
+          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.05, margin: '0 0 18px',
+          whiteSpace: 'pre-line',
+        }}>
+          {slide.heading}
+        </h1>
+        <p style={{
+          color: 'rgba(255,255,255,0.65)', fontSize: 'clamp(0.82rem, 1.4vw, 1rem)',
+          fontWeight: 400, lineHeight: 1.75, margin: 0,
+        }}>
+          {slide.sub}
+        </p>
+      </div>
+
+      {/* ドットナビ */}
+      <div style={{
+        position: 'absolute', bottom: '36px', left: '5%', zIndex: 10,
+        display: 'flex', alignItems: 'center', gap: '10px',
+      }}>
+        {SLIDES.map((_, i) => (
+          <button key={i} onClick={() => goTo(i)} style={{
+            width: i === current ? '28px' : '8px',
+            height: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer',
+            background: i === current ? '#ffffff' : 'rgba(255,255,255,0.35)',
+            transition: 'all 0.3s ease', padding: 0,
+          }} />
+        ))}
+      </div>
+
+      {/* スライド番号 */}
+      <div style={{
+        position: 'absolute', bottom: '36px', right: '5%', zIndex: 10,
+        color: 'rgba(255,255,255,0.4)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em',
+      }}>
+        {String(current + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
+      </div>
+
+      {/* SCROLLインジケーター */}
       <div style={{
         position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
-        zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+        zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
       }}>
-        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em' }}>
+        <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em' }}>
           SCROLL
         </span>
         <div style={{
-          width: '1px', height: '48px',
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0))',
+          width: '1px', height: '40px',
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.45), transparent)',
         }} />
       </div>
 
