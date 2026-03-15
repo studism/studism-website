@@ -28,7 +28,7 @@ function NewsDropdown() {
       <button
         onClick={() => setOpen(v => !v)}
         className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-purple-50"
-        style={{ color: open ? '#C4B5FD' : 'rgba(203,213,225,0.75)' }}
+        style={{ color: open ? '#FF6B9D' : '#64748B' }}
       >
         News
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -71,7 +71,7 @@ function AppsDropdown() {
       <button
         onClick={() => setOpen(v => !v)}
         className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-purple-50"
-        style={{ color: open ? '#C4B5FD' : 'rgba(203,213,225,0.75)' }}
+        style={{ color: open ? '#FF6B9D' : '#64748B' }}
       >
         Apps
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -122,35 +122,33 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(13,11,30,0.92)' : 'rgba(13,11,30,0.55)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderBottom: `1px solid ${scrolled ? 'rgba(139,92,246,0.25)' : 'transparent'}`,
-        boxShadow: scrolled ? '0 4px 32px rgba(0,0,0,0.35)' : 'none',
+        background: scrolled ? 'rgba(255,252,254,0.95)' : 'rgba(255,252,254,0.75)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: `1px solid ${scrolled ? 'rgba(255,107,157,0.15)' : 'transparent'}`,
+        boxShadow: scrolled ? '0 4px 24px rgba(255,107,157,0.08)' : 'none',
       }}>
       <div className="container mx-auto px-6 md:px-12 lg:px-20 py-4 flex items-center justify-between">
 
         <Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
           <div className="w-9 h-9 rounded-2xl flex items-center justify-center font-black text-white text-base flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', boxShadow: '0 4px 14px rgba(124,58,237,0.45)' }}>
+            style={{ background: 'linear-gradient(135deg,#FF6B9D,#A78BFA)', boxShadow: '0 4px 14px rgba(255,107,157,0.35)' }}>
             S
           </div>
-          <span className="font-black text-lg" style={{ color: '#F1F5F9' }}>Studism</span>
+          <span className="font-black text-lg" style={{ color: '#1E1B4B' }}>Studism</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
           <a href="/"
-            className="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200"
-            style={{ color: 'rgba(203,213,225,0.75)' }}
-            onMouseEnter={e => e.target.style.color = '#C4B5FD'}
-            onMouseLeave={e => e.target.style.color = 'rgba(203,213,225,0.75)'}>
+            className="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-pink-50 hover:text-pink-500"
+            style={{ color: '#64748B' }}>
             Home
           </a>
           <NewsDropdown />
           <AppsDropdown />
           <Link to="/contact"
             className="ml-3 px-6 py-2.5 rounded-2xl text-sm font-black text-white transition-all hover:scale-105"
-            style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', boxShadow: '0 4px 16px rgba(124,58,237,0.45)' }}>
+            style={{ background: 'linear-gradient(135deg,#FF6B9D,#A78BFA)', boxShadow: '0 4px 16px rgba(255,107,157,0.35)' }}>
             Contact
           </Link>
         </nav>

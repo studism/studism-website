@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -8,38 +7,63 @@ import Footer from '@/components/Footer';
 ════════════════════════════ */
 function Hero() {
   return (
-    <section className="relative overflow-hidden" style={{ background: '#0D0B1E', minHeight: 'calc(100vh - 68px)' }}>
+    <section className="relative overflow-hidden" style={{ background: '#FFFCFE', minHeight: 'calc(100vh - 68px)' }}>
 
-      {/* ── 背景レイヤー ── */}
-      {/* メイングラデーション */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 65% 80% at 80% 45%, rgba(124,58,237,0.28) 0%, transparent 60%)',
+      {/* ── カラフル背景ブロブ ── */}
+      <div className="absolute pointer-events-none" style={{
+        width: '700px', height: '700px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(255,107,157,0.22) 0%, transparent 60%)',
+        top: '-200px', right: '-150px',
       }} />
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 45% 55% at 8% 85%, rgba(6,182,212,0.14) 0%, transparent 55%)',
+      <div className="absolute pointer-events-none" style={{
+        width: '550px', height: '550px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(107,207,234,0.20) 0%, transparent 60%)',
+        bottom: '-150px', left: '-100px',
       }} />
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 35% 45% at 3% 8%, rgba(168,85,247,0.12) 0%, transparent 55%)',
+      <div className="absolute pointer-events-none" style={{
+        width: '420px', height: '420px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(255,217,61,0.18) 0%, transparent 60%)',
+        top: '30%', left: '20%',
+      }} />
+      <div className="absolute pointer-events-none" style={{
+        width: '320px', height: '320px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(167,139,250,0.20) 0%, transparent 60%)',
+        bottom: '5%', right: '20%',
       }} />
 
-      {/* グリッドオーバーレイ */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
-        backgroundSize: '52px 52px',
-      }} />
+      {/* ── 散りばめた丸デコ ── */}
+      {[
+        { size: 18, top: '8%',  left: '6%',  color: '#FF6B9D', delay: '0s' },
+        { size: 12, top: '15%', left: '45%', color: '#FFD93D', delay: '0.6s' },
+        { size: 22, top: '70%', left: '8%',  color: '#6BCFEA', delay: '1.2s' },
+        { size: 14, top: '80%', left: '40%', color: '#A78BFA', delay: '0.9s' },
+        { size: 10, top: '20%', right: '6%', color: '#6EDAA0', delay: '1.8s' },
+        { size: 16, top: '55%', right: '3%', color: '#FF9F7A', delay: '0.3s' },
+        { size: 20, top: '5%',  right: '28%',color: '#FFD93D', delay: '1.5s' },
+        { size: 8,  top: '88%', right: '18%',color: '#FF6B9D', delay: '2.1s' },
+      ].map((d, i) => (
+        <div key={i} className="absolute pointer-events-none animate-float" style={{
+          width: d.size, height: d.size, borderRadius: '50%',
+          background: d.color,
+          top: d.top, left: d.left, right: d.right,
+          opacity: 0.7,
+          animationDelay: d.delay,
+        }} />
+      ))}
 
-      {/* グローオーブ */}
-      <div className="absolute pointer-events-none animate-pulse-glow" style={{
-        width: '340px', height: '340px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%)',
-        top: '5%', right: '8%',
-      }} />
-      <div className="absolute pointer-events-none animate-pulse-glow" style={{
-        width: '220px', height: '220px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(6,182,212,0.14) 0%, transparent 70%)',
-        bottom: '12%', left: '5%',
-        animationDelay: '1.8s',
-      }} />
+      {/* ── スター装飾 ── */}
+      {[
+        { top: '12%', left: '35%', color: '#FF6B9D', delay: '0.4s' },
+        { top: '65%', left: '5%',  color: '#FFD93D', delay: '1.0s' },
+        { top: '40%', right: '5%', color: '#6BCFEA', delay: '1.6s' },
+        { top: '85%', left: '55%', color: '#A78BFA', delay: '0.7s' },
+      ].map((s, i) => (
+        <div key={i} className="absolute pointer-events-none animate-float" style={{
+          top: s.top, left: s.left, right: s.right,
+          fontSize: '20px', color: s.color, opacity: 0.85,
+          animationDelay: s.delay, lineHeight: 1,
+        }}>✦</div>
+      ))}
 
       {/* ── コンテンツ ── */}
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex items-center"
@@ -47,84 +71,91 @@ function Hero() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center w-full py-16">
 
           {/* 左：テキスト */}
-          <div className="flex flex-col gap-7 order-2 lg:order-1">
+          <div className="flex flex-col gap-6 order-2 lg:order-1">
 
-            {/* グラデーションキャッチコピー */}
-            <h1 className="font-black" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)', letterSpacing: '-0.03em', lineHeight: 1.06 }}>
-              <span style={{ color: '#F1F5F9' }}>学びを、</span>
+            {/* キャッチコピー */}
+            <h1 className="font-black" style={{ fontSize: 'clamp(2.6rem, 5.2vw, 4.2rem)', letterSpacing: '-0.03em', lineHeight: 1.05 }}>
               <span style={{
-                background: 'linear-gradient(135deg, #A78BFA 0%, #F472B6 50%, #FB923C 100%)',
+                background: 'linear-gradient(135deg, #FF6B9D 0%, #FF9F7A 100%)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+              }}>学びを、</span>
+              <span style={{
+                background: 'linear-gradient(135deg, #A78BFA 0%, #6BCFEA 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
               }}>もっと自由に。</span>
               <br />
-              <span style={{ color: '#F1F5F9' }}>もっと</span>
+              <span style={{ color: '#1E1B4B' }}>もっと</span>
               <span style={{
-                background: 'linear-gradient(135deg, #38BDF8 0%, #34D399 100%)',
+                background: 'linear-gradient(135deg, #FFD93D 0%, #6EDAA0 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
               }}>楽しく。</span>
             </h1>
 
             {/* 説明 */}
-            <p style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.05rem)', color: 'rgba(203,213,225,0.82)', maxWidth: '460px', lineHeight: 1.8, fontWeight: 500 }}>
-              Studismは、テクノロジーの力で学習体験を変えるアプリを開発する教育テクノロジー企業です。
-              英語学習から時間管理まで、すべての人の成長をサポートします。
+            <p style={{
+              fontSize: 'clamp(0.95rem, 1.7vw, 1.08rem)',
+              color: '#64748B',
+              maxWidth: '440px',
+              lineHeight: 1.85,
+              fontWeight: 500,
+            }}>
+              Studismは、テクノロジーの力で学習体験を変えるアプリを開発する
+              教育テクノロジー企業です。英語学習から時間管理まで、
+              すべての人の成長をサポートします。
             </p>
 
           </div>
 
           {/* 右：両キャラクター */}
-          <div className="relative order-1 lg:order-2 flex items-center justify-center" style={{ minHeight: '540px' }}>
+          <div className="relative order-1 lg:order-2 flex items-center justify-center" style={{ minHeight: '520px' }}>
 
-            {/* 背景グローブロブ */}
+            {/* キャラ背後のカラフル円 */}
             <div className="absolute pointer-events-none" style={{
-              width: '500px', height: '500px', borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(139,92,246,0.20) 0%, rgba(6,182,212,0.10) 50%, transparent 70%)',
+              width: '440px', height: '440px', borderRadius: '50%',
+              background: 'linear-gradient(135deg, rgba(255,107,157,0.15) 0%, rgba(107,207,234,0.15) 50%, rgba(167,139,250,0.15) 100%)',
               top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
             }} />
-
-            {/* 回転リング */}
             <div className="absolute pointer-events-none animate-spin-slow" style={{
-              width: '420px', height: '420px', borderRadius: '50%',
-              border: '1.5px dashed rgba(139,92,246,0.22)',
+              width: '460px', height: '460px', borderRadius: '50%',
+              border: '2.5px dashed rgba(255,107,157,0.25)',
               top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
             }} />
-            <div className="absolute pointer-events-none" style={{
-              width: '340px', height: '340px', borderRadius: '50%',
-              border: '1px solid rgba(6,182,212,0.15)',
+            <div className="absolute pointer-events-none animate-spin-slow" style={{
+              width: '380px', height: '380px', borderRadius: '50%',
+              border: '2px dashed rgba(107,207,234,0.22)',
               top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+              animationDirection: 'reverse',
             }} />
 
-            {/* ── メイン：Studism横影なし ── */}
+            {/* Studism横影なし：メイン */}
             <img
               src="/images/Studism横影なし 2.png"
               alt="Studism"
               className="animate-float-slow"
               style={{
-                width: 'clamp(220px, 30vw, 360px)',
+                width: 'clamp(230px, 32vw, 380px)',
                 height: 'auto',
                 position: 'relative',
                 zIndex: 2,
-                marginLeft: '-40px',
-                marginTop: '-20px',
+                marginLeft: '-30px',
               }}
             />
 
-            {/* ── サブ：ペンギン ── */}
+            {/* ペンギン：右下 */}
             <img
               src="/images/背景透過 2.png"
               alt="Studismマスコット"
               className="animate-float"
               style={{
-                width: 'clamp(150px, 18vw, 240px)',
+                width: 'clamp(160px, 20vw, 260px)',
                 height: 'auto',
                 position: 'absolute',
-                bottom: '4%',
-                right: '4%',
+                bottom: '2%',
+                right: '2%',
                 zIndex: 3,
-                animationDelay: '1.2s',
+                animationDelay: '1.0s',
               }}
             />
-
 
           </div>
 
@@ -140,7 +171,7 @@ function Hero() {
 export default function HomePage() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
-    <div style={{ background: '#FAFAFE' }}>
+    <div style={{ background: '#FFFCFE' }}>
       <Header />
       <Hero />
       <Footer />
