@@ -16,8 +16,8 @@ const SLIDES = [
     visual: (
       <>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
-          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-            height: '100%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+          style={{ position: 'absolute', top: '50%', left: '-2%', transform: 'translateY(-50%)',
+            height: '110%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </>
     ),
   },
@@ -162,8 +162,12 @@ function HeroSection() {
         </div>
 
         <div style={{
-          position: 'absolute', bottom: '12%', left: '6%', zIndex: 10,
-          opacity: transitioning ? 0 : 1, transition: 'opacity 0.35s ease', maxWidth: '52%',
+          position: 'absolute', bottom: '12%', zIndex: 10,
+          ...(slide.id === 0
+            ? { right: '6%', left: 'auto', textAlign: 'left' }
+            : { left: '6%' }
+          ),
+          opacity: transitioning ? 0 : 1, transition: 'opacity 0.35s ease', maxWidth: '44%',
         }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center',
