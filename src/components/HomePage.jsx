@@ -17,11 +17,13 @@ function HeroSection() {
   return (
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
-      background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #3B82F6 100%)',
+      background: 'url(/images/classroom.png) center/cover no-repeat',
       borderBottom: '1px solid #e0e0e0',
       display: 'flex', alignItems: 'center',
     }}>
-{/* 左半分：画像（中央からはみ出して大きく） */}
+      {/* 背景オーバーレイ */}
+      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 0 }} />
+      {/* 左半分：画像（中央からはみ出して大きく） */}
       <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 2 }}>
         <img src="/images/ポリポリ3.png" alt="ポリポリ"
           style={{ position: 'absolute', bottom: '-33%', left: '6%', transform: 'none',
