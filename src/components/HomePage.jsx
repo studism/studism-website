@@ -405,44 +405,10 @@ function NewsSection() {
       <div style={{ padding: '0 40px 0 120px' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', maxWidth: '1200px' }}>
-          <div>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
-              お知らせ
-            </h2>
-            <a href="#" style={{
-              textDecoration: 'none', color: '#1a1a1a', fontSize: '0.88rem', fontWeight: 700,
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              paddingBottom: '6px', borderBottom: '2px solid #1D4ED8',
-            }}>
-              View more
-              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                width: '24px', height: '24px', borderRadius: '50%', border: '1.5px solid #aaa', fontSize: '12px' }}>
-                →
-              </span>
-            </a>
-          </div>
-          <p style={{ fontSize: '0.92rem', color: '#555', lineHeight: 1.8, maxWidth: '420px', paddingTop: '6px', margin: 0 }}>
-            Studismの最新情報・アプリアップデートに関する発表、<br />
-            弊社からのお知らせを紹介します。
-          </p>
-        </div>
-
-        {/* ← → ボタン（右寄せ） */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: '24px' }}>
-          {['←', '→'].map((arrow, i) => (
-            <button key={i} onClick={() => scroll(i === 0 ? -1 : 1)} style={{
-              width: '40px', height: '40px', borderRadius: '50%',
-              border: '1.5px solid #ddd', background: '#fff',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '14px', color: '#555', transition: 'border-color 0.2s, color 0.2s',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#1D4ED8'; e.currentTarget.style.color = '#1D4ED8'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#ddd'; e.currentTarget.style.color = '#555'; }}
-            >
-              {arrow}
-            </button>
-          ))}
+        <div style={{ marginBottom: '32px' }}>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
+            お知らせ
+          </h2>
         </div>
       </div>
 
