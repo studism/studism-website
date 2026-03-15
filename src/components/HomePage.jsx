@@ -382,8 +382,6 @@ function Services() {
               {/* アイコン＋名前 */}
               <div style={{
                 width: '100%', aspectRatio: '4/3',
-                background: '#F8FAFC',
-                overflow: 'hidden',
                 position: 'relative', marginBottom: '16px',
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 gap: '14px',
