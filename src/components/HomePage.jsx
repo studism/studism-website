@@ -285,11 +285,11 @@ function Services() {
 
   return (
     <section style={{ background: '#fff', padding: '72px 0 80px' }}>
+      {/* ヘッダー＋ボタン: max-width内 */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
 
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
-          {/* 左: Services + View more */}
           <div>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
               Services
@@ -306,8 +306,6 @@ function Services() {
               </span>
             </Link>
           </div>
-
-          {/* 右: 説明テキスト */}
           <p style={{ fontSize: '0.92rem', color: '#555', lineHeight: 1.8, maxWidth: '420px', paddingTop: '6px', margin: 0 }}>
             Studismが提供する教育テクノロジーアプリを紹介します。<br />
             学習をもっと楽しく、もっと効率的に。
@@ -330,52 +328,54 @@ function Services() {
             </button>
           ))}
         </div>
+      </div>
 
-        {/* カード横スクロール */}
-        <div ref={scrollRef} style={{
-          display: 'flex', gap: '20px',
-          overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-          paddingBottom: '4px',
-        }}>
-          {APPS.map(app => (
-            <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '300px', maxWidth: '300px', flexShrink: 0 }}>
-              <article>
-                {/* サムネイル */}
-                <div style={{
-                  width: '100%', aspectRatio: '4/3',
-                  background: app.photoBg,
-                  borderRadius: '8px', overflow: 'hidden',
-                  position: 'relative', marginBottom: '16px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
-                  <img src={app.icon} alt={app.name} style={{
-                    width: '72px', height: '72px', borderRadius: '18px',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.2)',
-                    position: 'relative', zIndex: 1,
-                  }} />
-                </div>
+      {/* カード横スクロール: 全幅 */}
+      <div ref={scrollRef} style={{
+        display: 'flex', gap: '2px',
+        overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
+        paddingLeft: '40px',
+      }}>
+        {APPS.map(app => (
+          <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: 'calc(33vw - 20px)', maxWidth: 'calc(33vw - 20px)', flexShrink: 0 }}>
+            <article>
+              {/* サムネイル */}
+              <div style={{
+                width: '100%', aspectRatio: '4/3',
+                background: app.photoBg,
+                overflow: 'hidden',
+                position: 'relative', marginBottom: '16px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
+                <img src={app.icon} alt={app.name} style={{
+                  width: '80px', height: '80px', borderRadius: '20px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.2)',
+                  position: 'relative', zIndex: 1,
+                }} />
+              </div>
 
-                {/* カテゴリ ＋ 名前 */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: app.accent,
-                    border: `1px solid ${app.accent}`, padding: '2px 10px', borderRadius: '999px', whiteSpace: 'nowrap' }}>
-                    {app.category}
-                  </span>
-                </div>
+              {/* カテゴリ */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', paddingRight: '16px' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: app.accent,
+                  border: `1px solid ${app.accent}`, padding: '2px 10px', borderRadius: '999px', whiteSpace: 'nowrap' }}>
+                  {app.category}
+                </span>
+              </div>
 
-                {/* タイトル */}
-                <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0,
-                  transition: 'color 0.2s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
-                >
-                  {app.lead}
-                </p>
-              </article>
-            </Link>
-          ))}
-        </div>
+              {/* タイトル */}
+              <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0, paddingRight: '16px',
+                transition: 'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
+                onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
+              >
+                {app.lead}
+              </p>
+            </article>
+          </Link>
+        ))}
+        {/* 右端の余白 */}
+        <div style={{ minWidth: '40px', flexShrink: 0 }} />
       </div>
     </section>
   );
@@ -415,11 +415,11 @@ function NewsSection() {
 
   return (
     <section style={{ background: '#fff', padding: '72px 0 80px' }}>
+      {/* ヘッダー＋ボタン: max-width内 */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
 
         {/* ヘッダー行 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
-          {/* 左: News + View more */}
           <div>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 900, color: '#7C3AED', margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1 }}>
               News
@@ -436,8 +436,6 @@ function NewsSection() {
               </span>
             </a>
           </div>
-
-          {/* 右: 説明テキスト */}
           <p style={{ fontSize: '0.92rem', color: '#555', lineHeight: 1.8, maxWidth: '420px', paddingTop: '6px', margin: 0 }}>
             Studismの最新情報・アプリアップデートに関する発表、<br />
             弊社からのお知らせを紹介します。
@@ -460,60 +458,62 @@ function NewsSection() {
             </button>
           ))}
         </div>
+      </div>
 
-        {/* カード横スクロール */}
-        <div ref={scrollRef} style={{
-          display: 'flex', gap: '20px',
-          overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-          paddingBottom: '4px',
-        }}>
-          {NEWS.map((n, i) => (
-            <article key={i} style={{
-              minWidth: '300px', maxWidth: '300px', flexShrink: 0,
-              cursor: 'pointer',
+      {/* カード横スクロール: 全幅 */}
+      <div ref={scrollRef} style={{
+        display: 'flex', gap: '2px',
+        overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
+        paddingLeft: '40px',
+      }}>
+        {NEWS.map((n, i) => (
+          <article key={i} style={{
+            minWidth: 'calc(33vw - 20px)', maxWidth: 'calc(33vw - 20px)', flexShrink: 0,
+            cursor: 'pointer',
+          }}>
+            {/* サムネイル */}
+            <div style={{
+              width: '100%', aspectRatio: '4/3',
+              background: n.thumb,
+              overflow: 'hidden',
+              position: 'relative', marginBottom: '16px',
             }}>
-              {/* サムネイル */}
-              <div style={{
-                width: '100%', aspectRatio: '4/3',
-                background: n.thumb,
-                borderRadius: '8px', overflow: 'hidden',
-                position: 'relative', marginBottom: '16px',
-              }}>
-                {n.pickup && (
-                  <div style={{
-                    position: 'absolute', top: '12px', left: '12px',
-                    background: '#7C3AED', color: '#fff',
-                    fontSize: '0.72rem', fontWeight: 800, padding: '4px 12px',
-                    borderRadius: '999px', letterSpacing: '0.04em',
-                  }}>
-                    Pick up
-                  </div>
-                )}
-              </div>
-
-              {/* 日付 ＋ カテゴリ */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
-                <span style={{ fontSize: '0.8rem', color: '#888', fontWeight: 500 }}>{n.date}</span>
-                <span style={{
-                  fontSize: '0.72rem', fontWeight: 700, color: n.categoryColor,
-                  border: `1px solid ${n.categoryColor}`, padding: '2px 10px',
-                  borderRadius: '999px', whiteSpace: 'nowrap',
+              {n.pickup && (
+                <div style={{
+                  position: 'absolute', top: '12px', left: '12px',
+                  background: '#7C3AED', color: '#fff',
+                  fontSize: '0.72rem', fontWeight: 800, padding: '4px 12px',
+                  borderRadius: '999px', letterSpacing: '0.04em',
                 }}>
-                  {n.category}
-                </span>
-              </div>
+                  Pick up
+                </div>
+              )}
+            </div>
 
-              {/* タイトル */}
-              <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0,
-                transition: 'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
-                onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
-              >
-                {n.title}
-              </p>
-            </article>
-          ))}
-        </div>
+            {/* 日付 ＋ カテゴリ */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', paddingRight: '16px' }}>
+              <span style={{ fontSize: '0.8rem', color: '#888', fontWeight: 500 }}>{n.date}</span>
+              <span style={{
+                fontSize: '0.72rem', fontWeight: 700, color: n.categoryColor,
+                border: `1px solid ${n.categoryColor}`, padding: '2px 10px',
+                borderRadius: '999px', whiteSpace: 'nowrap',
+              }}>
+                {n.category}
+              </span>
+            </div>
+
+            {/* タイトル */}
+            <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0, paddingRight: '16px',
+              transition: 'color 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#7C3AED'}
+              onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
+            >
+              {n.title}
+            </p>
+          </article>
+        ))}
+        {/* 右端の余白 */}
+        <div style={{ minWidth: '40px', flexShrink: 0 }} />
       </div>
     </section>
   );
