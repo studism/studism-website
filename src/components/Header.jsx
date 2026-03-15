@@ -138,16 +138,7 @@ export default function Header() {
       }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{
-            width: '36px', height: '36px', background: '#7C3AED',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#fff', fontWeight: 900, fontSize: '1rem',
-          }}>
-            S
-          </div>
-          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: transparent ? '#fff' : '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
-        </Link>
+        <div />
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
           <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: textColor, textDecoration: 'none', letterSpacing: '0.01em' }}
