@@ -17,24 +17,26 @@ function HeroSection() {
   return (
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
-      background: 'linear-gradient(135deg, #FFE4F0 0%, #FFF5CC 30%, #D6EEFF 60%, #EDE0FF 100%)',
+      background: 'linear-gradient(135deg, #FFB3D9 0%, #FFE066 25%, #80D4FF 55%, #C4A0FF 80%, #80FFCC 100%)',
       borderBottom: '1px solid #e0e0e0',
       display: 'flex', alignItems: 'center',
     }}>
       {/* カラフルな背景ブロブ */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: '40%', height: '60%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,100,160,0.55) 0%, transparent 70%)' }} />
-        <div style={{ position: 'absolute', top: '10%', right: '5%', width: '35%', height: '55%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(56,170,255,0.55) 0%, transparent 70%)' }} />
-        <div style={{ position: 'absolute', bottom: '-10%', left: '25%', width: '45%', height: '55%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,210,0,0.55) 0%, transparent 70%)' }} />
-        <div style={{ position: 'absolute', bottom: '5%', right: '10%', width: '30%', height: '40%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(160,100,255,0.55) 0%, transparent 70%)' }} />
-        <div style={{ position: 'absolute', top: '30%', left: '40%', width: '25%', height: '35%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(50,220,120,0.5) 0%, transparent 70%)' }} />
-        <div style={{ position: 'absolute', top: '5%', left: '50%', width: '20%', height: '30%',
-          borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,140,0,0.5) 0%, transparent 70%)' }} />
+        <div style={{ position: 'absolute', top: '-15%', left: '-8%', width: '45%', height: '65%',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,50,130,0.7) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', top: '5%', right: '0%', width: '40%', height: '60%',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,150,255,0.7) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', bottom: '-15%', left: '20%', width: '50%', height: '60%',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,200,0,0.7) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', bottom: '0%', right: '5%', width: '35%', height: '50%',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(130,0,255,0.6) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', top: '25%', left: '35%', width: '30%', height: '40%',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,220,100,0.6) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', top: '0%', left: '45%', width: '25%', height: '35%',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,120,0,0.65) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', bottom: '20%', left: '5%', width: '20%', height: '30%',
+          borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,0,200,0.55) 0%, transparent 65%)' }} />
       </div>
 
       {/* 左半分：画像（中央からはみ出して大きく） */}
