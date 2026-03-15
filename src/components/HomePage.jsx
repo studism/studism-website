@@ -67,7 +67,9 @@ function HeroSection() {
       </div>
 
       {/* 右半分：テキスト */}
-      <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10 }}>
+      <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10,
+        background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(8px)',
+        borderRadius: '24px', padding: '40px 48px' }}>
         <h1 style={{
           color: '#0a0a0a', fontSize: 'clamp(4rem, 7vw, 8rem)',
           fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
