@@ -176,8 +176,8 @@ const AppDetail = () => {
       <Header />
 
       {/* ── メインセクション ── */}
-      <section style={{ padding: '80px 140px', overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr 700px', gap: '40px', alignItems: 'center' }}>
+      <section style={{ padding: '80px 140px', overflow: 'hidden', minHeight: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr 700px', gap: '40px', alignItems: 'center', width: '100%' }}>
 
           {/* 左：アイコン＋名前 */}
           <div style={{
