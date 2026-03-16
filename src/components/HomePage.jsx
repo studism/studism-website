@@ -335,30 +335,6 @@ function NewsSection() {
   );
 }
 
-/* ════════════════════════════
-   会社ミッションバナー
-════════════════════════════ */
-function MissionBanner() {
-  return (
-    <section style={{
-      background: '#0a0a0a',
-      padding: '120px 40px',
-      textAlign: 'center',
-    }}>
-      <h2 style={{
-        fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
-        fontWeight: 900, color: '#ffffff',
-        letterSpacing: '-0.04em', lineHeight: 1.15,
-        margin: '0 0 32px',
-      }}>
-        ITの力で、すべての人の学びを変える。<br />
-      </h2>
-      <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.9, maxWidth: '480px', margin: '0 auto' }}>
-        Studismは、「学びを、もっと自由に、もっと楽しく」というビジョンのもと、最高の教育テクノロジーアプリを届け続けます。
-      </p>
-    </section>
-  );
-}
 
 /* ════════════════════════════
    PAGE
