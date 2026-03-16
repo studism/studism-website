@@ -3,33 +3,37 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#1E1B4B', borderTop: '3px solid #7C3AED' }}>
-      <div className="container mx-auto px-8 md:px-12 lg:px-20 pt-14 pb-8">
-        <div className="grid md:grid-cols-4 gap-10 mb-10">
+    <footer style={{ background: '#fff', borderTop: '1px solid #e8e8e8' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 40px 32px' }}>
 
-          <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-2xl flex items-center justify-center font-black text-white text-base flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)' }}>S</div>
-              <span className="font-black text-lg text-white">Studism</span>
-            </div>
-            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '40px', marginBottom: '48px' }}>
+
+          {/* ロゴ＋説明 */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+              <img src="/images/Studismicon.png" alt="Studism" style={{ height: '28px', width: 'auto' }} />
+              <span style={{ fontWeight: 900, fontSize: '1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
+            </Link>
+            <p style={{ fontSize: '0.82rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               学びを、もっと自由に、もっと楽しく。
-              教育とテクノロジーの融合で新しい学習体験を提供します。
             </p>
           </div>
 
+          {/* リンク列 */}
           {[
             { title: 'Apps',    links: [{ to: '/app/sakuraenglish', l: 'SakuraEnglish' }, { to: '/app/timelyze', l: 'Timelyze' }] },
             { title: 'Company', links: [{ to: '/#news', l: 'News' }] },
             { title: 'Support', links: [{ to: '/privacy', l: 'Privacy Policy' }, { to: '/contact', l: 'Contact' }] },
           ].map((col, i) => (
-            <div key={i} className="space-y-4">
-              <h4 className="text-xs font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>{col.title}</h4>
-              <ul className="space-y-2">
+            <div key={i}>
+              <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: '#999', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 16px' }}>{col.title}</h4>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {col.links.map((lk, j) => (
                   <li key={j}>
-                    <Link to={lk.to} className="text-sm font-medium transition-all hover:text-purple-300" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    <Link to={lk.to} style={{ fontSize: '0.875rem', color: '#333', textDecoration: 'none', fontWeight: 500 }}
+                      onMouseEnter={e => e.currentTarget.style.color = '#000'}
+                      onMouseLeave={e => e.currentTarget.style.color = '#333'}
+                    >
                       {lk.l}
                     </Link>
                   </li>
@@ -39,14 +43,10 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>© 2025 Studism Inc. All Rights Reserved.</p>
-          <p className="text-xs font-black tracking-widest uppercase"
-            style={{ background: 'linear-gradient(90deg,#A78BFA,#F472B6,#FB923C)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            STUDY SMART · HAVE FUN
-          </p>
+        <div style={{ borderTop: '1px solid #e8e8e8', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <p style={{ fontSize: '0.78rem', color: '#bbb', margin: 0 }}>© 2025 Studism Inc. All Rights Reserved.</p>
         </div>
+
       </div>
     </footer>
   );
