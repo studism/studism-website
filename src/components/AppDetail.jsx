@@ -253,7 +253,7 @@ const AppDetail = () => {
                 {app.appStoreUrl !== '#' && (
                   <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                    padding: '12px 22px', borderRadius: '14px',
+                    padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
                     background: '#0a0a0a', color: '#fff',
                     textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
                     boxShadow: '0 4px 16px rgba(0,0,0,0.20)',
@@ -268,7 +268,7 @@ const AppDetail = () => {
                 {app.playStoreUrl !== '#' && (
                   <a href={app.playStoreUrl} target="_blank" rel="noopener noreferrer" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                    padding: '12px 22px', borderRadius: '14px',
+                    padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
                     background: '#ffffff', color: '#0a0a0a',
                     textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
                     border: '1.5px solid #e2e8f0',
