@@ -140,7 +140,7 @@ const appData = {
   },
   mamemame: {
     name: '豆マメ',
-    icon: '/images/豆マメicon.png',
+    icon: '/images/mamemame-icon.png',
     category: '近日公開',
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #10B981, #06B6D4)',

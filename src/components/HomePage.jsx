@@ -61,7 +61,7 @@ function HeroSection() {
 
       {/* 左半分：画像（中央からはみ出して大きく） */}
       <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 2 }}>
-        <img src="/images/ポリポリ3.png" alt="ポリポリ"
+        <img src="/images/polipoli3.png" alt="ポリポリ"
           style={{ position: 'absolute', bottom: '-33%', left: '6%', transform: 'none',
             height: '160%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </div>
@@ -113,7 +113,7 @@ const APPS = [
     slug: 'mamemame',
     name: '豆マメ',
     category: '近日公開',
-    icon: '/images/豆マメicon.png',
+    icon: '/images/mamemame-icon.png',
     lead: '',
     description: '',
     photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 55%, #BFDBFE 100%)',
