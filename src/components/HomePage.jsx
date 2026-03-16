@@ -371,7 +371,6 @@ export default function HomePage() {
       <HeroSection />
       <Services />
       <NewsSection />
-      <MissionBanner />
       <Footer />
     </div>
   );
