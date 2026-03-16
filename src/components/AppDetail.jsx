@@ -17,8 +17,8 @@ const css = `
   50%     { transform: translateY(-12px) translateZ(0); }
 }
 @keyframes floatPhone2 {
-  0%,100% { transform: translateY(40px) translateZ(0); }
-  50%     { transform: translateY(26px) translateZ(0); }
+  0%,100% { transform: translateY(0px) translateZ(0); }
+  50%     { transform: translateY(-12px) translateZ(0); }
 }
 @keyframes slideInLeft {
   from { opacity: 0; transform: translateX(-40px); }
@@ -344,6 +344,7 @@ const AppDetail = () => {
                 position: 'relative',
                 zIndex: i === 0 ? 2 : 1,
                 marginLeft: i === 1 ? '-40px' : 0,
+                marginTop: i === 1 ? '60px' : 0,
                 willChange: 'transform',
                 animation: i === 0 ? 'floatPhone1 5s ease-in-out infinite' : 'floatPhone2 5s ease-in-out infinite 0.8s',
               }}>
