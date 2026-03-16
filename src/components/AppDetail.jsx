@@ -100,7 +100,7 @@ const appData = {
   },
   studism: {
     name: 'Studism',
-    icon: '/images/Studismicon.png',
+    icon: '/images/studism-icon.png',
     category: '教育テクノロジー',
     color: '#0EA5E9',
     gradient: 'linear-gradient(135deg, #0EA5E9, #6366F1)',
@@ -121,7 +121,7 @@ const appData = {
   },
   loopin: {
     name: 'Loopin',
-    icon: '/images/Loopinicon.png',
+    icon: '/images/loopin-icon.png',
     category: '近日公開',
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #1D4ED8, #7C3AED)',

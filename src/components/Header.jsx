@@ -139,7 +139,7 @@ export default function Header() {
       <div style={{ width: '100%', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-          <img src="/images/Studismicon.png" alt="Studism icon" style={{ height: '36px', width: 'auto' }} />
+          <img src="/images/studism-icon.png" alt="Studism icon" style={{ height: '36px', width: 'auto' }} />
           <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
         </Link>
 
