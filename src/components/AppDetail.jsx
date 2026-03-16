@@ -233,7 +233,7 @@ const AppDetail = () => {
           }}>
             {app.screenshots.slice(0, 2).map((src, i) => (
               <div key={i} style={{
-                width: '200px', borderRadius: '44px', overflow: 'hidden',
+                width: '260px', borderRadius: '44px', overflow: 'hidden',
                 boxShadow: '0 24px 72px rgba(0,0,0,0.28)',
                 border: '10px solid #1a1a1a',
                 background: '#1a1a1a',
