@@ -341,53 +341,40 @@ function NewsSection() {
 function MissionBanner() {
   return (
     <section style={{
-      position: 'relative', overflow: 'hidden',
-      background: 'linear-gradient(135deg, #0F2D6E 0%, #1D4ED8 40%, #2563EB 70%, #3B82F6 100%)',
-      padding: '100px 0',
+      background: '#0a0a0a',
+      padding: '120px 40px',
+      textAlign: 'center',
     }}>
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.07) 1.5px, transparent 1.5px)', backgroundSize: '24px 24px', zIndex: 0 }} />
-      <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '340px', height: '340px',
-        borderRadius: '50%', background: 'rgba(255,255,255,0.06)', zIndex: 0 }} />
-      <div style={{ position: 'absolute', bottom: '-80px', left: '-60px', width: '280px', height: '280px',
-        borderRadius: '50%', background: 'rgba(255,255,255,0.05)', zIndex: 0 }} />
-
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
-        <div style={{
-          display: 'inline-flex', alignItems: 'center',
-          background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255,255,255,0.28)',
-          borderRadius: '999px', padding: '5px 18px', marginBottom: '28px',
-        }}>
-          <span style={{ color: '#fff', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Our Mission</span>
-        </div>
-        <h2 style={{
-          fontSize: 'clamp(2rem, 5vw, 4rem)',
-          fontWeight: 900, color: '#ffffff',
-          letterSpacing: '-0.04em', lineHeight: 1.1,
-          margin: '0 0 28px',
-        }}>
-          テクノロジーと教育の力で、<br />
-          すべての人の学びを変える。
-        </h2>
-        <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.78)', lineHeight: 1.9, maxWidth: '560px', margin: '0 auto 44px' }}>
-          Studismは、「学びを、もっと自由に、もっと楽しく」というビジョンのもと、最高の教育テクノロジーアプリを届け続けます。
-        </p>
-        <Link to="/contact" style={{
-          display: 'inline-flex', alignItems: 'center', gap: '8px',
-          padding: '14px 36px',
-          background: '#fff', color: '#1D4ED8',
-          textDecoration: 'none', fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.04em',
-          borderRadius: '999px',
-          boxShadow: '0 6px 24px rgba(0,0,0,0.14)',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-        }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 32px rgba(0,0,0,0.18)'; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(0,0,0,0.14)'; }}
-        >
-          お問い合わせ
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#1D4ED8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </Link>
-      </div>
+      <p style={{ fontSize: '0.72rem', fontWeight: 800, color: '#555', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 32px' }}>
+        Our Mission
+      </p>
+      <h2 style={{
+        fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
+        fontWeight: 900, color: '#ffffff',
+        letterSpacing: '-0.04em', lineHeight: 1.15,
+        margin: '0 0 32px',
+      }}>
+        テクノロジーと教育の力で、<br />
+        すべての人の学びを変える。
+      </h2>
+      <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.9, maxWidth: '480px', margin: '0 auto 48px' }}>
+        Studismは、「学びを、もっと自由に、もっと楽しく」というビジョンのもと、最高の教育テクノロジーアプリを届け続けます。
+      </p>
+      <Link to="/contact" style={{
+        display: 'inline-flex', alignItems: 'center', gap: '8px',
+        padding: '14px 36px',
+        background: 'transparent', color: '#fff',
+        textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem',
+        border: '1px solid rgba(255,255,255,0.25)',
+        borderRadius: '999px',
+        transition: 'background 0.2s, border-color 0.2s',
+      }}
+        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; }}
+      >
+        お問い合わせ
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </Link>
     </section>
   );
 }
