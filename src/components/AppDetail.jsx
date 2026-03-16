@@ -166,7 +166,7 @@ const AppDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setVisible(false);
-    const t = setTimeout(() => setVisible(true), 50);
+    const t = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(t);
   }, [appSlug]);
 
@@ -222,8 +222,8 @@ const AppDetail = () => {
           {/* 左：アイコン＋カテゴリ＋名前 */}
           <div style={{
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px',
-            animation: visible ? 'slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) forwards' : 'none',
-            opacity: visible ? undefined : 0,
+            animation: visible ? 'slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) both' : 'none',
+            willChange: 'transform, opacity',
           }}>
             {/* アイコン with glow */}
             <div style={{ position: 'relative' }}>
@@ -251,8 +251,8 @@ const AppDetail = () => {
 
           {/* 中央：機能リスト */}
           <div style={{
-            animation: visible ? 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s forwards' : 'none',
-            opacity: 0,
+            animation: visible ? 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both' : 'none',
+            willChange: 'transform, opacity',
           }}>
             <div style={{ marginBottom: '32px' }}>
               <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.02em' }}>
@@ -265,8 +265,8 @@ const AppDetail = () => {
                   display: 'flex', alignItems: 'center', gap: '20px',
                   padding: '18px 0',
                   borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
-                  animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s forwards` : 'none',
-                  opacity: 0,
+                  animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both` : 'none',
+                  willChange: 'transform, opacity',
                 }}>
                   <span style={{
                     fontSize: '1.1rem', fontWeight: 900, color: app.color,
@@ -283,8 +283,8 @@ const AppDetail = () => {
             {/* ダウンロードボタン */}
             {hasStoreLinks && (
               <div style={{ display: 'flex', gap: '12px', marginTop: '28px',
-                animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + app.features.length * 0.07 + 0.1}s forwards` : 'none',
-                opacity: 0,
+                animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + app.features.length * 0.07 + 0.1}s both` : 'none',
+                willChange: 'transform, opacity',
               }}>
                 {app.appStoreUrl !== '#' && (
                   <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer" style={{
@@ -325,8 +325,8 @@ const AppDetail = () => {
           <div style={{
             display: 'flex', flexDirection: 'row', gap: '0px', alignItems: 'center', justifyContent: 'center',
             position: 'relative',
-            animation: visible ? 'slideInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s forwards' : 'none',
-            opacity: 0,
+            animation: visible ? 'slideInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both' : 'none',
+            willChange: 'transform, opacity',
           }}>
             {/* 背後のグロー */}
             <div style={{
