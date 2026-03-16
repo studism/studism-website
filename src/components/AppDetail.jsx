@@ -155,11 +155,6 @@ const AppDetail = () => {
               border: '2px solid rgba(0,0,0,0.08)',
             }} />
             <div style={{ textAlign: 'center' }}>
-              <span style={{
-                display: 'inline-block', fontSize: '0.7rem', fontWeight: 700,
-                color: app.color, border: `1px solid ${app.color}`,
-                padding: '3px 12px', borderRadius: '999px', marginBottom: '10px',
-              }}>{app.category}</span>
               <h1 style={{ fontSize: '3.2rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.03em' }}>
                 {app.name}
               </h1>
