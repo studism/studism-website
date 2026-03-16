@@ -177,7 +177,7 @@ const AppDetail = () => {
 
       {/* ── メインセクション ── */}
       <section style={{ padding: '80px 60px', maxWidth: '1400px', margin: '0 auto', overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr 860px', gap: '60px', alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr 700px', gap: '60px', alignItems: 'center' }}>
 
           {/* 左：アイコン＋名前 */}
           <div style={{
@@ -233,7 +233,7 @@ const AppDetail = () => {
           }}>
             {app.screenshots.slice(0, 2).map((src, i) => (
               <div key={i} style={{
-                width: '400px', borderRadius: '44px', overflow: 'hidden',
+                width: '320px', borderRadius: '44px', overflow: 'hidden',
                 boxShadow: '0 24px 72px rgba(0,0,0,0.28)',
                 border: '10px solid #1a1a1a',
                 background: '#1a1a1a',
