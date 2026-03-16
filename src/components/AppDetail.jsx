@@ -150,7 +150,7 @@ const AppDetail = () => {
           {/* 左：アイコン＋名前 */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
             <img src={app.icon} alt={app.name} style={{
-              width: '160px', height: '160px', borderRadius: '36px',
+              width: '220px', height: '220px', borderRadius: '48px',
               boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
               border: '2px solid rgba(0,0,0,0.08)',
             }} />
@@ -160,7 +160,7 @@ const AppDetail = () => {
                 color: app.color, border: `1px solid ${app.color}`,
                 padding: '3px 12px', borderRadius: '999px', marginBottom: '10px',
               }}>{app.category}</span>
-              <h1 style={{ fontSize: '2rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.02em' }}>
+              <h1 style={{ fontSize: '2.6rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.02em' }}>
                 {app.name}
               </h1>
             </div>
@@ -200,15 +200,15 @@ const AppDetail = () => {
             </ul>
           </div>
 
-          {/* 右：スマホ画面 */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
+          {/* 右：スマホ画面（横並び） */}
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'flex-start', justifyContent: 'center' }}>
             {app.screenshots.slice(0, 2).map((src, i) => (
               <div key={i} style={{
-                width: '160px', borderRadius: '24px', overflow: 'hidden',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+                width: '180px', borderRadius: '28px', overflow: 'hidden',
+                boxShadow: '0 12px 40px rgba(0,0,0,0.2)',
                 border: '6px solid #1a1a1a',
                 background: '#1a1a1a',
-                transform: i === 1 ? 'translateX(20px)' : 'translateX(-20px)',
+                flexShrink: 0,
               }}>
                 <img src={src} alt={`スクリーンショット${i + 1}`} style={{ width: '100%', display: 'block' }} />
               </div>
