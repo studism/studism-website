@@ -284,7 +284,7 @@ const AppDetail = () => {
                   }}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1a1a1a', flex: 1 }}>{f.text}</span>
+                  <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1a1a1a', flex: 1 }}>{f.text}</span>
                 </li>
               ))}
             </ul>
