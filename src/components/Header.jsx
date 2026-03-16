@@ -113,19 +113,28 @@ function AppsDropdown() {
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
+    const fn = () => {
+      const y = window.scrollY;
+      setScrolled(y > 20);
+      setHidden(y > lastY.current && y > 80);
+      lastY.current = y;
+    };
     window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 transition-all duration-300"
+    <header className="sticky top-0 z-50"
       style={{
         background: '#ffffff',
         borderBottom: '1px solid #e8e8e8',
         boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.06)' : 'none',
+        transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
       }}>
       <div style={{ width: '100%', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
