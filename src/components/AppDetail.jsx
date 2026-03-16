@@ -181,12 +181,12 @@ const AppDetail = () => {
           <div style={{ display: 'flex', flexDirection: 'row', gap: '20px', alignItems: 'flex-start', justifyContent: 'center' }}>
             {app.screenshots.slice(0, 2).map((src, i) => (
               <div key={i} style={{
-                width: '190px', borderRadius: '36px', overflow: 'hidden',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
-                border: '8px solid #1a1a1a',
+                width: '280px', borderRadius: '44px', overflow: 'hidden',
+                boxShadow: '0 24px 72px rgba(0,0,0,0.28)',
+                border: '10px solid #1a1a1a',
                 background: '#1a1a1a',
                 flexShrink: 0,
-                marginTop: i === 1 ? '40px' : '0',
+                marginTop: i === 1 ? '50px' : '0',
               }}>
                 <img src={src} alt={`スクリーンショット${i + 1}`} style={{ width: '100%', display: 'block' }} />
               </div>
