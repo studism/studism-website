@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -161,13 +161,9 @@ const appData = {
 
 const AppDetail = () => {
   const { appSlug } = useParams();
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setVisible(false);
-    const t = setTimeout(() => setVisible(true), 100);
-    return () => clearTimeout(t);
   }, [appSlug]);
 
   const app = appData[appSlug];
@@ -217,12 +213,12 @@ const AppDetail = () => {
           }} />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr 700px', gap: '60px', alignItems: 'center', width: '100%', position: 'relative', zIndex: 1 }}>
+        <div key={appSlug} style={{ display: 'grid', gridTemplateColumns: '280px 1fr 700px', gap: '60px', alignItems: 'center', width: '100%', position: 'relative', zIndex: 1 }}>
 
           {/* 左：アイコン＋カテゴリ＋名前 */}
           <div style={{
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px',
-            animation: visible ? 'slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) both' : 'none',
+            animation: 'slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) both',
             willChange: 'transform, opacity',
           }}>
             {/* アイコン with glow */}
@@ -251,7 +247,7 @@ const AppDetail = () => {
 
           {/* 中央：機能リスト */}
           <div style={{
-            animation: visible ? 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both' : 'none',
+            animation: 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both',
             willChange: 'transform, opacity',
           }}>
             <div style={{ marginBottom: '32px' }}>
@@ -265,7 +261,7 @@ const AppDetail = () => {
                   display: 'flex', alignItems: 'center', gap: '20px',
                   padding: '18px 0',
                   borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
-                  animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both` : 'none',
+                  animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both`,
                   willChange: 'transform, opacity',
                 }}>
                   <span style={{
@@ -283,7 +279,7 @@ const AppDetail = () => {
             {/* ダウンロードボタン */}
             {hasStoreLinks && (
               <div style={{ display: 'flex', gap: '12px', marginTop: '28px',
-                animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + app.features.length * 0.07 + 0.1}s both` : 'none',
+                animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + app.features.length * 0.07 + 0.1}s both`,
                 willChange: 'transform, opacity',
               }}>
                 {app.appStoreUrl !== '#' && (
@@ -325,7 +321,7 @@ const AppDetail = () => {
           <div style={{
             display: 'flex', flexDirection: 'row', gap: '0px', alignItems: 'center', justifyContent: 'center',
             position: 'relative',
-            animation: visible ? 'slideInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both' : 'none',
+            animation: 'slideInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both',
             willChange: 'transform, opacity',
           }}>
             {/* 背後のグロー */}
