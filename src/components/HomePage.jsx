@@ -135,17 +135,17 @@ const APPS = [
     comingSoon: false,
   },
   {
-    slug: 'app5',
-    name: 'Coming Soon',
+    slug: 'mamemame',
+    name: '豆マメ',
     category: '近日公開',
-    icon: null,
-    lead: '新しいアプリを準備中です。',
+    icon: '/images/豆マメicon.png',
+    lead: '',
     description: '',
     photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 55%, #BFDBFE 100%)',
     accent: '#1D4ED8',
     accentLight: '#DBEAFE',
     shadowColor: 'rgba(29,78,216,0.14)',
-    comingSoon: true,
+    comingSoon: false,
   },
 ];
 
