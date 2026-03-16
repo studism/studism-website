@@ -248,36 +248,6 @@ const AppDetail = () => {
         </div>
       </section>
 
-      {/* ── サポートセクション ── */}
-      <section style={{ background: '#f8faff', padding: '60px 40px', borderTop: '1px solid #e8e8e8' }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#0a0a0a', marginBottom: '28px', textAlign: 'center' }}>サポート</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-            <Link to={`/app/${appSlug}/privacy`} style={{
-              display: 'block', padding: '28px', borderRadius: '16px', textAlign: 'center',
-              background: '#fff', border: '1px solid #e2e8f0', textDecoration: 'none',
-              boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-            }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#1D4ED8', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
-                <Shield size={22} color="#fff" />
-              </div>
-              <p style={{ fontWeight: 800, color: '#0a0a0a', margin: '0 0 6px', fontSize: '0.95rem' }}>プライバシーポリシー</p>
-              <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0 }}>個人情報の取り扱いについて</p>
-            </Link>
-            <Link to={`/app/${appSlug}/contact`} style={{
-              display: 'block', padding: '28px', borderRadius: '16px', textAlign: 'center',
-              background: '#fff', border: '1px solid #e2e8f0', textDecoration: 'none',
-              boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-            }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#1D4ED8', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
-                <MessageCircle size={22} color="#fff" />
-              </div>
-              <p style={{ fontWeight: 800, color: '#0a0a0a', margin: '0 0 6px', fontSize: '0.95rem' }}>お問い合わせ</p>
-              <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0 }}>ご質問・サポートはこちら</p>
-            </Link>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>
