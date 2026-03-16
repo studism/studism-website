@@ -243,15 +243,6 @@ const AppDetail = () => {
               }} />
             </div>
 
-            {/* カテゴリバッジ */}
-            <span style={{
-              padding: '6px 16px', borderRadius: '999px', fontSize: '0.72rem', fontWeight: 800,
-              background: app.gradient, color: '#fff',
-              letterSpacing: '0.06em', textTransform: 'uppercase',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-            }}>
-              {app.category}
-            </span>
 
             <h1 style={{ fontSize: '2.8rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.03em', textAlign: 'center', lineHeight: 1.1 }}>
               {app.name}
