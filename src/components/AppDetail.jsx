@@ -165,24 +165,6 @@ const AppDetail = () => {
               </h1>
             </div>
 
-            {/* ダウンロードボタン */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
-              <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer" style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                padding: '12px 20px', borderRadius: '12px', background: '#0a0a0a', color: '#fff',
-                textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
-              }}>
-                <AppleIcon /> App Store
-              </a>
-              <a href={app.playStoreUrl} target="_blank" rel="noopener noreferrer" style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                padding: '12px 20px', borderRadius: '12px', background: '#f1f5f9', color: '#0a0a0a',
-                textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
-                border: '1px solid #e2e8f0',
-              }}>
-                <PlayIcon /> Google Play
-              </a>
-            </div>
           </div>
 
           {/* 中央：機能箇条書き */}
