@@ -1,8 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Shield, MessageCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+
+const css = `
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes floatIcon {
+  0%,100% { transform: translateY(0px) rotate(-1deg); }
+  50%     { transform: translateY(-14px) rotate(1deg); }
+}
+@keyframes floatPhone1 {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-10px); }
+}
+@keyframes floatPhone2 {
+  0%,100% { transform: translateY(50px); }
+  50%     { transform: translateY(36px); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+`;
 
 function AppleIcon() {
   return (
@@ -121,9 +148,13 @@ const appData = {
 
 const AppDetail = () => {
   const { appSlug } = useParams();
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setVisible(false);
+    const t = setTimeout(() => setVisible(true), 50);
+    return () => clearTimeout(t);
   }, [appSlug]);
 
   const app = appData[appSlug];
@@ -141,52 +172,73 @@ const AppDetail = () => {
 
   return (
     <div style={{ minHeight: '100vh', background: '#ffffff' }}>
+      <style>{css}</style>
       <Header />
 
       {/* ── メインセクション ── */}
-      <section style={{ padding: '80px 60px', maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr 420px', gap: '60px', alignItems: 'center' }}>
+      <section style={{ padding: '80px 60px', maxWidth: '1400px', margin: '0 auto', overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr 440px', gap: '60px', alignItems: 'center' }}>
 
           {/* 左：アイコン＋名前 */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+          <div style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px',
+            animation: visible ? 'slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) forwards' : 'none',
+            opacity: visible ? undefined : 0,
+          }}>
             <img src={app.icon} alt={app.name} style={{
               width: '280px', height: '280px', borderRadius: '60px',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.18)',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.20)',
               border: '2px solid rgba(0,0,0,0.08)',
+              animation: 'floatIcon 6s ease-in-out infinite',
             }} />
-            <div style={{ textAlign: 'center' }}>
-              <h1 style={{ fontSize: '3.2rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.03em' }}>
-                {app.name}
-              </h1>
-            </div>
-
+            <h1 style={{ fontSize: '3.2rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.03em', textAlign: 'center' }}>
+              {app.name}
+            </h1>
           </div>
 
           {/* 中央：機能箇条書き */}
-          <div>
+          <div style={{
+            animation: visible ? 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s forwards' : 'none',
+            opacity: 0,
+          }}>
             <h2 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#0a0a0a', marginBottom: '28px', letterSpacing: '-0.02em' }}>
               主な機能
             </h2>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {app.features.map((f, i) => (
-                <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '16px 20px', borderRadius: '14px', background: '#f8faff', border: '1px solid #e8eef8' }}>
+                <li key={i} style={{
+                  display: 'flex', alignItems: 'center', gap: '14px',
+                  padding: '18px 22px', borderRadius: '16px',
+                  background: '#f8faff', border: '1px solid #e8eef8',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                  animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.08}s forwards` : 'none',
+                  opacity: 0,
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateX(6px)'; e.currentTarget.style.boxShadow = `0 4px 20px rgba(0,0,0,0.10)`; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateX(0)'; e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'; }}
+                >
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: app.color, flexShrink: 0 }} />
-                  <span style={{ fontSize: '0.95rem', fontWeight: 600, color: '#1a1a1a' }}>{f}</span>
+                  <span style={{ fontSize: '0.98rem', fontWeight: 600, color: '#1a1a1a' }}>{f}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* 右：スマホ画面（横並び・大） */}
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '20px', alignItems: 'flex-start', justifyContent: 'center' }}>
+          {/* 右：スマホ画面 */}
+          <div style={{
+            display: 'flex', flexDirection: 'row', gap: '20px', alignItems: 'flex-start', justifyContent: 'center',
+            animation: visible ? 'slideInRight 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s forwards' : 'none',
+            opacity: 0,
+          }}>
             {app.screenshots.slice(0, 2).map((src, i) => (
               <div key={i} style={{
-                width: '280px', borderRadius: '44px', overflow: 'hidden',
+                width: '200px', borderRadius: '44px', overflow: 'hidden',
                 boxShadow: '0 24px 72px rgba(0,0,0,0.28)',
                 border: '10px solid #1a1a1a',
                 background: '#1a1a1a',
                 flexShrink: 0,
-                marginTop: i === 1 ? '50px' : '0',
+                animation: i === 0 ? 'floatPhone1 5s ease-in-out infinite' : 'floatPhone2 5s ease-in-out infinite 0.8s',
               }}>
                 <img src={src} alt={`スクリーンショット${i + 1}`} style={{ width: '100%', display: 'block' }} />
               </div>
