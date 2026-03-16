@@ -193,6 +193,7 @@ function Services() {
                   <img src={app.icon} alt={app.name} style={{
                     width: '220px', height: '220px', borderRadius: '48px',
                     boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                    border: '2px solid rgba(0,0,0,0.08)',
                     display: 'block',
                   }} />
                 )}
