@@ -10,9 +10,8 @@ export default function Footer() {
 
           {/* ロゴ＋説明 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-              <img src="/images/Studismicon.png" alt="Studism" style={{ height: '28px', width: 'auto' }} />
-              <span style={{ fontWeight: 900, fontSize: '1rem', color: '#fff', letterSpacing: '-0.01em' }}>Studism</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              <img src="/images/studism-logo.png" alt="Studism" style={{ height: '36px', width: 'auto' }} />
             </Link>
             <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, margin: 0 }}>
               学びを、もっと自由に、もっと楽しく。
