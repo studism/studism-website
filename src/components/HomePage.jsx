@@ -345,36 +345,17 @@ function MissionBanner() {
       padding: '120px 40px',
       textAlign: 'center',
     }}>
-      <p style={{ fontSize: '0.72rem', fontWeight: 800, color: '#555', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 32px' }}>
-        Our Mission
-      </p>
       <h2 style={{
         fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
         fontWeight: 900, color: '#ffffff',
         letterSpacing: '-0.04em', lineHeight: 1.15,
         margin: '0 0 32px',
       }}>
-        テクノロジーと教育の力で、<br />
-        すべての人の学びを変える。
+        ITの力で、すべての人の学びを変える。<br />
       </h2>
-      <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.9, maxWidth: '480px', margin: '0 auto 48px' }}>
+      <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.9, maxWidth: '480px', margin: '0 auto' }}>
         Studismは、「学びを、もっと自由に、もっと楽しく」というビジョンのもと、最高の教育テクノロジーアプリを届け続けます。
       </p>
-      <Link to="/contact" style={{
-        display: 'inline-flex', alignItems: 'center', gap: '8px',
-        padding: '14px 36px',
-        background: 'transparent', color: '#fff',
-        textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem',
-        border: '1px solid rgba(255,255,255,0.25)',
-        borderRadius: '999px',
-        transition: 'background 0.2s, border-color 0.2s',
-      }}
-        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; }}
-        onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; }}
-      >
-        お問い合わせ
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-      </Link>
     </section>
   );
 }
