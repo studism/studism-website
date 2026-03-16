@@ -258,37 +258,34 @@ const AppDetail = () => {
             </h1>
           </div>
 
-          {/* 中央：機能箇条書き */}
+          {/* 中央：機能リスト */}
           <div style={{
             animation: visible ? 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s forwards' : 'none',
             opacity: 0,
           }}>
-            <div style={{ marginBottom: '28px' }}>
-              <p style={{ fontSize: '0.72rem', fontWeight: 800, color: app.color, letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 8px' }}>FEATURES</p>
+            <div style={{ marginBottom: '32px' }}>
               <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.02em' }}>
                 主な機能
               </h2>
             </div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0' }}>
               {app.features.map((f, i) => (
-                <li key={i} className="feature-item" style={{
-                  display: 'flex', alignItems: 'center', gap: '16px',
-                  padding: '16px 20px', borderRadius: '16px',
-                  background: '#ffffff', border: '1.5px solid #e8eef8',
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
+                <li key={i} style={{
+                  display: 'flex', alignItems: 'center', gap: '20px',
+                  padding: '18px 0',
+                  borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
                   animation: visible ? `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s forwards` : 'none',
                   opacity: 0,
-                  transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s, border-color 0.25s',
-                  cursor: 'default',
                 }}>
-                  <div style={{
-                    width: '40px', height: '40px', borderRadius: '12px',
-                    background: `${app.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '1.2rem', flexShrink: 0,
+                  <span style={{
+                    fontSize: '0.7rem', fontWeight: 900, color: app.color,
+                    letterSpacing: '0.04em', minWidth: '28px',
+                    opacity: 0.6,
                   }}>
-                    {f.icon}
-                  </div>
-                  <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a' }}>{f.text}</span>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a', flex: 1 }}>{f.text}</span>
+                  <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>{f.icon}</span>
                 </li>
               ))}
             </ul>
