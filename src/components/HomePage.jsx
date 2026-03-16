@@ -70,11 +70,22 @@ function HeroSection() {
       <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10 }}>
         <h1 style={{
           fontSize: 'clamp(4rem, 7vw, 8rem)',
-          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.15, margin: 0,
+          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.2, margin: 0,
         }}>
-          <span style={{ display: 'block', color: '#FF3D8B' }}>学びをもっと</span>
-          <span style={{ display: 'block', color: '#1D4ED8' }}>自由に、もっと</span>
-          <span style={{ display: 'block', color: '#22C55E' }}>楽しく。</span>
+          <span style={{ display: 'block', color: '#0a0a0a' }}>学びをもっと</span>
+          <span style={{ display: 'block' }}>
+            <span style={{ color: '#0a0a0a' }}>自由に、</span>
+            <span style={{ color: '#0a0a0a', display: 'inline-block', position: 'relative' }}>
+              もっと
+              <span style={{ position: 'absolute', bottom: '4px', left: '-2px', right: '-2px', height: '12px',
+                background: '#FFD600', zIndex: -1, borderRadius: '2px', transform: 'rotate(-1deg)' }} />
+            </span>
+          </span>
+          <span style={{ display: 'block', color: '#0a0a0a', display: 'inline-block', position: 'relative' }}>
+            楽しく。
+            <span style={{ position: 'absolute', bottom: '4px', left: '-2px', right: '-2px', height: '14px',
+              background: '#FF3D8B', opacity: 0.35, zIndex: -1, borderRadius: '2px', transform: 'rotate(-0.5deg)' }} />
+          </span>
         </h1>
       </div>
     </section>
