@@ -278,8 +278,8 @@ const AppDetail = () => {
                   opacity: 0,
                 }}>
                   <span style={{
-                    fontSize: '0.7rem', fontWeight: 900, color: app.color,
-                    letterSpacing: '0.04em', minWidth: '28px',
+                    fontSize: '1.1rem', fontWeight: 900, color: app.color,
+                    letterSpacing: '0.04em', minWidth: '40px',
                     opacity: 0.6,
                   }}>
                     {String(i + 1).padStart(2, '0')}
