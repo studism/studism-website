@@ -254,44 +254,61 @@ const AppDetail = () => {
             </h1>
 
             {/* ダウンロードボタン */}
-            {hasStoreLinks && (
-              <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center',
-                animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.3s both`,
-                willChange: 'transform, opacity',
-              }}>
-                {app.appStoreUrl !== '#' && (
-                  <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer" style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                    padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
-                    background: '#0a0a0a', color: '#fff',
-                    textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.20)',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                  }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.25)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.20)'; }}
-                  >
-                    <AppleIcon /> App Store
-                  </a>
-                )}
-                {app.playStoreUrl !== '#' && (
-                  <a href={app.playStoreUrl} target="_blank" rel="noopener noreferrer" style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                    padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
-                    background: '#ffffff', color: '#0a0a0a',
-                    textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
-                    border: '1.5px solid #e2e8f0',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                  }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)'; }}
-                  >
-                    <PlayIcon /> Google Play
-                  </a>
-                )}
-              </div>
-            )}
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center',
+              animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.3s both`,
+              willChange: 'transform, opacity',
+            }}>
+              {app.appStoreUrl !== '#' ? (
+                <a href={app.appStoreUrl} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                  padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
+                  background: '#0a0a0a', color: '#fff',
+                  textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.20)',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.25)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.20)'; }}
+                >
+                  <AppleIcon /> App Store
+                </a>
+              ) : (
+                <span style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                  padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
+                  background: '#d1d5db', color: '#9ca3af',
+                  fontWeight: 700, fontSize: '0.85rem',
+                }}>
+                  <AppleIcon /> App Store
+                </span>
+              )}
+              {app.playStoreUrl !== '#' ? (
+                <a href={app.playStoreUrl} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                  padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
+                  background: '#ffffff', color: '#0a0a0a',
+                  textDecoration: 'none', fontWeight: 700, fontSize: '0.85rem',
+                  border: '1.5px solid #e2e8f0',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)'; }}
+                >
+                  <PlayIcon /> Google Play
+                </a>
+              ) : (
+                <span style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                  padding: '12px 22px', borderRadius: '14px', whiteSpace: 'nowrap',
+                  background: '#ffffff', color: '#d1d5db',
+                  fontWeight: 700, fontSize: '0.85rem',
+                  border: '1.5px solid #e2e8f0',
+                }}>
+                  <PlayIcon /> Google Play
+                </span>
+              )}
+            </div>
           </div>
 
           {/* 中央：機能リスト */}
