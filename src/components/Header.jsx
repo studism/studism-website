@@ -28,7 +28,7 @@ function NewsDropdown() {
       <button
         onClick={() => setOpen(v => !v)}
         className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
-        style={{ color: open ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.8)', background: 'transparent' }}
+        style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
         News
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -71,7 +71,7 @@ function AppsDropdown() {
       <button
         onClick={() => setOpen(v => !v)}
         className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
-        style={{ color: open ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.8)', background: 'transparent' }}
+        style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
         Apps
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
@@ -128,7 +128,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50"
       style={{
-        background: '#3B82F6',
+        background: '#ffffff',
         transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
         transition: 'transform 0.3s ease',
       }}>
@@ -136,26 +136,26 @@ export default function Header() {
 
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <img src="/images/studism/icon.png" alt="Studism icon" style={{ height: '34px', width: 'auto', borderRadius: '8px' }} />
-          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#ffffff', letterSpacing: '-0.01em' }}>Studism</span>
+          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
         </Link>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-          <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: 'rgba(255,255,255,0.8)', textDecoration: 'none', letterSpacing: '0.01em', transition: 'color 0.15s' }}
-            onMouseEnter={e => e.target.style.color = '#fff'}
-            onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.8)'}>
+          <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: '#333', textDecoration: 'none', letterSpacing: '0.01em', transition: 'color 0.15s' }}
+            onMouseEnter={e => e.target.style.color = '#1D4ED8'}
+            onMouseLeave={e => e.target.style.color = '#333'}>
             Home
           </a>
           <NewsDropdown />
           <AppsDropdown />
           <Link to="/contact" style={{
             marginLeft: '16px', padding: '9px 22px',
-            background: '#fff', color: '#1D4ED8',
+            background: '#1D4ED8', color: '#fff',
             textDecoration: 'none', fontWeight: 800, fontSize: '0.82rem', letterSpacing: '0.04em',
             borderRadius: '6px',
             transition: 'background 0.15s',
           }}
-            onMouseEnter={e => e.currentTarget.style.background = '#EFF6FF'}
-            onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+            onMouseEnter={e => e.currentTarget.style.background = '#1E40AF'}
+            onMouseLeave={e => e.currentTarget.style.background = '#1D4ED8'}
           >
             Contact
           </Link>
