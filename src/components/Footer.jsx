@@ -21,7 +21,8 @@ export default function Footer() {
 
           {/* リンク列 */}
           {[
-            { title: 'Apps',    links: [{ to: '/app/sakuraenglish', l: 'SakuraEnglish' }, { to: '/app/timelyze', l: 'Timelyze' }] },
+            { title: 'Apps', links: [{ to: '/app/studism', l: 'Studism' }, { to: '/app/sakuraenglish', l: 'SakuraEnglish' }, { to: '/app/timelyze', l: 'Timelyze' }, { to: '/app/mamemame', l: '豆マメ' }, { to: '/app/loopin', l: 'Loopin' }] },
+            { title: 'Services', links: [{ to: 'https://www.youtube.com/channel/UCkoYxm2fTNza2qrjrgrbFgw', l: 'YouTube', external: true }, { to: 'https://www.tiktok.com/@user9530011262997', l: 'TikTok', external: true }] },
             { title: 'Company', links: [{ to: '/#news', l: 'News' }] },
             { title: 'Support', links: [{ to: '/privacy', l: 'Privacy Policy' }, { to: '/contact', l: 'Contact' }] },
           ].map((col, i) => (
@@ -30,12 +31,22 @@ export default function Footer() {
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {col.links.map((lk, j) => (
                   <li key={j}>
-                    <Link to={lk.to} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}
-                      onMouseEnter={e => e.currentTarget.style.color = '#fff'}
-                      onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.8)'}
-                    >
-                      {lk.l}
-                    </Link>
+                    {lk.external ? (
+                      <a href={lk.to} target="_blank" rel="noopener noreferrer"
+                        style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}
+                        onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                        onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.8)'}
+                      >
+                        {lk.l}
+                      </a>
+                    ) : (
+                      <Link to={lk.to} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}
+                        onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                        onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.8)'}
+                      >
+                        {lk.l}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
