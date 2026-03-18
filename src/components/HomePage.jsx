@@ -191,22 +191,33 @@ function Services() {
                   </div>
                 ) : (
                   <div
-                    onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-6px) scale(1.03)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-12deg) rotateX(6deg) translateY(-8px)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-6deg) rotateX(3deg)'}
                     style={{
                       position: 'relative', width: '220px', height: '220px', display: 'inline-block',
-                      transition: 'transform 0.3s ease',
+                      transform: 'perspective(600px) rotateY(-6deg) rotateX(3deg)',
+                      transition: 'transform 0.4s ease',
                     }}>
                     <img src={app.icon} alt={app.name} style={{
                       width: '220px', height: '220px', borderRadius: '48px',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.12), 0 24px 48px rgba(0,0,0,0.14)',
+                      boxShadow: `
+                        1px 1px 0 rgba(0,0,0,0.12),
+                        2px 2px 0 rgba(0,0,0,0.11),
+                        3px 3px 0 rgba(0,0,0,0.10),
+                        4px 4px 0 rgba(0,0,0,0.09),
+                        5px 5px 0 rgba(0,0,0,0.08),
+                        6px 6px 0 rgba(0,0,0,0.07),
+                        7px 7px 0 rgba(0,0,0,0.06),
+                        8px 8px 0 rgba(0,0,0,0.05),
+                        12px 20px 40px rgba(0,0,0,0.20)
+                      `,
                       display: 'block',
                     }} />
                     {/* 光沢ハイライト */}
                     <div style={{
                       position: 'absolute', top: 0, left: 0, right: 0, height: '50%',
                       borderRadius: '48px 48px 60% 60% / 48px 48px 40% 40%',
-                      background: 'linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 100%)',
+                      background: 'linear-gradient(160deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0) 100%)',
                       pointerEvents: 'none',
                     }} />
                   </div>
