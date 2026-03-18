@@ -6,7 +6,7 @@ export default function Footer() {
     <footer style={{ background: '#0a0a0a' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 40px 32px' }}>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '40px', marginBottom: '48px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr', gap: '40px', marginBottom: '48px' }}>
 
           {/* ロゴ＋説明 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
