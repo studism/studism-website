@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 
 const APPS = [
-  { id: 'sakuraenglish', name: 'SakuraEnglish', desc: '語学学習アプリ', icon: '/images/sakuraenglish.png', grad: 'linear-gradient(135deg,#EC4899,#F97316)', shadow: 'rgba(236,72,153,0.25)' },
-  { id: 'timelyze',      name: 'Timelyze',      desc: '時間管理アプリ', icon: '/images/timelyze.png',      grad: 'linear-gradient(135deg,#6366F1,#06B6D4)', shadow: 'rgba(99,102,241,0.25)' },
+  { id: 'sakuraenglish', name: 'SakuraEnglish', desc: '語学学習アプリ', icon: '/images/sakuraenglish/icon.png', grad: 'linear-gradient(135deg,#EC4899,#F97316)', shadow: 'rgba(236,72,153,0.25)' },
+  { id: 'timelyze',      name: 'Timelyze',      desc: '時間管理アプリ', icon: '/images/timelyze/icon.png',      grad: 'linear-gradient(135deg,#6366F1,#06B6D4)', shadow: 'rgba(99,102,241,0.25)' },
 ];
 
 const NEWS_ITEMS = [
@@ -139,7 +139,7 @@ export default function Header() {
       <div style={{ width: '100%', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-          <img src="/images/studism-icon.png" alt="Studism icon" style={{ height: '36px', width: 'auto' }} />
+          <img src="/images/studism/icon.png" alt="Studism icon" style={{ height: '36px', width: 'auto' }} />
           <span style={{ fontWeight: 900, fontSize: '1.1rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
         </Link>
 
