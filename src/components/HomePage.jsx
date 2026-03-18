@@ -213,13 +213,6 @@ function Services() {
                   </div>
                 )}
               </div>
-              {/* カテゴリ */}
-              <div style={{ marginBottom: '8px' }}>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: app.accent,
-                  border: `1px solid ${app.accent}`, padding: '2px 10px', borderRadius: '999px', whiteSpace: 'nowrap' }}>
-                  {app.category}
-                </span>
-              </div>
               {/* アプリ名 */}
               <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1rem', fontWeight: 800, letterSpacing: '0.01em' }}>
                 {app.comingSoon ? 'Coming Soon' : app.name}
