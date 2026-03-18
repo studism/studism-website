@@ -72,7 +72,6 @@ const appData = {
     screenshots: [
       '/images/sakuraenglish/ss01.webp',
       '/images/sakuraenglish/ss02.webp',
-      '/images/sakuraenglish/ss03.webp',
     ],
     appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish',
@@ -93,7 +92,6 @@ const appData = {
     screenshots: [
       '/images/timelyze/ss01.webp',
       '/images/timelyze/ss02.webp',
-      '/images/timelyze/ss03.webp',
     ],
     appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.timelyze',
@@ -112,9 +110,8 @@ const appData = {
       { icon: '📱', text: 'いつでもどこでも学習可能' },
     ],
     screenshots: [
-      '/images/sakuraenglish/ss01.webp',
-      '/images/sakuraenglish/ss02.webp',
-      '/images/sakuraenglish/ss03.webp',
+      '/images/studism/Studism1.png',
+      '/images/studism/Studism2.png',
     ],
     appStoreUrl: '#',
     playStoreUrl: '#',
@@ -131,9 +128,8 @@ const appData = {
       { icon: '🎉', text: 'お楽しみに！' },
     ],
     screenshots: [
-      '/images/sakuraenglish/ss01.webp',
-      '/images/sakuraenglish/ss02.webp',
-      '/images/sakuraenglish/ss03.webp',
+      '/images/loopin/Loopin1.png',
+      '/images/loopin/Loopin2.png',
     ],
     appStoreUrl: '#',
     playStoreUrl: '#',
@@ -150,9 +146,8 @@ const appData = {
       { icon: '🎉', text: 'お楽しみに！' },
     ],
     screenshots: [
-      '/images/sakuraenglish/ss01.webp',
-      '/images/sakuraenglish/ss02.webp',
-      '/images/sakuraenglish/ss03.webp',
+      '/images/mamemame/mamemame1.png',
+      '/images/mamemame/mamemame2.png',
     ],
     appStoreUrl: '#',
     playStoreUrl: '#',
