@@ -159,7 +159,7 @@ function Services() {
   };
 
   return (
-    <section id="apps" style={{ background: '#fff', padding: '64px 0 32px' }}>
+    <section id="apps" style={{ background: '#f4f6f9', padding: '64px 0 32px' }}>
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
@@ -264,7 +264,7 @@ function NewsSection() {
   };
 
   return (
-    <section id="news" style={{ background: '#fff', padding: '40px 0 80px' }}>
+    <section id="news" style={{ background: '#f4f6f9', padding: '40px 0 80px' }}>
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
@@ -342,7 +342,7 @@ function NewsSection() {
 export default function HomePage() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
-    <div style={{ background: '#fff' }}>
+    <div style={{ background: '#f4f6f9' }}>
       <Header />
       <HeroSection />
       <Services />
