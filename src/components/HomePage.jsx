@@ -190,7 +190,10 @@ function Services() {
                     <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
                   </div>
                 ) : (
-                  <div style={{ position: 'relative', display: 'inline-block' }}>
+                  <div
+                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08) translateY(-6px)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1) translateY(0)'}
+                    style={{ position: 'relative', display: 'inline-block', transition: 'transform 0.3s ease' }}>
                     <img src={app.icon} alt={app.name} style={{
                       width: '220px', height: '220px', borderRadius: '48px',
                       boxShadow: '0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px rgba(0,0,0,0.14)',
