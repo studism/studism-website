@@ -128,7 +128,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50"
       style={{
-        background: '#ffffff',
+        background: 'rgba(255,255,255,0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(0,0,0,0.06)',
+        boxShadow: '0 1px 20px rgba(0,0,0,0.06)',
         transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
         transition: 'transform 0.3s ease',
       }}>
