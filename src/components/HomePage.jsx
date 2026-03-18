@@ -246,7 +246,7 @@ const SERVICES = [
     categoryColor: '#DC2626',
     description: '教育・学習をテーマにしたYouTubeチャンネルを運営。役立つコンテンツを発信中。',
     thumb: 'linear-gradient(135deg, rgba(185,28,28,0.85), rgba(239,68,68,0.75)), url(https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&fit=crop) center/cover no-repeat',
-    link: 'https://www.youtube.com',
+    link: 'https://www.youtube.com/channel/UCkoYxm2fTNza2qrjrgrbFgw',
   },
   {
     title: 'TikTok',
@@ -275,7 +275,10 @@ function ServiceSection() {
         paddingLeft: '120px',
       }}>
         {SERVICES.map((s, i) => (
-          <article key={i} style={{ minWidth: '340px', maxWidth: '340px', flexShrink: 0, cursor: 'pointer' }}>
+          <article key={i}
+            onClick={() => s.link && window.open(s.link, '_blank')}
+            style={{ minWidth: '340px', maxWidth: '340px', flexShrink: 0, cursor: s.link ? 'pointer' : 'default' }}
+          >
             <div style={{
               width: '100%', aspectRatio: '4/3',
               background: s.thumb,
