@@ -191,11 +191,11 @@ function Services() {
                   </div>
                 ) : (
                   <div
-                    onMouseEnter={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-12deg) rotateX(6deg) translateY(-8px)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-6deg) rotateX(3deg)'}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-22deg) rotateX(10deg) translateY(-10px)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-18deg) rotateX(8deg)'}
                     style={{
                       position: 'relative', width: '220px', height: '220px', display: 'inline-block',
-                      transform: 'perspective(600px) rotateY(-6deg) rotateX(3deg)',
+                      transform: 'perspective(600px) rotateY(-18deg) rotateX(8deg)',
                       transition: 'transform 0.4s ease',
                     }}>
                     <img src={app.icon} alt={app.name} style={{
