@@ -311,26 +311,6 @@ function ServiceSection() {
 /* ════════════════════════════
    ニュース
 ════════════════════════════ */
-const NEWS = [
-  {
-    date: '2025.11.22', category: 'お知らせ', categoryColor: '#2563EB',
-    title: '公式ウェブサイトをリニューアルオープンしました',
-    thumb: 'linear-gradient(135deg, rgba(30,58,138,0.7), rgba(59,130,246,0.6)), url(https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&fit=crop) center/cover no-repeat',
-    pickup: true,
-  },
-  {
-    date: '2025.11.20', category: 'アップデート', categoryColor: '#2563EB',
-    title: 'お問い合わせフォームのシステムを更新しました',
-    thumb: 'linear-gradient(135deg, rgba(29,78,216,0.7), rgba(96,165,250,0.6)), url(https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80&fit=crop) center/cover no-repeat',
-    pickup: false,
-  },
-  {
-    date: '2025.11.15', category: 'アップデート', categoryColor: '#0369A1',
-    title: '「SakuraEnglish」に新しい単語リストを追加しました',
-    thumb: 'linear-gradient(135deg, rgba(12,74,110,0.7), rgba(14,165,233,0.6)), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80&fit=crop) center/cover no-repeat',
-    pickup: false,
-  },
-];
 
 function NewsSection() {
   const scrollRef = useRef(null);
@@ -353,60 +333,17 @@ function NewsSection() {
         </div>
       </div>
 
-      {/* カード横スクロール: 全幅 */}
-      <div ref={scrollRef} style={{
-        display: 'flex', gap: '2px',
-        overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: '120px',
-      }}>
-        {NEWS.map((n, i) => (
-          <article key={i} style={{
-            minWidth: '340px', maxWidth: '340px', flexShrink: 0,
-            cursor: 'pointer',
-          }}>
-            {/* サムネイル */}
-            <div style={{
-              width: '100%', aspectRatio: '4/3',
-              background: n.thumb,
-              overflow: 'hidden',
-              position: 'relative', marginBottom: '16px',
-            }}>
-              {n.pickup && (
-                <div style={{
-                  position: 'absolute', top: '12px', left: '12px',
-                  background: '#1D4ED8', color: '#fff',
-                  fontSize: '0.72rem', fontWeight: 800, padding: '4px 12px',
-                  borderRadius: '999px', letterSpacing: '0.04em',
-                }}>
-                  Pick up
-                </div>
-              )}
-            </div>
-
-            {/* 日付 ＋ カテゴリ */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', paddingRight: '16px' }}>
-              <span style={{ fontSize: '0.8rem', color: '#888', fontWeight: 500 }}>{n.date}</span>
-              <span style={{
-                fontSize: '0.72rem', fontWeight: 700, color: n.categoryColor,
-                border: `1px solid ${n.categoryColor}`, padding: '2px 10px',
-                borderRadius: '999px', whiteSpace: 'nowrap',
-              }}>
-                {n.category}
-              </span>
-            </div>
-
-            {/* タイトル */}
-            <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.55, margin: 0, paddingRight: '16px',
-              transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
-              onMouseLeave={e => e.currentTarget.style.color = '#1a1a1a'}
-            >
-              {n.title}
-            </p>
-          </article>
-        ))}
-        {/* 右端の余白 */}
-        <div style={{ minWidth: '40px', flexShrink: 0 }} />
+      {/* Coming Soon */}
+      <div style={{ paddingLeft: '120px' }}>
+        <div style={{
+          width: '340px', aspectRatio: '4/3',
+          background: 'linear-gradient(135deg, #e8edf5, #f4f6f9)',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px',
+          border: '2px dashed #d0d7e3', borderRadius: '4px',
+        }}>
+          <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.12em' }}>COMING SOON</span>
+          <span style={{ fontSize: '0.8rem', color: '#b0bac8', fontWeight: 500 }}>お知らせは準備中です</span>
+        </div>
       </div>
     </section>
   );
