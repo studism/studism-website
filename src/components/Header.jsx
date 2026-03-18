@@ -30,7 +30,7 @@ function NewsDropdown() {
         className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
         style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
-        ニュース
+        お知らせ
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
       </button>
 
@@ -73,7 +73,7 @@ function AppsDropdown() {
         className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
         style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
-        アプリ
+        アプリ一覧
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
       </button>
 
