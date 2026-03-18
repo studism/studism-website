@@ -192,15 +192,15 @@ function Services() {
                 ) : (
                   <div style={{ perspective: '1000px', display: 'inline-block' }}>
                     <div
-                      onMouseEnter={e => e.currentTarget.style.transform = 'rotateX(-38deg) rotateY(-50deg) translateY(-10px)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'rotateX(-33deg) rotateY(-45deg)'}
+                      onMouseEnter={e => e.currentTarget.style.transform = 'rotateX(-22deg) rotateY(-28deg) translateY(-8px)'}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'rotateX(-16deg) rotateY(-22deg)'}
                       style={{
                         width: '220px', height: '220px',
                         position: 'relative',
                         transformStyle: 'preserve-3d',
-                        transform: 'rotateX(-33deg) rotateY(-45deg)',
+                        transform: 'rotateX(-16deg) rotateY(-22deg)',
                         transition: 'transform 0.35s ease',
-                        filter: 'drop-shadow(8px 20px 24px rgba(0,0,0,0.28))',
+                        filter: 'drop-shadow(8px 20px 28px rgba(0,0,0,0.30))',
                       }}
                     >
                       {/* 前面: アイコン */}
@@ -208,23 +208,23 @@ function Services() {
                         <img src={app.icon} alt={app.name} style={{ width: '100%', height: '100%', display: 'block' }} />
                         <div style={{
                           position: 'absolute', inset: 0, pointerEvents: 'none',
-                          background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 50%)',
+                          background: 'linear-gradient(135deg, rgba(255,255,255,0.20) 0%, transparent 50%)',
                         }} />
                       </div>
                       {/* 上面 */}
                       <div style={{
-                        position: 'absolute', width: '220px', height: '220px',
+                        position: 'absolute', width: '220px', height: '50px',
                         top: 0, left: 0,
-                        background: app.accentLight ? `linear-gradient(135deg, white, ${app.accentLight})` : 'linear-gradient(135deg, #fff, #dbeafe)',
+                        background: app.accentLight ? `linear-gradient(90deg, white, ${app.accentLight})` : '#e8f0fe',
                         borderRadius: '40px 40px 0 0',
                         transformOrigin: 'center top',
                         transform: 'rotateX(-90deg)',
                       }} />
                       {/* 右面 */}
                       <div style={{
-                        position: 'absolute', width: '220px', height: '220px',
+                        position: 'absolute', width: '50px', height: '220px',
                         top: 0, left: '220px',
-                        background: `linear-gradient(160deg, ${app.accentLight || '#c7d7f5'}, rgba(0,0,0,0.35))`,
+                        background: `linear-gradient(180deg, ${app.accentLight || '#c7d7f5'} 0%, rgba(0,0,0,0.25) 100%)`,
                         borderRadius: '0 40px 40px 0',
                         transformOrigin: 'left center',
                         transform: 'rotateY(90deg)',
