@@ -70,15 +70,9 @@ export default function Header() {
             onMouseLeave={e => e.currentTarget.style.color = '#333'}>
             アプリ一覧
           </button>
-          <Link to="/contact" style={{
-            marginLeft: '16px', padding: '9px 22px',
-            background: '#1D4ED8', color: '#fff',
-            textDecoration: 'none', fontWeight: 800, fontSize: '0.82rem', letterSpacing: '0.04em',
-            borderRadius: '6px', transition: 'background 0.15s',
-          }}
-            onMouseEnter={e => e.currentTarget.style.background = '#1E40AF'}
-            onMouseLeave={e => e.currentTarget.style.background = '#1D4ED8'}
-          >
+          <Link to="/contact" style={navLinkStyle}
+            onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
+            onMouseLeave={e => e.currentTarget.style.color = '#333'}>
             お問い合わせ
           </Link>
         </nav>
