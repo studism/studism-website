@@ -252,16 +252,6 @@ const AppDetail = () => {
             <h1 style={{ fontSize: '2.8rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.03em', textAlign: 'center', lineHeight: 1.1 }}>
               {app.name}
             </h1>
-            {app.lead && (
-              <p style={{ fontSize: '1rem', fontWeight: 700, color: app.color, margin: 0, textAlign: 'center', letterSpacing: '0.02em' }}>
-                {app.lead}
-              </p>
-            )}
-            {app.description && (
-              <p style={{ fontSize: '0.82rem', color: '#666', lineHeight: 1.75, margin: 0, textAlign: 'center' }}>
-                {app.description}
-              </p>
-            )}
 
             {/* ダウンロードボタン */}
             {hasStoreLinks && (

@@ -92,7 +92,7 @@ const APPS = [
     name: 'Studism',
     category: '教育テクノロジー',
     icon: '/images/studism/icon.png',
-    lead: '学びを、もっと自由に、楽しく。',
+    lead: '学びを、もっと自由に、楽しく。\n勉強をSNSでシェアして仲間と一緒に高め合える学習コミュニティアプリ。',
     description: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業のフラッグシップアプリです。',
     photoBg: 'linear-gradient(135deg, #0C4A6E 0%, #0EA5E9 55%, #BAE6FD 100%)',
     accent: '#0EA5E9',
@@ -105,7 +105,7 @@ const APPS = [
     name: 'SakuraEnglish',
     category: '語学学習',
     icon: '/images/sakuraenglish/icon.png',
-    lead: '英語学習を、もっと楽しく。',
+    lead: '英語学習を、もっと楽しく。\nレベル別英単語クイズで語彙力をしっかり伸ばせる英語学習アプリ。',
     description: 'レベル別英単語クイズで効率的に語彙力を強化。5段階の難易度とカスタム単語リスト機能で、自分だけの学習プランを作成できます。',
     photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 55%, #93C5FD 100%)',
     accent: '#2563EB',
@@ -118,7 +118,7 @@ const APPS = [
     name: '豆マメ',
     category: '近日公開',
     icon: '/images/mamemame/icon.png',
-    lead: '',
+    lead: '古文単語を、豆知識と一緒に覚えよう。\n古文単語の暗記に特化したフラッシュカードアプリ。',
     description: '',
     photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 55%, #BFDBFE 100%)',
     accent: '#1D4ED8',
@@ -131,7 +131,7 @@ const APPS = [
     name: 'Loopin',
     category: '近日公開',
     icon: '/images/loopin/icon.png',
-    lead: '',
+    lead: '毎日の習慣を、ループさせよう。\n継続したい習慣やルーティンをかんたんに管理できるアプリ。',
     description: '',
     photoBg: 'linear-gradient(135deg, #172554 0%, #1D4ED8 55%, #BFDBFE 100%)',
     accent: '#1D4ED8',
@@ -144,7 +144,7 @@ const APPS = [
     name: 'Timelyze',
     category: '生産性・時間管理',
     icon: '/images/timelyze/icon.png',
-    lead: '学習時間を、見える化する。',
+    lead: '学習時間を、見える化する。\nタイマーで記録した勉強時間をグラフで可視化する学習管理アプリ。',
     description: '学習時間の記録・管理を簡単に。タイマー機能、教科別集計、グラフ可視化で、継続的な学習習慣をサポートします。',
     photoBg: 'linear-gradient(135deg, #1D4ED8 0%, #3B82F6 55%, #BAE6FD 100%)',
     accent: '#2563EB',
@@ -218,13 +218,21 @@ function Services() {
                 {app.comingSoon ? 'Coming Soon' : app.name}
               </p>
               {/* リード文 */}
-              <p style={{ fontSize: '0.85rem', fontWeight: 500, color: '#555', lineHeight: 1.6, margin: 0,
-                transition: 'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
-                onMouseLeave={e => e.currentTarget.style.color = '#555'}
-              >
-                {app.lead}
-              </p>
+              {app.lead && (() => {
+                const [catchcopy, desc] = app.lead.split('\n');
+                return (
+                  <div style={{ textAlign: 'center' }}>
+                    <p style={{ fontSize: '0.88rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 4px' }}>
+                      {catchcopy}
+                    </p>
+                    {desc && (
+                      <p style={{ fontSize: '0.78rem', fontWeight: 400, color: '#777', lineHeight: 1.6, margin: 0 }}>
+                        {desc}
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
             </article>
           </Link>
         ))}
