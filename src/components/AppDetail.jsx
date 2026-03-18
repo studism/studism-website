@@ -103,11 +103,11 @@ const appData = {
     color: '#0EA5E9',
     gradient: 'linear-gradient(135deg, #0EA5E9, #6366F1)',
     features: [
-      { icon: '🌸', text: '学びをもっと自由に、楽しく' },
-      { icon: '💡', text: 'テクノロジーで学習体験を変える' },
-      { icon: '✨', text: '直感的なインターフェース' },
-      { icon: '🔥', text: '学習の継続をサポート' },
-      { icon: '📱', text: 'いつでもどこでも学習可能' },
+      { icon: '📖', text: '学習記録を投稿してみんなと共有' },
+      { icon: '👥', text: '同じ目標を持つ仲間とつながる' },
+      { icon: '❤️', text: 'いいね・コメントで勉強を応援' },
+      { icon: '🔥', text: '継続ランキングでモチベーションアップ' },
+      { icon: '📊', text: '自分の学習履歴をタイムラインで振り返る' },
     ],
     screenshots: [
       '/images/studism/Studism1.png',
@@ -123,9 +123,11 @@ const appData = {
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #1D4ED8, #7C3AED)',
     features: [
-      { icon: '🚀', text: '近日公開予定のアプリです' },
-      { icon: '📣', text: '詳細は近日中にお知らせします' },
-      { icon: '🎉', text: 'お楽しみに！' },
+      { icon: '🔁', text: '毎日のルーティンを簡単に登録・管理' },
+      { icon: '✅', text: 'ワンタップでタスク完了チェック' },
+      { icon: '🔔', text: 'リマインダー通知で習慣化をサポート' },
+      { icon: '📅', text: '達成率カレンダーで継続状況を確認' },
+      { icon: '🏆', text: '連続達成ストリークでモチベーション維持' },
     ],
     screenshots: [
       '/images/loopin/Loopin1.png',
@@ -141,9 +143,11 @@ const appData = {
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #10B981, #06B6D4)',
     features: [
-      { icon: '🚀', text: '近日公開予定のアプリです' },
-      { icon: '📣', text: '詳細は近日中にお知らせします' },
-      { icon: '🎉', text: 'お楽しみに！' },
+      { icon: '📜', text: '古文単語をカード形式で効率よく暗記' },
+      { icon: '🎯', text: 'レベル別出題で無理なくステップアップ' },
+      { icon: '🔄', text: '間違えた単語を自動で繰り返し出題' },
+      { icon: '📝', text: '意味・用例・語源をまとめて確認' },
+      { icon: '📈', text: '習熟度グラフで暗記の進捗を可視化' },
     ],
     screenshots: [
       '/images/mamemame/mamemame1.png',
