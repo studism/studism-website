@@ -261,6 +261,22 @@ const SERVICES = [
     description: '英語学習・学習管理など、教育コンテンツの企画から制作まで一貫してサポート。',
     thumb: 'linear-gradient(135deg, rgba(12,74,110,0.85), rgba(14,165,233,0.75)), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80&fit=crop) center/cover no-repeat',
   },
+  {
+    title: 'YouTube',
+    category: '動画',
+    categoryColor: '#DC2626',
+    description: '教育・学習をテーマにしたYouTubeチャンネルを運営。役立つコンテンツを発信中。',
+    thumb: 'linear-gradient(135deg, rgba(185,28,28,0.85), rgba(239,68,68,0.75)), url(https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&fit=crop) center/cover no-repeat',
+    link: 'https://www.youtube.com',
+  },
+  {
+    title: 'TikTok',
+    category: '動画',
+    categoryColor: '#000000',
+    description: '短尺動画で学びのヒントや新機能をわかりやすくお届け。フォローして最新情報をチェック。',
+    thumb: 'linear-gradient(135deg, rgba(0,0,0,0.85), rgba(45,45,45,0.75)), url(https://images.unsplash.com/photo-1625535069654-cfeb8f829088?w=600&q=80&fit=crop) center/cover no-repeat',
+    link: 'https://www.tiktok.com',
+  },
 ];
 
 function ServiceSection() {
