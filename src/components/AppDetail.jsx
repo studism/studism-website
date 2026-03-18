@@ -58,16 +58,18 @@ function PlayIcon() {
 const appData = {
   sakuraenglish: {
     name: 'SakuraEnglish',
+    lead: '英語学習を、もっと楽しく。',
+    description: 'レベル別の英単語クイズで、無理なく語彙力を伸ばせる英語学習アプリです。5段階の難易度設定と、自分だけのオリジナル単語リスト機能で、あなたのペースに合った学習プランを実現します。',
     icon: '/images/sakuraenglish/icon.png',
     category: '語学学習',
     color: '#2563EB',
     gradient: 'linear-gradient(135deg, #EC4899, #F97316)',
     features: [
-      { icon: '📚', text: '5段階のレベル別英単語クイズ' },
-      { icon: '✏️', text: 'カスタム単語リストの作成' },
-      { icon: '🔄', text: '間違えた単語の自動復習機能' },
-      { icon: '📊', text: '習熟度トラッキング' },
-      { icon: '📵', text: 'オフラインでも利用可能' },
+      { icon: '📚', text: '初級から上級まで5段階のレベル別英単語クイズ' },
+      { icon: '✏️', text: '自分だけのカスタム単語リストを自由に作成' },
+      { icon: '🔄', text: '間違えた単語を自動ピックアップして繰り返し出題' },
+      { icon: '📊', text: '習熟度をグラフで可視化して弱点を把握' },
+      { icon: '📵', text: 'オフラインでもいつでもどこでも学習可能' },
     ],
     screenshots: [
       '/images/sakuraenglish/ss01.webp',
@@ -78,16 +80,18 @@ const appData = {
   },
   timelyze: {
     name: 'Timelyze',
+    lead: '学習時間を、見える化する。',
+    description: '勉強時間の記録・管理をシンプルに実現する学習タイマーアプリです。教科ごとの集計や日別・週別グラフで学習の積み重ねを可視化し、目標設定とカレンダー機能で継続的な学習習慣をサポートします。',
     icon: '/images/timelyze/icon.png',
     category: '生産性・時間管理',
     color: '#6366F1',
     gradient: 'linear-gradient(135deg, #6366F1, #06B6D4)',
     features: [
-      { icon: '⏱️', text: 'タイマー機能で学習時間を自動記録' },
-      { icon: '📁', text: '教科別の学習時間を集計' },
-      { icon: '📈', text: '日別・週別・月別グラフで可視化' },
-      { icon: '🎯', text: '目標設定と進捗確認' },
-      { icon: '🗓️', text: 'カレンダー・メモ機能搭載' },
+      { icon: '⏱️', text: 'ワンタップで起動するタイマーが学習時間を自動記録' },
+      { icon: '📁', text: '教科・科目ごとに学習時間を分類して集計' },
+      { icon: '📈', text: '日別・週別・月別のグラフで学習の積み重ねを可視化' },
+      { icon: '🎯', text: '目標時間を設定して達成度をリアルタイムで確認' },
+      { icon: '🗓️', text: 'カレンダーとメモ機能で学習の振り返りが簡単' },
     ],
     screenshots: [
       '/images/timelyze/ss01.webp',
@@ -98,16 +102,18 @@ const appData = {
   },
   studism: {
     name: 'Studism',
+    lead: '学びを、もっと自由に、楽しく。',
+    description: '勉強をSNSでシェアして、仲間と一緒に高め合える学習コミュニティアプリです。学習記録の投稿やいいね・コメントで互いに応援し合いながら、楽しく学習習慣を継続できます。',
     icon: '/images/studism/icon.png',
     category: '教育テクノロジー',
     color: '#0EA5E9',
     gradient: 'linear-gradient(135deg, #0EA5E9, #6366F1)',
     features: [
-      { icon: '📖', text: '学習記録を投稿してみんなと共有' },
-      { icon: '👥', text: '同じ目標を持つ仲間とつながる' },
-      { icon: '❤️', text: 'いいね・コメントで勉強を応援' },
-      { icon: '🔥', text: '継続ランキングでモチベーションアップ' },
-      { icon: '📊', text: '自分の学習履歴をタイムラインで振り返る' },
+      { icon: '📖', text: '今日の学習内容を投稿してみんなとシェア' },
+      { icon: '👥', text: '同じ目標を持つ仲間をフォローしてつながる' },
+      { icon: '❤️', text: 'いいね・コメントで友達の勉強を応援できる' },
+      { icon: '🔥', text: '継続ランキングでライバルと競い合いモチベーションアップ' },
+      { icon: '📊', text: '自分の学習履歴をタイムラインで振り返れる' },
     ],
     screenshots: [
       '/images/studism/Studism1.png',
@@ -118,16 +124,18 @@ const appData = {
   },
   loopin: {
     name: 'Loopin',
+    lead: '毎日の習慣を、ループさせよう。',
+    description: '継続したい習慣やルーティンをかんたんに登録・管理できるアプリです。毎日のチェックと通知リマインダー、達成率カレンダーで習慣化をしっかりサポートします。',
     icon: '/images/loopin/icon.png',
     category: '近日公開',
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #1D4ED8, #7C3AED)',
     features: [
-      { icon: '🔁', text: '毎日のルーティンを簡単に登録・管理' },
-      { icon: '✅', text: 'ワンタップでタスク完了チェック' },
-      { icon: '🔔', text: 'リマインダー通知で習慣化をサポート' },
-      { icon: '📅', text: '達成率カレンダーで継続状況を確認' },
-      { icon: '🏆', text: '連続達成ストリークでモチベーション維持' },
+      { icon: '🔁', text: '続けたい習慣やルーティンをかんたんに登録・管理' },
+      { icon: '✅', text: 'ワンタップで今日のタスク完了をチェック' },
+      { icon: '🔔', text: 'リマインダー通知で忘れずに習慣を継続できる' },
+      { icon: '📅', text: '達成率カレンダーで毎日の継続状況を一目で確認' },
+      { icon: '🏆', text: '連続達成ストリークで長く続けるほどモチベーションが上がる' },
     ],
     screenshots: [
       '/images/loopin/Loopin1.png',
@@ -138,16 +146,18 @@ const appData = {
   },
   mamemame: {
     name: '豆マメ',
+    lead: '古文単語を、豆知識と一緒に覚えよう。',
+    description: '古文単語の暗記に特化したフラッシュカードアプリです。レベル別のクイズ形式で楽しく学べ、間違えた単語を自動で繰り返し出題することで、試験に向けた効率的な暗記をサポートします。',
     icon: '/images/mamemame/icon.png',
     category: '近日公開',
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #10B981, #06B6D4)',
     features: [
-      { icon: '📜', text: '古文単語をカード形式で効率よく暗記' },
-      { icon: '🎯', text: 'レベル別出題で無理なくステップアップ' },
-      { icon: '🔄', text: '間違えた単語を自動で繰り返し出題' },
-      { icon: '📝', text: '意味・用例・語源をまとめて確認' },
-      { icon: '📈', text: '習熟度グラフで暗記の進捗を可視化' },
+      { icon: '📜', text: '古文単語をカード形式でテンポよく効率的に暗記' },
+      { icon: '🎯', text: 'レベル別出題で基礎から入試レベルまで無理なくステップアップ' },
+      { icon: '🔄', text: '間違えた単語だけを自動ピックアップして繰り返し出題' },
+      { icon: '📝', text: '意味・用例・語源をまとめて確認できて理解が深まる' },
+      { icon: '📈', text: '習熟度グラフで暗記の進捗と弱点単語を可視化' },
     ],
     screenshots: [
       '/images/mamemame/mamemame1.png',
@@ -242,6 +252,16 @@ const AppDetail = () => {
             <h1 style={{ fontSize: '2.8rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.03em', textAlign: 'center', lineHeight: 1.1 }}>
               {app.name}
             </h1>
+            {app.lead && (
+              <p style={{ fontSize: '1rem', fontWeight: 700, color: app.color, margin: 0, textAlign: 'center', letterSpacing: '0.02em' }}>
+                {app.lead}
+              </p>
+            )}
+            {app.description && (
+              <p style={{ fontSize: '0.82rem', color: '#666', lineHeight: 1.75, margin: 0, textAlign: 'center' }}>
+                {app.description}
+              </p>
+            )}
 
             {/* ダウンロードボタン */}
             {hasStoreLinks && (
