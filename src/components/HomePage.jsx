@@ -244,7 +244,7 @@ const SERVICES = [
     title: 'YouTube',
     category: '動画',
     categoryColor: '#DC2626',
-    description: '教育・学習をテーマにしたYouTubeチャンネルを運営。役立つコンテンツを発信中。',
+    description: '英単語の動画を投稿しています。',
     link: 'https://www.youtube.com/channel/UCkoYxm2fTNza2qrjrgrbFgw',
     renderThumb: () => (
       <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #FF0000 0%, #8B0000 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -265,7 +265,7 @@ const SERVICES = [
     title: 'TikTok',
     category: '動画',
     categoryColor: '#010101',
-    description: '短尺動画で学びのヒントや新機能をわかりやすくお届け。フォローして最新情報をチェック。',
+    description: '英単語の動画を投稿しています。',
     link: 'https://www.tiktok.com/@user9530011262997',
     renderThumb: () => (
       <div style={{ width: '100%', height: '100%', position: 'relative', background: '#010101', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
