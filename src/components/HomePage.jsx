@@ -190,46 +190,12 @@ function Services() {
                     <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
                   </div>
                 ) : (
-                  <div style={{ perspective: '1000px', display: 'inline-block', filter: 'drop-shadow(8px 20px 28px rgba(0,0,0,0.30))' }}>
-                    <div
-                      onMouseEnter={e => e.currentTarget.style.transform = 'rotateX(-22deg) rotateY(-28deg) translateY(-8px)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'rotateX(-16deg) rotateY(-22deg)'}
-                      style={{
-                        width: '220px', height: '220px',
-                        position: 'relative',
-                        transformStyle: 'preserve-3d',
-                        transform: 'rotateX(-16deg) rotateY(-22deg)',
-                        transition: 'transform 0.35s ease',
-                      }}
-                    >
-                      {/* 前面: アイコン */}
-                      <div style={{ position: 'absolute', inset: 0, borderRadius: '40px', overflow: 'hidden' }}>
-                        <img src={app.icon} alt={app.name} style={{ width: '100%', height: '100%', display: 'block' }} />
-                        <div style={{
-                          position: 'absolute', inset: 0, pointerEvents: 'none',
-                          background: 'linear-gradient(135deg, rgba(255,255,255,0.20) 0%, transparent 50%)',
-                        }} />
-                      </div>
-                      {/* 上面 */}
-                      <div style={{
-                        position: 'absolute', width: '220px', height: '50px',
-                        top: 0, left: 0,
-                        background: app.accent || '#2563EB',
-                        borderRadius: '40px 40px 0 0',
-                        transformOrigin: 'center top',
-                        transform: 'rotateX(-90deg)',
-                      }} />
-                      {/* 右面 */}
-                      <div style={{
-                        position: 'absolute', width: '50px', height: '220px',
-                        top: 0, left: '220px',
-                        background: `color-mix(in srgb, ${app.accent || '#2563EB'} 60%, black)`,
-                        borderRadius: '0 40px 40px 0',
-                        transformOrigin: 'left center',
-                        transform: 'rotateY(90deg)',
-                      }} />
-                    </div>
-                  </div>
+                  <img src={app.icon} alt={app.name} style={{
+                    width: '220px', height: '220px', borderRadius: '48px',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                    border: '2px solid rgba(0,0,0,0.08)',
+                    display: 'block',
+                  }} />
                 )}
               </div>
 
