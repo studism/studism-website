@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import useIsMobile from '@/hooks/useIsMobile';
+import MobileHomePage from '@/components/mobile/MobileHomePage';
 
 /* ════════════════════════════
    スライドデータ
@@ -380,7 +382,9 @@ function NewsSection() {
    PAGE
 ════════════════════════════ */
 export default function HomePage() {
+  const isMobile = useIsMobile();
   useEffect(() => { window.scrollTo(0, 0); }, []);
+  if (isMobile) return <><Header /><MobileHomePage /><Footer /></>;
   return (
     <div style={{ background: '#f0f4f8' }}>
       <Header />

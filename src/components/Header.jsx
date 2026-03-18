@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import useIsMobile from '@/hooks/useIsMobile';
+import MobileHeader from '@/components/mobile/MobileHeader';
 
 const navLinkStyle = {
   padding: '8px 16px', fontSize: '0.88rem', fontWeight: 600,
@@ -8,6 +10,7 @@ const navLinkStyle = {
 };
 
 export default function Header() {
+  const isMobile = useIsMobile();
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
   const navigate = useNavigate();
@@ -33,6 +36,8 @@ export default function Header() {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (isMobile) return <MobileHeader />;
 
   return (
     <header className="sticky top-0 z-50"
