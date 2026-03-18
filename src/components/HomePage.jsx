@@ -190,7 +190,7 @@ function Services() {
                     <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
                   </div>
                 ) : (
-                  <div style={{ perspective: '1000px', display: 'inline-block' }}>
+                  <div style={{ perspective: '1000px', display: 'inline-block', filter: 'drop-shadow(8px 20px 28px rgba(0,0,0,0.30))' }}>
                     <div
                       onMouseEnter={e => e.currentTarget.style.transform = 'rotateX(-22deg) rotateY(-28deg) translateY(-8px)'}
                       onMouseLeave={e => e.currentTarget.style.transform = 'rotateX(-16deg) rotateY(-22deg)'}
@@ -200,7 +200,6 @@ function Services() {
                         transformStyle: 'preserve-3d',
                         transform: 'rotateX(-16deg) rotateY(-22deg)',
                         transition: 'transform 0.35s ease',
-                        filter: 'drop-shadow(8px 20px 28px rgba(0,0,0,0.30))',
                       }}
                     >
                       {/* 前面: アイコン */}
