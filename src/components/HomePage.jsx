@@ -217,22 +217,6 @@ function Services() {
               <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1.4rem', fontWeight: 800, letterSpacing: '0.01em', textAlign: 'center' }}>
                 {app.comingSoon ? 'Coming Soon' : app.name}
               </p>
-              {/* リード文 */}
-              {app.lead && (() => {
-                const [catchcopy, desc] = app.lead.split('\n');
-                return (
-                  <div style={{ textAlign: 'center' }}>
-                    <p style={{ fontSize: '0.88rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 4px' }}>
-                      {catchcopy}
-                    </p>
-                    {desc && (
-                      <p style={{ fontSize: '0.78rem', fontWeight: 400, color: '#777', lineHeight: 1.6, margin: 0 }}>
-                        {desc}
-                      </p>
-                    )}
-                  </div>
-                );
-              })()}
             </article>
           </Link>
         ))}
