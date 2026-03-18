@@ -214,7 +214,7 @@ function Services() {
                 )}
               </div>
               {/* アプリ名 */}
-              <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1.15rem', fontWeight: 800, letterSpacing: '0.01em', textAlign: 'center' }}>
+              <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1.4rem', fontWeight: 800, letterSpacing: '0.01em', textAlign: 'center' }}>
                 {app.comingSoon ? 'Coming Soon' : app.name}
               </p>
               {/* リード文 */}
