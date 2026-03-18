@@ -173,14 +173,14 @@ function Services() {
       {/* カード横スクロール: 全幅 */}
       <div ref={scrollRef} style={{
         display: 'flex', gap: '32px',
-        overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
+        overflowX: 'auto', overflowY: 'visible', scrollbarWidth: 'none', msOverflowStyle: 'none',
         paddingLeft: '120px',
       }}>
         {APPS.map(app => (
           <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '260px', maxWidth: '260px', flexShrink: 0 }}>
             <article>
               {/* アイコン */}
-              <div style={{ marginBottom: '16px' }}>
+              <div style={{ marginBottom: '16px', paddingTop: '20px', overflow: 'visible' }}>
                 {app.comingSoon ? (
                   <div style={{
                     width: '220px', height: '220px', borderRadius: '48px',
