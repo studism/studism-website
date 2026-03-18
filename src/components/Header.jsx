@@ -70,6 +70,12 @@ export default function Header() {
             onMouseLeave={e => e.currentTarget.style.color = '#333'}>
             アプリ一覧
           </button>
+          <button style={navLinkStyle}
+            onClick={() => scrollToSection('services')}
+            onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
+            onMouseLeave={e => e.currentTarget.style.color = '#333'}>
+            サービス一覧
+          </button>
           <Link to="/contact" style={navLinkStyle}
             onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
             onMouseLeave={e => e.currentTarget.style.color = '#333'}>
