@@ -60,20 +60,23 @@ function HeroSection() {
         {/* オーバーレイなし */}
       </div>
 
-      {/* 左半分：画像（中央からはみ出して大きく） */}
+      {/* 左半分：画像（浮遊アニメーション） */}
       <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 2 }}>
         <img src="/images/polipoli3.png" alt="ポリポリ"
-          style={{ position: 'absolute', bottom: '-33%', left: '6%', transform: 'none',
+          className="hero-float"
+          style={{ position: 'absolute', bottom: '-33%', left: '6%',
             height: '160%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
       </div>
 
-      {/* 右半分：テキスト */}
-      <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10 }}>
+      {/* 右半分：テキスト（右からスライドイン） */}
+      <div style={{ flex: 1, paddingRight: '5%', marginLeft: '4%', zIndex: 10, overflow: 'hidden' }}>
         <h1 style={{
           color: '#0a0a0a', fontSize: 'clamp(4rem, 7vw, 8rem)',
-          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0, whiteSpace: 'pre-line',
+          fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, margin: 0,
         }}>
-          {HERO.heading}
+          <span className="hero-text-line hero-text-line-1" style={{ display: 'block' }}>学びをもっと</span>
+          <span className="hero-text-line hero-text-line-2" style={{ display: 'block' }}>自由に、もっと</span>
+          <span className="hero-text-line hero-text-line-3" style={{ display: 'block' }}>楽しく。</span>
         </h1>
       </div>
     </section>
