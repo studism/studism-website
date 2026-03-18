@@ -128,7 +128,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50"
       style={{
-        background: '#1D4ED8',
+        background: '#3B82F6',
         transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
         transition: 'transform 0.3s ease',
       }}>
