@@ -214,7 +214,7 @@ function Services() {
                       <div style={{
                         position: 'absolute', width: '220px', height: '50px',
                         top: 0, left: 0,
-                        background: app.accentLight ? `linear-gradient(90deg, white, ${app.accentLight})` : '#e8f0fe',
+                        background: app.accent || '#2563EB',
                         borderRadius: '40px 40px 0 0',
                         transformOrigin: 'center top',
                         transform: 'rotateX(-90deg)',
@@ -223,7 +223,7 @@ function Services() {
                       <div style={{
                         position: 'absolute', width: '50px', height: '220px',
                         top: 0, left: '220px',
-                        background: `linear-gradient(180deg, ${app.accentLight || '#c7d7f5'} 0%, rgba(0,0,0,0.25) 100%)`,
+                        background: `color-mix(in srgb, ${app.accent || '#2563EB'} 60%, black)`,
                         borderRadius: '0 40px 40px 0',
                         transformOrigin: 'left center',
                         transform: 'rotateY(90deg)',
