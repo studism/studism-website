@@ -241,27 +241,6 @@ function Services() {
 ════════════════════════════ */
 const SERVICES = [
   {
-    title: 'アプリ開発',
-    category: '開発',
-    categoryColor: '#2563EB',
-    description: '教育に特化したモバイルアプリを企画・設計・開発。iOS / Android 両対応。',
-    thumb: 'linear-gradient(135deg, rgba(30,58,138,0.85), rgba(59,130,246,0.75)), url(https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80&fit=crop) center/cover no-repeat',
-  },
-  {
-    title: 'UI / UX デザイン',
-    category: 'デザイン',
-    categoryColor: '#7C3AED',
-    description: 'ユーザーが直感的に使えるインターフェースを設計。学習体験を最大化するデザイン。',
-    thumb: 'linear-gradient(135deg, rgba(109,40,217,0.85), rgba(167,139,250,0.75)), url(https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80&fit=crop) center/cover no-repeat',
-  },
-  {
-    title: 'コンテンツ制作',
-    category: 'コンテンツ',
-    categoryColor: '#0369A1',
-    description: '英語学習・学習管理など、教育コンテンツの企画から制作まで一貫してサポート。',
-    thumb: 'linear-gradient(135deg, rgba(12,74,110,0.85), rgba(14,165,233,0.75)), url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80&fit=crop) center/cover no-repeat',
-  },
-  {
     title: 'YouTube',
     category: '動画',
     categoryColor: '#DC2626',
