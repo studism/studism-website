@@ -316,15 +316,6 @@ function ServiceSection() {
             <div style={{ width: '100%', aspectRatio: '4/3', overflow: 'hidden', position: 'relative', marginBottom: '16px' }}>
               {s.renderThumb()}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', paddingRight: '16px' }}>
-              <span style={{
-                fontSize: '0.72rem', fontWeight: 700, color: s.categoryColor,
-                border: `1px solid ${s.categoryColor}`, padding: '2px 10px',
-                borderRadius: '999px', whiteSpace: 'nowrap',
-              }}>
-                {s.category}
-              </span>
-            </div>
             <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', paddingRight: '16px' }}>
               {s.title}
             </p>
