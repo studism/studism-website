@@ -17,7 +17,7 @@ function HeroSection() {
   return (
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
-      background: '#ffffff',
+      background: '#f4f6f9',
       borderBottom: '1px solid #e8e8e8',
       display: 'flex', alignItems: 'center',
     }}>
