@@ -190,36 +190,46 @@ function Services() {
                     <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
                   </div>
                 ) : (
-                  <div
-                    onMouseEnter={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-22deg) rotateX(10deg) translateY(-10px)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'perspective(600px) rotateY(-18deg) rotateX(8deg)'}
-                    style={{
-                      position: 'relative', width: '220px', height: '220px', display: 'inline-block',
-                      transform: 'perspective(600px) rotateY(-18deg) rotateX(8deg)',
-                      transition: 'transform 0.4s ease',
-                    }}>
-                    <img src={app.icon} alt={app.name} style={{
-                      width: '220px', height: '220px', borderRadius: '48px',
-                      boxShadow: `
-                        1px 1px 0 rgba(0,0,0,0.12),
-                        2px 2px 0 rgba(0,0,0,0.11),
-                        3px 3px 0 rgba(0,0,0,0.10),
-                        4px 4px 0 rgba(0,0,0,0.09),
-                        5px 5px 0 rgba(0,0,0,0.08),
-                        6px 6px 0 rgba(0,0,0,0.07),
-                        7px 7px 0 rgba(0,0,0,0.06),
-                        8px 8px 0 rgba(0,0,0,0.05),
-                        12px 20px 40px rgba(0,0,0,0.20)
-                      `,
-                      display: 'block',
-                    }} />
-                    {/* 光沢ハイライト */}
-                    <div style={{
-                      position: 'absolute', top: 0, left: 0, right: 0, height: '50%',
-                      borderRadius: '48px 48px 60% 60% / 48px 48px 40% 40%',
-                      background: 'linear-gradient(160deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0) 100%)',
-                      pointerEvents: 'none',
-                    }} />
+                  <div style={{ perspective: '900px', display: 'inline-block' }}>
+                    <div
+                      onMouseEnter={e => e.currentTarget.style.transform = 'rotateX(-22deg) rotateY(-28deg) translateY(-8px)'}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'rotateX(-18deg) rotateY(-22deg)'}
+                      style={{
+                        width: '220px', height: '220px',
+                        position: 'relative',
+                        transformStyle: 'preserve-3d',
+                        transform: 'rotateX(-18deg) rotateY(-22deg)',
+                        transition: 'transform 0.35s ease',
+                        filter: 'drop-shadow(6px 16px 18px rgba(0,0,0,0.22))',
+                      }}
+                    >
+                      {/* 前面: アイコン */}
+                      <div style={{ position: 'absolute', inset: 0, borderRadius: '48px', overflow: 'hidden' }}>
+                        <img src={app.icon} alt={app.name} style={{ width: '100%', height: '100%', display: 'block' }} />
+                        <div style={{
+                          position: 'absolute', inset: 0, pointerEvents: 'none',
+                          background: 'linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%)',
+                        }} />
+                      </div>
+                      {/* 上面 */}
+                      <div style={{
+                        position: 'absolute', width: '220px', height: '36px',
+                        top: 0, left: 0,
+                        background: app.accentLight || '#E0EAFF',
+                        borderRadius: '48px 48px 0 0',
+                        transformOrigin: 'center top',
+                        transform: 'rotateX(-90deg)',
+                      }} />
+                      {/* 右面 */}
+                      <div style={{
+                        position: 'absolute', width: '36px', height: '220px',
+                        top: 0, left: '220px',
+                        background: 'rgba(0,0,0,0.20)',
+                        borderRadius: '0 48px 48px 0',
+                        transformOrigin: 'left center',
+                        transform: 'rotateY(90deg)',
+                      }} />
+                    </div>
                   </div>
                 )}
               </div>
