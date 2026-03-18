@@ -159,7 +159,7 @@ function Services() {
   };
 
   return (
-    <section style={{ background: '#fff', padding: '64px 0 32px' }}>
+    <section id="apps" style={{ background: '#fff', padding: '64px 0 32px' }}>
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
@@ -264,7 +264,7 @@ function NewsSection() {
   };
 
   return (
-    <section style={{ background: '#fff', padding: '40px 0 80px' }}>
+    <section id="news" style={{ background: '#fff', padding: '40px 0 80px' }}>
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
