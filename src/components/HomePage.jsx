@@ -118,7 +118,7 @@ const APPS = [
     name: '豆マメ',
     category: '近日公開',
     icon: '/images/mamemame/icon.png',
-    lead: '古文単語を、豆知識と一緒に覚えよう。\n古文単語の暗記に特化したフラッシュカードアプリ。',
+    lead: '古文学習を、もっと楽しく。\n古文単語の暗記に特化したフラッシュカードアプリ。',
     description: '',
     photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 55%, #BFDBFE 100%)',
     accent: '#1D4ED8',
