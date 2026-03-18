@@ -190,12 +190,26 @@ function Services() {
                     <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
                   </div>
                 ) : (
-                  <img src={app.icon} alt={app.name} style={{
-                    width: '220px', height: '220px', borderRadius: '48px',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-                    border: '2px solid rgba(0,0,0,0.08)',
-                    display: 'block',
-                  }} />
+                  <div style={{ position: 'relative', width: '220px', height: '220px', display: 'inline-block' }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-6px) scale(1.03)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
+                    style={{
+                      position: 'relative', width: '220px', height: '220px', display: 'inline-block',
+                      transition: 'transform 0.3s ease',
+                    }}>
+                    <img src={app.icon} alt={app.name} style={{
+                      width: '220px', height: '220px', borderRadius: '48px',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.12), 0 24px 48px rgba(0,0,0,0.14)',
+                      display: 'block',
+                    }} />
+                    {/* 光沢ハイライト */}
+                    <div style={{
+                      position: 'absolute', top: 0, left: 0, right: 0, height: '50%',
+                      borderRadius: '48px 48px 60% 60% / 48px 48px 40% 40%',
+                      background: 'linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 100%)',
+                      pointerEvents: 'none',
+                    }} />
+                  </div>
                 )}
               </div>
 
