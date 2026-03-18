@@ -18,8 +18,7 @@ function HeroSection() {
     <section style={{
       position: 'relative', width: '100%', height: '75vh', overflow: 'hidden',
       background: '#ffffff',
-      borderRadius: '0 0 40px 40px',
-      boxShadow: '0 8px 40px rgba(0,0,0,0.10)',
+      boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
       display: 'flex', alignItems: 'center',
     }}>
       {/* 絵の具スプラッター（全体） */}
