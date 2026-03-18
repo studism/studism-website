@@ -245,15 +245,29 @@ const SERVICES = [
     category: '動画',
     categoryColor: '#DC2626',
     description: '教育・学習をテーマにしたYouTubeチャンネルを運営。役立つコンテンツを発信中。',
-    thumb: 'linear-gradient(135deg, rgba(185,28,28,0.85), rgba(239,68,68,0.75)), url(https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&fit=crop) center/cover no-repeat',
+    thumbBg: 'linear-gradient(160deg, #FF0000 0%, #CC0000 100%)',
+    icon: (
+      <svg viewBox="0 0 90 64" width="120" height="85">
+        <rect width="90" height="64" rx="14" fill="white"/>
+        <polygon points="36,14 36,50 64,32" fill="#FF0000"/>
+      </svg>
+    ),
     link: 'https://www.youtube.com/channel/UCkoYxm2fTNza2qrjrgrbFgw',
   },
   {
     title: 'TikTok',
     category: '動画',
-    categoryColor: '#000000',
+    categoryColor: '#010101',
     description: '短尺動画で学びのヒントや新機能をわかりやすくお届け。フォローして最新情報をチェック。',
-    thumb: 'linear-gradient(135deg, rgba(0,0,0,0.85), rgba(45,45,45,0.75)), url(https://images.unsplash.com/photo-1625535069654-cfeb8f829088?w=600&q=80&fit=crop) center/cover no-repeat',
+    thumbBg: '#010101',
+    icon: (
+      <svg viewBox="0 0 60 70" width="80" height="93">
+        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="white"/>
+        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="#69C9D0" transform="translate(-3,-3)"/>
+        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="#EE1D52" transform="translate(3,3)"/>
+        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="white"/>
+      </svg>
+    ),
     link: 'https://www.tiktok.com/@user9530011262997',
   },
 ];
@@ -281,9 +295,12 @@ function ServiceSection() {
           >
             <div style={{
               width: '100%', aspectRatio: '4/3',
-              background: s.thumb,
+              background: s.thumbBg || s.thumb,
               overflow: 'hidden', position: 'relative', marginBottom: '16px',
-            }} />
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              {s.icon}
+            </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', paddingRight: '16px' }}>
               <span style={{
                 fontSize: '0.72rem', fontWeight: 700, color: s.categoryColor,
