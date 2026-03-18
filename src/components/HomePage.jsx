@@ -185,7 +185,7 @@ function Services() {
           <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '260px', maxWidth: '260px', flexShrink: 0 }}>
             <article>
               {/* アイコン */}
-              <div style={{ marginBottom: '16px', paddingTop: '20px', overflow: 'visible' }}>
+              <div style={{ marginBottom: '16px', paddingTop: '20px', overflow: 'visible', display: 'flex', justifyContent: 'center' }}>
                 {app.comingSoon ? (
                   <div style={{
                     width: '220px', height: '220px', borderRadius: '48px',
@@ -214,7 +214,7 @@ function Services() {
                 )}
               </div>
               {/* アプリ名 */}
-              <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1rem', fontWeight: 800, letterSpacing: '0.01em' }}>
+              <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1.15rem', fontWeight: 800, letterSpacing: '0.01em', textAlign: 'center' }}>
                 {app.comingSoon ? 'Coming Soon' : app.name}
               </p>
               {/* リード文 */}
