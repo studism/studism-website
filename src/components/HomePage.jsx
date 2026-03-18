@@ -245,30 +245,50 @@ const SERVICES = [
     category: '動画',
     categoryColor: '#DC2626',
     description: '教育・学習をテーマにしたYouTubeチャンネルを運営。役立つコンテンツを発信中。',
-    thumbBg: 'linear-gradient(160deg, #FF0000 0%, #CC0000 100%)',
-    icon: (
-      <svg viewBox="0 0 90 64" width="120" height="85">
-        <rect width="90" height="64" rx="14" fill="white"/>
-        <polygon points="36,14 36,50 64,32" fill="#FF0000"/>
-      </svg>
-    ),
     link: 'https://www.youtube.com/channel/UCkoYxm2fTNza2qrjrgrbFgw',
+    renderThumb: () => (
+      <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(145deg, #FF0000 0%, #8B0000 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+        {/* 背景の幾何学模様 */}
+        <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '200px', height: '200px', borderRadius: '50%', border: '40px solid rgba(255,255,255,0.06)' }}/>
+        <div style={{ position: 'absolute', bottom: '-60px', left: '-30px', width: '220px', height: '220px', borderRadius: '50%', border: '40px solid rgba(255,255,255,0.04)' }}/>
+        {/* YouTubeロゴ */}
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{ background: 'white', borderRadius: '18px', width: '110px', height: '78px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 12px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1)' }}>
+            <svg width="52" height="36" viewBox="0 0 90 63"><polygon points="36,12 36,51 65,32" fill="#FF0000"/></svg>
+          </div>
+          <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.72rem', fontWeight: 700, textAlign: 'center', marginTop: '12px', letterSpacing: '0.1em' }}>YOUTUBE</p>
+        </div>
+      </div>
+    ),
   },
   {
     title: 'TikTok',
     category: '動画',
     categoryColor: '#010101',
     description: '短尺動画で学びのヒントや新機能をわかりやすくお届け。フォローして最新情報をチェック。',
-    thumbBg: '#010101',
-    icon: (
-      <svg viewBox="0 0 60 70" width="80" height="93">
-        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="white"/>
-        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="#69C9D0" transform="translate(-3,-3)"/>
-        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="#EE1D52" transform="translate(3,3)"/>
-        <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="white"/>
-      </svg>
-    ),
     link: 'https://www.tiktok.com/@user9530011262997',
+    renderThumb: () => (
+      <div style={{ width: '100%', height: '100%', position: 'relative', background: '#010101', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+        {/* ネオングロー */}
+        <div style={{ position: 'absolute', top: '10%', right: '10%', width: '160px', height: '160px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(105,201,208,0.18) 0%, transparent 70%)' }}/>
+        <div style={{ position: 'absolute', bottom: '5%', left: '5%', width: '140px', height: '140px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(238,29,82,0.18) 0%, transparent 70%)' }}/>
+        {/* TikTokロゴ（RGB分離エフェクト） */}
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+          <div style={{ position: 'relative', width: '60px', height: '68px' }}>
+            <svg viewBox="0 0 60 70" width="60" height="68" style={{ position: 'absolute', top: 0, left: 0, opacity: 0.7 }}>
+              <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="#69C9D0"/>
+            </svg>
+            <svg viewBox="0 0 60 70" width="60" height="68" style={{ position: 'absolute', top: '3px', left: '3px', opacity: 0.7 }}>
+              <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="#EE1D52"/>
+            </svg>
+            <svg viewBox="0 0 60 70" width="60" height="68" style={{ position: 'absolute', top: '1.5px', left: '1.5px' }}>
+              <path d="M42,0 C43,10 50,17 60,18 L60,30 C54,30 48,28 44,24 L44,46 C44,58 34,68 22,68 C10,68 0,58 0,46 C0,34 10,24 22,24 C24,24 26,24 28,25 L28,37 C26,36 24,36 22,36 C16,36 12,40 12,46 C12,52 16,56 22,56 C28,56 32,52 32,46 L32,0 Z" fill="white"/>
+            </svg>
+          </div>
+          <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.1em', margin: 0 }}>TIKTOK</p>
+        </div>
+      </div>
+    ),
   },
 ];
 
@@ -293,13 +313,8 @@ function ServiceSection() {
             onClick={() => s.link && window.open(s.link, '_blank')}
             style={{ minWidth: '340px', maxWidth: '340px', flexShrink: 0, cursor: s.link ? 'pointer' : 'default' }}
           >
-            <div style={{
-              width: '100%', aspectRatio: '4/3',
-              background: s.thumbBg || s.thumb,
-              overflow: 'hidden', position: 'relative', marginBottom: '16px',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              {s.icon}
+            <div style={{ width: '100%', aspectRatio: '4/3', overflow: 'hidden', position: 'relative', marginBottom: '16px' }}>
+              {s.renderThumb()}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', paddingRight: '16px' }}>
               <span style={{
