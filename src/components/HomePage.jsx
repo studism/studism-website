@@ -213,7 +213,7 @@ function Services() {
                       </div>
                       {/* 上面 */}
                       <div style={{
-                        position: 'absolute', width: '220px', height: '36px',
+                        position: 'absolute', width: '220px', height: '70px',
                         top: 0, left: 0,
                         background: app.accentLight || '#E0EAFF',
                         borderRadius: '48px 48px 0 0',
@@ -222,7 +222,7 @@ function Services() {
                       }} />
                       {/* 右面 */}
                       <div style={{
-                        position: 'absolute', width: '36px', height: '220px',
+                        position: 'absolute', width: '70px', height: '220px',
                         top: 0, left: '220px',
                         background: 'rgba(0,0,0,0.20)',
                         borderRadius: '0 48px 48px 0',
