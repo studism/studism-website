@@ -183,7 +183,7 @@ function Services() {
       }}>
         {APPS.map(app => (
           <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none', minWidth: '260px', maxWidth: '260px', flexShrink: 0 }}>
-            <article>
+            <article style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {/* アイコン */}
               <div style={{ marginBottom: '16px', paddingTop: '20px', overflow: 'visible', display: 'flex', justifyContent: 'center' }}>
                 {app.comingSoon ? (
