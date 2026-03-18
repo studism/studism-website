@@ -30,7 +30,7 @@ function NewsDropdown() {
         className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
         style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
-        News
+        ニュース
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
       </button>
 
@@ -73,7 +73,7 @@ function AppsDropdown() {
         className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold transition-all duration-200"
         style={{ color: open ? '#1D4ED8' : '#333', background: 'transparent' }}
       >
-        Apps
+        アプリ
         <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
       </button>
 
@@ -147,7 +147,7 @@ export default function Header() {
           <a href="/" style={{ padding: '8px 16px', fontSize: '0.82rem', fontWeight: 600, color: '#333', textDecoration: 'none', letterSpacing: '0.01em', transition: 'color 0.15s' }}
             onMouseEnter={e => e.target.style.color = '#1D4ED8'}
             onMouseLeave={e => e.target.style.color = '#333'}>
-            Home
+            ホーム
           </a>
           <NewsDropdown />
           <AppsDropdown />
@@ -161,7 +161,7 @@ export default function Header() {
             onMouseEnter={e => e.currentTarget.style.background = '#1E40AF'}
             onMouseLeave={e => e.currentTarget.style.background = '#1D4ED8'}
           >
-            Contact
+            お問い合わせ
           </Link>
         </nav>
       </div>
