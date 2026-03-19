@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 
 export default function MobileFooter() {
   return (
-    <footer style={{ background: '#0a0a0a' }}>
+    <footer style={{ background: '#fff' }}>
       <div style={{ padding: '40px 24px 28px' }}>
 
         {/* ロゴ＋タグライン横一列 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', flexShrink: 0 }}>
             <img src="/images/studism-logo.png" alt="Studism" style={{ height: '32px', width: 'auto' }} />
-            <span style={{ fontWeight: 900, fontSize: '1rem', color: '#fff', letterSpacing: '-0.01em' }}>Studism</span>
+            <span style={{ fontWeight: 900, fontSize: '1rem', color: '#111', letterSpacing: '-0.01em' }}>Studism</span>
           </Link>
-          <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)', margin: 0, lineHeight: 1.4 }}>
+          <p style={{ fontSize: '0.78rem', color: 'rgba(0,0,0,0.5)', margin: 0, lineHeight: 1.4 }}>
             学びを、もっと自由に、もっと楽しく。
           </p>
         </div>
@@ -26,18 +26,18 @@ export default function MobileFooter() {
             { title: 'Support', links: [{ to: '/privacy', l: 'Privacy Policy' }, { to: '/contact', l: 'Contact' }] },
           ].map((col, i) => (
             <div key={i}>
-              <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 12px' }}>{col.title}</h4>
+              <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: 'rgba(0,0,0,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 12px' }}>{col.title}</h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {col.links.map((lk, j) => (
                   <li key={j}>
                     {lk.external ? (
                       <a href={lk.to} target="_blank" rel="noopener noreferrer"
-                        style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}>
+                        style={{ fontSize: '0.875rem', color: 'rgba(0,0,0,0.75)', textDecoration: 'none', fontWeight: 500 }}>
                         {lk.l}
                       </a>
                     ) : (
                       <Link to={lk.to}
-                        style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}>
+                        style={{ fontSize: '0.875rem', color: 'rgba(0,0,0,0.75)', textDecoration: 'none', fontWeight: 500 }}>
                         {lk.l}
                       </Link>
                     )}
@@ -48,8 +48,8 @@ export default function MobileFooter() {
           ))}
         </div>
 
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '20px' }}>
-          <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', margin: 0 }}>© 2025 Studism Inc. All Rights Reserved.</p>
+        <div style={{ borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '20px' }}>
+          <p style={{ fontSize: '0.72rem', color: 'rgba(0,0,0,0.35)', margin: 0 }}>© 2025 Studism Inc. All Rights Reserved.</p>
         </div>
 
       </div>
