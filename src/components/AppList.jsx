@@ -65,7 +65,7 @@ function PCAppList() {
         <h1 style={{ fontSize: '2.6rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 48px', letterSpacing: '-0.02em' }}>
           アプリ一覧
         </h1>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '32px' }}>
           {APPS.map(app => (
             <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}
               onMouseEnter={e => e.currentTarget.querySelector('.card').style.transform = 'translateY(-4px)'}
