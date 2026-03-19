@@ -78,7 +78,7 @@ const appData = {
       '/images/sakuraenglish/ss02.webp',
     ],
     appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish01',
   },
   timelyze: {
     name: 'Timelyze',
@@ -100,7 +100,7 @@ const appData = {
       '/images/timelyze/ss02.webp',
     ],
     appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.timelyze',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.naoki2998.timelyze',
   },
   studism: {
     name: 'Studism',
