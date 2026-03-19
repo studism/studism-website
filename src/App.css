@@ -124,6 +124,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 60px; /* スティッキーヘッダーの高さ分のオフセット */
   overflow-x: hidden;
+  background: #0a0a0a;
 }
 
 body {
