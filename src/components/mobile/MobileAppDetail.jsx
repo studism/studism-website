@@ -116,7 +116,6 @@ export default function MobileAppDetail({ app, appSlug }) {
 
       {/* スクリーンショット横スクロール */}
       <section style={{ padding: '0 0 40px' }}>
-        <h2 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#0a0a0a', margin: '0 0 20px', padding: '0 24px', letterSpacing: '-0.02em' }}>スクリーンショット</h2>
         <div style={{
           display: 'flex', gap: '16px',
           overflowX: 'auto', overflowY: 'hidden',
