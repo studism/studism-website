@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import useIsMobile from '@/hooks/useIsMobile';
+import MobileAppDetail from '@/components/mobile/MobileAppDetail';
 
 const css = `
 @keyframes fadeUp {
@@ -170,6 +172,7 @@ const appData = {
 
 const AppDetail = () => {
   const { appSlug } = useParams();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -189,6 +192,8 @@ const AppDetail = () => {
   }
 
   const hasStoreLinks = app.appStoreUrl !== '#' || app.playStoreUrl !== '#';
+
+  if (isMobile) return <MobileAppDetail app={app} appSlug={appSlug} />;
 
   return (
     <div style={{ minHeight: '100vh', background: '#ffffff' }}>
