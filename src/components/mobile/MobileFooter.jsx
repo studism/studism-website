@@ -12,7 +12,7 @@ export default function MobileFooter() {
             <img src="/images/studism-logo.png" alt="Studism" style={{ height: '46px', width: 'auto' }} />
             <span style={{ fontWeight: 900, fontSize: '1.25rem', color: '#fff', letterSpacing: '-0.01em' }}>Studism</span>
           </Link>
-          <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)', margin: 0, lineHeight: 1.6 }}>
+          <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.6)', margin: 0, lineHeight: 1.6 }}>
             学びを、もっと自由に、もっと楽しく。
           </p>
         </div>
