@@ -6,8 +6,8 @@ export default function MobileFooter() {
     <footer style={{ background: '#0a0a0a', minHeight: '100%', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <div style={{ padding: '40px 24px 28px' }}>
 
-        {/* ロゴ＋タグライン 2列 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'center', marginBottom: '32px' }}>
+        {/* ロゴ＋タグライン縦積み */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
             <img src="/images/studism-logo.png" alt="Studism" style={{ height: '32px', width: 'auto' }} />
             <span style={{ fontWeight: 900, fontSize: '1rem', color: '#fff', letterSpacing: '-0.01em' }}>Studism</span>
