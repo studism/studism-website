@@ -26,7 +26,7 @@ export default function MobileFooter() {
             { title: 'Support', links: [{ to: '/privacy', l: 'Privacy Policy' }, { to: '/contact', l: 'Contact' }] },
           ].map((col, i) => (
             <div key={i}>
-              <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 12px' }}>{col.title}</h4>
+              <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 12px' }}>{col.title}</h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {col.links.map((lk, j) => (
                   <li key={j}>
