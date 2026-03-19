@@ -123,6 +123,12 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 60px; /* スティッキーヘッダーの高さ分のオフセット */
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 /* より詳細なスムーズスクロール設定 */
