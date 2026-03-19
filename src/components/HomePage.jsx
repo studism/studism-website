@@ -170,9 +170,11 @@ function Services() {
 
         {/* ヘッダー行 */}
         <div style={{ marginBottom: '32px' }}>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
-            アプリ一覧
-          </h2>
+          <Link to="/apps" style={{ textDecoration: 'none' }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
+              アプリ一覧 →
+            </h2>
+          </Link>
         </div>
       </div>
 
