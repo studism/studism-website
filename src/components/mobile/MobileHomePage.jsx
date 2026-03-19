@@ -186,9 +186,11 @@ export default function MobileHomePage() {
 
       {/* アプリ一覧セクション */}
       <section id="apps" style={{ background: 'transparent', padding: '40px 16px 24px' }}>
-        <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-          アプリ一覧
-        </h2>
+        <Link to="/apps" style={{ textDecoration: 'none' }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+            アプリ一覧 →
+          </h2>
+        </Link>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
           {APPS.map(app => (
             <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>

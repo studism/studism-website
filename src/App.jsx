@@ -7,6 +7,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import Contact from './components/Contact';
 import GeneralContact from './components/GeneralContact';
 import GeneralPrivacy from './components/GeneralPrivacy';
+import MobileAppList from './components/mobile/MobileAppList';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<GeneralContact />} />
           <Route path="/privacy" element={<GeneralPrivacy />} />
+          <Route path="/apps" element={<MobileAppList />} />
           <Route path="/app/:appSlug" element={<AppDetail />} />
           <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />
           <Route path="/app/:appSlug/contact" element={<Contact />} />
