@@ -27,7 +27,7 @@ export default function Footer() {
             { title: 'Support', links: [{ to: '/privacy', l: 'Privacy Policy' }, { to: '/contact', l: 'Contact' }] },
           ].map((col, i) => (
             <div key={i}>
-              <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 16px' }}>{col.title}</h4>
+              <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 16px' }}>{col.title}</h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {col.links.map((lk, j) => (
                   <li key={j}>
