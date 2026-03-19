@@ -91,6 +91,20 @@ export default function MobileAppList() {
               </div>
             </Link>
           ))}
+
+          {/* Coming Soon */}
+          <div>
+            <div style={{
+              width: '100%', aspectRatio: '1/1',
+              borderRadius: '24px',
+              background: 'linear-gradient(135deg, #e8edf5, #f4f6f9)',
+              border: '2px dashed #d0d7e3',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.12em' }}>COMING SOON</span>
+            </div>
+            <p style={{ fontSize: '0.9rem', fontWeight: 800, color: '#94A3B8', margin: '8px 0 4px' }}>近日公開</p>
+          </div>
         </div>
       </section>
 
