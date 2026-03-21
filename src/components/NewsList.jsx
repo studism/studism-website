@@ -89,7 +89,7 @@ function MobileNewsList({ news, loading }) {
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {news.map(item => <NewsCard key={item.id} item={item} showImage={false} />)}
+            {news.map(item => <NewsCard key={item.id} item={item} />)}
           </div>
         )}
       </section>
