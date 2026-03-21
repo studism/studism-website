@@ -166,7 +166,7 @@ const appData = {
       '/images/mamemame/mamemame2.png',
     ],
     appStoreUrl: 'https://apps.apple.com/jp/app/%E8%B1%86%E3%83%9E%E3%83%A1/id6757949629',
-    playStoreUrl: '#',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.naoki2998.mamemame',
   },
 };
 
