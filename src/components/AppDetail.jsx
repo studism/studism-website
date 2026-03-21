@@ -143,7 +143,7 @@ const appData = {
       '/images/loopin/Loopin1.png',
       '/images/loopin/Loopin2.png',
     ],
-    appStoreUrl: '#',
+    appStoreUrl: 'https://apps.apple.com/jp/app/loopin/id6758231908',
     playStoreUrl: '#',
   },
   mamemame: {
