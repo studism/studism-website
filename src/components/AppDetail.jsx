@@ -100,7 +100,7 @@ const appData = {
       '/images/timelyze/ss02.webp',
     ],
     appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.naoki2998.timelyze',
+    playStoreUrl: '#',
   },
   studism: {
     name: 'Studism',
