@@ -12,11 +12,11 @@ const TYPE_COLORS = {
   'リリース': { bg: '#FFF7ED', text: '#EA580C' },
 };
 
-function NewsCard({ item }) {
+function NewsCard({ item, showImage = true }) {
   const typeColor = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
   return (
     <div style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
-      {item.image && (
+      {showImage && item.image && (
         <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
       )}
       <div style={{ padding: '16px' }}>
@@ -89,7 +89,7 @@ function MobileNewsList({ news, loading }) {
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {news.map(item => <NewsCard key={item.id} item={item} />)}
+            {news.map(item => <NewsCard key={item.id} item={item} showImage={false} />)}
           </div>
         )}
       </section>

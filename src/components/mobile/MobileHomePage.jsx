@@ -291,9 +291,6 @@ export default function MobileHomePage() {
               const typeColor = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
               return (
                 <div key={item.id} style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
-                  {item.image && (
-                    <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
-                  )}
                   <div style={{ padding: '14px 16px' }}>
                     {item.type && (
                       <span style={{
