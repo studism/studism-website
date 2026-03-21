@@ -126,7 +126,7 @@ export default function MobileHomePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getNewsList(10).then(res => {
+    getNewsList(2).then(res => {
       setNews(res.contents);
       setLoadingNews(false);
     }).catch(() => setLoadingNews(false));
