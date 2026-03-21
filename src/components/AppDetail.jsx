@@ -165,7 +165,7 @@ const appData = {
       '/images/mamemame/mamemame1.png',
       '/images/mamemame/mamemame2.png',
     ],
-    appStoreUrl: '#',
+    appStoreUrl: 'https://apps.apple.com/jp/app/%E8%B1%86%E3%83%9E%E3%83%A1/id6757949629',
     playStoreUrl: '#',
   },
 };
