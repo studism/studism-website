@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import useIsMobile from '@/hooks/useIsMobile';
 import MobileHomePage from '@/components/mobile/MobileHomePage';
 import MobileFooter from '@/components/mobile/MobileFooter';
+import { getNewsList } from '@/lib/microcms';
 
 /* ════════════════════════════
    スライドデータ
@@ -337,39 +338,76 @@ function ServiceSection() {
    ニュース
 ════════════════════════════ */
 
-function NewsSection() {
-  const scrollRef = useRef(null);
+const TYPE_COLORS = {
+  'お知らせ': { bg: '#EFF6FF', text: '#2563EB' },
+  'アップデート': { bg: '#F0FDF4', text: '#16A34A' },
+  'リリース': { bg: '#FFF7ED', text: '#EA580C' },
+};
 
-  const scroll = (dir) => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: dir * 320, behavior: 'smooth' });
-  };
+function NewsSection() {
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getNewsList(10).then(res => {
+      setNews(res.contents);
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, []);
 
   return (
     <section id="news" style={{ background: 'transparent', padding: '40px 0 80px' }}>
-      {/* ヘッダー＋ボタン */}
-      <div style={{ padding: '0 40px 0 120px' }}>
-
-        {/* ヘッダー行 */}
-        <div style={{ marginBottom: '32px' }}>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
-            お知らせ
-          </h2>
-        </div>
+      <div style={{ padding: '0 40px 0 120px', marginBottom: '32px' }}>
+        <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
+          お知らせ
+        </h2>
       </div>
 
-      {/* Coming Soon */}
-      <div style={{ paddingLeft: '120px' }}>
-        <div style={{
-          width: '340px', aspectRatio: '4/3',
-          background: 'linear-gradient(135deg, #e8edf5, #f4f6f9)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px',
-          border: '2px dashed #d0d7e3', borderRadius: '4px',
-        }}>
-          <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.12em' }}>COMING SOON</span>
-          <span style={{ fontSize: '0.8rem', color: '#b0bac8', fontWeight: 500 }}>お知らせは準備中です</span>
+      {loading ? (
+        <div style={{ paddingLeft: '120px', color: '#94A3B8', fontSize: '0.9rem' }}>読み込み中...</div>
+      ) : news.length === 0 ? (
+        <div style={{ paddingLeft: '120px' }}>
+          <div style={{
+            width: '340px', aspectRatio: '4/3',
+            background: 'linear-gradient(135deg, #e8edf5, #f4f6f9)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px',
+            border: '2px dashed #d0d7e3', borderRadius: '4px',
+          }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.12em' }}>COMING SOON</span>
+            <span style={{ fontSize: '0.8rem', color: '#b0bac8', fontWeight: 500 }}>お知らせは準備中です</span>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{ paddingLeft: '120px', paddingRight: '40px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+          {news.map(item => {
+            const typeColor = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
+            return (
+              <div key={item.id} style={{
+                background: '#fff', borderRadius: '12px',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                overflow: 'hidden',
+              }}>
+                {item.image && (
+                  <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
+                )}
+                <div style={{ padding: '16px' }}>
+                  {item.type && (
+                    <span style={{
+                      fontSize: '0.72rem', fontWeight: 700,
+                      background: typeColor.bg, color: typeColor.text,
+                      padding: '2px 10px', borderRadius: '999px', display: 'inline-block', marginBottom: '8px',
+                    }}>{item.type}</span>
+                  )}
+                  <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.4 }}>{item.title}</p>
+                  <p style={{ fontSize: '0.75rem', color: '#94A3B8', margin: 0 }}>
+                    {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }
