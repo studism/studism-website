@@ -290,21 +290,23 @@ export default function MobileHomePage() {
             {news.map(item => {
               const typeColor = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
               return (
-                <div key={item.id} style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
-                  <div style={{ padding: '14px 16px' }}>
-                    {item.type && (
-                      <span style={{
-                        fontSize: '0.68rem', fontWeight: 700,
-                        background: typeColor.bg, color: typeColor.text,
-                        padding: '2px 8px', borderRadius: '999px', display: 'inline-block', marginBottom: '6px',
-                      }}>{item.type}</span>
-                    )}
-                    <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 4px', lineHeight: 1.4 }}>{item.title}</p>
-                    <p style={{ fontSize: '0.72rem', color: '#94A3B8', margin: 0 }}>
-                      {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
-                    </p>
+                <Link key={item.id} to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
+                  <div style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+                    <div style={{ padding: '14px 16px' }}>
+                      {item.type && (
+                        <span style={{
+                          fontSize: '0.68rem', fontWeight: 700,
+                          background: typeColor.bg, color: typeColor.text,
+                          padding: '2px 8px', borderRadius: '999px', display: 'inline-block', marginBottom: '6px',
+                        }}>{item.type}</span>
+                      )}
+                      <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 4px', lineHeight: 1.4 }}>{item.title}</p>
+                      <p style={{ fontSize: '0.72rem', color: '#94A3B8', margin: 0 }}>
+                        {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

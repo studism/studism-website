@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileHeader from '@/components/mobile/MobileHeader';
@@ -15,6 +16,7 @@ const TYPE_COLORS = {
 function NewsCard({ item, showImage = true }) {
   const typeColor = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
   return (
+    <Link to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
     <div style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
       {showImage && item.image && (
         <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
@@ -33,6 +35,7 @@ function NewsCard({ item, showImage = true }) {
         </p>
       </div>
     </div>
+    </Link>
   );
 }
 
