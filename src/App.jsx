@@ -8,6 +8,7 @@ import Contact from './components/Contact';
 import GeneralContact from './components/GeneralContact';
 import GeneralPrivacy from './components/GeneralPrivacy';
 import AppList from './components/AppList';
+import NewsList from './components/NewsList';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/contact" element={<GeneralContact />} />
           <Route path="/privacy" element={<GeneralPrivacy />} />
           <Route path="/apps" element={<AppList />} />
+          <Route path="/news" element={<NewsList />} />
           <Route path="/app/:appSlug" element={<AppDetail />} />
           <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />
           <Route path="/app/:appSlug/contact" element={<Contact />} />

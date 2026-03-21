@@ -358,9 +358,11 @@ function NewsSection() {
   return (
     <section id="news" style={{ background: 'transparent', padding: '40px 0 80px' }}>
       <div style={{ padding: '0 40px 0 120px', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
-          お知らせ
-        </h2>
+        <Link to="/news" style={{ textDecoration: 'none' }}>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#0f0f0f', margin: 0, letterSpacing: '-0.02em', lineHeight: 1 }}>
+            お知らせ →
+          </h2>
+        </Link>
       </div>
 
       {loading ? (

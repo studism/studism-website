@@ -268,9 +268,11 @@ export default function MobileHomePage() {
 
       {/* お知らせセクション */}
       <section id="news" style={{ background: 'transparent', padding: '24px 16px 60px' }}>
-        <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-          お知らせ
-        </h2>
+        <Link to="/news" style={{ textDecoration: 'none' }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+            お知らせ →
+          </h2>
+        </Link>
         {loadingNews ? (
           <p style={{ color: '#94A3B8', fontSize: '0.9rem' }}>読み込み中...</p>
         ) : news.length === 0 ? (
