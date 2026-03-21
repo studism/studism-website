@@ -121,7 +121,7 @@ const appData = {
       '/images/studism/Studism1.png',
       '/images/studism/Studism2.png',
     ],
-    appStoreUrl: '#',
+    appStoreUrl: 'https://apps.apple.com/jp/app/studism/id6754665143',
     playStoreUrl: '#',
   },
   loopin: {
