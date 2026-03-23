@@ -201,6 +201,11 @@ const AppDetail = () => {
       <style>{css}</style>
       <Header />
 
+      {/* パンくずリスト */}
+      <div style={{ padding: '16px 140px 0' }}>
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧', to: '/apps' }, { label: app.name }]} />
+      </div>
+
       {/* ── メインセクション ── */}
       <section style={{
         padding: '0 140px',
@@ -227,8 +232,6 @@ const AppDetail = () => {
             animation: 'blobPulse 10s ease-in-out infinite 2s',
           }} />
         </div>
-
-        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧', to: '/apps' }, { label: app.name }]} />
         <div key={appSlug} style={{ display: 'grid', gridTemplateColumns: '280px 1fr 700px', gap: '60px', alignItems: 'center', width: '100%', position: 'relative', zIndex: 1 }}>
 
           {/* 左：アイコン＋カテゴリ＋名前 */}
