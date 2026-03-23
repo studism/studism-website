@@ -123,7 +123,7 @@ const appData = {
       '/images/studism/Studism2.png',
     ],
     appStoreUrl: 'https://apps.apple.com/jp/app/studism/id6754665143',
-    playStoreUrl: '#',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.naoki2998.Studism',
   },
   loopin: {
     name: 'Loopin',
