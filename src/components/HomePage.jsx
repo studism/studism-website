@@ -384,28 +384,30 @@ function NewsSection() {
           {news.map(item => {
             const typeColor = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
             return (
-              <div key={item.id} style={{
-                background: '#fff', borderRadius: '12px',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                overflow: 'hidden',
-              }}>
-                {item.image && (
-                  <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
-                )}
-                <div style={{ padding: '16px' }}>
-                  {item.type && (
-                    <span style={{
-                      fontSize: '0.72rem', fontWeight: 700,
-                      background: typeColor.bg, color: typeColor.text,
-                      padding: '2px 10px', borderRadius: '999px', display: 'inline-block', marginBottom: '8px',
-                    }}>{item.type}</span>
+              <Link key={item.id} to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
+                <div style={{
+                  background: '#fff', borderRadius: '12px',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                  overflow: 'hidden',
+                }}>
+                  {item.image && (
+                    <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
                   )}
-                  <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.4 }}>{item.title}</p>
-                  <p style={{ fontSize: '0.75rem', color: '#94A3B8', margin: 0 }}>
-                    {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
-                  </p>
+                  <div style={{ padding: '16px' }}>
+                    {item.type && (
+                      <span style={{
+                        fontSize: '0.72rem', fontWeight: 700,
+                        background: typeColor.bg, color: typeColor.text,
+                        padding: '2px 10px', borderRadius: '999px', display: 'inline-block', marginBottom: '8px',
+                      }}>{item.type}</span>
+                    )}
+                    <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.4 }}>{item.title}</p>
+                    <p style={{ fontSize: '0.75rem', color: '#94A3B8', margin: 0 }}>
+                      {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
