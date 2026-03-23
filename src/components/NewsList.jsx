@@ -39,11 +39,20 @@ function NewsCard({ item, showImage = true }) {
   );
 }
 
+const breadcrumbStyle = { fontSize: '0.8rem', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '24px' };
+const breadcrumbLink = { color: '#2563EB', textDecoration: 'none' };
+const breadcrumbSep = { color: '#CBD5E1' };
+
 function PCNewsList({ news, loading }) {
   return (
     <div style={{ minHeight: '100vh', background: '#f0f4f8' }}>
       <Header />
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 40px 80px' }}>
+        <div style={breadcrumbStyle}>
+          <Link to="/" style={breadcrumbLink}>ホーム</Link>
+          <span style={breadcrumbSep}>/</span>
+          <span>お知らせ</span>
+        </div>
         <h1 style={{ fontSize: '2.6rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 48px', letterSpacing: '-0.02em' }}>
           お知らせ
         </h1>
@@ -75,6 +84,11 @@ function MobileNewsList({ news, loading }) {
     <div style={{ minHeight: '100vh', background: '#f0f4f8' }}>
       <MobileHeader />
       <section style={{ padding: '32px 16px 48px' }}>
+        <div style={breadcrumbStyle}>
+          <Link to="/" style={breadcrumbLink}>ホーム</Link>
+          <span style={breadcrumbSep}>/</span>
+          <span>お知らせ</span>
+        </div>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
           お知らせ
         </h1>
