@@ -6,6 +6,7 @@ import MobileHeader from '@/components/mobile/MobileHeader';
 import MobileFooter from '@/components/mobile/MobileFooter';
 import useIsMobile from '@/hooks/useIsMobile';
 import { client } from '@/lib/microcms';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const TYPE_COLORS = {
   'お知らせ': { bg: '#EFF6FF', text: '#2563EB' },
@@ -60,13 +61,7 @@ export default function NewsDetail() {
     <div style={{ minHeight: '100vh', background: '#f0f4f8' }}>
       <MobileHeader />
       <div style={{ padding: '32px 16px 48px' }}>
-        <div style={{ fontSize: '0.8rem', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '24px' }}>
-          <Link to="/" style={{ color: '#2563EB', textDecoration: 'none' }}>ホーム</Link>
-          <span style={{ color: '#CBD5E1' }}>/</span>
-          <Link to="/news" style={{ color: '#2563EB', textDecoration: 'none' }}>お知らせ</Link>
-          <span style={{ color: '#CBD5E1' }}>/</span>
-          <span>記事</span>
-        </div>
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'お知らせ', to: '/news' }, { label: '記事' }]} />
         {loading ? <p style={{ color: '#94A3B8' }}>読み込み中...</p>
           : item ? <NewsContent item={item} />
           : <p style={{ color: '#94A3B8' }}>記事が見つかりません</p>}
@@ -79,13 +74,7 @@ export default function NewsDetail() {
     <div style={{ minHeight: '100vh', background: '#f0f4f8' }}>
       <Header />
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 40px 80px' }}>
-        <div style={{ fontSize: '0.8rem', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '32px' }}>
-          <Link to="/" style={{ color: '#2563EB', textDecoration: 'none' }}>ホーム</Link>
-          <span style={{ color: '#CBD5E1' }}>/</span>
-          <Link to="/news" style={{ color: '#2563EB', textDecoration: 'none' }}>お知らせ</Link>
-          <span style={{ color: '#CBD5E1' }}>/</span>
-          <span>記事</span>
-        </div>
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'お知らせ', to: '/news' }, { label: '記事' }]} />
         {loading ? <p style={{ color: '#94A3B8' }}>読み込み中...</p>
           : item ? <NewsContent item={item} />
           : <p style={{ color: '#94A3B8' }}>記事が見つかりません</p>}

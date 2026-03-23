@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import useIsMobile from '@/hooks/useIsMobile';
 import MobileAppDetail from '@/components/mobile/MobileAppDetail';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const css = `
 @keyframes fadeUp {
@@ -227,6 +228,7 @@ const AppDetail = () => {
           }} />
         </div>
 
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧', to: '/apps' }, { label: app.name }]} />
         <div key={appSlug} style={{ display: 'grid', gridTemplateColumns: '280px 1fr 700px', gap: '60px', alignItems: 'center', width: '100%', position: 'relative', zIndex: 1 }}>
 
           {/* 左：アイコン＋カテゴリ＋名前 */}

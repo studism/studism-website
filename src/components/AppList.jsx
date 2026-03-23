@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import useIsMobile from '@/hooks/useIsMobile';
 import MobileAppList from '@/components/mobile/MobileAppList';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const APPS = [
   {
@@ -62,6 +63,7 @@ function PCAppList() {
     <div style={{ minHeight: '100vh', background: '#f0f4f8' }}>
       <Header />
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 40px 80px' }}>
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧' }]} />
         <h1 style={{ fontSize: '2.6rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 48px', letterSpacing: '-0.02em' }}>
           アプリ一覧
         </h1>

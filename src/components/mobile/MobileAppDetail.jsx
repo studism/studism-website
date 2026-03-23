@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import MobileHeader from '@/components/mobile/MobileHeader';
 import MobileFooter from '@/components/mobile/MobileFooter';
+import Breadcrumb from '@/components/Breadcrumb';
 
 function AppleIcon() {
   return (
@@ -33,6 +34,8 @@ export default function MobileAppDetail({ app, appSlug }) {
           background: `radial-gradient(circle, ${app.color}20 0%, transparent 70%)`,
           pointerEvents: 'none',
         }} />
+
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧', to: '/apps' }, { label: app.name }]} />
 
         {/* アイコン＋アプリ名 */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>

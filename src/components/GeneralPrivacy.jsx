@@ -3,6 +3,7 @@ import { ArrowLeft, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const GeneralPrivacy = () => {
   // ページ読み込み時にトップにスクロール
@@ -27,6 +28,7 @@ const GeneralPrivacy = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
+          <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'プライバシーポリシー' }]} />
           {/* Page Header */}
           <div className="text-center space-y-6 mb-12">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">

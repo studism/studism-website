@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MobileHeader from '@/components/mobile/MobileHeader';
 import MobileFooter from '@/components/mobile/MobileFooter';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const APPS = [
   {
@@ -61,6 +62,7 @@ export default function MobileAppList() {
       <MobileHeader />
 
       <section style={{ padding: '32px 16px 48px' }}>
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧' }]} />
         <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
           アプリ一覧
         </h1>

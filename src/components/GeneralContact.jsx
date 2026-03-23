@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const GeneralContact = () => {
   // ページ読み込み時にトップにスクロール
@@ -85,6 +86,7 @@ const GeneralContact = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
+          <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'お問い合わせ' }]} />
           {/* Page Header */}
           <div className="text-center space-y-6 mb-12">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
