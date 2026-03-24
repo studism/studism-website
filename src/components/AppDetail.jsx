@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import useIsMobile from '@/hooks/useIsMobile';
+import useIconColor from '@/hooks/useIconColor';
 import MobileAppDetail from '@/components/mobile/MobileAppDetail';
 import Breadcrumb from '@/components/Breadcrumb';
 
@@ -193,6 +194,8 @@ const AppDetail = () => {
   }
 
   const hasStoreLinks = app.appStoreUrl !== '#' || app.playStoreUrl !== '#';
+  const iconColor = useIconColor(app.icon);
+  const headerColor = iconColor || app.color;
 
   if (isMobile) return <MobileAppDetail app={app} appSlug={appSlug} />;
 
@@ -329,15 +332,15 @@ const AppDetail = () => {
             <div style={{
               background: '#fff',
               borderRadius: '20px',
-              border: `2px solid ${app.color}30`,
-              boxShadow: `0 8px 32px ${app.color}18`,
+              border: `2px solid ${headerColor}30`,
+              boxShadow: `0 8px 32px ${headerColor}18`,
               overflow: 'hidden',
             }}>
               <div style={{
                 padding: '18px 28px',
-                background: app.color,
+                background: headerColor,
               }}>
-                <h2 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', margin: 0, letterSpacing: '0.04em' }}>
+                <h2 style={{ fontSize: '1.15rem', fontWeight: 900, color: '#fff', margin: 0, letterSpacing: '0.04em' }}>
                   主な機能
                 </h2>
               </div>
@@ -346,20 +349,20 @@ const AppDetail = () => {
                   <li key={i} style={{
                     display: 'flex', alignItems: 'center', gap: '16px',
                     padding: '14px 0',
-                    borderBottom: i < app.features.length - 1 ? `1px solid ${app.color}15` : 'none',
+                    borderBottom: i < app.features.length - 1 ? `1px solid ${headerColor}20` : 'none',
                     animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both`,
                     willChange: 'transform, opacity',
                   }}>
                     <span style={{
-                      fontSize: '0.72rem', fontWeight: 900, color: '#fff',
-                      background: app.color,
-                      width: '22px', height: '22px', borderRadius: '6px',
+                      fontSize: '0.78rem', fontWeight: 900, color: '#fff',
+                      background: headerColor,
+                      width: '24px', height: '24px', borderRadius: '7px',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      flexShrink: 0, opacity: 0.75,
+                      flexShrink: 0, opacity: 0.8,
                     }}>
                       {i + 1}
                     </span>
-                    <span style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a', flex: 1, whiteSpace: 'nowrap' }}>{f.text}</span>
+                    <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1a1a1a', flex: 1, whiteSpace: 'nowrap' }}>{f.text}</span>
                   </li>
                 ))}
               </ul>
