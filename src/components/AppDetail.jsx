@@ -329,36 +329,37 @@ const AppDetail = () => {
             <div style={{
               background: '#fff',
               borderRadius: '20px',
-              border: '1.5px solid #e8edf5',
-              boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+              border: `2px solid ${app.color}30`,
+              boxShadow: `0 8px 32px ${app.color}18`,
               overflow: 'hidden',
             }}>
               <div style={{
-                padding: '20px 28px 16px',
-                borderBottom: '1.5px solid #f0f2f5',
-                background: `linear-gradient(135deg, ${app.color}08 0%, transparent 100%)`,
+                padding: '18px 28px',
+                background: app.color,
               }}>
-                <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.01em' }}>
+                <h2 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', margin: 0, letterSpacing: '0.04em' }}>
                   主な機能
                 </h2>
               </div>
-              <ul style={{ listStyle: 'none', padding: '0 28px', margin: 0, display: 'flex', flexDirection: 'column', gap: '0' }}>
+              <ul style={{ listStyle: 'none', padding: '0 24px', margin: 0, display: 'flex', flexDirection: 'column', gap: '0' }}>
                 {app.features.map((f, i) => (
                   <li key={i} style={{
-                    display: 'flex', alignItems: 'center', gap: '20px',
-                    padding: '16px 0',
-                    borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
+                    display: 'flex', alignItems: 'center', gap: '16px',
+                    padding: '14px 0',
+                    borderBottom: i < app.features.length - 1 ? `1px solid ${app.color}15` : 'none',
                     animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both`,
                     willChange: 'transform, opacity',
                   }}>
                     <span style={{
-                      fontSize: '0.85rem', fontWeight: 900, color: app.color,
-                      letterSpacing: '0.04em', minWidth: '32px',
-                      opacity: 0.7,
+                      fontSize: '0.72rem', fontWeight: 900, color: '#fff',
+                      background: app.color,
+                      width: '22px', height: '22px', borderRadius: '6px',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      flexShrink: 0, opacity: 0.75,
                     }}>
-                      {String(i + 1).padStart(2, '0')}
+                      {i + 1}
                     </span>
-                    <span style={{ fontSize: '1.05rem', fontWeight: 700, color: '#1a1a1a', flex: 1, whiteSpace: 'nowrap' }}>{f.text}</span>
+                    <span style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a', flex: 1, whiteSpace: 'nowrap' }}>{f.text}</span>
                   </li>
                 ))}
               </ul>
