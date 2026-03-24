@@ -326,32 +326,43 @@ const AppDetail = () => {
             animation: 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both',
             willChange: 'transform, opacity',
           }}>
-            <div style={{ marginBottom: '32px' }}>
-              <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.02em' }}>
-                主な機能
-              </h2>
-            </div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0' }}>
-              {app.features.map((f, i) => (
-                <li key={i} style={{
-                  display: 'flex', alignItems: 'center', gap: '20px',
-                  padding: '18px 0',
-                  borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
-                  animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both`,
-                  willChange: 'transform, opacity',
-                }}>
-                  <span style={{
-                    fontSize: '1.1rem', fontWeight: 900, color: app.color,
-                    letterSpacing: '0.04em', minWidth: '40px',
-                    opacity: 0.6,
+            <div style={{
+              background: '#fff',
+              borderRadius: '20px',
+              border: '1.5px solid #e8edf5',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+              overflow: 'hidden',
+            }}>
+              <div style={{
+                padding: '20px 28px 16px',
+                borderBottom: '1.5px solid #f0f2f5',
+                background: `linear-gradient(135deg, ${app.color}08 0%, transparent 100%)`,
+              }}>
+                <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.01em' }}>
+                  主な機能
+                </h2>
+              </div>
+              <ul style={{ listStyle: 'none', padding: '0 28px', margin: 0, display: 'flex', flexDirection: 'column', gap: '0' }}>
+                {app.features.map((f, i) => (
+                  <li key={i} style={{
+                    display: 'flex', alignItems: 'center', gap: '20px',
+                    padding: '16px 0',
+                    borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
+                    animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both`,
+                    willChange: 'transform, opacity',
                   }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span style={{ fontSize: '1.35rem', fontWeight: 700, color: '#1a1a1a', flex: 1, whiteSpace: 'nowrap' }}>{f.text}</span>
-                </li>
-              ))}
-            </ul>
-
+                    <span style={{
+                      fontSize: '0.85rem', fontWeight: 900, color: app.color,
+                      letterSpacing: '0.04em', minWidth: '32px',
+                      opacity: 0.7,
+                    }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span style={{ fontSize: '1.05rem', fontWeight: 700, color: '#1a1a1a', flex: 1 }}>{f.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* 右：スマホ画面 */}
