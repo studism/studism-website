@@ -100,34 +100,29 @@ export default function MobileAppDetail({ app, appSlug }) {
 
       {/* 機能リスト */}
       <section style={{ padding: '36px 20px' }}>
-        <div style={{
-          background: '#fff',
-          borderRadius: '16px',
-          border: '1.5px solid #e8edf5',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-          overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '16px 20px 14px',
-            borderBottom: '1.5px solid #f0f2f5',
-            background: `linear-gradient(135deg, ${app.color}08 0%, transparent 100%)`,
-          }}>
-            <h2 style={{ fontSize: '1rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.01em' }}>主な機能</h2>
-          </div>
-          <ul style={{ listStyle: 'none', padding: '0 20px', margin: 0 }}>
-            {app.features.map((f, i) => (
-              <li key={i} style={{
-                display: 'flex', alignItems: 'center', gap: '14px',
-                padding: '14px 0',
-                borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
+        <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0a0a0a', margin: '0 0 16px', letterSpacing: '-0.02em' }}>主な機能</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {app.features.map((f, i) => (
+            <div key={i} style={{
+              display: 'flex', alignItems: 'center', gap: '14px',
+              padding: '14px 16px',
+              background: '#fff',
+              borderRadius: '12px',
+              border: '1px solid #f0f2f5',
+            }}>
+              <span style={{
+                fontSize: '0.75rem', fontWeight: 900, color: '#fff',
+                background: app.color,
+                minWidth: '26px', height: '26px',
+                borderRadius: '8px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0,
               }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: 900, color: app.color, opacity: 0.7, minWidth: '28px' }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a' }}>{f.text}</span>
-              </li>
-            ))}
-          </ul>
+                {i + 1}
+              </span>
+              <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a' }}>{f.text}</span>
+            </div>
+          ))}
         </div>
       </section>
 
