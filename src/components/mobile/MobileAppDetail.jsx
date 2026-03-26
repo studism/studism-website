@@ -134,7 +134,7 @@ export default function MobileAppDetail({ app, appSlug }) {
           {app.screenshots.map((src, i) => (
             <div key={i} style={{
               flexShrink: 0,
-              marginLeft: i === 0 ? '20px' : 0,
+              marginLeft: i === 0 ? '16px' : 0,
               width: '200px',
               borderRadius: '24px', overflow: 'hidden',
               boxShadow: '0 16px 48px rgba(0,0,0,0.18)',
