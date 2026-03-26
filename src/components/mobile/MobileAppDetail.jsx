@@ -127,6 +127,7 @@ export default function MobileAppDetail({ app, appSlug }) {
           overflowX: 'auto', overflowY: 'hidden',
           padding: '8px 0 16px',
           scrollSnapType: 'x mandatory',
+          scrollPaddingLeft: '16px',
           WebkitOverflowScrolling: 'touch',
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
