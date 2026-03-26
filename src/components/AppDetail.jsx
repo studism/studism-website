@@ -357,7 +357,7 @@ const AppDetail = () => {
 
           {/* 右：スマホ画面 */}
           <div style={{
-            display: 'flex', flexDirection: 'row', gap: '0px', alignItems: 'center', justifyContent: 'center',
+            display: 'flex', flexDirection: 'row', gap: '0px', alignItems: 'center', justifyContent: 'flex-start',
             position: 'relative',
             animation: 'slideInRight 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both',
             willChange: 'transform, opacity',
