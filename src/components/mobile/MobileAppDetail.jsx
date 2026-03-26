@@ -125,7 +125,7 @@ export default function MobileAppDetail({ app, appSlug }) {
         <div style={{
           display: 'flex', gap: '16px',
           overflowX: 'auto', overflowY: 'hidden',
-          padding: '8px 24px 16px',
+          padding: '8px 0 16px 20px',
           scrollSnapType: 'x mandatory',
           WebkitOverflowScrolling: 'touch',
           msOverflowStyle: 'none',
