@@ -101,29 +101,23 @@ export default function MobileAppDetail({ app, appSlug }) {
       {/* 機能リスト */}
       <section style={{ padding: '36px 20px' }}>
         <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0a0a0a', margin: '0 0 16px', letterSpacing: '-0.02em' }}>主な機能</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {app.features.map((f, i) => (
-            <div key={i} style={{
-              display: 'flex', alignItems: 'center', gap: '14px',
-              padding: '10px 16px',
-              background: '#fff',
-              borderRadius: '12px',
-              border: '1px solid #f0f2f5',
+            <li key={i} style={{
+              display: 'flex', alignItems: 'center', gap: '16px',
+              padding: '10px 0',
+              borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
             }}>
               <span style={{
-                fontSize: '0.75rem', fontWeight: 900, color: '#fff',
-                background: app.color,
-                minWidth: '26px', height: '26px',
-                borderRadius: '8px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0,
+                fontSize: '0.9rem', fontWeight: 900, color: app.color,
+                letterSpacing: '0.04em', minWidth: '32px', opacity: 0.7,
               }}>
-                {i + 1}
+                {String(i + 1).padStart(2, '0')}
               </span>
-              <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1a1a1a' }}>{f.text}</span>
-            </div>
+              <span style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a' }}>{f.text}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       {/* スクリーンショット横スクロール */}
