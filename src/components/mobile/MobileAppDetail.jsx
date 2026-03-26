@@ -125,7 +125,7 @@ export default function MobileAppDetail({ app, appSlug }) {
         <div style={{
           display: 'flex', gap: '16px',
           overflowX: 'auto', overflowY: 'hidden',
-          padding: '8px 0 16px 20px',
+          padding: '8px 0 16px',
           scrollSnapType: 'x mandatory',
           WebkitOverflowScrolling: 'touch',
           msOverflowStyle: 'none',
@@ -134,6 +134,7 @@ export default function MobileAppDetail({ app, appSlug }) {
           {app.screenshots.map((src, i) => (
             <div key={i} style={{
               flexShrink: 0,
+              marginLeft: i === 0 ? '20px' : 0,
               width: '200px',
               borderRadius: '24px', overflow: 'hidden',
               boxShadow: '0 16px 48px rgba(0,0,0,0.18)',
