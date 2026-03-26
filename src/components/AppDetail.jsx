@@ -337,7 +337,7 @@ const AppDetail = () => {
                 {app.features.map((f, i) => (
                   <li key={i} style={{
                     display: 'flex', alignItems: 'center', gap: '20px',
-                    padding: '16px 0',
+                    padding: '10px 0',
                     borderBottom: i < app.features.length - 1 ? '1px solid #f0f2f5' : 'none',
                     animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.07}s both`,
                     willChange: 'transform, opacity',
