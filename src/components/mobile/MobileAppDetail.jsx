@@ -101,11 +101,11 @@ export default function MobileAppDetail({ app, appSlug }) {
       {/* 機能リスト */}
       <section style={{ padding: '36px 20px' }}>
         <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0a0a0a', margin: '0 0 16px', letterSpacing: '-0.02em' }}>主な機能</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {app.features.map((f, i) => (
             <div key={i} style={{
               display: 'flex', alignItems: 'center', gap: '14px',
-              padding: '14px 16px',
+              padding: '10px 16px',
               background: '#fff',
               borderRadius: '12px',
               border: '1px solid #f0f2f5',
