@@ -330,9 +330,12 @@ const AppDetail = () => {
             willChange: 'transform, opacity',
           }}>
             <div>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#0a0a0a', margin: '0 0 20px', letterSpacing: '-0.02em' }}>
-                主な機能
-              </h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '0 0 20px' }}>
+                <div style={{ width: '4px', height: '28px', borderRadius: '2px', background: headerColor, flexShrink: 0 }} />
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0a0a0a', margin: 0, letterSpacing: '-0.02em' }}>
+                  主な機能
+                </h2>
+              </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 {app.features.map((f, i) => (
                   <li key={i} style={{
