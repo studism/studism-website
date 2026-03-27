@@ -7,16 +7,15 @@ export default function useIconColor(iconUrl) {
   useEffect(() => {
     if (!iconUrl) return;
     const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = iconUrl;
     img.onload = () => {
       try {
         const [r, g, b] = getColorSync(img);
         setColor(`rgb(${r},${g},${b})`);
-      } catch {
-        // fallback: caller uses app.color
+      } catch (e) {
+        console.warn('useIconColor: failed to extract color', e);
       }
     };
+    img.src = iconUrl;
   }, [iconUrl]);
 
   return color;
