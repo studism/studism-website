@@ -11,46 +11,47 @@ const navLinkStyle = {
 
 export default function Header() {
   const isMobile = useIsMobile();
-  const [hidden, setHidden] = useState(false);
-  const lastY = useRef(0);
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    const fn = () => {
-      const y = window.scrollY;
-      setHidden(y > lastY.current && y > 80);
-      lastY.current = y;
-    };
-    window.addEventListener('scroll', fn, { passive: true });
-    return () => window.removeEventListener('scroll', fn);
-  }, []);
+  const isHome = location.pathname === '/';
 
   const scrollToSection = (id) => {
+    const go = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    };
     if (location.pathname !== '/') {
       navigate('/');
-      setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      setTimeout(go, 100);
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      go();
     }
   };
 
   if (isMobile) return <MobileHeader />;
 
   return (
-    <header className="sticky top-0 z-50"
+    <header
       style={{
-        background: 'rgba(248,250,252,0.90)',
+        position: isHome ? 'relative' : 'sticky', top: 0, zIndex: 50,
+        background: 'transparent',
+        padding: '10px 16px',
+        transform: isHome ? 'translateY(var(--header-shift, 0px))' : 'none',
+        willChange: isHome ? 'transform' : 'auto',
+      }}>
+      <div style={{
+        maxWidth: '1280px', margin: '0 auto',
+        background: '#ffffff',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(0,0,0,0.06)',
-        boxShadow: '0 1px 20px rgba(0,0,0,0.06)',
-        transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
-        transition: 'transform 0.3s ease',
+        border: '1px solid rgba(0,0,0,0.06)',
+        boxShadow: '0 6px 24px rgba(0,0,0,0.10)',
+        borderRadius: '18px',
+        padding: '0 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '56px',
       }}>
-      <div style={{ width: '100%', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <img src="/images/studism/icon.png" alt="Studism icon" style={{ height: '34px', width: 'auto', borderRadius: '8px' }} />
@@ -67,13 +68,13 @@ export default function Header() {
             onClick={() => scrollToSection('apps')}
             onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
             onMouseLeave={e => e.currentTarget.style.color = '#333'}>
-            アプリ一覧
+            アプリケーション
           </button>
           <button style={navLinkStyle}
             onClick={() => scrollToSection('services')}
             onMouseEnter={e => e.currentTarget.style.color = '#1D4ED8'}
             onMouseLeave={e => e.currentTarget.style.color = '#333'}>
-            サービス一覧
+            サービス
           </button>
           <button style={navLinkStyle}
             onClick={() => scrollToSection('news')}

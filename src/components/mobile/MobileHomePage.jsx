@@ -1,12 +1,209 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getNewsList } from '@/lib/microcms';
+import { NEWS_POSTERS } from '@/data/newsPosters';
+import NoticeModal from '@/components/NoticeModal';
 
 const TYPE_COLORS = {
   'お知らせ': { bg: '#EFF6FF', text: '#2563EB' },
   'アップデート': { bg: '#F0FDF4', text: '#16A34A' },
   'リリース': { bg: '#FFF7ED', text: '#EA580C' },
+  '配信中': { bg: '#F0FDF4', text: '#16A34A' },
+  '大幅アップデート': { bg: '#F5F3FF', text: '#7C3AED' },
 };
+
+function MobileNewsCarousel() {
+  const [news, setNews] = useState([]);
+  const [idx, setIdx] = useState(1);
+  const [animated, setAnimated] = useState(true);
+  const [paused, setPaused] = useState(false);       // スワイプ中の一時停止
+  const [userPaused, setUserPaused] = useState(false); // 一時停止ボタンによる手動停止
+  const containerRef = useRef(null);
+  const [cw, setCw] = useState(0);
+  const touchStartX = useRef(0);
+  const [openItem, setOpenItem] = useState(null); // 詳細モーダルで開いているお知らせ
+
+  useEffect(() => {
+    getNewsList(10).then(res => setNews(res.contents)).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const update = () => { if (containerRef.current) setCw(containerRef.current.offsetWidth); };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  const allItems = [
+    ...NEWS_POSTERS.map(p => ({ ...p, _kind: 'poster' })),
+    ...news.map(n => ({ ...n, _kind: 'news' })),
+  ];
+  const total = allItems.length;
+  const extended = total > 0 ? [allItems[total - 1], ...allItems, allItems[0]] : [];
+
+  const GAP = 24;
+  const slideW = cw > 0 ? Math.round(cw * 0.75) - GAP : 0;
+  const step   = slideW + GAP;
+  const tx     = cw > 0 ? (cw - slideW) / 2 - idx * step : 0;
+
+  const handleTransitionEnd = () => {
+    if (idx === total + 1) { setAnimated(false); setIdx(1); }
+    else if (idx === 0)    { setAnimated(false); setIdx(total); }
+  };
+  useEffect(() => {
+    if (!animated) requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+  }, [animated]);
+
+  useEffect(() => {
+    if (paused || userPaused || total === 0 || cw === 0) return;
+    const id = setInterval(() => setIdx(i => i + 1), 4000);
+    return () => clearInterval(id);
+  }, [paused, userPaused, total, cw]);
+
+  const realIdx = total > 0 ? ((idx - 1) % total + total) % total : 0;
+
+  if (total === 0) return null;
+
+  return (
+    <section id="news" style={{ background: '#F5F5F7', padding: '24px 0 48px' }}>
+      <button
+        onClick={() => {
+          const el = document.getElementById('news');
+          if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+        }}
+        style={{ background: 'none', border: 'none', padding: '0 16px', cursor: 'pointer', textAlign: 'left', display: 'block', marginBottom: '20px' }}
+      >
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: 0, letterSpacing: '-0.02em' }}>
+          お知らせ
+        </h2>
+      </button>
+
+      <div
+        ref={containerRef}
+        style={{ overflow: 'hidden', padding: '0 0 24px' }}
+        onTouchStart={e => { touchStartX.current = e.touches[0].clientX; setPaused(true); }}
+        onTouchEnd={e => {
+          const diff = touchStartX.current - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 40) setIdx(i => i + (diff > 0 ? 1 : -1));
+          setPaused(false);
+        }}
+      >
+        {cw > 0 && (
+          <div
+            style={{
+              display: 'flex',
+              transform: `translateX(${tx}px)`,
+              transition: animated ? 'transform 0.5s cubic-bezier(0.4,0,0.2,1)' : 'none',
+              willChange: 'transform',
+            }}
+            onTransitionEnd={handleTransitionEnd}
+          >
+            {extended.map((item, i) => {
+              const isPoster = item._kind === 'poster';
+              const c = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
+              return (
+                <div key={i} style={{ width: slideW, minWidth: slideW, flexShrink: 0, marginRight: GAP, display: 'flex' }}>
+                  <div style={{ position: 'relative', flex: 1, display: 'flex' }}>
+                    {/* 右下にずらした四角いシャドウ */}
+                    <div aria-hidden="true" style={{ position: 'absolute', top: '12px', left: '12px', right: '-12px', bottom: '-16px', borderRadius: '16px', background: 'rgba(17, 29, 59, 0.14)', zIndex: 0 }} />
+                    <div onClick={() => setOpenItem(item)} style={{ background: '#FBFBFD', borderRadius: '16px', boxShadow: '0 6px 24px rgba(0,0,0,0.10)', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', flex: 1, cursor: 'pointer', position: 'relative', zIndex: 1 }}>
+                    {isPoster
+                      ? <img src={item.img} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
+                      : item.image && <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
+                    }
+                    <div style={{ padding: '18px 20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '0.78rem', fontWeight: 700, background: c.bg, color: c.text, padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '10px', alignSelf: 'flex-start' }}>{item.type}</span>
+                      <p style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.4 }}>{item.title}</p>
+                      {isPoster && item.note && <p style={{ color: '#5b6470', fontSize: '0.88rem', fontWeight: 500, margin: '0 0 8px', lineHeight: 1.5 }}>{item.note}</p>}
+                      {/* 下段：日付（左）＋虫眼鏡ボタン（右下） */}
+                      <div style={{ marginTop: 'auto', paddingTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
+                        <p style={{ fontSize: '0.85rem', color: '#94A3B8', margin: 0 }}>
+                          {isPoster ? item.date : new Date(item.publishedAt).toLocaleDateString('ja-JP')}
+                        </p>
+                        <span className="notice-zoom-wrap">
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setOpenItem(item); }}
+                            aria-label="詳細を見る"
+                            className="notice-zoom-btn"
+                            style={{ '--sz': '44px' }}
+                          >
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="10.5" cy="10.5" r="6.5" /><line x1="20" y1="20" x2="15.5" y2="15.5" />
+                            </svg>
+                          </button>
+                          <span className="notice-zoom-label" aria-hidden="true">
+                            <svg viewBox="0 0 110 55" style={{ width: '100%', height: '100%' }}>
+                              <defs>
+                                <path id={`nzpm-${i}`} d="M 11,55 A 44,44 0 1,1 99,55" />
+                              </defs>
+                              <text textAnchor="middle"><textPath href={`#nzpm-${i}`} startOffset="50%">詳しくみてみる</textPath></text>
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* スライドコントロール（左右矢印・ドット・一時停止） */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginTop: '24px' }}>
+        <button
+          aria-label="前のお知らせ"
+          onClick={() => { setIdx(i => i - 1); setPaused(false); }}
+          style={{ width: '44px', height: '44px', borderRadius: '50%', border: 'none', background: '#111d3b', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+          </svg>
+        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {allItems.map((_, i) => (
+              <button key={i} aria-label={`${i + 1}番目のお知らせ`} onClick={() => { setIdx(i + 1); setPaused(false); }} style={{
+                width: '9px', height: '9px', borderRadius: '50%', cursor: 'pointer', padding: 0,
+                border: i === realIdx ? 'none' : '1.5px solid #c4c8d2',
+                background: i === realIdx ? '#111d3b' : 'transparent',
+                transition: 'all 0.3s ease',
+              }} />
+            ))}
+          </div>
+          <button
+            aria-label={userPaused ? '自動再生を開始' : '自動再生を停止'}
+            onClick={() => setUserPaused(p => !p)}
+            style={{ width: '34px', height: '34px', borderRadius: '50%', border: '1.5px solid #111d3b', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+          >
+            {userPaused
+              ? <svg width="13" height="13" viewBox="0 0 24 24" fill="#111d3b"><polygon points="7 4 19 12 7 20" /></svg>
+              : <svg width="13" height="13" viewBox="0 0 24 24" fill="#111d3b"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+            }
+          </button>
+        </div>
+
+        <button
+          aria-label="次のお知らせ"
+          onClick={() => { setIdx(i => i + 1); setPaused(false); }}
+          style={{ width: '44px', height: '44px', borderRadius: '50%', border: 'none', background: '#111d3b', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+          </svg>
+        </button>
+      </div>
+
+      {/* 詳細はホーム画面の上にモーダルで重ねて表示 */}
+      <NoticeModal item={openItem} onClose={() => setOpenItem(null)} />
+    </section>
+  );
+}
+
+
 
 /* ════════════════════════════
    アプリデータ
@@ -121,26 +318,56 @@ const SERVICES = [
    MobileHomePage
 ════════════════════════════ */
 export default function MobileHomePage() {
-  const [news, setNews] = useState([]);
-  const [loadingNews, setLoadingNews] = useState(true);
+  const [appActive, setAppActive] = useState(0);
+  const [appPlaying, setAppPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!appPlaying) return;
+    const id = setTimeout(() => setAppActive(a => (a + 1) % APPS.length), 3500);
+    return () => clearTimeout(id);
+  }, [appPlaying, appActive]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getNewsList(2).then(res => {
-      setNews(res.contents);
-      setLoadingNews(false);
-    }).catch(() => setLoadingNews(false));
+  }, []);
+
+  // ヒーローをスクロール分だけピン留め（次パネルが上を覆って滑り込む）
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const heroVis = Math.max(1, window.innerHeight - 68); // ヘッダー分
+        const lagVis = Math.min(window.scrollY, heroVis) * 0.5;
+        const p = Math.min(1, Math.max(0, window.scrollY / heroVis));
+        const st = document.documentElement.style;
+        st.setProperty('--hero-pin', lagVis + 'px');
+        st.setProperty('--header-shift', lagVis + 'px');
+        st.setProperty('--fold', String(p));
+        ticking = false;
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      document.documentElement.style.setProperty('--header-shift', '0px');
+      document.documentElement.style.setProperty('--hero-pin', '0px');
+      document.documentElement.style.setProperty('--fold', '0');
+    };
   }, []);
 
   return (
     <div style={{ background: '#f0f4f8' }}>
 
       {/* ヒーローセクション */}
-      <section style={{
+      <section className="hero-fold" style={{
         position: 'relative', width: '100%', overflow: 'hidden',
+        minHeight: 'calc(100dvh - 68px)', boxSizing: 'border-box',
         background: '#ffffff',
         boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         padding: '40px 24px 32px',
       }}>
         {/* カラフルなスプラッター */}
@@ -177,141 +404,174 @@ export default function MobileHomePage() {
           <div style={{ position: 'absolute', top: '38%', left: '66%', width: 8,  height: 8,  background: '#06B6D4', borderRadius: '50%', opacity: 0.6 }} />
         </div>
 
-        {/* 画像 */}
-        <div style={{ position: 'relative', zIndex: 2, width: '80%', maxWidth: '320px', margin: '0 auto 24px' }}>
-          <img src="/images/polipoli3.png" alt="ポリポリ" style={{ width: '100%', display: 'block' }} />
+        {/* 画像（上部中央に配置） */}
+        <div style={{ position: 'absolute', zIndex: 2, top: '-3%', left: '50%', transform: 'translateX(-50%)', width: '46%', maxWidth: '185px' }}>
+          <img src="/images/polipoli3.png" alt="ポリポリ" className="hero-float" style={{ width: '100%', display: 'block' }} />
         </div>
 
         {/* テキスト */}
-        <div style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+        <div style={{ position: 'relative', zIndex: 2, textAlign: 'left', paddingLeft: '13%', marginTop: '80px' }}>
           <h1 style={{
-            color: '#0a0a0a',
+            color: '#111d3b',
             fontSize: 'clamp(2.4rem, 10vw, 3.5rem)',
             fontWeight: 900,
-            letterSpacing: '-0.04em',
-            lineHeight: 1.1,
+            letterSpacing: '0.08em',
+            lineHeight: 1.35,
             margin: 0,
-            whiteSpace: 'pre-line',
           }}>
-            {'学びをもっと\n自由に、もっと\n楽しく。'}
+            <span className="hero-text-line hero-text-line-1" style={{ display: 'block' }}><span style={{ fontSize: '1.1em' }}>学び</span><span style={{ fontSize: '0.9em' }}>を</span></span>
+            <span className="hero-text-line hero-text-line-2" style={{ display: 'block', marginTop: '-0.2em' }}>もっと<span style={{ fontSize: '1.1em' }}>自由に、</span></span>
+            <span className="hero-text-line hero-text-line-3" style={{ display: 'block', whiteSpace: 'nowrap' }}>もっ<span style={{ letterSpacing: '0.15em' }}>と</span><span style={{ fontSize: '1.1em' }}><span style={{ letterSpacing: '0.2em' }}>楽しく</span>。</span></span>
           </h1>
         </div>
+
       </section>
 
+      {/* 次セクションがせり上がってヒーローに重なるパネル */}
+      <div style={{ position: 'relative', zIndex: 2, background: '#f0f4f8', borderRadius: '28px 28px 0 0', marginTop: '-32px' }}>
+        {/* パネル上端中央の丸いスクロール矢印 */}
+        <button
+          className="scroll-arrow"
+          aria-label="次のセクションへ"
+          onClick={() => {
+            const el = document.getElementById('apps');
+            if (el) {
+              const y = el.getBoundingClientRect().top + window.scrollY - 76;
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+          }}
+          style={{
+            position: 'absolute', left: '50%', top: 0, marginLeft: '-24px', marginTop: '-24px', zIndex: 25,
+            width: '48px', height: '48px', borderRadius: '50%',
+            background: 'transparent', border: '1.5px solid #111d3b', boxShadow: 'none',
+            color: '#111d3b',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer',
+          }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+
       {/* アプリ一覧セクション */}
-      <section id="apps" style={{ background: 'transparent', padding: '40px 16px 24px' }}>
+      <section id="apps" style={{ background: '#EAF3FF', padding: '40px 16px 24px', position: 'relative', overflow: 'hidden', isolation: 'isolate' }}>
+        <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none', opacity: 0.7 }}>
+          {/* 背面のドット格子（同系色・ずらす方向ランダム） */}
+          {/* 黄円：右上へ */}
+          <div style={{ position: 'absolute', top: 'calc(4% - 12px)', left: 'calc(6% + 12px)', width: '60px', height: '60px', borderRadius: '50%', backgroundImage: 'radial-gradient(#E0A800 24%, transparent 26%)', backgroundSize: '9px 9px' }} />
+          {/* シアン三角：左上へ */}
+          <div style={{ position: 'absolute', bottom: 'calc(20% + 12px)', left: 'calc(8% - 12px)', width: '56px', height: '48px', clipPath: 'polygon(50% 0, 0 100%, 100% 100%)', backgroundImage: 'radial-gradient(#0E7490 24%, transparent 26%)', backgroundSize: '9px 9px', transform: 'rotate(-12deg)' }} />
+          {/* ベタ塗り図形 */}
+          <div style={{ position: 'absolute', top: '4%', left: '6%', width: '60px', height: '60px', borderRadius: '50%', background: '#FFD600' }} />
+          <div style={{ position: 'absolute', top: '14%', right: '8%', width: '48px', height: '48px', borderRadius: '12px', background: '#FF3D8B', transform: 'rotate(18deg)' }} />
+          <div style={{ position: 'absolute', bottom: '20%', left: '8%', width: 0, height: 0, borderLeft: '28px solid transparent', borderRight: '28px solid transparent', borderBottom: '48px solid #06B6D4', transform: 'rotate(-12deg)' }} />
+          <div style={{ position: 'absolute', bottom: '8%', right: '10%', width: '44px', height: '44px', borderRadius: '50%', background: '#A855F7' }} />
+          {/* 前面のドット格子（同系色・ずらす方向ランダム） */}
+          {/* ピンク四角：左下へ */}
+          <div style={{ position: 'absolute', top: 'calc(14% + 12px)', right: 'calc(8% + 12px)', width: '48px', height: '48px', borderRadius: '12px', backgroundImage: 'radial-gradient(#C9166A 24%, transparent 26%)', backgroundSize: '9px 9px', transform: 'rotate(18deg)' }} />
+          {/* 紫円：左上へ */}
+          <div style={{ position: 'absolute', bottom: 'calc(8% + 12px)', right: 'calc(10% + 12px)', width: '44px', height: '44px', borderRadius: '50%', backgroundImage: 'radial-gradient(#7C3AED 24%, transparent 26%)', backgroundSize: '9px 9px' }} />
+        </div>
         <Link to="/apps" style={{ textDecoration: 'none' }}>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-            アプリケーションはこちら。 →
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+            アプリケーションはこちら。
           </h2>
         </Link>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-          {APPS.map(app => (
-            <Link key={app.slug} to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
-              <div>
-                <img
-                  src={app.icon}
-                  alt={app.name}
-                  style={{
-                    width: '100%',
-                    borderRadius: '24px',
-                    boxShadow: `0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px ${app.shadowColor}`,
-                    display: 'block',
-                  }}
-                />
-                <p style={{ fontSize: '0.9rem', fontWeight: 800, color: '#1a1a1a', margin: '8px 0 4px' }}>
-                  {app.name}
-                </p>
-                <span style={{
-                  fontSize: '0.68rem', fontWeight: 700, color: app.accent,
-                  border: `1px solid ${app.accent}`, padding: '2px 8px', borderRadius: '999px', whiteSpace: 'nowrap',
-                  display: 'inline-block',
-                }}>
-                  {app.category}
-                </span>
+        {/* 自動回転カルーセル */}
+        <div style={{ position: 'relative', height: '420px', overflow: 'hidden' }}>
+          {APPS.map((app, i) => {
+            const n = APPS.length;
+            let d = i - appActive;
+            if (d > n / 2) d -= n;
+            if (d < -n / 2) d += n;
+            const isCenter = d === 0;
+            const visible = Math.abs(d) <= 1;
+            const SPACING = 200;
+            return (
+              <div key={app.slug} style={{
+                position: 'absolute', top: '8px', left: '50%', width: '190px', marginLeft: '-95px',
+                transform: `translateX(${d * SPACING}px) translateY(${isCenter ? 0 : 36}px) scale(${isCenter ? 1 : 0.55})`,
+                transformOrigin: 'top center',
+                opacity: visible ? (isCenter ? 1 : 0.35) : 0,
+                transition: 'transform 0.8s ease, opacity 0.8s ease',
+                zIndex: isCenter ? 3 : 1, pointerEvents: isCenter ? 'auto' : 'none',
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+              }}>
+                {app.lead && (
+                  <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#444', lineHeight: 1.5, margin: '0 0 14px', textAlign: 'center', padding: '0 8px', opacity: isCenter ? 1 : 0, transition: 'opacity 0.5s ease' }}>{app.lead.split('\n')[0]}</p>
+                )}
+                <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
+                  <img src={app.icon} alt={app.name} style={{ width: '190px', height: '190px', borderRadius: '42px', boxShadow: `0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px ${app.shadowColor}`, display: 'block' }} />
+                </Link>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '16px', opacity: isCenter ? 1 : 0, transition: 'opacity 0.5s ease' }}>
+                  <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1.15rem', fontWeight: 800, textAlign: 'center' }}>{app.name}</p>
+                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '16px', padding: '10px 22px', borderRadius: '999px', border: '1.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '0.9rem', fontWeight: 700 }}>
+                    さらに詳しく
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                  </Link>
+                </div>
               </div>
-            </Link>
-          ))}
+            );
+          })}
+        </div>
+        {/* 操作バー */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', marginTop: '4px' }}>
+          <button onClick={() => setAppActive(a => (a - 1 + APPS.length) % APPS.length)} aria-label="前へ" style={{ width: '40px', height: '40px', borderRadius: '50%', border: 'none', background: '#111d3b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
+          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {APPS.map((_, i) => (
+              <button key={i} onClick={() => setAppActive(i)} aria-label={`${i + 1}番目`} style={{ width: '9px', height: '9px', borderRadius: '50%', padding: 0, border: 'none', cursor: 'pointer', background: i === appActive ? '#111d3b' : '#fff', boxShadow: i === appActive ? 'none' : 'inset 0 0 0 1.5px #c4cad6' }} />
+            ))}
+            <button onClick={() => setAppPlaying(p => !p)} aria-label={appPlaying ? '一時停止' : '再生'} style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1.5px solid #111d3b', background: '#fff', color: '#111d3b', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginLeft: '4px' }}>
+              {appPlaying ? (<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>) : (<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>)}
+            </button>
+          </div>
+          <button onClick={() => setAppActive(a => (a + 1) % APPS.length)} aria-label="次へ" style={{ width: '40px', height: '40px', borderRadius: '50%', border: 'none', background: '#111d3b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </button>
         </div>
       </section>
 
       {/* サービス一覧セクション */}
-      <section id="services" style={{ background: 'transparent', padding: '24px 16px' }}>
-        <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-          サービス一覧
+      <section id="services" style={{ backgroundColor: '#ffffff', backgroundImage: 'linear-gradient(168deg, transparent 0 55%, #FFE066 55% 100%), repeating-linear-gradient(90deg, rgba(37,99,235,0.32) 0 2.5px, transparent 2.5px 40px), repeating-linear-gradient(0deg, rgba(255,61,139,0.32) 0 2.5px, transparent 2.5px 40px)', backgroundSize: '100% 100%, 40px 40px, 40px 40px', backgroundRepeat: 'no-repeat, repeat, repeat', padding: '24px 16px' }}>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+          サービス
         </h2>
         {SERVICES.map((s, i) => (
-          <div
-            key={i}
-            onClick={() => s.link && window.open(s.link, '_blank')}
-            style={{
-              borderRadius: '8px', overflow: 'hidden',
-              marginBottom: '16px', cursor: 'pointer',
-              background: '#fff',
-              boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-            }}
-          >
-            <div style={{ aspectRatio: '16/9', position: 'relative', overflow: 'hidden' }}>
-              {s.renderThumb()}
-            </div>
-            <div style={{ padding: '12px 16px 16px' }}>
-              <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px' }}>
-                {s.title}
-              </p>
-              <p style={{ fontSize: '0.85rem', fontWeight: 500, color: '#555', lineHeight: 1.55, margin: 0 }}>
-                {s.description}
-              </p>
+          <div key={i} style={{ position: 'relative', width: '88%', margin: '0 auto 24px' }}>
+            {/* 右下にずらした四角いシャドウ */}
+            <div aria-hidden="true" style={{ position: 'absolute', top: '12px', left: '12px', right: '-12px', bottom: '-16px', borderRadius: '8px', background: 'rgba(17, 29, 59, 0.14)' }} />
+            <div
+              className="service-card"
+              onClick={() => s.link && window.open(s.link, '_blank')}
+              style={{
+                borderRadius: '8px', overflow: 'hidden',
+                cursor: 'pointer',
+                background: '#FFFCF4',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+                position: 'relative',
+              }}
+            >
+              <div style={{ aspectRatio: '16/9', position: 'relative', overflow: 'hidden' }}>
+                {s.renderThumb()}
+              </div>
+              <div style={{ padding: '12px 16px 16px' }}>
+                <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px' }}>
+                  {s.title}
+                </p>
+                <p style={{ fontSize: '0.85rem', fontWeight: 500, color: '#555', lineHeight: 1.55, margin: 0 }}>
+                  {s.description}
+                </p>
+              </div>
             </div>
           </div>
         ))}
       </section>
 
       {/* お知らせセクション */}
-      <section id="news" style={{ background: 'transparent', padding: '24px 16px 60px' }}>
-        <Link to="/news" style={{ textDecoration: 'none' }}>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-            お知らせ →
-          </h2>
-        </Link>
-        {loadingNews ? (
-          <p style={{ color: '#94A3B8', fontSize: '0.9rem' }}>読み込み中...</p>
-        ) : news.length === 0 ? (
-          <div style={{
-            width: '100%', aspectRatio: '4/3',
-            background: 'linear-gradient(135deg, #e8edf5, #f4f6f9)',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px',
-            border: '2px dashed #d0d7e3', borderRadius: '4px',
-          }}>
-            <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.12em' }}>COMING SOON</span>
-            <span style={{ fontSize: '0.8rem', color: '#b0bac8', fontWeight: 500 }}>お知らせは準備中です</span>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {news.map(item => {
-              const typeColor = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
-              return (
-                <Link key={item.id} to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
-                  <div style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
-                    <div style={{ padding: '14px 16px' }}>
-                      {item.type && (
-                        <span style={{
-                          fontSize: '0.68rem', fontWeight: 700,
-                          background: typeColor.bg, color: typeColor.text,
-                          padding: '2px 8px', borderRadius: '999px', display: 'inline-block', marginBottom: '6px',
-                        }}>{item.type}</span>
-                      )}
-                      <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 4px', lineHeight: 1.4 }}>{item.title}</p>
-                      <p style={{ fontSize: '0.72rem', color: '#94A3B8', margin: 0 }}>
-                        {new Date(item.publishedAt).toLocaleDateString('ja-JP')}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
-      </section>
+      <MobileNewsCarousel />
+      </div>
 
     </div>
   );
