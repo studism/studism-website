@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import useIsMobile from '@/hooks/useIsMobile';
 import MobileHomePage from '@/components/mobile/MobileHomePage';
 import MobileFooter from '@/components/mobile/MobileFooter';
-import { getNewsList } from '@/lib/microcms';
 import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
 
@@ -472,8 +471,6 @@ const TYPE_COLORS = {
 const NEWS_CLONES = 3;
 
 function NewsSection() {
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [idx, setIdx] = useState(NEWS_CLONES); // 先頭の実アイテム = クローン数番目
   const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);      // ホバー中の一時停止
@@ -484,12 +481,6 @@ function NewsSection() {
   const [winW, setWinW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1440);
   const [openItem, setOpenItem] = useState(null); // 詳細モーダルで開いているお知らせ
 
-  useEffect(() => {
-    getNewsList(10).then(res => {
-      setNews(res.contents);
-      setLoading(false);
-    }).catch(() => setLoading(false));
-  }, []);
 
   // コンテナ幅の計測
   useEffect(() => {
@@ -500,11 +491,13 @@ function NewsSection() {
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
-  }, [loading]);
+  }, []);
 
   const allItems = [
     ...NEWS_POSTERS.map(p => ({ ...p, _kind: 'poster' })),
-    ...news.map(n => ({ ...n, _kind: 'news' })),
+    // microCMS のお知らせは内容が古いため非表示にしている。
+    // 再度表示する場合は getNewsList の fetch と news/loading state を復活させ、
+    // ...news.map(n => ({ ...n, _kind: 'news' })) をここに追加する。
   ];
   const total = allItems.length;
 
@@ -617,9 +610,7 @@ function NewsSection() {
         </button>
       </div>
 
-      {loading ? (
-        <div style={{ paddingLeft: '120px', color: '#94A3B8', fontSize: '0.9rem' }}>読み込み中...</div>
-      ) : total === 0 ? null : (
+      {total === 0 ? null : (
         <div
           style={{ position: 'relative' }}
           onMouseEnter={() => setPaused(true)}

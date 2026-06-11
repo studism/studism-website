@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { getNewsList } from '@/lib/microcms';
 import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
 
@@ -13,7 +12,6 @@ const TYPE_COLORS = {
 };
 
 function MobileNewsCarousel() {
-  const [news, setNews] = useState([]);
   const [idx, setIdx] = useState(1);
   const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);       // スワイプ中の一時停止
@@ -24,10 +22,6 @@ function MobileNewsCarousel() {
   const [openItem, setOpenItem] = useState(null); // 詳細モーダルで開いているお知らせ
 
   useEffect(() => {
-    getNewsList(10).then(res => setNews(res.contents)).catch(() => {});
-  }, []);
-
-  useEffect(() => {
     const update = () => { if (containerRef.current) setCw(containerRef.current.offsetWidth); };
     update();
     window.addEventListener('resize', update);
@@ -36,7 +30,9 @@ function MobileNewsCarousel() {
 
   const allItems = [
     ...NEWS_POSTERS.map(p => ({ ...p, _kind: 'poster' })),
-    ...news.map(n => ({ ...n, _kind: 'news' })),
+    // microCMS のお知らせは内容が古いため非表示にしている。
+    // 再度表示する場合は getNewsList の fetch と news state を復活させ、
+    // ...news.map(n => ({ ...n, _kind: 'news' })) をここに追加する。
   ];
   const total = allItems.length;
   const extended = total > 0 ? [allItems[total - 1], ...allItems, allItems[0]] : [];
