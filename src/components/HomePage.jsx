@@ -408,7 +408,7 @@ function ServiceSection() {
   }, []);
 
   return (
-    <section id="services" style={{ backgroundColor: '#ffffff', backgroundImage: 'linear-gradient(115deg, transparent 0 48%, #FFE066 48% 100%), repeating-linear-gradient(90deg, rgba(37,99,235,0.32) 0 2.5px, transparent 2.5px 52px), repeating-linear-gradient(0deg, rgba(255,61,139,0.32) 0 2.5px, transparent 2.5px 52px)', backgroundSize: '100% 100%, 52px 52px, 52px 52px', backgroundRepeat: 'no-repeat, repeat, repeat', padding: '60px 0 64px' }}>
+    <section id="services" style={{ background: 'transparent', padding: '60px 0 64px' }}>
       <div style={{ padding: '0 40px 0 120px' }}>
         <div style={{ marginBottom: '48px' }}>
           <h2 style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
@@ -595,8 +595,30 @@ function NewsSection() {
   };
 
   return (
-    <section id="news" style={{ background: '#F5F5F7', padding: '70px 0 80px' }}>
-      <div style={{ padding: '0 40px 0 120px', marginBottom: '48px' }}>
+    <section id="news" style={{ background: 'transparent', padding: '70px 0 80px', position: 'relative' }}>
+      {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く。
+          高さはサービスのカードに掛からない範囲（top:-75px）に収める。 */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', left: 0, right: 0, top: '-75px', height: '120px', zIndex: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(#111d3b 3.2px, transparent 3.4px)', backgroundSize: '14px 14px',
+        WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Crect x='0' y='74' width='64' height='46' fill='%23fff'/%3E%3Crect x='64' y='56' width='54' height='64' fill='%23fff'/%3E%3Crect x='118' y='80' width='46' height='40' fill='%23fff'/%3E%3Crect x='164' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='216' y='52' width='58' height='68' fill='%23fff'/%3E%3Crect x='274' y='72' width='48' height='48' fill='%23fff'/%3E%3Crect x='322' y='60' width='46' height='60' fill='%23fff'/%3E%3Cpolygon points='368,120 406,120 396,48 387,22 378,48' fill='%23fff'/%3E%3Crect x='412' y='58' width='56' height='62' fill='%23fff'/%3E%3Crect x='468' y='78' width='46' height='42' fill='%23fff'/%3E%3Crect x='514' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='574' y='70' width='46' height='50' fill='%23fff'/%3E%3Crect x='626' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='631' cy='66' r='18' fill='%23fff'/%3E%3Crect x='650' y='66' width='44' height='54' fill='%23fff'/%3E%3Cpolygon points='694,120 712,86 730,120' fill='%23fff'/%3E%3Ccircle cx='712' cy='54' r='30' fill='%23fff'/%3E%3Crect x='752' y='64' width='54' height='56' fill='%23fff'/%3E%3Crect x='806' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='854' y='56' width='58' height='64' fill='%23fff'/%3E%3Crect x='902' y='88' width='9' height='32' fill='%23fff'/%3E%3Ccircle cx='906' cy='70' r='16' fill='%23fff'/%3E%3Crect x='918' y='80' width='44' height='40' fill='%23fff'/%3E%3Crect x='962' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='1010' y='56' width='30' height='64' fill='%23fff'/%3E%3Cpolygon points='1020,56 1025,24 1030,56' fill='%23fff'/%3E%3Crect x='1044' y='60' width='54' height='60' fill='%23fff'/%3E%3Crect x='1098' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='1148' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='1153' cy='68' r='17' fill='%23fff'/%3E%3Crect x='1170' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='1230' y='72' width='50' height='48' fill='%23fff'/%3E%3Crect x='1280' y='62' width='48' height='58' fill='%23fff'/%3E%3Crect x='1328' y='78' width='48' height='42' fill='%23fff'/%3E%3Crect x='1376' y='66' width='64' height='54' fill='%23fff'/%3E%3C/svg%3E")`,
+        maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Crect x='0' y='74' width='64' height='46' fill='%23fff'/%3E%3Crect x='64' y='56' width='54' height='64' fill='%23fff'/%3E%3Crect x='118' y='80' width='46' height='40' fill='%23fff'/%3E%3Crect x='164' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='216' y='52' width='58' height='68' fill='%23fff'/%3E%3Crect x='274' y='72' width='48' height='48' fill='%23fff'/%3E%3Crect x='322' y='60' width='46' height='60' fill='%23fff'/%3E%3Cpolygon points='368,120 406,120 396,48 387,22 378,48' fill='%23fff'/%3E%3Crect x='412' y='58' width='56' height='62' fill='%23fff'/%3E%3Crect x='468' y='78' width='46' height='42' fill='%23fff'/%3E%3Crect x='514' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='574' y='70' width='46' height='50' fill='%23fff'/%3E%3Crect x='626' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='631' cy='66' r='18' fill='%23fff'/%3E%3Crect x='650' y='66' width='44' height='54' fill='%23fff'/%3E%3Cpolygon points='694,120 712,86 730,120' fill='%23fff'/%3E%3Ccircle cx='712' cy='54' r='30' fill='%23fff'/%3E%3Crect x='752' y='64' width='54' height='56' fill='%23fff'/%3E%3Crect x='806' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='854' y='56' width='58' height='64' fill='%23fff'/%3E%3Crect x='902' y='88' width='9' height='32' fill='%23fff'/%3E%3Ccircle cx='906' cy='70' r='16' fill='%23fff'/%3E%3Crect x='918' y='80' width='44' height='40' fill='%23fff'/%3E%3Crect x='962' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='1010' y='56' width='30' height='64' fill='%23fff'/%3E%3Cpolygon points='1020,56 1025,24 1030,56' fill='%23fff'/%3E%3Crect x='1044' y='60' width='54' height='60' fill='%23fff'/%3E%3Crect x='1098' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='1148' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='1153' cy='68' r='17' fill='%23fff'/%3E%3Crect x='1170' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='1230' y='72' width='50' height='48' fill='%23fff'/%3E%3Crect x='1280' y='62' width='48' height='58' fill='%23fff'/%3E%3Crect x='1328' y='78' width='48' height='42' fill='%23fff'/%3E%3Crect x='1376' y='66' width='64' height='54' fill='%23fff'/%3E%3C/svg%3E")`,
+        WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+      }} />
+      {/* 黄色の波の背景。お知らせセクション上端から固定px（top:-80px）で配置 */}
+      <div aria-hidden="true" style={{ position: 'absolute', left: 0, right: 0, top: '-80px', bottom: 0, zIndex: 0, display: 'flex', flexDirection: 'column', pointerEvents: 'none' }}>
+        <svg viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '180px', display: 'block' }}>
+          <path d="M0,78 Q30,50 60,78 Q90,106 120,78 Q150,50 180,78 Q210,106 240,78 Q270,50 300,78 Q330,106 360,78 Q390,50 420,78 Q450,106 480,78 Q510,50 540,78 Q570,106 600,78 Q630,50 660,78 Q690,106 720,78 Q750,50 780,78 Q810,106 840,78 Q870,50 900,78 Q930,106 960,78 Q990,50 1020,78 Q1050,106 1080,78 Q1110,50 1140,78 Q1170,106 1200,78 Q1230,50 1260,78 Q1290,106 1320,78 Q1350,50 1380,78 Q1410,106 1440,78 L1440,180 L0,180 Z" fill="#FFE066" />
+          <ellipse cx="380" cy="42" rx="22" ry="15" fill="#FFE066" />
+          <circle cx="720" cy="40" r="13" fill="#FFE066" />
+          <circle cx="1060" cy="48" r="10" fill="#FFE066" />
+          <circle cx="200" cy="52" r="8" fill="#FFE066" />
+          <circle cx="900" cy="56" r="6" fill="#FFE066" />
+          <circle cx="1300" cy="46" r="5" fill="#FFE066" />
+        </svg>
+        <div style={{ flex: 1, background: '#FFE066' }} />
+      </div>
+      <div style={{ padding: '0 40px 0 120px', marginBottom: '48px', position: 'relative', zIndex: 1 }}>
         <button
           onClick={() => {
             const el = document.getElementById('news');
@@ -612,7 +634,7 @@ function NewsSection() {
 
       {total === 0 ? null : (
         <div
-          style={{ position: 'relative' }}
+          style={{ position: 'relative', zIndex: 1 }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -797,8 +819,16 @@ export default function HomePage() {
               </svg>
             </button>
             <Services />
-            <ServiceSection />
-            <NewsSection />
+            {/* サービス＆お知らせを横断する共通の背景（グリッド）。黄色の波・街並みはお知らせ側に配置 */}
+            <div style={{
+              backgroundColor: '#ffffff',
+              backgroundImage: 'repeating-linear-gradient(90deg, rgba(37,99,235,0.32) 0 2.5px, transparent 2.5px 52px), repeating-linear-gradient(0deg, rgba(255,61,139,0.32) 0 2.5px, transparent 2.5px 52px)',
+              backgroundSize: '52px 52px, 52px 52px',
+              backgroundRepeat: 'repeat, repeat',
+            }}>
+              <ServiceSection />
+              <NewsSection />
+            </div>
             <Footer />
           </div>
         </div>

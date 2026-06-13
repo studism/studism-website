@@ -9,7 +9,6 @@ import GeneralContact from './components/GeneralContact';
 import GeneralPrivacy from './components/GeneralPrivacy';
 import AppList from './components/AppList';
 import NewsList from './components/NewsList';
-import NewsDetail from './components/NewsDetail';
 import NoticeDetail from './components/NoticeDetail';
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
           <Route path="/privacy" element={<GeneralPrivacy />} />
           <Route path="/apps" element={<AppList />} />
           <Route path="/news" element={<NewsList />} />
-          <Route path="/news/:newsId" element={<NewsDetail />} />
           <Route path="/notice/:slug" element={<NoticeDetail />} />
           <Route path="/app/:appSlug" element={<AppDetail />} />
           <Route path="/app/:appSlug/privacy" element={<PrivacyPolicy />} />

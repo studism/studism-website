@@ -61,13 +61,31 @@ function MobileNewsCarousel() {
   if (total === 0) return null;
 
   return (
-    <section id="news" style={{ background: '#F5F5F7', padding: '24px 0 48px' }}>
+    <section id="news" style={{ background: 'transparent', padding: '24px 0 48px', position: 'relative' }}>
+      {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', left: 0, right: 0, top: '-54px', height: '90px', zIndex: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(#111d3b 2.0px, transparent 2.2px)', backgroundSize: '10px 10px',
+        WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 90' preserveAspectRatio='none'%3E%3Crect x='0' y='56' width='30' height='34' fill='%23fff'/%3E%3Crect x='30' y='44' width='26' height='46' fill='%23fff'/%3E%3Crect x='56' y='62' width='22' height='28' fill='%23fff'/%3E%3Crect x='78' y='50' width='26' height='40' fill='%23fff'/%3E%3Cpolygon points='104,90 124,90 119,40 114,16 109,40' fill='%23fff'/%3E%3Crect x='124' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='150' y='58' width='22' height='32' fill='%23fff'/%3E%3Crect x='168' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='171' cy='58' r='11' fill='%23fff'/%3E%3Crect x='180' y='46' width='26' height='44' fill='%23fff'/%3E%3Cpolygon points='206,90 220,68 234,90' fill='%23fff'/%3E%3Ccircle cx='220' cy='48' r='18' fill='%23fff'/%3E%3Crect x='240' y='54' width='24' height='36' fill='%23fff'/%3E%3Crect x='264' y='62' width='20' height='28' fill='%23fff'/%3E%3Crect x='284' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='310' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='313' cy='58' r='11' fill='%23fff'/%3E%3Crect x='322' y='56' width='24' height='34' fill='%23fff'/%3E%3Crect x='346' y='50' width='29' height='40' fill='%23fff'/%3E%3C/svg%3E")`,
+        maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 90' preserveAspectRatio='none'%3E%3Crect x='0' y='56' width='30' height='34' fill='%23fff'/%3E%3Crect x='30' y='44' width='26' height='46' fill='%23fff'/%3E%3Crect x='56' y='62' width='22' height='28' fill='%23fff'/%3E%3Crect x='78' y='50' width='26' height='40' fill='%23fff'/%3E%3Cpolygon points='104,90 124,90 119,40 114,16 109,40' fill='%23fff'/%3E%3Crect x='124' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='150' y='58' width='22' height='32' fill='%23fff'/%3E%3Crect x='168' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='171' cy='58' r='11' fill='%23fff'/%3E%3Crect x='180' y='46' width='26' height='44' fill='%23fff'/%3E%3Cpolygon points='206,90 220,68 234,90' fill='%23fff'/%3E%3Ccircle cx='220' cy='48' r='18' fill='%23fff'/%3E%3Crect x='240' y='54' width='24' height='36' fill='%23fff'/%3E%3Crect x='264' y='62' width='20' height='28' fill='%23fff'/%3E%3Crect x='284' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='310' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='313' cy='58' r='11' fill='%23fff'/%3E%3Crect x='322' y='56' width='24' height='34' fill='%23fff'/%3E%3Crect x='346' y='50' width='29' height='40' fill='%23fff'/%3E%3C/svg%3E")`,
+        WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+      }} />
+      {/* 黄色の波の背景。お知らせセクション上端から固定px（top:-50px）で配置 */}
+      <div aria-hidden="true" style={{ position: 'absolute', left: 0, right: 0, top: '-50px', bottom: 0, zIndex: 0, display: 'flex', flexDirection: 'column', pointerEvents: 'none' }}>
+        <svg viewBox="0 0 375 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '120px', display: 'block' }}>
+          <path d="M0,46 Q15.625,22 31.25,46 Q46.875,70 62.5,46 Q78.125,22 93.75,46 Q109.375,70 125,46 Q140.625,22 156.25,46 Q171.875,70 187.5,46 Q203.125,22 218.75,46 Q234.375,70 250,46 Q265.625,22 281.25,46 Q296.875,70 312.5,46 Q328.125,22 343.75,46 Q359.375,70 375,46 L375,120 L0,120 Z" fill="#FFE066" />
+          <circle cx="160" cy="14" r="6" fill="#FFE066" />
+          <circle cx="300" cy="20" r="5" fill="#FFE066" />
+          <circle cx="50" cy="22" r="4" fill="#FFE066" />
+        </svg>
+        <div style={{ flex: 1, background: '#FFE066' }} />
+      </div>
       <button
         onClick={() => {
           const el = document.getElementById('news');
           if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
         }}
-        style={{ background: 'none', border: 'none', padding: '0 16px', cursor: 'pointer', textAlign: 'left', display: 'block', marginBottom: '20px' }}
+        style={{ background: 'none', border: 'none', padding: '0 16px', cursor: 'pointer', textAlign: 'left', display: 'block', marginBottom: '20px', position: 'relative', zIndex: 1 }}
       >
         <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: 0, letterSpacing: '-0.02em' }}>
           お知らせ
@@ -76,7 +94,7 @@ function MobileNewsCarousel() {
 
       <div
         ref={containerRef}
-        style={{ overflow: 'hidden', padding: '0 0 24px' }}
+        style={{ overflow: 'hidden', padding: '0 0 24px', position: 'relative', zIndex: 1 }}
         onTouchStart={e => { touchStartX.current = e.touches[0].clientX; setPaused(true); }}
         onTouchEnd={e => {
           const diff = touchStartX.current - e.changedTouches[0].clientX;
@@ -148,7 +166,7 @@ function MobileNewsCarousel() {
       </div>
 
       {/* スライドコントロール（左右矢印・ドット・一時停止） */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginTop: '24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginTop: '24px', position: 'relative', zIndex: 1 }}>
         <button
           aria-label="前のお知らせ"
           onClick={() => { setIdx(i => i - 1); setPaused(false); }}
@@ -529,8 +547,15 @@ export default function MobileHomePage() {
         </div>
       </section>
 
+      {/* サービス＆お知らせを横断する共通の背景（グリッド）。黄色の波・街並みはお知らせ側に配置 */}
+      <div style={{
+        backgroundColor: '#ffffff',
+        backgroundImage: 'repeating-linear-gradient(90deg, rgba(37,99,235,0.32) 0 2.5px, transparent 2.5px 40px), repeating-linear-gradient(0deg, rgba(255,61,139,0.32) 0 2.5px, transparent 2.5px 40px)',
+        backgroundSize: '40px 40px, 40px 40px',
+        backgroundRepeat: 'repeat, repeat',
+      }}>
       {/* サービス一覧セクション */}
-      <section id="services" style={{ backgroundColor: '#ffffff', backgroundImage: 'linear-gradient(168deg, transparent 0 55%, #FFE066 55% 100%), repeating-linear-gradient(90deg, rgba(37,99,235,0.32) 0 2.5px, transparent 2.5px 40px), repeating-linear-gradient(0deg, rgba(255,61,139,0.32) 0 2.5px, transparent 2.5px 40px)', backgroundSize: '100% 100%, 40px 40px, 40px 40px', backgroundRepeat: 'no-repeat, repeat, repeat', padding: '24px 16px' }}>
+      <section id="services" style={{ background: 'transparent', padding: '24px 16px' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
           サービス
         </h2>
@@ -567,6 +592,7 @@ export default function MobileHomePage() {
 
       {/* お知らせセクション */}
       <MobileNewsCarousel />
+      </div>
       </div>
 
     </div>

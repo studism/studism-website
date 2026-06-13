@@ -35,7 +35,7 @@ export default function MobileAppDetail({ app, appSlug }) {
           pointerEvents: 'none',
         }} />
 
-        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧', to: '/apps' }, { label: app.name }]} />
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリケーション', to: '/apps' }, { label: app.name }]} />
 
         {/* アイコン＋アプリ名 */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>

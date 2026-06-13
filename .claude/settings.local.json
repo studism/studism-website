@@ -23,7 +23,20 @@
       "Bash(ls -la src/data)",
       "Bash(ls public/images/news)",
       "Bash(ls -la .env)",
-      "Bash(grep -n -i \"env\" .gitignore)"
+      "Bash(grep -n -i \"env\" .gitignore)",
+      "Bash(curl -s -H \"X-MICROCMS-API-KEY: gxWoojRsOE63R4xmNOTZu0c5QoVTMXHP3wCQ\" \"https://studismkg.microcms.io/api/v1/news?limit=10&orders=-publishedAt\")",
+      "Bash(pnpm lint *)",
+      "Bash(grep -A6 \"components.HomePage.jsx$\")",
+      "Bash(ls -la .env*)",
+      "Bash(cat .env.local)",
+      "Bash(cat .env)",
+      "Bash(cat .env.example)",
+      "Bash(curl *)",
+      "Bash(git rm *)",
+      "Bash(git checkout *)",
+      "Bash(pnpm build *)",
+      "Bash(grep -iB1 -A2 \"error:\")",
+      "PowerShell(git check-ignore *)"
     ],
     "deny": [],
     "ask": []

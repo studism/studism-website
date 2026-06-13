@@ -62,9 +62,9 @@ export default function MobileAppList() {
       <MobileHeader />
 
       <section style={{ padding: '32px 16px 48px' }}>
-        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧' }]} />
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリケーション' }]} />
         <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-          アプリ一覧
+          アプリケーション
         </h1>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
           {APPS.map(app => (

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -172,13 +172,30 @@ const appData = {
   },
 };
 
+// デスクトップ版ヒーローの基準デザイン幅（280 + 460 + 700 + gap60×2）。
+// この幅を基準に、利用可能幅へ等比スケールさせる（画面を超えない・小さい画面では縮む）。
+const DESIGN_WIDTH = 1560;
+
 const AppDetail = () => {
   const { appSlug } = useParams();
   const isMobile = useIsMobile();
+  const scaleRef = useRef(null);
+  const [scale, setScale] = useState(1);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [appSlug]);
+
+  // ヒーローのグリッドを、利用可能幅に合わせて等比縮小する（拡大はしない）。
+  useEffect(() => {
+    const el = scaleRef.current;
+    if (!el) return;
+    const update = () => setScale(Math.min(1, el.clientWidth / DESIGN_WIDTH));
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [isMobile, appSlug]);
 
   const app = appData[appSlug];
 
@@ -205,13 +222,13 @@ const AppDetail = () => {
       <Header />
 
       {/* パンくずリスト */}
-      <div style={{ padding: '16px 140px 0' }}>
-        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧', to: '/apps' }, { label: app.name }]} />
+      <div style={{ padding: '16px clamp(16px, 4vw, 80px) 0' }}>
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリケーション', to: '/apps' }, { label: app.name }]} />
       </div>
 
       {/* ── メインセクション ── */}
       <section style={{
-        padding: '0 140px',
+        padding: '0 clamp(16px, 4vw, 80px)',
         overflow: 'hidden',
         minHeight: 'calc(100vh - 64px)',
         display: 'flex',
@@ -235,7 +252,9 @@ const AppDetail = () => {
             animation: 'blobPulse 10s ease-in-out infinite 2s',
           }} />
         </div>
-        <div key={appSlug} style={{ display: 'grid', gridTemplateColumns: '280px 1fr 700px', gap: '60px', alignItems: 'center', width: '100%', position: 'relative', zIndex: 1 }}>
+        {/* 利用可能幅を測る基準コンテナ（中央寄せ）。中の固定デザインを等比スケール */}
+        <div ref={scaleRef} style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', zIndex: 1 }}>
+        <div key={appSlug} style={{ display: 'grid', gridTemplateColumns: '280px 460px 700px', gap: '60px', alignItems: 'center', width: DESIGN_WIDTH, flexShrink: 0, transform: `scale(${scale})`, transformOrigin: 'center center' }}>
 
           {/* 左：アイコン＋カテゴリ＋名前 */}
           <div style={{
@@ -394,6 +413,7 @@ const AppDetail = () => {
             ))}
           </div>
 
+        </div>
         </div>
       </section>
 

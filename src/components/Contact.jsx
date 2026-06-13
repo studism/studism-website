@@ -95,7 +95,7 @@ const Contact = () => {
       {/* Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
-          <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧', to: '/apps' }, { label: appName, to: `/app/${appSlug}` }, { label: 'お問い合わせ' }]} />
+          <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリケーション', to: '/apps' }, { label: appName, to: `/app/${appSlug}` }, { label: 'お問い合わせ' }]} />
           <div className="text-center space-y-6 mb-12">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
               <MessageCircle className="w-8 h-8 text-primary" />

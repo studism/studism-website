@@ -63,9 +63,9 @@ function PCAppList() {
     <div style={{ minHeight: '100vh', background: '#f0f4f8' }}>
       <Header />
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 40px 80px' }}>
-        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリ一覧' }]} />
+        <Breadcrumb items={[{ label: 'ホーム', to: '/' }, { label: 'アプリケーション' }]} />
         <h1 style={{ fontSize: '2.6rem', fontWeight: 900, color: '#0f0f0f', margin: '0 0 48px', letterSpacing: '-0.02em' }}>
-          アプリ一覧
+          アプリケーション
         </h1>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '32px' }}>
           {APPS.map(app => (
