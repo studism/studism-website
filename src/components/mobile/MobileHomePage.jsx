@@ -250,7 +250,7 @@ const APPS = [
     name: '豆マメ',
     category: '近日公開',
     icon: '/images/mamemame/icon.png',
-    lead: '古文単語を、もっと楽しく。',
+    lead: '古文学習を、もっと楽しく。',
     accent: '#1D4ED8',
     accentLight: '#DBEAFE',
     shadowColor: 'rgba(29,78,216,0.14)',
