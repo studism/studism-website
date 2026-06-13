@@ -250,7 +250,7 @@ const APPS = [
     name: '豆マメ',
     category: '近日公開',
     icon: '/images/mamemame/icon.png',
-    lead: '',
+    lead: '古文単語を、豆知識と一緒に覚えよう。',
     accent: '#1D4ED8',
     accentLight: '#DBEAFE',
     shadowColor: 'rgba(29,78,216,0.14)',
@@ -261,7 +261,7 @@ const APPS = [
     name: 'Loopin',
     category: '近日公開',
     icon: '/images/loopin/icon.png',
-    lead: '',
+    lead: '毎日の習慣を、ループさせよう。',
     accent: '#1D4ED8',
     accentLight: '#DBEAFE',
     shadowColor: 'rgba(29,78,216,0.14)',
@@ -511,9 +511,7 @@ export default function MobileHomePage() {
                 zIndex: isCenter ? 3 : 1, pointerEvents: isCenter ? 'auto' : 'none',
                 display: 'flex', flexDirection: 'column', alignItems: 'center',
               }}>
-                {app.lead && (
-                  <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#444', lineHeight: 1.5, margin: '0 0 14px', textAlign: 'center', padding: '0 8px', opacity: isCenter ? 1 : 0, transition: 'opacity 0.5s ease' }}>{app.lead.split('\n')[0]}</p>
-                )}
+                <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#444', lineHeight: 1.6, minHeight: '1.7em', margin: '0 0 14px', textAlign: 'center', width: '90vw', maxWidth: '360px', whiteSpace: 'nowrap', textOverflow: 'ellipsis', opacity: isCenter ? 1 : 0, transition: 'opacity 0.5s ease' }}>{app.lead.split('\n')[0]}</p>
                 <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
                   <img src={app.icon} alt={app.name} style={{ width: '190px', height: '190px', borderRadius: '42px', boxShadow: `0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px ${app.shadowColor}`, display: 'block' }} />
                 </Link>
