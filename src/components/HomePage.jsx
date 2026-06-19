@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,6 +7,7 @@ import MobileHomePage from '@/components/mobile/MobileHomePage';
 import MobileFooter from '@/components/mobile/MobileFooter';
 import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
+import { CITY_MASK } from '@/lib/cityMask';
 
 /* ════════════════════════════
    スライドデータ
@@ -18,7 +19,81 @@ const HERO = {
 /* ════════════════════════════
    Hero
 ════════════════════════════ */
+// ヒーロー背景の絵の具スプラッター。x位置に応じて時間差で付着＝つながった波のように飛ぶ。
+const HERO_INK = [
+  { top: 6, left: 3, w: 42, h: 56, bg: '#FF3D8B', r: '60% 40% 70% 30% / 50% 60% 40% 50%', rot: 20, op: 0.8 },
+  { top: 14, left: 3, w: 10, h: 10, bg: '#FF3D8B', r: '50%', op: 0.65 },
+  { top: 10, left: 8, w: 7, h: 7, bg: '#FF3D8B', r: '50%', op: 0.55 },
+  { top: 55, left: 4, w: 46, h: 36, bg: '#FFD600', r: '40% 60% 30% 70% / 60% 40% 55% 45%', rot: -18, op: 0.85 },
+  { top: 62, left: 12, w: 8, h: 8, bg: '#FFD600', r: '50%', op: 0.65 },
+  { bottom: 8, left: 6, w: 38, h: 50, bg: '#06B6D4', r: '50% 50% 40% 60% / 60% 30% 70% 40%', rot: 12, op: 0.8 },
+  { bottom: 5, left: 14, w: 9, h: 9, bg: '#06B6D4', r: '50%', op: 0.6 },
+  { top: 35, left: 2, w: 28, h: 36, bg: '#A855F7', r: '70% 30% 50% 50% / 40% 60% 40% 60%', rot: -30, op: 0.75 },
+  { top: 40, left: 10, w: 7, h: 7, bg: '#A855F7', r: '50%', op: 0.6 },
+  { top: 5, left: 30, w: 18, h: 14, bg: '#06B6D4', r: '55% 45% 40% 60%', rot: -20, op: 0.75 },
+  { top: 3, left: 44, w: 44, h: 34, bg: '#FF6B00', r: '50% 50% 40% 60% / 60% 30% 70% 40%', rot: 8, op: 0.8 },
+  { top: 8, left: 50, w: 9, h: 9, bg: '#FF6B00', r: '50%', op: 0.65 },
+  { bottom: 5, left: 38, w: 40, h: 52, bg: '#22C55E', r: '70% 30% 50% 50% / 40% 60% 40% 60%', rot: 28, op: 0.8 },
+  { bottom: 8, left: 46, w: 10, h: 10, bg: '#22C55E', r: '50%', op: 0.65 },
+  { top: 45, left: 45, w: 30, h: 22, bg: '#FF3D8B', r: '40% 60% 50% 50%', rot: 40, op: 0.7 },
+  { top: 8, left: 52, w: 38, h: 52, bg: '#FF3D8B', r: '60% 40% 70% 30% / 50% 60% 40% 50%', rot: 20, op: 0.8 },
+  { top: 12, left: 60, w: 12, h: 12, bg: '#FF3D8B', r: '50%', op: 0.65 },
+  { top: 18, right: 6, w: 52, h: 44, bg: '#FFD600', r: '40% 60% 30% 70% / 60% 40% 55% 45%', rot: -15, op: 0.85 },
+  { top: 15, right: 14, w: 8, h: 8, bg: '#FFD600', r: '50%', op: 0.65 },
+  { bottom: 22, left: 55, w: 44, h: 58, bg: '#22C55E', r: '70% 30% 50% 50% / 40% 60% 40% 60%', rot: 35, op: 0.8 },
+  { bottom: 18, left: 64, w: 8, h: 8, bg: '#22C55E', r: '50%', op: 0.6 },
+  { top: 55, right: 12, w: 48, h: 36, bg: '#A855F7', r: '30% 70% 60% 40% / 55% 45% 60% 40%', rot: -30, op: 0.85 },
+  { top: 62, right: 18, w: 7, h: 7, bg: '#A855F7', r: '50%', op: 0.65 },
+  { bottom: 10, right: 8, w: 56, h: 42, bg: '#FF6B00', r: '50% 50% 40% 60% / 60% 30% 70% 40%', rot: 10, op: 0.8 },
+  { bottom: 14, right: 4, w: 10, h: 10, bg: '#FF6B00', r: '50%', op: 0.65 },
+  { top: 30, left: 58, w: 32, h: 40, bg: '#06B6D4', r: '40% 60% 55% 45% / 65% 35% 55% 45%', rot: -25, op: 0.8 },
+  { top: 38, left: 66, w: 8, h: 8, bg: '#06B6D4', r: '50%', op: 0.6 },
+];
+
+// キャラにカーソルを当てたとき吹き出しで喋ることわざ
+const PROVERBS = [
+  '継続は力なり',
+  '千里の道も一歩から',
+  '好きこそ物の上手なれ',
+  '為せば成る、為さねば成らぬ',
+  '塵も積もれば山となる',
+  '案ずるより産むが易し',
+  '学びて時に之を習う',
+];
+
 function HeroSection() {
+  const [pi, setPi] = useState(0);
+  const imgRef = useRef(null);
+  const charRef = useRef(null);
+  const bubbleRef = useRef(null);
+  const [bubble, setBubble] = useState({ top: 40, left: 180 });
+  useEffect(() => {
+    const place = () => {
+      const img = imgRef.current, ch = charRef.current;
+      if (!img || !ch) return;
+      const ir = img.getBoundingClientRect();
+      const cr = ch.getBoundingClientRect();
+      const bub = bubbleRef.current;
+      const s = cr.width / (1440 * 0.42) || 1;
+      const imgH = ir.height / s;
+      const headTop = (ir.top - cr.top) / s + imgH * 0.41;
+      const headCx = (ir.left - cr.left) / s + (ir.width / s) * 0.56;
+      const BW = bub ? bub.offsetWidth : 300;
+      const BH = bub ? bub.offsetHeight : 92;
+      const GAP = imgH * 0.05 + 44;
+      setBubble({ top: headTop - BH - GAP, left: headCx - BW / 2 });
+    };
+    place();
+    const t = setTimeout(place, 300);
+    window.addEventListener('resize', place);
+    let ro;
+    if ('ResizeObserver' in window) {
+      ro = new ResizeObserver(() => requestAnimationFrame(place));
+      if (imgRef.current) ro.observe(imgRef.current);
+      if (charRef.current) ro.observe(charRef.current);
+    }
+    return () => { clearTimeout(t); window.removeEventListener('resize', place); if (ro) ro.disconnect(); };
+  }, []);
   return (
     <section className="hero-fold" style={{
       position: 'relative', width: '100%', height: 'var(--hero-h, 560px)', overflow: 'hidden',
@@ -26,49 +101,53 @@ function HeroSection() {
       boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
       display: 'flex', alignItems: 'center',
     }}>
-      {/* 絵の具スプラッター（全体） */}
+      {/* 絵の具スプラッター。x位置に応じて時間差で付着＝つながった波のように飛んでくる */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
-        {/* 左エリア */}
-        <div style={{ position: 'absolute', top: '6%',  left: '3%',  width: 42, height: 56, background: '#FF3D8B', borderRadius: '60% 40% 70% 30% / 50% 60% 40% 50%', transform: 'rotate(20deg)',  opacity: 0.8 }} />
-        <div style={{ position: 'absolute', top: '14%', left: '3%',  width: 10, height: 10, background: '#FF3D8B', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', top: '10%', left: '8%',  width: 7,  height: 7,  background: '#FF3D8B', borderRadius: '50%', opacity: 0.55 }} />
-        <div style={{ position: 'absolute', top: '55%', left: '4%',  width: 46, height: 36, background: '#FFD600', borderRadius: '40% 60% 30% 70% / 60% 40% 55% 45%', transform: 'rotate(-18deg)', opacity: 0.85 }} />
-        <div style={{ position: 'absolute', top: '62%', left: '12%', width: 8,  height: 8,  background: '#FFD600', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', bottom: '8%', left: '6%', width: 38, height: 50, background: '#06B6D4', borderRadius: '50% 50% 40% 60% / 60% 30% 70% 40%', transform: 'rotate(12deg)',  opacity: 0.8 }} />
-        <div style={{ position: 'absolute', bottom: '5%', left: '14%', width: 9, height: 9, background: '#06B6D4', borderRadius: '50%', opacity: 0.6 }} />
-        <div style={{ position: 'absolute', top: '35%', left: '2%',  width: 28, height: 36, background: '#A855F7', borderRadius: '70% 30% 50% 50% / 40% 60% 40% 60%', transform: 'rotate(-30deg)', opacity: 0.75 }} />
-        <div style={{ position: 'absolute', top: '40%', left: '10%', width: 7,  height: 7,  background: '#A855F7', borderRadius: '50%', opacity: 0.6 }} />
-
-        {/* 中央エリア */}
-        <div style={{ position: 'absolute', top: '5%',  left: '30%', width: 18, height: 14, background: '#06B6D4', borderRadius: '55% 45% 40% 60%', transform: 'rotate(-20deg)', opacity: 0.75 }} />
-        <div style={{ position: 'absolute', top: '3%',  left: '44%', width: 44, height: 34, background: '#FF6B00', borderRadius: '50% 50% 40% 60% / 60% 30% 70% 40%', transform: 'rotate(8deg)',   opacity: 0.8 }} />
-        <div style={{ position: 'absolute', top: '8%',  left: '50%', width: 9,  height: 9,  background: '#FF6B00', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', bottom: '5%', left: '38%', width: 40, height: 52, background: '#22C55E', borderRadius: '70% 30% 50% 50% / 40% 60% 40% 60%', transform: 'rotate(28deg)',  opacity: 0.8 }} />
-        <div style={{ position: 'absolute', bottom: '8%', left: '46%', width: 10, height: 10, background: '#22C55E', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', top: '45%', left: '45%', width: 30, height: 22, background: '#FF3D8B', borderRadius: '40% 60% 50% 50%', transform: 'rotate(40deg)',  opacity: 0.7 }} />
-
-        {/* 右エリア */}
-        <div style={{ position: 'absolute', top: '8%',  left: '52%', width: 38, height: 52, background: '#FF3D8B', borderRadius: '60% 40% 70% 30% / 50% 60% 40% 50%', transform: 'rotate(20deg)',  opacity: 0.8 }} />
-        <div style={{ position: 'absolute', top: '12%', left: '60%', width: 12, height: 12, background: '#FF3D8B', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', top: '18%', right: '6%', width: 52, height: 44, background: '#FFD600', borderRadius: '40% 60% 30% 70% / 60% 40% 55% 45%', transform: 'rotate(-15deg)', opacity: 0.85 }} />
-        <div style={{ position: 'absolute', top: '15%', right: '14%', width: 8, height: 8,  background: '#FFD600', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', bottom: '22%', left: '55%', width: 44, height: 58, background: '#22C55E', borderRadius: '70% 30% 50% 50% / 40% 60% 40% 60%', transform: 'rotate(35deg)',  opacity: 0.8 }} />
-        <div style={{ position: 'absolute', bottom: '18%', left: '64%', width: 8, height: 8,  background: '#22C55E', borderRadius: '50%', opacity: 0.6 }} />
-        <div style={{ position: 'absolute', top: '55%', right: '12%', width: 48, height: 36, background: '#A855F7', borderRadius: '30% 70% 60% 40% / 55% 45% 60% 40%', transform: 'rotate(-30deg)', opacity: 0.85 }} />
-        <div style={{ position: 'absolute', top: '62%', right: '18%', width: 7,  height: 7,  background: '#A855F7', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', bottom: '10%', right: '8%', width: 56, height: 42, background: '#FF6B00', borderRadius: '50% 50% 40% 60% / 60% 30% 70% 40%', transform: 'rotate(10deg)',  opacity: 0.8 }} />
-        <div style={{ position: 'absolute', bottom: '14%', right: '4%', width: 10, height: 10, background: '#FF6B00', borderRadius: '50%', opacity: 0.65 }} />
-        <div style={{ position: 'absolute', top: '30%', left: '58%', width: 32, height: 40, background: '#06B6D4', borderRadius: '40% 60% 55% 45% / 65% 35% 55% 45%', transform: 'rotate(-25deg)', opacity: 0.8 }} />
-        <div style={{ position: 'absolute', top: '38%', left: '66%', width: 8,  height: 8,  background: '#06B6D4', borderRadius: '50%', opacity: 0.6 }} />
-        {/* オーバーレイなし */}
+        {HERO_INK.map((b, i) => {
+          const x = b.left != null ? b.left : (100 - b.right);
+          const y = b.top != null ? b.top : (100 - b.bottom);
+          // キャラ（筆元）位置から各インクへ飛び散る発射ベクトル（設計px換算でスケール追従）
+          const charX = 18, charY = 58;
+          const fx = (charX - x) * 14.4;
+          const fy = (charY - y) * 6.0;
+          const delay = (x / 100) * 0.12; // ためる動きはほぼ揃え、飛散だけ軽く波に
+          return (
+            <div key={i} className="ink-blob" style={{
+              position: 'absolute',
+              ...(b.top != null ? { top: `${b.top}%` } : {}),
+              ...(b.bottom != null ? { bottom: `${b.bottom}%` } : {}),
+              ...(b.left != null ? { left: `${b.left}%` } : {}),
+              ...(b.right != null ? { right: `${b.right}%` } : {}),
+              width: b.w, height: b.h, background: b.bg, borderRadius: b.r,
+              '--rot': `${b.rot || 0}deg`, '--op': b.op,
+              '--fx': `${fx}px`, '--fy': `${fy}px`,
+              animationDelay: `${delay}s`,
+            }} />
+          );
+        })}
       </div>
 
-      {/* 左半分：画像（浮遊アニメーション） */}
-      <div style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 2 }}>
-        <img src="/images/polipoli3.png" alt="ポリポリ"
+      {/* 左半分：画像（浮遊アニメーション）。ホバーでことわざの吹き出し */}
+      <div className="hero-char" ref={charRef}
+        onMouseEnter={() => setPi(Math.floor(Math.random() * PROVERBS.length))}
+        style={{ position: 'relative', width: '42%', height: '100%', flexShrink: 0, zIndex: 11 }}>
+        <div className="hero-char-inner" style={{ position: 'absolute', inset: 0 }}>
+        <img ref={imgRef} onLoad={() => window.dispatchEvent(new Event('resize'))} src="/images/polipoli3.png" alt="ポリポリ"
           className="hero-float"
           style={{ position: 'absolute', bottom: '-33%', left: '6%',
             height: '160%', width: 'auto', zIndex: 2, objectFit: 'contain' }} />
+        </div>
+        {/* ことわざ吹き出し（キャラ右上・見出しには掛からない位置） */}
+        <div className="hero-bubble" ref={bubbleRef} style={{
+          position: 'absolute', top: `${bubble.top}px`, left: `${bubble.left}px`, width: 'calc(var(--hero-h, 560px) * 0.4)',
+          background: '#ffffff', border: '3.5px solid #111d3b', borderRadius: 'calc(var(--hero-h,560px)*0.08)',
+          padding: 'calc(var(--hero-h,560px)*0.024) calc(var(--hero-h,560px)*0.034)', color: '#111d3b', fontWeight: 800, fontSize: 'calc(var(--hero-h,560px)*0.044)',
+          lineHeight: 1.5, textAlign: 'center', boxShadow: '0 10px 28px rgba(17,29,59,0.2)',
+        }}>
+          {PROVERBS[pi]}
+          <span style={{ position: 'absolute', left: '44%', bottom: 'calc(var(--hero-h,560px)*-0.03)', width: 'calc(var(--hero-h,560px)*0.035)', height: 'calc(var(--hero-h,560px)*0.035)', background: '#ffffff', border: '3.5px solid #111d3b', borderRadius: '50%' }} />
+          <span style={{ position: 'absolute', left: '38%', bottom: 'calc(var(--hero-h,560px)*-0.06)', width: 'calc(var(--hero-h,560px)*0.02)', height: 'calc(var(--hero-h,560px)*0.02)', background: '#ffffff', border: '3.5px solid #111d3b', borderRadius: '50%' }} />
+        </div>
       </div>
 
       {/* 右半分：テキスト（右からスライドイン） */}
@@ -77,9 +156,9 @@ function HeroSection() {
           color: '#111d3b', fontSize: 'var(--hero-font, 6.3rem)',
           fontWeight: 900, letterSpacing: '0.08em', lineHeight: 1.35, margin: 0, whiteSpace: 'nowrap',
         }}>
-          <span className="hero-text-line hero-text-line-1" style={{ display: 'block' }}><span style={{ fontSize: '1.1em' }}>学び</span><span style={{ fontSize: '0.9em' }}>を</span></span>
-          <span className="hero-text-line hero-text-line-2" style={{ display: 'block', marginTop: '-0.2em' }}>もっと<span style={{ fontSize: '1.1em' }}>自由に、</span></span>
-          <span className="hero-text-line hero-text-line-3" style={{ display: 'block', whiteSpace: 'nowrap' }}>もっ<span style={{ letterSpacing: '0.15em' }}>と</span><span style={{ fontSize: '1.1em' }}><span style={{ letterSpacing: '0.2em' }}>楽しく</span>。</span></span>
+          <span className="hero-text-line hero-text-line-1" style={{ display: 'block' }}><span className="hero-word" style={{ fontSize: '1.1em' }}>学び</span><span style={{ fontSize: '0.9em' }}>を</span></span>
+          <span className="hero-text-line hero-text-line-2" style={{ display: 'block', marginTop: '-0.2em' }}>もっと<span className="hero-word" style={{ fontSize: '1.1em' }}>自由に、</span></span>
+          <span className="hero-text-line hero-text-line-3" style={{ display: 'block', whiteSpace: 'nowrap' }}>もっ<span style={{ letterSpacing: '0.15em' }}>と</span><span className="hero-word" style={{ fontSize: '1.1em' }}><span style={{ letterSpacing: '0.2em' }}>楽しく</span>。</span></span>
         </h1>
       </div>
     </section>
@@ -238,7 +317,8 @@ function Services() {
       <div style={{ padding: '0 40px 0 120px' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ marginBottom: '48px' }}>
+        <div style={{ marginBottom: '48px', position: 'relative' }}>
+          <HeadingRuler label="App" fontSize="1.9rem" fontWeight={900} />
           <Link to="/apps" style={{ textDecoration: 'none' }}>
             <h2 style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
               アプリケーションはこちら。
@@ -297,9 +377,9 @@ function Services() {
                   {app.comingSoon ? 'Coming Soon' : app.name}
                 </p>
                 {!app.comingSoon && (
-                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '28px', padding: '14px 32px', borderRadius: '999px', border: '1.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '1.1rem', fontWeight: 700, transition: 'background 0.2s ease' }}>
+                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '28px', padding: '16px 36px', borderRadius: '999px', border: '2.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '1.2rem', fontWeight: 700, boxShadow: '4px 6px 0 rgba(17,29,59,0.18)', transition: 'background 0.2s ease, box-shadow 0.2s ease' }}>
                     さらに詳しく
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                    <svg className="arrow-ic arrow-ic-right" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                   </Link>
                 )}
               </div>
@@ -311,8 +391,9 @@ function Services() {
       {/* 操作バー（手動移動・ドット・再生/一時停止） */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginTop: '8px', opacity: revealed ? 1 : 0, transition: 'opacity 1.4s ease' }}>
         <button onClick={() => setActive(a => (a - 1 + APPS.length) % APPS.length)} aria-label="前へ"
-          style={{ width: '48px', height: '48px', borderRadius: '50%', border: 'none', background: '#111d3b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
+          className="carousel-nav"
+          style={{ width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+          <svg className="arrow-ic arrow-ic-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           {APPS.map((_, i) => (
@@ -320,17 +401,19 @@ function Services() {
               style={{ width: '11px', height: '11px', borderRadius: '50%', padding: 0, cursor: 'pointer', border: 'none', background: i === active ? '#111d3b' : '#ffffff', boxShadow: i === active ? 'none' : 'inset 0 0 0 1.5px #c4cad6', transition: 'background 0.2s ease' }} />
           ))}
           <button onClick={() => setPlaying(p => !p)} aria-label={playing ? '一時停止' : '再生'}
-            style={{ width: '34px', height: '34px', borderRadius: '50%', border: '1.5px solid #111d3b', background: '#fff', color: '#111d3b', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginLeft: '6px' }}>
+            className="carousel-play"
+            style={{ width: '48px', height: '48px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginLeft: '6px' }}>
             {playing ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
             ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
             )}
           </button>
         </div>
         <button onClick={() => setActive(a => (a + 1) % APPS.length)} aria-label="次へ"
-          style={{ width: '48px', height: '48px', borderRadius: '50%', border: 'none', background: '#111d3b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          className="carousel-nav"
+          style={{ width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+          <svg className="arrow-ic arrow-ic-right" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
         </button>
       </div>
     </section>
@@ -408,9 +491,10 @@ function ServiceSection() {
   }, []);
 
   return (
-    <section id="services" style={{ background: 'transparent', padding: '60px 0 64px' }}>
+    <section id="services" style={{ background: 'transparent', padding: '60px 0 96px', position: 'relative', zIndex: 1 }}>
       <div style={{ padding: '0 40px 0 120px' }}>
-        <div style={{ marginBottom: '48px' }}>
+        <div style={{ marginBottom: '48px', position: 'relative' }}>
+          <HeadingRuler label="Service" />
           <h2 style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
             サービス
           </h2>
@@ -419,7 +503,7 @@ function ServiceSection() {
       <div ref={scrollRef} style={{
         display: 'flex', gap: '40px',
         overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
-        paddingLeft: '120px', paddingTop: '24px', paddingBottom: '40px',
+        paddingLeft: '120px', paddingTop: '52px', paddingBottom: '40px',
         opacity: revealed ? 1 : 0,
         transform: revealed ? 'translateY(0)' : 'translateY(28px)',
         transition: 'opacity 0.8s ease, transform 0.8s ease',
@@ -433,7 +517,7 @@ function ServiceSection() {
             >
               {/* 右下にずらした四角いシャドウ（カードと一緒に拡大） */}
               <div aria-hidden="true" style={{ position: 'absolute', top: '12px', left: '12px', right: '-12px', bottom: '-16px', borderRadius: '20px', background: 'rgba(17, 29, 59, 0.14)', zIndex: 0 }} />
-              <div style={{ position: 'relative', zIndex: 1, background: '#FFFCF4', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.08)', height: '100%' }}>
+              <div style={{ position: 'relative', zIndex: 1, background: '#ffffff', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.08)', height: '100%' }}>
                 <div className="service-thumb" style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', position: 'relative' }}>
                   {s.renderThumb()}
                 </div>
@@ -595,14 +679,14 @@ function NewsSection() {
   };
 
   return (
-    <section id="news" style={{ background: 'transparent', padding: '70px 0 80px', position: 'relative' }}>
-      {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く。
-          高さはサービスのカードに掛からない範囲（top:-75px）に収める。 */}
+    <section id="news" style={{ background: 'transparent', padding: '70px 0 112px', position: 'relative' }}>
+      {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗き、
+          サービス背景へ高く伸びる。土台(+45px)を保ったまま上へ拡大（マスクが伸縮して背が高く）。 */}
       <div aria-hidden="true" style={{
-        position: 'absolute', left: 0, right: 0, top: '-75px', height: '120px', zIndex: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(#111d3b 3.2px, transparent 3.4px)', backgroundSize: '14px 14px',
-        WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Crect x='0' y='74' width='64' height='46' fill='%23fff'/%3E%3Crect x='64' y='56' width='54' height='64' fill='%23fff'/%3E%3Crect x='118' y='80' width='46' height='40' fill='%23fff'/%3E%3Crect x='164' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='216' y='52' width='58' height='68' fill='%23fff'/%3E%3Crect x='274' y='72' width='48' height='48' fill='%23fff'/%3E%3Crect x='322' y='60' width='46' height='60' fill='%23fff'/%3E%3Cpolygon points='368,120 406,120 396,48 387,22 378,48' fill='%23fff'/%3E%3Crect x='412' y='58' width='56' height='62' fill='%23fff'/%3E%3Crect x='468' y='78' width='46' height='42' fill='%23fff'/%3E%3Crect x='514' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='574' y='70' width='46' height='50' fill='%23fff'/%3E%3Crect x='626' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='631' cy='66' r='18' fill='%23fff'/%3E%3Crect x='650' y='66' width='44' height='54' fill='%23fff'/%3E%3Cpolygon points='694,120 712,86 730,120' fill='%23fff'/%3E%3Ccircle cx='712' cy='54' r='30' fill='%23fff'/%3E%3Crect x='752' y='64' width='54' height='56' fill='%23fff'/%3E%3Crect x='806' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='854' y='56' width='58' height='64' fill='%23fff'/%3E%3Crect x='902' y='88' width='9' height='32' fill='%23fff'/%3E%3Ccircle cx='906' cy='70' r='16' fill='%23fff'/%3E%3Crect x='918' y='80' width='44' height='40' fill='%23fff'/%3E%3Crect x='962' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='1010' y='56' width='30' height='64' fill='%23fff'/%3E%3Cpolygon points='1020,56 1025,24 1030,56' fill='%23fff'/%3E%3Crect x='1044' y='60' width='54' height='60' fill='%23fff'/%3E%3Crect x='1098' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='1148' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='1153' cy='68' r='17' fill='%23fff'/%3E%3Crect x='1170' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='1230' y='72' width='50' height='48' fill='%23fff'/%3E%3Crect x='1280' y='62' width='48' height='58' fill='%23fff'/%3E%3Crect x='1328' y='78' width='48' height='42' fill='%23fff'/%3E%3Crect x='1376' y='66' width='64' height='54' fill='%23fff'/%3E%3C/svg%3E")`,
-        maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Crect x='0' y='74' width='64' height='46' fill='%23fff'/%3E%3Crect x='64' y='56' width='54' height='64' fill='%23fff'/%3E%3Crect x='118' y='80' width='46' height='40' fill='%23fff'/%3E%3Crect x='164' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='216' y='52' width='58' height='68' fill='%23fff'/%3E%3Crect x='274' y='72' width='48' height='48' fill='%23fff'/%3E%3Crect x='322' y='60' width='46' height='60' fill='%23fff'/%3E%3Cpolygon points='368,120 406,120 396,48 387,22 378,48' fill='%23fff'/%3E%3Crect x='412' y='58' width='56' height='62' fill='%23fff'/%3E%3Crect x='468' y='78' width='46' height='42' fill='%23fff'/%3E%3Crect x='514' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='574' y='70' width='46' height='50' fill='%23fff'/%3E%3Crect x='626' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='631' cy='66' r='18' fill='%23fff'/%3E%3Crect x='650' y='66' width='44' height='54' fill='%23fff'/%3E%3Cpolygon points='694,120 712,86 730,120' fill='%23fff'/%3E%3Ccircle cx='712' cy='54' r='30' fill='%23fff'/%3E%3Crect x='752' y='64' width='54' height='56' fill='%23fff'/%3E%3Crect x='806' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='854' y='56' width='58' height='64' fill='%23fff'/%3E%3Crect x='902' y='88' width='9' height='32' fill='%23fff'/%3E%3Ccircle cx='906' cy='70' r='16' fill='%23fff'/%3E%3Crect x='918' y='80' width='44' height='40' fill='%23fff'/%3E%3Crect x='962' y='64' width='52' height='56' fill='%23fff'/%3E%3Crect x='1010' y='56' width='30' height='64' fill='%23fff'/%3E%3Cpolygon points='1020,56 1025,24 1030,56' fill='%23fff'/%3E%3Crect x='1044' y='60' width='54' height='60' fill='%23fff'/%3E%3Crect x='1098' y='76' width='48' height='44' fill='%23fff'/%3E%3Crect x='1148' y='86' width='10' height='34' fill='%23fff'/%3E%3Ccircle cx='1153' cy='68' r='17' fill='%23fff'/%3E%3Crect x='1170' y='54' width='60' height='66' fill='%23fff'/%3E%3Crect x='1230' y='72' width='50' height='48' fill='%23fff'/%3E%3Crect x='1280' y='62' width='48' height='58' fill='%23fff'/%3E%3Crect x='1328' y='78' width='48' height='42' fill='%23fff'/%3E%3Crect x='1376' y='66' width='64' height='54' fill='%23fff'/%3E%3C/svg%3E")`,
+        position: 'absolute', left: 0, right: 0, top: '-355px', height: '400px', zIndex: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(#111d3b 2.1px, transparent 2.3px)', backgroundSize: '8.5px 8.5px',
+        WebkitMaskImage: CITY_MASK,
+        maskImage: CITY_MASK,
         WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
       }} />
       {/* 黄色の波の背景。お知らせセクション上端から固定px（top:-80px）で配置 */}
@@ -619,10 +703,11 @@ function NewsSection() {
         <div style={{ flex: 1, background: '#FFE066' }} />
       </div>
       <div style={{ padding: '0 40px 0 120px', marginBottom: '48px', position: 'relative', zIndex: 1 }}>
+        <HeadingRuler left="76px" label="News" fontSize="1.4rem" fontWeight={900} />
         <button
           onClick={() => {
             const el = document.getElementById('news');
-            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
           }}
           style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}
         >
@@ -639,7 +724,7 @@ function NewsSection() {
           onMouseLeave={() => setPaused(false)}
         >
           {/* オーバーフロー制御（上下pad-ホバー拡大時の見切れ防止。横paddingはoffsetWidth計算に影響するため不可） */}
-          <div ref={containerRef} style={{ overflow: 'hidden', padding: '10px 0 30px' }}>
+          <div ref={containerRef} style={{ overflow: 'hidden', padding: '44px 0 30px' }}>
             {cw > 0 && (
               <div
                 style={{
@@ -660,9 +745,10 @@ function NewsSection() {
             <button
               aria-label="前のお知らせ"
               onClick={() => { setIdx(i => i - 1); setPaused(false); }}
-              style={{ width: '52px', height: '52px', borderRadius: '50%', border: 'none', background: '#111d3b', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+              className="carousel-nav"
+              style={{ width: '60px', height: '60px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="arrow-ic arrow-ic-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
               </svg>
             </button>
@@ -681,11 +767,12 @@ function NewsSection() {
               <button
                 aria-label={userPaused ? '自動再生を開始' : '自動再生を停止'}
                 onClick={() => setUserPaused(p => !p)}
-                style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid #111d3b', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+                className="carousel-play"
+                style={{ width: '48px', height: '48px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
               >
                 {userPaused
-                  ? <svg width="15" height="15" viewBox="0 0 24 24" fill="#111d3b"><polygon points="7 4 19 12 7 20" /></svg>
-                  : <svg width="15" height="15" viewBox="0 0 24 24" fill="#111d3b"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+                  ? <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 19 12 7 20" /></svg>
+                  : <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
                 }
               </button>
             </div>
@@ -693,9 +780,10 @@ function NewsSection() {
             <button
               aria-label="次のお知らせ"
               onClick={() => { setIdx(i => i + 1); setPaused(false); }}
-              style={{ width: '52px', height: '52px', borderRadius: '50%', border: 'none', background: '#111d3b', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+              className="carousel-nav"
+              style={{ width: '60px', height: '60px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="arrow-ic arrow-ic-right" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
               </svg>
             </button>
@@ -716,6 +804,19 @@ function NewsSection() {
    PAGE
 ════════════════════════════ */
 const DESIGN_WIDTH = 1440;
+
+// 見出しの左に置く縦書きラベル（App / Service / News）。見出しと一緒にスクロールする装飾。
+function HeadingRuler({ left = '-44px', label, fontSize = '0.95rem', fontWeight = 800 }) {
+  return (
+    <div aria-hidden="true" style={{
+      position: 'absolute', left, top: '50%', transform: 'translateY(-50%)',
+      writingMode: 'vertical-rl', textOrientation: 'mixed',
+      fontSize, fontWeight, letterSpacing: '0.14em',
+      textTransform: 'uppercase', color: '#111d3b', opacity: 0.85,
+      whiteSpace: 'nowrap', pointerEvents: 'none',
+    }}>{label}</div>
+  );
+}
 
 export default function HomePage() {
   const isMobile = useIsMobile();
@@ -760,11 +861,9 @@ export default function HomePage() {
         const s = (document.documentElement.clientWidth || window.innerWidth) / DESIGN_WIDTH;
         const heroVis = Math.max(1, window.innerHeight - HEADER_H - GRAY_PEEK);
         const lagVis = Math.min(window.scrollY, heroVis) * 0.5; // ヒーロー/ヘッダー共通の遅れ量（実px）
-        const p = Math.min(1, Math.max(0, window.scrollY / heroVis));
         const st = document.documentElement.style;
         st.setProperty('--hero-pin', (lagVis / s) + 'px'); // ヒーローはスケール内なので /s
         st.setProperty('--header-shift', lagVis + 'px'); // ヘッダーもヒーローと同じ下方向ラグ
-        st.setProperty('--fold', String(p));
         ticking = false;
       });
     };
@@ -782,7 +881,6 @@ export default function HomePage() {
       if (ro) ro.disconnect();
       document.documentElement.style.setProperty('--header-shift', '0px');
       document.documentElement.style.setProperty('--hero-pin', '0px');
-      document.documentElement.style.setProperty('--fold', '0');
     };
   }, [isMobile]);
 
@@ -809,16 +907,21 @@ export default function HomePage() {
               style={{
                 position: 'absolute', left: '50%', top: 0, marginLeft: '-28px', marginTop: '-28px', zIndex: 25,
                 width: '56px', height: '56px', borderRadius: '50%',
-                background: 'transparent', border: '1.5px solid #111d3b', boxShadow: 'none',
+                background: 'rgba(255, 255, 255, 0.22)',
+                backdropFilter: 'blur(8px) saturate(160%)', WebkitBackdropFilter: 'blur(8px) saturate(160%)',
+                border: '1.5px solid #111d3b',
+                boxShadow: 'none',
                 color: '#111d3b',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer',
               }}>
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="arrow-ic arrow-ic-down" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </button>
             <Services />
+            {/* アプリ帯とサービス帯の間の余白（薄青） */}
+            <div style={{ height: '56px', background: '#EAF3FF' }} />
             {/* サービス＆お知らせを横断する共通の背景（グリッド）。黄色の波・街並みはお知らせ側に配置 */}
             <div style={{
               backgroundColor: '#ffffff',

@@ -36,7 +36,12 @@
       "Bash(git checkout *)",
       "Bash(pnpm build *)",
       "Bash(grep -iB1 -A2 \"error:\")",
-      "PowerShell(git check-ignore *)"
+      "PowerShell(git check-ignore *)",
+      "Bash(grep -q \"Local:\" \"C:/Users/SST4a/AppData/Local/Temp/claude/C--Users-SST4a-OneDrive--------studism-website/c0ce071f-210e-4090-96b4-7ae97edf2732/tasks/b44zv26nb.output\")",
+      "Bash(break)",
+      "Bash(grep -iv \"canScrollLeft\\\\|canScrollRight\\\\|'scroll'\\\\|problems\\\\|^C:\\\\|^$\\\\|^✖\")",
+      "Bash(grep -iv \"canScrollLeft\\\\|canScrollRight\\\\|'scroll' is assigned\\\\|problems\\\\|^C:\\\\\\\\\\\\\\\\\\\\|^$\\\\|^✖\\\\|no-unused-vars\")",
+      "Bash(grep -n \"アプリケーションはこちら\\\\|>サービス<\\\\|サービス$\\\\|お知らせ$\\\\|<h2\\\\|padding: '0 16px'\" src/components/mobile/MobileHomePage.jsx)"
     ],
     "deny": [],
     "ask": []

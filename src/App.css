@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -395,12 +395,38 @@ body {
 .hero-text-line-2 { animation-delay: 1.0s; }
 .hero-text-line-3 { animation-delay: 1.7s; }
 
+/* ヒーロー背景インク：1粒ずつ、上から弧を描いて飛んできてピタッと付着。
+   x位置で時間差をつけて左→右へ「つながった波」のように。 */
+@keyframes ink-drop {
+  /* キャラ位置に集まる */
+  0%   { opacity: 0; transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(0.04) rotate(var(--rot, 0deg)); animation-timing-function: ease-out; }
+  12%  { opacity: var(--op, 0.8); transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(0.34) rotate(var(--rot, 0deg)); animation-timing-function: ease-in-out; }
+  /* 一呼吸（少しためる・短め） */
+  24%  { opacity: var(--op, 0.8); transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(0.22) rotate(var(--rot, 0deg)); animation-timing-function: cubic-bezier(0.2, 0.85, 0.25, 1); }
+  /* はじけて飛散→付着 */
+  100% { opacity: var(--op, 0.8); transform: translate(0, 0) scale(1) rotate(var(--rot, 0deg)); }
+}
+.ink-blob {
+  opacity: 0;
+  animation: ink-drop 1s both;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-blob {
+    animation: none;
+    opacity: var(--op, 0.8);
+    transform: rotate(var(--rot, 0deg));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ink { animation: none; }
+}
+
 /* スクロールでヒーローが次パネルの下へ畳み込まれる演出 */
 .hero-fold {
   /* スクロール分だけ下へ戻して画面にピン留め → 次パネルが上を滑って覆い、すき間なく潜り込む */
-  transform: translateY(var(--hero-pin, 0px));
-  opacity: calc(1 - var(--fold, 0) * 0.45);
-  will-change: transform, opacity;
+  transform: translateY(var(--hero-pin, 0px)) translateZ(0); /* translateZ で独立レイヤー化＝再描画を限定 */
+  will-change: transform;
 }
 
 /* ヒーロー下部のスクロール矢印（上下にふわっと＋フェード） */
@@ -434,24 +460,128 @@ body {
   color: #ffffff !important;
 }
 
-/* サービスカード：ホバーで白枠ごとカード全体を拡大 */
+/* お知らせ詳細：チラシが「ぼかし→くっきり」とフォーカスインする上品な登場 */
+@keyframes notice-focus-in {
+  0%   { opacity: 0; transform: scale(1.04); filter: blur(12px); }
+  100% { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+.notice-flyer-slap {
+  animation: notice-focus-in 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .notice-flyer-slap { animation: none; }
+}
+
+/* お知らせ全文セクション：本文HTMLの濃色インライン指定を白文字に上書き */
+.notice-fulltext, .notice-fulltext * {
+  color: #fff !important;
+}
+.notice-fulltext a { color: #93C5FD !important; }
+
+/* お知らせモーダルの閉じる（×）ボタン：ホバーで濃く＆わずかに拡大 */
+.notice-close-btn:hover {
+  background: rgba(17, 29, 59, 0.85) !important;
+  transform: scale(1.08);
+}
+.notice-close-btn:active {
+  transform: scale(0.96);
+}
+
+/* 矢印アイコン共通：ホバーで進行方向へ進んで戻るアニメーション */
+.arrow-ic { transition: transform 0.25s ease; }
+@keyframes arrow-nudge-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+@keyframes arrow-nudge-left  { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-4px); } }
+@keyframes arrow-nudge-down  { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+@media (prefers-reduced-motion: no-preference) {
+  button:hover > .arrow-ic-right, a:hover > .arrow-ic-right { animation: arrow-nudge-right 0.7s ease-in-out infinite; }
+  button:hover > .arrow-ic-left,  a:hover > .arrow-ic-left  { animation: arrow-nudge-left 0.7s ease-in-out infinite; }
+  button:hover > .arrow-ic-down,  a:hover > .arrow-ic-down  { animation: arrow-nudge-down 0.7s ease-in-out infinite; }
+}
+
+/* カルーセルの左右ナビ：通常はネイビー塗り、ホバーで白塗り＋黒枠黒線に反転 */
+.carousel-nav {
+  box-sizing: border-box;
+  background: #111d3b;
+  border: 2px solid #111d3b;
+  color: #ffffff;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.carousel-nav:hover {
+  background: #ffffff;
+  border-color: #111d3b;
+  color: #111d3b;
+}
+/* カルーセルの再生/一時停止：通常は白塗り/ネイビー、ホバーで黒塗り＋白ふちに反転 */
+.carousel-play {
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1.5px solid #111d3b;
+  color: #111d3b;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.carousel-play:hover {
+  background: #111d3b;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+/* ホバー：矢印が360°くるっと回転 → そのあと進行方向へ誘導（ナッジ） */
+@keyframes carousel-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  .carousel-nav:hover > .arrow-ic-right {
+    animation: carousel-spin 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+      arrow-nudge-right 0.8s ease-in-out 0.55s infinite;
+  }
+  .carousel-nav:hover > .arrow-ic-left {
+    animation: carousel-spin 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+      arrow-nudge-left 0.8s ease-in-out 0.55s infinite;
+  }
+}
+
+/* サービス／お知らせカードのホバー演出 */
 .service-card {
-  transition: transform 0.6s ease;
+  transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
-.service-card:hover,
-.service-card:active {
-  transform: scale(1.05) translateY(-6px);
+/* PC幅（768px以上）：ホバーで持ち上がり＋拡大 */
+@media (min-width: 768px) {
+  .service-card:hover {
+    transform: translateY(-30px) scale(1.04);
+  }
+  #news .service-card:hover {
+    transform: translateY(-28px) scale(1.03);
+  }
 }
-/* お知らせカードはひと回り控えめに拡大（両端が見切れないように） */
-#news .service-card:hover,
-#news .service-card:active {
-  transform: scale(1.02) translateY(-4px);
+/* スマホ幅（767px以下）：拡大のみ（持ち上がりなし） */
+@media (max-width: 767px) {
+  .service-card:hover,
+  .service-card:active {
+    transform: scale(1.05);
+  }
+  #news .service-card:hover,
+  #news .service-card:active {
+    transform: scale(1.02);
+  }
 }
 
 /* お知らせカードの虫眼鏡ボタン：通常=白塗り/ネイビー枠、ホバーで反転＋360度回転＋拡大 */
 .notice-zoom-wrap {
   position: relative;
   display: inline-flex;
+  margin-right: 14px; /* 右端から少し内側へ寄せる */
+  margin-bottom: 10px; /* 少し上へ寄せる */
+  transform-origin: bottom right; /* カード内側へ向かって拡大＝overflow:hiddenでも切れにくい */
+  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+  z-index: 1;
+}
+/* アイコンと文字（ラベル）を一緒に2倍に拡大（元の見た目を保ったまま） */
+.notice-zoom-wrap:hover {
+  transform: scale(1.6);
+  z-index: 8;
+}
+/* スマホ幅では拡大を控えめに */
+@media (max-width: 767px) {
+  .notice-zoom-wrap:hover {
+    transform: scale(1.3);
+  }
 }
 .notice-zoom-btn {
   --sz: 48px;
@@ -468,15 +598,16 @@ body {
   flex-shrink: 0;
   cursor: pointer;
   box-shadow: 0 3px 12px rgba(17, 29, 59, 0.2);
-  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
-    background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1),
+    background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 .notice-zoom-wrap:hover .notice-zoom-btn,
 .notice-zoom-btn:active {
   background: #111d3b;
   border-color: #ffffff;
   color: #ffffff;
-  transform: rotate(360deg) scale(1.18);
+  box-shadow: 0 6px 18px rgba(17, 29, 59, 0.3);
+  transform: rotate(360deg); /* くるっと一回転 */
 }
 .notice-zoom-btn svg {
   width: 58%;
@@ -487,7 +618,7 @@ body {
 .notice-zoom-label {
   position: absolute;
   left: 50%;
-  bottom: 50%;           /* ラベル底辺 = ボタン中心 = 円弧の中心 */
+  bottom: calc(50% - 10px);  /* 円弧をアイコンへ少し近づける */
   width: 110px;
   height: 55px;
   overflow: visible;
@@ -525,3 +656,46 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* キャラのことわざ吹き出し：ホバーでポップイン */
+.hero-bubble {
+  opacity: 0;
+  transform: scale(0.5) translateY(10px);
+  transform-origin: bottom center;
+  transition: opacity 0.2s ease, transform 0.32s cubic-bezier(0.34, 1.55, 0.6, 1);
+  pointer-events: none;
+  z-index: 12;
+}
+.hero-char:hover .hero-bubble {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* キャラにホバーしたとき、少し縮小して吹き出しと重ならないように */
+.hero-char-inner {
+  transform-origin: bottom center;
+  transition: transform 0.3s ease;
+}
+.hero-char:hover .hero-char-inner {
+  transform: scale(0.9);
+}
+
+/* ヒーロー見出しの強調語：ホバーでポンと持ち上がる */
+.hero-word {
+  display: inline-block;
+  transition: transform 0.32s cubic-bezier(0.34, 1.6, 0.6, 1);
+  /* リロード時：フロートインに合わせて持ち上げ＋拡大でポップ登場。backwardsで終了後はhover有効 */
+  animation: hero-word-pop 0.75s cubic-bezier(0.3, 1.2, 0.5, 1) backwards;
+}
+.hero-word:hover {
+  transform: translateY(-0.12em) scale(1.06);
+}
+@keyframes hero-word-pop {
+  0%   { transform: translateY(0.5em) scale(0.85); }
+  65%  { transform: translateY(-0.12em) scale(1.06); }
+  100% { transform: translateY(0) scale(1); }
+}
+/* 各行の登場タイミングに合わせて強調語のポップを遅延 */
+.hero-text-line-1 .hero-word { animation-delay: 0.6s; }
+.hero-text-line-2 .hero-word { animation-delay: 1.3s; }
+.hero-text-line-3 .hero-word { animation-delay: 2s; }

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
+import { CITY_MASK } from '@/lib/cityMask';
 
 const TYPE_COLORS = {
   'お知らせ': { bg: '#EFF6FF', text: '#2563EB' },
@@ -10,6 +11,18 @@ const TYPE_COLORS = {
   '配信中': { bg: '#F0FDF4', text: '#16A34A' },
   '大幅アップデート': { bg: '#F5F3FF', text: '#7C3AED' },
 };
+
+// 見出しの左に置く縦書きラベル（App / Service / News）。見出しは右へ寄せて表示。
+function MHeadingLabel({ label, fontSize = '0.85rem', fontWeight = 800, left = '2px' }) {
+  return (
+    <span aria-hidden="true" style={{
+      position: 'absolute', left, top: '50%', transform: 'translateY(-50%)',
+      writingMode: 'vertical-rl', textOrientation: 'mixed',
+      fontSize, fontWeight, letterSpacing: '0.12em', textTransform: 'uppercase',
+      color: '#111d3b', opacity: 0.85, whiteSpace: 'nowrap', pointerEvents: 'none',
+    }}>{label}</span>
+  );
+}
 
 function MobileNewsCarousel() {
   const [idx, setIdx] = useState(1);
@@ -61,13 +74,13 @@ function MobileNewsCarousel() {
   if (total === 0) return null;
 
   return (
-    <section id="news" style={{ background: 'transparent', padding: '24px 0 48px', position: 'relative' }}>
+    <section id="news" style={{ background: 'transparent', padding: '24px 0 72px', position: 'relative' }}>
       {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く */}
       <div aria-hidden="true" style={{
-        position: 'absolute', left: 0, right: 0, top: '-54px', height: '90px', zIndex: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(#111d3b 2.0px, transparent 2.2px)', backgroundSize: '10px 10px',
-        WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 90' preserveAspectRatio='none'%3E%3Crect x='0' y='56' width='30' height='34' fill='%23fff'/%3E%3Crect x='30' y='44' width='26' height='46' fill='%23fff'/%3E%3Crect x='56' y='62' width='22' height='28' fill='%23fff'/%3E%3Crect x='78' y='50' width='26' height='40' fill='%23fff'/%3E%3Cpolygon points='104,90 124,90 119,40 114,16 109,40' fill='%23fff'/%3E%3Crect x='124' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='150' y='58' width='22' height='32' fill='%23fff'/%3E%3Crect x='168' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='171' cy='58' r='11' fill='%23fff'/%3E%3Crect x='180' y='46' width='26' height='44' fill='%23fff'/%3E%3Cpolygon points='206,90 220,68 234,90' fill='%23fff'/%3E%3Ccircle cx='220' cy='48' r='18' fill='%23fff'/%3E%3Crect x='240' y='54' width='24' height='36' fill='%23fff'/%3E%3Crect x='264' y='62' width='20' height='28' fill='%23fff'/%3E%3Crect x='284' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='310' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='313' cy='58' r='11' fill='%23fff'/%3E%3Crect x='322' y='56' width='24' height='34' fill='%23fff'/%3E%3Crect x='346' y='50' width='29' height='40' fill='%23fff'/%3E%3C/svg%3E")`,
-        maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 90' preserveAspectRatio='none'%3E%3Crect x='0' y='56' width='30' height='34' fill='%23fff'/%3E%3Crect x='30' y='44' width='26' height='46' fill='%23fff'/%3E%3Crect x='56' y='62' width='22' height='28' fill='%23fff'/%3E%3Crect x='78' y='50' width='26' height='40' fill='%23fff'/%3E%3Cpolygon points='104,90 124,90 119,40 114,16 109,40' fill='%23fff'/%3E%3Crect x='124' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='150' y='58' width='22' height='32' fill='%23fff'/%3E%3Crect x='168' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='171' cy='58' r='11' fill='%23fff'/%3E%3Crect x='180' y='46' width='26' height='44' fill='%23fff'/%3E%3Cpolygon points='206,90 220,68 234,90' fill='%23fff'/%3E%3Ccircle cx='220' cy='48' r='18' fill='%23fff'/%3E%3Crect x='240' y='54' width='24' height='36' fill='%23fff'/%3E%3Crect x='264' y='62' width='20' height='28' fill='%23fff'/%3E%3Crect x='284' y='48' width='26' height='42' fill='%23fff'/%3E%3Crect x='310' y='70' width='6' height='20' fill='%23fff'/%3E%3Ccircle cx='313' cy='58' r='11' fill='%23fff'/%3E%3Crect x='322' y='56' width='24' height='34' fill='%23fff'/%3E%3Crect x='346' y='50' width='29' height='40' fill='%23fff'/%3E%3C/svg%3E")`,
+        position: 'absolute', left: 0, right: 0, top: '-72px', aspectRatio: '1440 / 400', zIndex: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(#111d3b 1.2px, transparent 1.4px)', backgroundSize: '5px 5px',
+        WebkitMaskImage: CITY_MASK,
+        maskImage: CITY_MASK,
         WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
       }} />
       {/* 黄色の波の背景。お知らせセクション上端から固定px（top:-50px）で配置 */}
@@ -85,8 +98,9 @@ function MobileNewsCarousel() {
           const el = document.getElementById('news');
           if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
         }}
-        style={{ background: 'none', border: 'none', padding: '0 16px', cursor: 'pointer', textAlign: 'left', display: 'block', marginBottom: '20px', position: 'relative', zIndex: 1 }}
+        style={{ background: 'none', border: 'none', padding: '0 16px 0 50px', cursor: 'pointer', textAlign: 'left', display: 'block', marginBottom: '20px', position: 'relative', zIndex: 1 }}
       >
+        <MHeadingLabel label="News" fontSize="1.05rem" fontWeight={900} left="18px" />
         <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: 0, letterSpacing: '-0.02em' }}>
           お知らせ
         </h2>
@@ -94,7 +108,7 @@ function MobileNewsCarousel() {
 
       <div
         ref={containerRef}
-        style={{ overflow: 'hidden', padding: '0 0 24px', position: 'relative', zIndex: 1 }}
+        style={{ overflow: 'hidden', padding: '14px 0 24px', position: 'relative', zIndex: 1 }}
         onTouchStart={e => { touchStartX.current = e.touches[0].clientX; setPaused(true); }}
         onTouchEnd={e => {
           const diff = touchStartX.current - e.changedTouches[0].clientX;
@@ -117,8 +131,8 @@ function MobileNewsCarousel() {
               const c = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
               return (
                 <div key={i} style={{ width: slideW, minWidth: slideW, flexShrink: 0, marginRight: GAP, display: 'flex' }}>
-                  <div style={{ position: 'relative', flex: 1, display: 'flex' }}>
-                    {/* 右下にずらした四角いシャドウ */}
+                  <div className="service-card" style={{ position: 'relative', flex: 1, display: 'flex' }}>
+                    {/* 右下にずらした四角いシャドウ（カードと一緒に拡大） */}
                     <div aria-hidden="true" style={{ position: 'absolute', top: '12px', left: '12px', right: '-12px', bottom: '-16px', borderRadius: '16px', background: 'rgba(17, 29, 59, 0.14)', zIndex: 0 }} />
                     <div onClick={() => setOpenItem(item)} style={{ background: '#FBFBFD', borderRadius: '16px', boxShadow: '0 6px 24px rgba(0,0,0,0.10)', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', flex: 1, cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     {isPoster
@@ -139,7 +153,7 @@ function MobileNewsCarousel() {
                             onClick={(e) => { e.stopPropagation(); setOpenItem(item); }}
                             aria-label="詳細を見る"
                             className="notice-zoom-btn"
-                            style={{ '--sz': '44px' }}
+                            style={{ '--sz': '38px' }}
                           >
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
                               <circle cx="10.5" cy="10.5" r="6.5" /><line x1="20" y1="20" x2="15.5" y2="15.5" />
@@ -170,9 +184,10 @@ function MobileNewsCarousel() {
         <button
           aria-label="前のお知らせ"
           onClick={() => { setIdx(i => i - 1); setPaused(false); }}
-          style={{ width: '44px', height: '44px', borderRadius: '50%', border: 'none', background: '#111d3b', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+          className="carousel-nav"
+          style={{ width: '44px', height: '44px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="arrow-ic arrow-ic-left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
           </svg>
         </button>
@@ -191,11 +206,12 @@ function MobileNewsCarousel() {
           <button
             aria-label={userPaused ? '自動再生を開始' : '自動再生を停止'}
             onClick={() => setUserPaused(p => !p)}
-            style={{ width: '34px', height: '34px', borderRadius: '50%', border: '1.5px solid #111d3b', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+            className="carousel-play"
+            style={{ width: '34px', height: '34px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
           >
             {userPaused
-              ? <svg width="13" height="13" viewBox="0 0 24 24" fill="#111d3b"><polygon points="7 4 19 12 7 20" /></svg>
-              : <svg width="13" height="13" viewBox="0 0 24 24" fill="#111d3b"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+              ? <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 19 12 7 20" /></svg>
+              : <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
             }
           </button>
         </div>
@@ -203,9 +219,10 @@ function MobileNewsCarousel() {
         <button
           aria-label="次のお知らせ"
           onClick={() => { setIdx(i => i + 1); setPaused(false); }}
-          style={{ width: '44px', height: '44px', borderRadius: '50%', border: 'none', background: '#111d3b', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
+          className="carousel-nav"
+          style={{ width: '44px', height: '44px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, flexShrink: 0 }}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="arrow-ic arrow-ic-right" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
           </svg>
         </button>
@@ -457,12 +474,15 @@ export default function MobileHomePage() {
           style={{
             position: 'absolute', left: '50%', top: 0, marginLeft: '-24px', marginTop: '-24px', zIndex: 25,
             width: '48px', height: '48px', borderRadius: '50%',
-            background: 'transparent', border: '1.5px solid #111d3b', boxShadow: 'none',
+            background: 'rgba(255, 255, 255, 0.22)',
+            backdropFilter: 'blur(8px) saturate(160%)', WebkitBackdropFilter: 'blur(8px) saturate(160%)',
+            border: '1.5px solid #111d3b',
+            boxShadow: 'none',
             color: '#111d3b',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             cursor: 'pointer',
           }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="arrow-ic arrow-ic-down" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 9l6 6 6-6" />
           </svg>
         </button>
@@ -486,11 +506,14 @@ export default function MobileHomePage() {
           {/* 紫円：左上へ */}
           <div style={{ position: 'absolute', bottom: 'calc(8% + 12px)', right: 'calc(10% + 12px)', width: '44px', height: '44px', borderRadius: '50%', backgroundImage: 'radial-gradient(#7C3AED 24%, transparent 26%)', backgroundSize: '9px 9px' }} />
         </div>
-        <Link to="/apps" style={{ textDecoration: 'none' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-            アプリケーションはこちら。
-          </h2>
-        </Link>
+        <div style={{ position: 'relative', paddingLeft: '34px' }}>
+          <MHeadingLabel label="App" fontSize="1.4rem" fontWeight={900} />
+          <Link to="/apps" style={{ textDecoration: 'none' }}>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+              アプリケーションはこちら。
+            </h2>
+          </Link>
+        </div>
         {/* 自動回転カルーセル */}
         <div style={{ position: 'relative', height: '420px', overflow: 'hidden' }}>
           {APPS.map((app, i) => {
@@ -517,9 +540,9 @@ export default function MobileHomePage() {
                 </Link>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '16px', opacity: isCenter ? 1 : 0, transition: 'opacity 0.5s ease' }}>
                   <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1.15rem', fontWeight: 800, textAlign: 'center' }}>{app.name}</p>
-                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '16px', padding: '10px 22px', borderRadius: '999px', border: '1.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '0.9rem', fontWeight: 700 }}>
+                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '16px', padding: '12px 26px', borderRadius: '999px', border: '2.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '1rem', fontWeight: 700, boxShadow: '3px 5px 0 rgba(17,29,59,0.18)' }}>
                     さらに詳しく
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                    <svg className="arrow-ic arrow-ic-right" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                   </Link>
                 </div>
               </div>
@@ -528,23 +551,25 @@ export default function MobileHomePage() {
         </div>
         {/* 操作バー */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', marginTop: '4px' }}>
-          <button onClick={() => setAppActive(a => (a - 1 + APPS.length) % APPS.length)} aria-label="前へ" style={{ width: '40px', height: '40px', borderRadius: '50%', border: 'none', background: '#111d3b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
+          <button onClick={() => setAppActive(a => (a - 1 + APPS.length) % APPS.length)} aria-label="前へ" className="carousel-nav" style={{ width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <svg className="arrow-ic arrow-ic-left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
           </button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {APPS.map((_, i) => (
               <button key={i} onClick={() => setAppActive(i)} aria-label={`${i + 1}番目`} style={{ width: '9px', height: '9px', borderRadius: '50%', padding: 0, border: 'none', cursor: 'pointer', background: i === appActive ? '#111d3b' : '#fff', boxShadow: i === appActive ? 'none' : 'inset 0 0 0 1.5px #c4cad6' }} />
             ))}
-            <button onClick={() => setAppPlaying(p => !p)} aria-label={appPlaying ? '一時停止' : '再生'} style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1.5px solid #111d3b', background: '#fff', color: '#111d3b', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginLeft: '4px' }}>
+            <button onClick={() => setAppPlaying(p => !p)} aria-label={appPlaying ? '一時停止' : '再生'} className="carousel-play" style={{ width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginLeft: '4px' }}>
               {appPlaying ? (<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>) : (<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>)}
             </button>
           </div>
-          <button onClick={() => setAppActive(a => (a + 1) % APPS.length)} aria-label="次へ" style={{ width: '40px', height: '40px', borderRadius: '50%', border: 'none', background: '#111d3b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          <button onClick={() => setAppActive(a => (a + 1) % APPS.length)} aria-label="次へ" className="carousel-nav" style={{ width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <svg className="arrow-ic arrow-ic-right" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
           </button>
         </div>
       </section>
 
+      {/* アプリ帯とサービス帯の間の余白（薄青） */}
+      <div style={{ height: '40px', background: '#EAF3FF' }} />
       {/* サービス＆お知らせを横断する共通の背景（グリッド）。黄色の波・街並みはお知らせ側に配置 */}
       <div style={{
         backgroundColor: '#ffffff',
@@ -553,21 +578,23 @@ export default function MobileHomePage() {
         backgroundRepeat: 'repeat, repeat',
       }}>
       {/* サービス一覧セクション */}
-      <section id="services" style={{ background: 'transparent', padding: '24px 16px' }}>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-          サービス
-        </h2>
+      <section id="services" style={{ background: 'transparent', padding: '24px 16px 56px', position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', paddingLeft: '34px' }}>
+          <MHeadingLabel label="Service" fontSize="0.9rem" fontWeight={800} />
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+            サービス
+          </h2>
+        </div>
         {SERVICES.map((s, i) => (
-          <div key={i} style={{ position: 'relative', width: '88%', margin: '0 auto 24px' }}>
-            {/* 右下にずらした四角いシャドウ */}
+          <div key={i} className="service-card" style={{ position: 'relative', width: '88%', margin: '0 auto 24px' }}>
+            {/* 右下にずらした四角いシャドウ（カードと一緒に拡大） */}
             <div aria-hidden="true" style={{ position: 'absolute', top: '12px', left: '12px', right: '-12px', bottom: '-16px', borderRadius: '8px', background: 'rgba(17, 29, 59, 0.14)' }} />
             <div
-              className="service-card"
               onClick={() => s.link && window.open(s.link, '_blank')}
               style={{
                 borderRadius: '8px', overflow: 'hidden',
                 cursor: 'pointer',
-                background: '#FFFCF4',
+                background: '#ffffff',
                 boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
                 position: 'relative',
               }}

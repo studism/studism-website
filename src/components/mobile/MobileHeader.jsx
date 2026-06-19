@@ -58,27 +58,27 @@ export default function MobileHeader() {
           <span style={{ fontWeight: 900, fontSize: '1.05rem', color: '#0f0f0f', letterSpacing: '-0.01em' }}>Studism</span>
         </Link>
 
-        {/* 右: ハンバーガーボタン */}
+        {/* 右: ハンバーガーボタン（1つのSVGで描画＝3本とも同じ太さで描画される） */}
         <button
           onClick={() => setOpen(prev => !prev)}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', flexDirection: 'column', gap: '5px' }}
-          aria-label="メニューを開く"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          aria-label={open ? 'メニューを閉じる' : 'メニューを開く'}
         >
-          <span style={{
-            display: 'block', width: '22px', height: '2px', background: '#1a1a1a', borderRadius: '2px',
-            transition: 'transform 0.25s ease, opacity 0.25s ease',
-            transform: open ? 'translateY(7px) rotate(45deg)' : 'none',
-          }} />
-          <span style={{
-            display: 'block', width: '22px', height: '2px', background: '#1a1a1a', borderRadius: '2px',
-            transition: 'opacity 0.25s ease',
-            opacity: open ? 0 : 1,
-          }} />
-          <span style={{
-            display: 'block', width: '22px', height: '2px', background: '#1a1a1a', borderRadius: '2px',
-            transition: 'transform 0.25s ease, opacity 0.25s ease',
-            transform: open ? 'translateY(-7px) rotate(-45deg)' : 'none',
-          }} />
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2.6" strokeLinecap="round"
+            style={{ display: 'block', transition: 'transform 0.3s ease' }}>
+            {open ? (
+              <>
+                <line x1="5" y1="5" x2="19" y2="19" />
+                <line x1="19" y1="5" x2="5" y2="19" />
+              </>
+            ) : (
+              <>
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </>
+            )}
+          </svg>
         </button>
       </div>
 
