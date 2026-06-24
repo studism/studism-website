@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 // お知らせ詳細をホーム画面の上にかぶせて表示するモーダル。
@@ -43,6 +43,13 @@ const PlayIcon = () => (
   </svg>
 );
 
+// タップ誘導の指アイコン（Material の touch_app）。色は currentColor を継承。
+const TapGlyph = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ display: 'block' }}>
+    <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6C13 6.67 12.33 6 11.5 6S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z" />
+  </svg>
+);
+
 function StoreBadge({ href, sub, main, children }) {
   return (
     <a
@@ -74,6 +81,10 @@ export default function NoticeModal({ item, onClose }) {
   const [p, setP] = useState(0);            // スクロール進行度 0..1
   const [vw, setVw] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1280));
   const [reduced, setReduced] = useState(false);
+  // スマホ見出しタイトルのオートフィット結果（px のフォントサイズと折返し可否）
+  const titleWrapRef = useRef(null);        // 利用可能幅（84vw / 最大960px）の基準
+  const titleRef = useRef(null);            // 計測対象の <h2>
+  const [titleFit, setTitleFit] = useState({ fs: 24.8, nowrap: true });
 
   useEffect(() => {
     if (!item) return;
@@ -100,6 +111,27 @@ export default function NoticeModal({ item, onClose }) {
     setP(0);
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, [item]);
+
+  // スマホ見出しタイトルを、画面幅に関わらず同じバランス（1行）で表示する。
+  // 基準幅(84vw)に対し1行で収まる最大フォントを求め、収まらなければ縮小。
+  // 下限まで縮めても収まらない極端に長いタイトルだけ折返しを許可する。
+  useLayoutEffect(() => {
+    const wrap = titleWrapRef.current;
+    const h = titleRef.current;
+    if (!wrap || !h) return;                       // PC表示・未マウント時は対象外
+    const MAX = 24.8;                              // 1.55rem 相当（基準サイズ）
+    const MIN = 14;                                // これ以上は縮めない
+    h.style.whiteSpace = 'nowrap';
+    h.style.fontSize = MAX + 'px';
+    const avail = wrap.clientWidth;                // 利用可能幅
+    const need = h.scrollWidth;                    // 1行で必要な幅
+    let fs = MAX, nowrap = true;
+    if (need > avail) {
+      fs = MAX * (avail / need);
+      if (fs < MIN) { fs = MIN; nowrap = false; }
+    }
+    setTitleFit({ fs, nowrap });
+  }, [item, vw]);
 
   // ホイール1操作 = 次/前の表示へ1つだけ送り、停止点でピタッと止める。
   // 全文セクション（アニメ領域の下）では通常スクロールに任せる。
@@ -355,6 +387,12 @@ export default function NoticeModal({ item, onClose }) {
   const arrowOpacity = p < sTitle ? 1 : clamp(1 - mapRange(p, sTitle, sExit, 0, 1), 0, 1);
   const fHidden = fOpacity <= 0.01;
   const badgeOpacity = p < SN ? 0 : clamp(mapRange(p, SN, 1, 0, 1) / 0.5, 0, 1);
+  // スマホの一文表示中だけ右下に出すタップ誘導アイコンの表示量
+  // チラシ退出（sExit）でフェードイン、最後の文（SN）の直前でフェードアウト
+  const step = 1 / Math.max(STOPS - 1, 1);
+  const tapCueIn = clamp(mapRange(p, sTitle, sExit, 0, 1), 0, 1);
+  const tapCueOut = p >= SN ? 0 : clamp((SN - p) / (step * 0.5), 0, 1);
+  const tapCueOpacity = narrow ? tapCueIn * tapCueOut : 0;
 
   return createPortal(
     <>
@@ -436,7 +474,7 @@ export default function NoticeModal({ item, onClose }) {
           </div>
 
           {/* 見出し（チラシ画像の下・矢印の上。スクロールで現れる） */}
-          <div style={{
+          <div ref={titleWrapRef} style={{
             position: 'absolute', top: '73vh', left: '50%',
             transform: `translateX(-50%) translateY(${titleTy}px)`,
             width: '84vw', maxWidth: '960px', textAlign: 'center', zIndex: 2,
@@ -458,7 +496,7 @@ export default function NoticeModal({ item, onClose }) {
                       {date && <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>{date}</span>}
                     </div>
                   )}
-                  <h2 style={{ fontSize: '1.55rem', fontWeight: 900, color: '#fff', margin: 0, lineHeight: 1.3, letterSpacing: '-0.02em' }}>
+                  <h2 ref={titleRef} style={{ fontSize: `${titleFit.fs}px`, whiteSpace: titleFit.nowrap ? 'nowrap' : 'normal', fontWeight: 900, color: '#fff', margin: 0, lineHeight: 1.3, letterSpacing: '-0.02em' }}>
                     {item.title}
                   </h2>
                 </div>
@@ -480,6 +518,25 @@ export default function NoticeModal({ item, onClose }) {
             )}
           </div>
 
+          {/* 一文表示中の右下タップ誘導（スマホのみ）。装飾なので pointerEvents:none で
+              タップは背面のコンテナへ通し、画面どこでも1ステップ送りが効くようにする */}
+          {tapCueOpacity > 0.01 && (
+            <div style={{
+              position: 'absolute', right: '72px', bottom: '96px', zIndex: 4,
+              opacity: tapCueOpacity, pointerEvents: 'none',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
+            }}>
+              <div className="notice-tap-cue" style={{
+                width: '56px', height: '56px', borderRadius: '50%', color: '#fff',
+                background: 'rgba(17,29,59,0.8)', border: '1px solid rgba(255,255,255,0.35)',
+                boxShadow: '0 8px 22px rgba(0,0,0,0.35)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <TapGlyph size={28} />
+              </div>
+            </div>
+          )}
+
           {/* スクロール誘導（フェーズAでのみ表示） */}
           <div style={{
             position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)',
@@ -489,9 +546,13 @@ export default function NoticeModal({ item, onClose }) {
             textShadow: '0 1px 4px rgba(0,0,0,0.4)',
           }}>
             <span>{narrow ? 'タップで詳細へ' : 'スクロールで詳細へ'}</span>
-            <svg className="scroll-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
-              <path d="M6 9l6 6 6-6" />
-            </svg>
+            {narrow ? (
+              <span className="scroll-arrow" style={{ display: 'block' }}><TapGlyph size={24} /></span>
+            ) : (
+              <svg className="scroll-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            )}
           </div>
 
           {/* 最終画面から下へスクロールで全文を表示するためのヒント */}
@@ -503,9 +564,13 @@ export default function NoticeModal({ item, onClose }) {
             textShadow: '0 1px 4px rgba(0,0,0,0.4)',
           }}>
             <span>{narrow ? 'タップで全文を読む' : '下にスクロールで全文を読む'}</span>
-            <svg className="scroll-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
-              <path d="M6 9l6 6 6-6" />
-            </svg>
+            {narrow ? (
+              <span className="scroll-arrow" style={{ display: 'block' }}><TapGlyph size={22} /></span>
+            ) : (
+              <svg className="scroll-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            )}
           </div>
         </div>
       </div>

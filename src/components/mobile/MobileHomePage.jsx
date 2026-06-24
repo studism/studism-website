@@ -34,11 +34,17 @@ function MobileNewsCarousel() {
   const touchStartX = useRef(0);
   const [openItem, setOpenItem] = useState(null); // 詳細モーダルで開いているお知らせ
 
+  // コンテナ幅の計測。再訪時に offsetWidth が 0 を返すとカードが消えるため、
+  // ResizeObserver で実寸が決まった時点と幅変化時に必ず再計測する。
   useEffect(() => {
-    const update = () => { if (containerRef.current) setCw(containerRef.current.offsetWidth); };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    const el = containerRef.current;
+    if (!el) return;
+    const measure = () => setCw(el.offsetWidth);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener('resize', measure);
+    return () => { ro.disconnect(); window.removeEventListener('resize', measure); };
   }, []);
 
   const allItems = [
@@ -365,27 +371,34 @@ export default function MobileHomePage() {
   // ヒーローをスクロール分だけピン留め（次パネルが上を覆って滑り込む）
   useEffect(() => {
     let ticking = false;
+    let lastPin = -1;
+    // 基準高さはマウント時とリサイズ時だけ確定する。スクロール中に
+    // window.innerHeight を読むとアドレスバー開閉で高さが揺れ、ピン計算が
+    // ブレて再レイアウト＝カクつきの原因になるため毎フレームの読み取りを避ける。
+    let heroVis = Math.max(1, window.innerHeight - 68);
+    const st = document.documentElement.style;
+    const apply = () => {
+      ticking = false;
+      const lagVis = Math.min(window.scrollY, heroVis) * 0.5;
+      if (lagVis === lastPin) return;             // 値が変わらなければ書き込まない
+      lastPin = lagVis;
+      st.setProperty('--hero-pin', lagVis + 'px');
+      st.setProperty('--header-shift', lagVis + 'px');
+    };
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
-      requestAnimationFrame(() => {
-        const heroVis = Math.max(1, window.innerHeight - 68); // ヘッダー分
-        const lagVis = Math.min(window.scrollY, heroVis) * 0.5;
-        const p = Math.min(1, Math.max(0, window.scrollY / heroVis));
-        const st = document.documentElement.style;
-        st.setProperty('--hero-pin', lagVis + 'px');
-        st.setProperty('--header-shift', lagVis + 'px');
-        st.setProperty('--fold', String(p));
-        ticking = false;
-      });
+      requestAnimationFrame(apply);
     };
-    onScroll();
+    const onResize = () => { heroVis = Math.max(1, window.innerHeight - 68); apply(); };
+    apply();
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
     return () => {
       window.removeEventListener('scroll', onScroll);
-      document.documentElement.style.setProperty('--header-shift', '0px');
-      document.documentElement.style.setProperty('--hero-pin', '0px');
-      document.documentElement.style.setProperty('--fold', '0');
+      window.removeEventListener('resize', onResize);
+      st.setProperty('--header-shift', '0px');
+      st.setProperty('--hero-pin', '0px');
     };
   }, []);
 
@@ -395,7 +408,7 @@ export default function MobileHomePage() {
       {/* ヒーローセクション */}
       <section className="hero-fold" style={{
         position: 'relative', width: '100%', overflow: 'hidden',
-        minHeight: 'calc(100dvh - 68px)', boxSizing: 'border-box',
+        minHeight: 'calc(100svh - 68px)', boxSizing: 'border-box',
         background: '#ffffff',
         boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -474,8 +487,7 @@ export default function MobileHomePage() {
           style={{
             position: 'absolute', left: '50%', top: 0, marginLeft: '-24px', marginTop: '-24px', zIndex: 25,
             width: '48px', height: '48px', borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.22)',
-            backdropFilter: 'blur(8px) saturate(160%)', WebkitBackdropFilter: 'blur(8px) saturate(160%)',
+            background: 'rgba(255, 255, 255, 0.9)',
             border: '1.5px solid #111d3b',
             boxShadow: 'none',
             color: '#111d3b',

@@ -566,15 +566,21 @@ function NewsSection() {
   const [openItem, setOpenItem] = useState(null); // 詳細モーダルで開いているお知らせ
 
 
-  // コンテナ幅の計測
+  // コンテナ幅の計測。マウント時に offsetWidth が 0 を返すケース（再訪時の
+  // レイアウト未確定など）でカードが消えるのを防ぐため、ResizeObserver で
+  // 実寸が決まった時点と幅変化時に必ず再計測する。
   useEffect(() => {
-    const update = () => {
-      if (containerRef.current) setCw(containerRef.current.offsetWidth);
+    const el = containerRef.current;
+    if (!el) return;
+    const measure = () => {
+      setCw(el.offsetWidth);
       setWinW(window.innerWidth);
     };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener('resize', measure);
+    return () => { ro.disconnect(); window.removeEventListener('resize', measure); };
   }, []);
 
   const allItems = [
