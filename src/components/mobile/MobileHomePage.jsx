@@ -131,13 +131,13 @@ function MobileNewsCarousel() {
               const c = TYPE_COLORS[item.type] || { bg: '#F1F5F9', text: '#64748B' };
               return (
                 <div key={i} style={{ width: slideW, minWidth: slideW, flexShrink: 0, marginRight: GAP, display: 'flex' }}>
-                  <div className="service-card" style={{ position: 'relative', flex: 1, display: 'flex' }}>
+                  <div className={`service-card${i === idx ? ' nz-center' : ''}`} style={{ position: 'relative', flex: 1, display: 'flex' }}>
                     {/* 右下にずらした四角いシャドウ（カードと一緒に拡大） */}
                     <div aria-hidden="true" style={{ position: 'absolute', top: '12px', left: '12px', right: '-12px', bottom: '-16px', borderRadius: '16px', background: 'rgba(17, 29, 59, 0.14)', zIndex: 0 }} />
                     <div onClick={() => setOpenItem(item)} style={{ background: '#FBFBFD', borderRadius: '16px', boxShadow: '0 6px 24px rgba(0,0,0,0.10)', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', flex: 1, cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     {isPoster
-                      ? <img src={item.img} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
-                      : item.image && <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
+                      ? <img src={item.img} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
+                      : item.image && <img src={item.image.url} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
                     }
                     <div style={{ padding: '18px 20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '0.78rem', fontWeight: 700, background: c.bg, color: c.text, padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '10px', alignSelf: 'flex-start' }}>{item.type}</span>
@@ -148,7 +148,7 @@ function MobileNewsCarousel() {
                         <p style={{ fontSize: '0.85rem', color: '#94A3B8', margin: 0 }}>
                           {isPoster ? item.date : new Date(item.publishedAt).toLocaleDateString('ja-JP')}
                         </p>
-                        <span className="notice-zoom-wrap">
+                        <span className={`notice-zoom-wrap${i === idx ? ' nz-center' : ''}`}>
                           <button
                             onClick={(e) => { e.stopPropagation(); setOpenItem(item); }}
                             aria-label="詳細を見る"

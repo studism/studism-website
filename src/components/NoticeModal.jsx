@@ -165,8 +165,37 @@ export default function NoticeModal({ item, onClose }) {
       lockRef.current = true;
       animateTo(target * vh, done);
     };
+    // スマホ（狭い画面）はホイールがないため、1タップ = 次の表示へ1ステップ送る。
+    const onTap = (e) => {
+      const cfg = stepRef.current;
+      if (!cfg.enabled) return;
+      if (window.innerWidth >= 768) return;          // スマホのみ。PCはホイール送り
+      // ストアリンク等のインタラクティブ要素のタップは送りに使わない
+      if (e.target.closest && e.target.closest('a, button')) return;
+      const vh = el.clientHeight;
+      const animMax = (cfg.STOPS - 1) * vh;          // 最終ストップ（チラシ＋アイコン）
+      const textTop = animMax + vh;                  // 全文先頭が画面トップに来る位置
+      const top = el.scrollTop;
+      if (top > textTop - 2) return;                 // 全文セクション内は自由スクロール
+      if (lockRef.current) return;                   // 送り中は無視（多重送り防止）
+      // 現在地から次のストップ（最終ストップの先は全文先頭）へ送る
+      let target, dur = 760;
+      if (top > animMax + 2) { target = textTop; dur = 1000; }      // めくり区間 → 全文先頭
+      else {
+        const idx = Math.round(top / vh);
+        if (idx >= cfg.STOPS - 1) { target = textTop; dur = 1000; } // 最終ストップ → 全文先頭
+        else target = (idx + 1) * vh;
+      }
+      lockRef.current = true;
+      animateTo(target, () => { setTimeout(() => { lockRef.current = false; }, 60); }, dur);
+    };
     el.addEventListener('wheel', onWheel, { passive: false });
-    return () => { el.removeEventListener('wheel', onWheel); cancelAnimationFrame(raf); };
+    el.addEventListener('click', onTap);
+    return () => {
+      el.removeEventListener('wheel', onWheel);
+      el.removeEventListener('click', onTap);
+      cancelAnimationFrame(raf);
+    };
   }, [item]);
 
   const isPoster = item?._kind === 'poster';
@@ -272,7 +301,7 @@ export default function NoticeModal({ item, onClose }) {
             boxShadow: '0 24px 70px rgba(0,0,0,0.35)', overflow: 'hidden',
           }}
         >
-          {img && <img src={img} alt={item.title} style={{ width: '100%', height: 'auto', display: 'block' }} />}
+          {img && <img src={img} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', height: 'auto', display: 'block' }} />}
           {storeBadges && <div style={{ padding: '20px 24px 0' }}>{storeBadges}</div>}
           <div style={{ padding: '24px 28px 40px' }}>
             {item.type && (
@@ -356,9 +385,11 @@ export default function NoticeModal({ item, onClose }) {
               <img
                 src={img}
                 alt={item.title}
+                loading="lazy"
+                decoding="async"
                 className="notice-flyer-slap"
                 style={{
-                  display: 'block', height: '86vh', width: 'auto', maxWidth: '90vw',
+                  display: 'block', maxHeight: '86vh', maxWidth: '90vw', width: 'auto', height: 'auto',
                   borderRadius: '12px', boxShadow: '0 18px 50px rgba(0,0,0,0.45)', background: '#fff',
                 }}
               />
@@ -412,17 +443,41 @@ export default function NoticeModal({ item, onClose }) {
             opacity: titleOpacity, visibility: titleOpacity < 0.01 ? 'hidden' : 'visible',
             color: '#fff', textShadow: '0 2px 14px rgba(0,0,0,0.55)', pointerEvents: 'none',
           }}>
-            {item.type && (
-              <span style={{
-                fontSize: '0.8rem', fontWeight: 700, background: tc.bg, color: tc.text,
-                padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '10px',
-                textShadow: 'none',
-              }}>{item.type}</span>
+            {narrow ? (
+              <>
+                {/* スマホ：タイトル幅のブロックを中央寄せし、その中でタイプを頭（左）・日付を同じ行の右に配置 */}
+                <div style={{ display: 'inline-block', maxWidth: '100%', textAlign: 'left' }}>
+                  {(item.type || date) && (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '10px' }}>
+                      {item.type ? (
+                        <span style={{
+                          fontSize: '0.8rem', fontWeight: 700, background: tc.bg, color: tc.text,
+                          padding: '3px 12px', borderRadius: '999px', display: 'inline-block', textShadow: 'none',
+                        }}>{item.type}</span>
+                      ) : <span />}
+                      {date && <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>{date}</span>}
+                    </div>
+                  )}
+                  <h2 style={{ fontSize: '1.55rem', fontWeight: 900, color: '#fff', margin: 0, lineHeight: 1.3, letterSpacing: '-0.02em' }}>
+                    {item.title}
+                  </h2>
+                </div>
+              </>
+            ) : (
+              <>
+                {item.type && (
+                  <span style={{
+                    fontSize: '0.8rem', fontWeight: 700, background: tc.bg, color: tc.text,
+                    padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '10px',
+                    textShadow: 'none',
+                  }}>{item.type}</span>
+                )}
+                <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: '#fff', margin: '0 0 6px', lineHeight: 1.3, letterSpacing: '-0.02em' }}>
+                  {item.title}
+                </h2>
+                {date && <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>{date}</p>}
+              </>
             )}
-            <h2 style={{ fontSize: narrow ? '1.55rem' : '2.2rem', fontWeight: 900, color: '#fff', margin: '0 0 6px', lineHeight: 1.3, letterSpacing: '-0.02em' }}>
-              {item.title}
-            </h2>
-            {date && <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>{date}</p>}
           </div>
 
           {/* スクロール誘導（フェーズAでのみ表示） */}
@@ -433,7 +488,7 @@ export default function NoticeModal({ item, onClose }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
             textShadow: '0 1px 4px rgba(0,0,0,0.4)',
           }}>
-            <span>スクロールで詳細へ</span>
+            <span>{narrow ? 'タップで詳細へ' : 'スクロールで詳細へ'}</span>
             <svg className="scroll-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
               <path d="M6 9l6 6 6-6" />
             </svg>
@@ -447,7 +502,7 @@ export default function NoticeModal({ item, onClose }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px',
             textShadow: '0 1px 4px rgba(0,0,0,0.4)',
           }}>
-            <span>下にスクロールで全文を読む</span>
+            <span>{narrow ? 'タップで全文を読む' : '下にスクロールで全文を読む'}</span>
             <svg className="scroll-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
               <path d="M6 9l6 6 6-6" />
             </svg>

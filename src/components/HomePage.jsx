@@ -636,8 +636,8 @@ function NewsSection() {
             style={{ background: '#FBFBFD', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', flex: 1, position: 'relative', zIndex: 1 }}
           >
           {isPoster
-            ? <img src={item.img} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
-            : item.image && <img src={item.image.url} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
+            ? <img src={item.img} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
+            : item.image && <img src={item.image.url} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
           }
           <div style={{ padding: '24px 26px 28px', flex: 1, display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '0.95rem', fontWeight: 700, background: c.bg, color: c.text, padding: '4px 14px', borderRadius: '999px', display: 'inline-block', marginBottom: '12px', alignSelf: 'flex-start' }}>{item.type}</span>

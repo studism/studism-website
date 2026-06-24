@@ -13,7 +13,7 @@ export default function MobileHeader() {
     const root = document.getElementById('root');
     if (!root) return;
     root.style.transition = 'transform 0.3s ease';
-    root.style.transform = open ? 'translateX(-33.333vw)' : 'translateX(0)';
+    root.style.transform = open ? 'translateX(-66.666vw)' : 'translateX(0)';
     return () => { root.style.transform = 'translateX(0)'; };
   }, [open]);
 
@@ -99,7 +99,7 @@ export default function MobileHeader() {
         {/* 右からのサイドバー（ページと同じ幅だけ押し出す） */}
         <aside
           style={{
-            position: 'fixed', top: 0, right: 0, height: '100%', width: '33.333vw', zIndex: 61,
+            position: 'fixed', top: 0, right: 0, height: '100%', width: '66.666vw', zIndex: 61,
             background: '#eef2f7',
             transform: open ? 'translateX(0)' : 'translateX(100%)',
             transition: 'transform 0.3s ease',

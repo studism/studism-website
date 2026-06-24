@@ -7,7 +7,7 @@
 export const NEWS_POSTERS = [
   {
     slug: 'timelyze',
-    img: '/images/news/timelyze-poster.png',
+    img: '/images/news/timelyze-poster.webp',
     type: '配信中',
     title: 'Timelyze：時間管理アプリ大幅アップデート！',
     note: 'さらに使いやすくなりました!',
@@ -24,7 +24,7 @@ export const NEWS_POSTERS = [
   },
   {
     slug: 'sakuraenglish',
-    img: '/images/news/sakuraenglish-release.png',
+    img: '/images/news/sakuraenglish-release.webp',
     type: '配信中',
     title: 'SakuraEnglish：大幅アップデート！',
     note: 'さらに使いやすくなりました!',
@@ -40,7 +40,7 @@ export const NEWS_POSTERS = [
   },
   {
     slug: 'studism',
-    img: '/images/news/studism-ad.png',
+    img: '/images/news/studism-ad.webp',
     type: '配信中',
     title: 'Studism：勉強のためのSNS配信中',
     date: '2025.1.26',
@@ -56,7 +56,7 @@ export const NEWS_POSTERS = [
   },
   {
     slug: 'mamemame',
-    img: '/images/news/mamemame-store.png',
+    img: '/images/news/mamemame-store.webp',
     type: '配信中',
     title: '豆マメ：古文単語アプリ配信中',
     date: '2025.1.26',

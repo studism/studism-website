@@ -22,7 +22,7 @@ function NewsCard({ item, showImage = true }) {
     <Link to={`/notice/${item.slug}`} style={{ textDecoration: 'none' }}>
     <div style={{ background: '#fff', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
       {showImage && item.img && (
-        <img src={item.img} alt={item.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
+        <img src={item.img} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
       )}
       <div style={{ padding: '16px' }}>
         {item.type && (

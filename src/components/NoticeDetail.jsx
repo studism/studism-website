@@ -37,6 +37,8 @@ function NoticeContent({ item }) {
       <img
         src={item.img}
         alt={item.title}
+        loading="lazy"
+        decoding="async"
         style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '24px', display: 'block' }}
       />
       {item.body && (
