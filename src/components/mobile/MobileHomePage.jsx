@@ -83,7 +83,7 @@ function MobileNewsCarousel() {
     <section id="news" style={{ background: 'transparent', padding: '24px 0 72px', position: 'relative' }}>
       {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く */}
       <div aria-hidden="true" style={{
-        position: 'absolute', left: 0, right: 0, top: '-72px', aspectRatio: '1440 / 400', zIndex: 0, pointerEvents: 'none',
+        position: 'absolute', left: 0, right: 0, top: '-120px', aspectRatio: '1440 / 400', zIndex: 0, pointerEvents: 'none',
         backgroundImage: 'radial-gradient(#111d3b 1.2px, transparent 1.4px)', backgroundSize: '5px 5px',
         WebkitMaskImage: CITY_MASK,
         maskImage: CITY_MASK,
@@ -97,7 +97,7 @@ function MobileNewsCarousel() {
           <circle cx="300" cy="20" r="5" fill="#FFE066" />
           <circle cx="50" cy="22" r="4" fill="#FFE066" />
         </svg>
-        <div style={{ flex: 1, background: '#FFE066' }} />
+        <div style={{ flex: 1, background: '#FFE066', marginTop: '-1px' }} />
       </div>
       <button
         onClick={() => {
@@ -147,7 +147,7 @@ function MobileNewsCarousel() {
                     }
                     <div style={{ padding: '18px 20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '0.78rem', fontWeight: 700, background: c.bg, color: c.text, padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '10px', alignSelf: 'flex-start' }}>{item.type}</span>
-                      <p style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.4 }}>{item.title}</p>
+                      <p className="notice-heading-font" style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.45 }}>{item.title}</p>
                       {isPoster && item.note && <p style={{ color: '#5b6470', fontSize: '0.88rem', fontWeight: 500, margin: '0 0 8px', lineHeight: 1.5 }}>{item.note}</p>}
                       {/* 下段：日付（左）＋虫眼鏡ボタン（右下） */}
                       <div style={{ marginTop: 'auto', paddingTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
@@ -593,7 +593,13 @@ export default function MobileHomePage() {
       <section id="services" style={{ background: 'transparent', padding: '24px 16px 56px', position: 'relative', zIndex: 1 }}>
         <div style={{ position: 'relative', paddingLeft: '34px' }}>
           <MHeadingLabel label="Service" fontSize="0.9rem" fontWeight={800} />
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+          <h2
+            onClick={() => {
+              const el = document.getElementById('services');
+              if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
+            }}
+            style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em', cursor: 'pointer', display: 'inline-block' }}
+          >
             サービス
           </h2>
         </div>
