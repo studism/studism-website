@@ -41,7 +41,19 @@
       "Bash(break)",
       "Bash(grep -iv \"canScrollLeft\\\\|canScrollRight\\\\|'scroll'\\\\|problems\\\\|^C:\\\\|^$\\\\|^✖\")",
       "Bash(grep -iv \"canScrollLeft\\\\|canScrollRight\\\\|'scroll' is assigned\\\\|problems\\\\|^C:\\\\\\\\\\\\\\\\\\\\|^$\\\\|^✖\\\\|no-unused-vars\")",
-      "Bash(grep -n \"アプリケーションはこちら\\\\|>サービス<\\\\|サービス$\\\\|お知らせ$\\\\|<h2\\\\|padding: '0 16px'\" src/components/mobile/MobileHomePage.jsx)"
+      "Bash(grep -n \"アプリケーションはこちら\\\\|>サービス<\\\\|サービス$\\\\|お知らせ$\\\\|<h2\\\\|padding: '0 16px'\" src/components/mobile/MobileHomePage.jsx)",
+      "Bash(command -v cwebp)",
+      "Bash(cwebp -version)",
+      "Bash(command -v magick)",
+      "Bash(command -v convert)",
+      "Bash(command -v ffmpeg)",
+      "Bash(pnpm -v)",
+      "Bash(pnpm add *)",
+      "Bash(rm -f public/images/news/*.png)",
+      "Read(//c/c/Users/SST4a/OneDrive/デスクトップ/studism-website/public/images/**)",
+      "Bash(pnpm remove *)",
+      "PowerShell(pnpm dev *)",
+      "PowerShell(git add *)"
     ],
     "deny": [],
     "ask": []
