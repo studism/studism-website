@@ -495,7 +495,13 @@ function ServiceSection() {
       <div style={{ padding: '0 40px 0 120px' }}>
         <div style={{ marginBottom: '48px', position: 'relative' }}>
           <HeadingRuler label="Service" />
-          <h2 style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
+          <h2
+            onClick={() => {
+              const el = document.getElementById('services');
+              if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
+            }}
+            style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', cursor: 'pointer', display: 'inline-block' }}
+          >
             サービス
           </h2>
         </div>
@@ -647,7 +653,7 @@ function NewsSection() {
           }
           <div style={{ padding: '24px 26px 28px', flex: 1, display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '0.95rem', fontWeight: 700, background: c.bg, color: c.text, padding: '4px 14px', borderRadius: '999px', display: 'inline-block', marginBottom: '12px', alignSelf: 'flex-start' }}>{item.type}</span>
-            <p style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 8px', lineHeight: 1.4 }}>{item.title}</p>
+            <p className="notice-heading-font" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 8px', lineHeight: 1.45 }}>{item.title}</p>
             {isPoster && item.note && (
               <p style={{ color: '#5b6470', fontSize: '1.05rem', fontWeight: 500, margin: '0 0 10px', lineHeight: 1.5 }}>{item.note}</p>
             )}
@@ -706,7 +712,7 @@ function NewsSection() {
           <circle cx="900" cy="56" r="6" fill="#FFE066" />
           <circle cx="1300" cy="46" r="5" fill="#FFE066" />
         </svg>
-        <div style={{ flex: 1, background: '#FFE066' }} />
+        <div style={{ flex: 1, background: '#FFE066', marginTop: '-1px' }} />
       </div>
       <div style={{ padding: '0 40px 0 120px', marginBottom: '48px', position: 'relative', zIndex: 1 }}>
         <HeadingRuler left="76px" label="News" fontSize="1.4rem" fontWeight={900} />

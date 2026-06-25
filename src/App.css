@@ -477,6 +477,14 @@ body {
   color: #fff !important;
 }
 .notice-fulltext a { color: #93C5FD !important; }
+/* 本文の折り返しを「文節（きりのいい所）」で行い、で・の・が・し等や単語の
+   途中で割れにくくして読みやすくする。対応ブラウザ（Chrome/Edge等）で有効、
+   非対応環境では従来の折り返しにフォールバック。 */
+.notice-fulltext, .notice-fulltext p {
+  line-break: strict;
+  word-break: auto-phrase;
+  text-wrap: pretty;
+}
 
 /* お知らせモーダルの閉じる（×）ボタン：ホバーで濃く＆わずかに拡大 */
 .notice-close-btn:hover {
@@ -487,33 +495,34 @@ body {
   transform: scale(0.96);
 }
 
-/* お知らせ詳細：一文ごとの表示中、右下に出すタップ誘導アイコン */
-@keyframes notice-tap-ripple {
-  0%   { transform: scale(0.55); opacity: 0.6; }
-  100% { transform: scale(1.9);  opacity: 0; }
+/* お知らせ詳細モーダル全体のフォント（見出し・キャッチコピー・本文など）。
+   別ゴシックを試すときは index.html の読み込みと、この font-family の2か所だけ差し替える。 */
+/* ひらがなだけを少し小さく表示するための面（漢字＝名詞・カタカナは通常サイズのまま）。
+   Sawarabi Gothic のかなチャンク(woff2)を size-adjust で縮小し、unicode-range をひらがなに限定。 */
+@font-face {
+  font-family: 'Sawarabi Kana Small';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sawarabigothic/v16/x3d4ckfVaqqa-BEj-I9mE65u3k3NAEEnEXdX7R_PTqgHT45rMBfyeoYQJ5w.119.woff2) format('woff2');
+  unicode-range: U+3041-3096, U+3099-309F;
+  size-adjust: 93%;
 }
-@keyframes notice-tap-bob {
-  0%, 100% { transform: translateY(0) scale(1); }
-  45%      { transform: translateY(-5px) scale(1.05); }
+.notice-font {
+  font-family: 'Sawarabi Kana Small', 'Sawarabi Gothic', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+  letter-spacing: 0.06em;
 }
-.notice-tap-cue {
-  position: relative;
-  animation: notice-tap-bob 1.7s ease-in-out infinite;
-}
-.notice-tap-cue::before,
-.notice-tap-cue::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.75);
-  animation: notice-tap-ripple 1.7s ease-out infinite;
-}
-.notice-tap-cue::after { animation-delay: 0.85s; }
-@media (prefers-reduced-motion: reduce) {
-  .notice-tap-cue,
-  .notice-tap-cue::before,
-  .notice-tap-cue::after { animation: none; }
+
+/* お知らせ詳細モーダルの「見出し」だけ別フォント（どっしり骨太な表示用ゴシック）。
+   差し替えは index.html の読み込みと、この font-family の2か所だけ。 */
+.notice-heading-font {
+  font-family: 'Kaisei Tokumin', 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', serif;
+  font-weight: 700;
+  /* 折り返す場合は文節（きりのいい所）で。モーダル見出しは FitOneLine が1行に
+     収めるためここは効かず、主にホームカード見出しの折り返しに効く。 */
+  line-break: strict;
+  word-break: auto-phrase;
+  text-wrap: pretty;
 }
 
 /* 矢印アイコン共通：ホバーで進行方向へ進んで戻るアニメーション */
