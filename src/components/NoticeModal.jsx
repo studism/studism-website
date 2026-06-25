@@ -1,5 +1,11 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { loadDefaultJapaneseParser } from 'budoux';
+import FitOneLine from '@/components/FitOneLine';
+
+// 日本語の文節（きりのいい所）で改行するためのパーサ（機械学習ベース）。
+// 本文は、で・の・が・し・「〜しました。」等の自然な位置で折り返す。
+const jpParser = loadDefaultJapaneseParser();
 
 // お知らせ詳細をホーム画面の上にかぶせて表示するモーダル。
 // PC版はデザイン全体に scale 変形がかかっており position:fixed の基準が
@@ -81,10 +87,6 @@ export default function NoticeModal({ item, onClose }) {
   const [p, setP] = useState(0);            // スクロール進行度 0..1
   const [vw, setVw] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1280));
   const [reduced, setReduced] = useState(false);
-  // スマホ見出しタイトルのオートフィット結果（px のフォントサイズと折返し可否）
-  const titleWrapRef = useRef(null);        // 利用可能幅（84vw / 最大960px）の基準
-  const titleRef = useRef(null);            // 計測対象の <h2>
-  const [titleFit, setTitleFit] = useState({ fs: 24.8, nowrap: true });
 
   useEffect(() => {
     if (!item) return;
@@ -111,27 +113,6 @@ export default function NoticeModal({ item, onClose }) {
     setP(0);
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, [item]);
-
-  // スマホ見出しタイトルを、画面幅に関わらず同じバランス（1行）で表示する。
-  // 基準幅(84vw)に対し1行で収まる最大フォントを求め、収まらなければ縮小。
-  // 下限まで縮めても収まらない極端に長いタイトルだけ折返しを許可する。
-  useLayoutEffect(() => {
-    const wrap = titleWrapRef.current;
-    const h = titleRef.current;
-    if (!wrap || !h) return;                       // PC表示・未マウント時は対象外
-    const MAX = 24.8;                              // 1.55rem 相当（基準サイズ）
-    const MIN = 14;                                // これ以上は縮めない
-    h.style.whiteSpace = 'nowrap';
-    h.style.fontSize = MAX + 'px';
-    const avail = wrap.clientWidth;                // 利用可能幅
-    const need = h.scrollWidth;                    // 1行で必要な幅
-    let fs = MAX, nowrap = true;
-    if (need > avail) {
-      fs = MAX * (avail / need);
-      if (fs < MIN) { fs = MIN; nowrap = false; }
-    }
-    setTitleFit({ fs, nowrap });
-  }, [item, vw]);
 
   // ホイール1操作 = 次/前の表示へ1つだけ送り、停止点でピタッと止める。
   // 全文セクション（アニメ領域の下）では通常スクロールに任せる。
@@ -233,6 +214,8 @@ export default function NoticeModal({ item, onClose }) {
   const isPoster = item?._kind === 'poster';
   const body = isPoster ? item?.body : item?.content;
   const sentences = useMemo(() => (body ? splitSentences(body) : []), [body]);
+  // 本文HTMLは各ブロックに keep-all＋ゼロ幅スペースを挿入した形に変換。
+  const bodyHtml = useMemo(() => (body ? jpParser.translateHTMLString(body) : ''), [body]);
 
   if (!item) return null;
 
@@ -248,7 +231,7 @@ export default function NoticeModal({ item, onClose }) {
   const narrow = vw < 768;           // 狭い画面（スマホ）はサイズを調整
 
   // 1スライド = 1文。見出しは最初のチラシ画面に一緒に表示する。
-  const slides = sentences.map((s, i) => ({ text: s, lead: i === 0 }));
+  const slides = sentences.map((s, i) => ({ text: s, lead: i === 0, last: i === sentences.length - 1 }));
   const M = slides.length;
   // スナップ停止点: 0=チラシのみ, 1=チラシ＋見出し, 2..M+1=各文, M+2=最終（チラシ＋ストア）。
   // 各停止点を 1画面(100vh) 間隔に等間隔配置 → 1スクロール=1ステップ。
@@ -327,6 +310,7 @@ export default function NoticeModal({ item, onClose }) {
       >
         <div
           onClick={(e) => e.stopPropagation()}
+          className="notice-font"
           style={{
             position: 'relative', background: '#fff', borderRadius: '20px',
             width: '100%', maxWidth: '760px', margin: 'auto',
@@ -342,9 +326,9 @@ export default function NoticeModal({ item, onClose }) {
                 padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '14px',
               }}>{item.type}</span>
             )}
-            <h2 style={{ fontSize: '1.7rem', fontWeight: 900, color: '#0a0a0a', margin: '0 0 10px', lineHeight: 1.3, letterSpacing: '-0.02em' }}>{item.title}</h2>
+            <FitOneLine as="h2" text={item.title} max={33} min={13} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#0a0a0a', margin: '0 0 10px', lineHeight: 1.3, letterSpacing: '0.03em' }} />
             {date && <p style={{ fontSize: '0.85rem', color: '#94A3B8', margin: '0 0 24px' }}>{date}</p>}
-            {body && <div style={{ fontSize: '0.98rem', lineHeight: 1.8, color: '#333' }} dangerouslySetInnerHTML={{ __html: body }} />}
+            {body && <div style={{ fontSize: '0.98rem', lineHeight: 1.8, color: '#333' }} dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
           </div>
         </div>
       </div>
@@ -388,10 +372,11 @@ export default function NoticeModal({ item, onClose }) {
   const fHidden = fOpacity <= 0.01;
   const badgeOpacity = p < SN ? 0 : clamp(mapRange(p, SN, 1, 0, 1) / 0.5, 0, 1);
   // スマホの一文表示中だけ右下に出すタップ誘導アイコンの表示量
-  // チラシ退出（sExit）でフェードイン、最後の文（SN）の直前でフェードアウト
+  // チラシ退出（sExit）でフェードイン。最後の文（SN）までは表示し続け、
+  // その先（最終ストア画面へ送る区間）でフェードアウトする
   const step = 1 / Math.max(STOPS - 1, 1);
   const tapCueIn = clamp(mapRange(p, sTitle, sExit, 0, 1), 0, 1);
-  const tapCueOut = p >= SN ? 0 : clamp((SN - p) / (step * 0.5), 0, 1);
+  const tapCueOut = p <= SN ? 1 : clamp((1 - p) / (step * 0.5), 0, 1);
   const tapCueOpacity = narrow ? tapCueIn * tapCueOut : 0;
 
   return createPortal(
@@ -402,6 +387,7 @@ export default function NoticeModal({ item, onClose }) {
       onScroll={onScroll}
       role="dialog"
       aria-modal="true"
+      className="notice-font"
       style={{
         position: 'fixed', inset: 0, zIndex: 10000, overflowY: 'auto',
         WebkitOverflowScrolling: 'touch',
@@ -454,7 +440,7 @@ export default function NoticeModal({ item, onClose }) {
               const bl = Math.abs(s) * 10;
               const sc = 1 - Math.abs(s) * 0.05;
               const base = {
-                position: 'absolute', top: '50%', left: '50%',
+                position: 'absolute', top: '44%', left: '50%',
                 transform: `translate(-50%, -50%) translateY(${ty}px) scale(${sc})`,
                 opacity: op, filter: bl > 0.05 ? `blur(${bl}px)` : 'none',
                 visibility: op < 0.01 ? 'hidden' : 'visible',
@@ -463,9 +449,11 @@ export default function NoticeModal({ item, onClose }) {
               };
               return (
                 <p key={j} style={{
-                  ...base, margin: 0, lineHeight: 1.55,
-                  fontSize: narrow ? (sl.lead ? '1.65rem' : '1.35rem') : (sl.lead ? '2.7rem' : '2.2rem'),
-                  fontWeight: sl.lead ? 700 : 500,
+                  ...base, margin: 0, lineHeight: 2.0,
+                  fontSize: narrow
+                    ? (sl.last ? '2.2rem' : sl.lead ? '1.75rem' : '1.55rem')
+                    : (sl.last ? '3.5rem' : sl.lead ? '2.8rem' : '2.5rem'),
+                  fontWeight: sl.last ? 500 : (sl.lead ? 500 : 400),
                 }}>
                   {sl.text}
                 </p>
@@ -474,7 +462,7 @@ export default function NoticeModal({ item, onClose }) {
           </div>
 
           {/* 見出し（チラシ画像の下・矢印の上。スクロールで現れる） */}
-          <div ref={titleWrapRef} style={{
+          <div style={{
             position: 'absolute', top: '73vh', left: '50%',
             transform: `translateX(-50%) translateY(${titleTy}px)`,
             width: '84vw', maxWidth: '960px', textAlign: 'center', zIndex: 2,
@@ -496,9 +484,7 @@ export default function NoticeModal({ item, onClose }) {
                       {date && <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>{date}</span>}
                     </div>
                   )}
-                  <h2 ref={titleRef} style={{ fontSize: `${titleFit.fs}px`, whiteSpace: titleFit.nowrap ? 'nowrap' : 'normal', fontWeight: 900, color: '#fff', margin: 0, lineHeight: 1.3, letterSpacing: '-0.02em' }}>
-                    {item.title}
-                  </h2>
+                  <FitOneLine as="h2" text={item.title} max={30} min={13} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#fff', margin: 0, lineHeight: 1.3, letterSpacing: '0.03em' }} />
                 </div>
               </>
             ) : (
@@ -510,30 +496,22 @@ export default function NoticeModal({ item, onClose }) {
                     textShadow: 'none',
                   }}>{item.type}</span>
                 )}
-                <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: '#fff', margin: '0 0 6px', lineHeight: 1.3, letterSpacing: '-0.02em' }}>
-                  {item.title}
-                </h2>
+                <FitOneLine as="h2" text={item.title} max={42} min={14} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#fff', margin: '0 0 6px', lineHeight: 1.3, letterSpacing: '0.03em' }} />
                 {date && <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>{date}</p>}
               </>
             )}
           </div>
 
-          {/* 一文表示中の右下タップ誘導（スマホのみ）。装飾なので pointerEvents:none で
-              タップは背面のコンテナへ通し、画面どこでも1ステップ送りが効くようにする */}
+          {/* 一文表示中の右下タップ誘導（スマホのみ）。「タップで詳細へ」と同じ
+              白いタップアイコンに統一。装飾なので pointerEvents:none でタップは
+              背面のコンテナへ通し、画面どこでも1ステップ送りが効くようにする */}
           {tapCueOpacity > 0.01 && (
             <div style={{
-              position: 'absolute', right: '72px', bottom: '96px', zIndex: 4,
+              position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 4,
               opacity: tapCueOpacity, pointerEvents: 'none',
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
+              color: '#E2E8F0', textShadow: '0 1px 4px rgba(0,0,0,0.4)',
             }}>
-              <div className="notice-tap-cue" style={{
-                width: '56px', height: '56px', borderRadius: '50%', color: '#fff',
-                background: 'rgba(17,29,59,0.8)', border: '1px solid rgba(255,255,255,0.35)',
-                boxShadow: '0 8px 22px rgba(0,0,0,0.35)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <TapGlyph size={28} />
-              </div>
+              <span className="scroll-arrow" style={{ display: 'block' }}><TapGlyph size={28} /></span>
             </div>
           )}
 
@@ -588,9 +566,9 @@ export default function NoticeModal({ item, onClose }) {
               textShadow: 'none',
             }}>{item.type}</span>
           )}
-          <h2 style={{ fontSize: '1.9rem', fontWeight: 900, color: '#fff', margin: '0 0 10px', lineHeight: 1.3, letterSpacing: '-0.02em' }}>{item.title}</h2>
+          <FitOneLine as="h2" text={item.title} max={36} min={14} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#fff', margin: '0 0 10px', lineHeight: 1.3, letterSpacing: '0.03em' }} />
           {date && <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', margin: '0 0 24px' }}>{date}</p>}
-          {body && <div className="notice-fulltext" style={{ fontSize: '1.05rem', lineHeight: 1.95 }} dangerouslySetInnerHTML={{ __html: body }} />}
+          {body && <div className="notice-fulltext" style={{ fontSize: '1.2rem', lineHeight: 2.0 }} dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
         </div>
       </div>
     </div>
