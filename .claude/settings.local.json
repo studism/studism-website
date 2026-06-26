@@ -53,7 +53,13 @@
       "Read(//c/c/Users/SST4a/OneDrive/デスクトップ/studism-website/public/images/**)",
       "Bash(pnpm remove *)",
       "PowerShell(pnpm dev *)",
-      "PowerShell(git add *)"
+      "PowerShell(git add *)",
+      "PowerShell(gh run *)",
+      "PowerShell(pnpm run *)",
+      "PowerShell(pnpm preview *)",
+      "PowerShell($r = Invoke-WebRequest -Uri \"https://stdism.com/\" -UseBasicParsing -Headers @{ \"Cache-Control\" = \"no-cache\" }; \\($r.Content | Select-String -Pattern '/assets/[^\"]+' -AllMatches\\).Matches.Value | Sort-Object -Unique)",
+      "PowerShell(Get-Process *)",
+      "PowerShell(Start-Process \"http://localhost:4173/\")"
     ],
     "deny": [],
     "ask": []

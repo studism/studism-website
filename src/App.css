@@ -627,7 +627,7 @@ body {
   height: var(--sz);
   border-radius: 50%;
   background: #ffffff;
-  border: 2.5px solid #111d3b;
+  border: 2px solid #111d3b;
   color: #111d3b;
   display: flex;
   align-items: center;

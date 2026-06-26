@@ -4,6 +4,49 @@ import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
 import { CITY_MASK } from '@/lib/cityMask';
 
+// ヒーロー背景の絵の具スプラッター（PC版 HomePage.jsx の HERO_INK と同一データ）。
+// x位置に応じて時間差で付着＝つながった波のように飛ぶ。
+const HERO_INK = [
+  { top: 6, left: 3, w: 42, h: 56, bg: '#FF3D8B', r: '60% 40% 70% 30% / 50% 60% 40% 50%', rot: 20, op: 0.8 },
+  { top: 14, left: 3, w: 10, h: 10, bg: '#FF3D8B', r: '50%', op: 0.65 },
+  { top: 10, left: 8, w: 7, h: 7, bg: '#FF3D8B', r: '50%', op: 0.55 },
+  { top: 55, left: 4, w: 46, h: 36, bg: '#FFD600', r: '40% 60% 30% 70% / 60% 40% 55% 45%', rot: -18, op: 0.85 },
+  { top: 62, left: 12, w: 8, h: 8, bg: '#FFD600', r: '50%', op: 0.65 },
+  { bottom: 8, left: 6, w: 38, h: 50, bg: '#06B6D4', r: '50% 50% 40% 60% / 60% 30% 70% 40%', rot: 12, op: 0.8 },
+  { bottom: 5, left: 14, w: 9, h: 9, bg: '#06B6D4', r: '50%', op: 0.6 },
+  { top: 35, left: 2, w: 28, h: 36, bg: '#A855F7', r: '70% 30% 50% 50% / 40% 60% 40% 60%', rot: -30, op: 0.75 },
+  { top: 40, left: 10, w: 7, h: 7, bg: '#A855F7', r: '50%', op: 0.6 },
+  { top: 5, left: 30, w: 18, h: 14, bg: '#06B6D4', r: '55% 45% 40% 60%', rot: -20, op: 0.75 },
+  { top: 3, left: 44, w: 44, h: 34, bg: '#FF6B00', r: '50% 50% 40% 60% / 60% 30% 70% 40%', rot: 8, op: 0.8 },
+  { top: 8, left: 50, w: 9, h: 9, bg: '#FF6B00', r: '50%', op: 0.65 },
+  { bottom: 5, left: 38, w: 40, h: 52, bg: '#22C55E', r: '70% 30% 50% 50% / 40% 60% 40% 60%', rot: 28, op: 0.8 },
+  { bottom: 8, left: 46, w: 10, h: 10, bg: '#22C55E', r: '50%', op: 0.65 },
+  { top: 45, left: 45, w: 30, h: 22, bg: '#FF3D8B', r: '40% 60% 50% 50%', rot: 40, op: 0.7 },
+  { top: 8, left: 52, w: 38, h: 52, bg: '#FF3D8B', r: '60% 40% 70% 30% / 50% 60% 40% 50%', rot: 20, op: 0.8 },
+  { top: 12, left: 60, w: 12, h: 12, bg: '#FF3D8B', r: '50%', op: 0.65 },
+  { top: 18, right: 6, w: 52, h: 44, bg: '#FFD600', r: '40% 60% 30% 70% / 60% 40% 55% 45%', rot: -15, op: 0.85 },
+  { top: 15, right: 14, w: 8, h: 8, bg: '#FFD600', r: '50%', op: 0.65 },
+  { bottom: 22, left: 55, w: 44, h: 58, bg: '#22C55E', r: '70% 30% 50% 50% / 40% 60% 40% 60%', rot: 35, op: 0.8 },
+  { bottom: 18, left: 64, w: 8, h: 8, bg: '#22C55E', r: '50%', op: 0.6 },
+  { top: 55, right: 12, w: 48, h: 36, bg: '#A855F7', r: '30% 70% 60% 40% / 55% 45% 60% 40%', rot: -30, op: 0.85 },
+  { top: 62, right: 18, w: 7, h: 7, bg: '#A855F7', r: '50%', op: 0.65 },
+  { bottom: 10, right: 8, w: 56, h: 42, bg: '#FF6B00', r: '50% 50% 40% 60% / 60% 30% 70% 40%', rot: 10, op: 0.8 },
+  { bottom: 14, right: 4, w: 10, h: 10, bg: '#FF6B00', r: '50%', op: 0.65 },
+  { top: 30, left: 58, w: 32, h: 40, bg: '#06B6D4', r: '40% 60% 55% 45% / 65% 35% 55% 45%', rot: -25, op: 0.8 },
+  { top: 38, left: 66, w: 8, h: 8, bg: '#06B6D4', r: '50%', op: 0.6 },
+];
+
+// 青い鳥（ポリポリ）をタップしたとき吹き出しで表示することわざ（PC版 HomePage.jsx と同一）
+const PROVERBS = [
+  '継続は力なり',
+  '千里の道も一歩から',
+  '好きこそ物の上手なれ',
+  '為せば成る、為さねば成らぬ',
+  '塵も積もれば山となる',
+  '案ずるより産むが易し',
+  '学びて時に之を習う',
+];
+
 const TYPE_COLORS = {
   'お知らせ': { bg: '#EFF6FF', text: '#2563EB' },
   'アップデート': { bg: '#F0FDF4', text: '#16A34A' },
@@ -81,9 +124,11 @@ function MobileNewsCarousel() {
 
   return (
     <section id="news" style={{ background: 'transparent', padding: '24px 0 72px', position: 'relative' }}>
-      {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く */}
+      {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く。
+          黄色い波の谷（最下点 ≈ +8px）まで街並みの足元が届くよう、全体を少し下げて
+          シルエット下端を黄色に潜り込ませる（top を下げるだけなので拡大・トリミングなし）。 */}
       <div aria-hidden="true" style={{
-        position: 'absolute', left: 0, right: 0, top: '-120px', aspectRatio: '1440 / 400', zIndex: 0, pointerEvents: 'none',
+        position: 'absolute', left: 0, right: 0, top: '-90px', aspectRatio: '1440 / 400', zIndex: 0, pointerEvents: 'none',
         backgroundImage: 'radial-gradient(#111d3b 1.2px, transparent 1.4px)', backgroundSize: '5px 5px',
         WebkitMaskImage: CITY_MASK,
         maskImage: CITY_MASK,
@@ -146,8 +191,8 @@ function MobileNewsCarousel() {
                       : item.image && <img src={item.image.url} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
                     }
                     <div style={{ padding: '18px 20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontSize: '0.78rem', fontWeight: 700, background: c.bg, color: c.text, padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '10px', alignSelf: 'flex-start' }}>{item.type}</span>
-                      <p className="notice-heading-font" style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.45 }}>{item.title}</p>
+                      <span style={{ fontSize: '0.78rem', fontWeight: 700, background: c.bg, color: c.text, padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '4px', alignSelf: 'flex-start' }}>{item.type}</span>
+                      <p className="notice-heading-font" style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.45, textAlign: 'left', alignSelf: 'stretch' }}>{item.title}</p>
                       {isPoster && item.note && <p style={{ color: '#5b6470', fontSize: '0.88rem', fontWeight: 500, margin: '0 0 8px', lineHeight: 1.5 }}>{item.note}</p>}
                       {/* 下段：日付（左）＋虫眼鏡ボタン（右下） */}
                       <div style={{ marginTop: 'auto', paddingTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
@@ -159,7 +204,7 @@ function MobileNewsCarousel() {
                             onClick={(e) => { e.stopPropagation(); setOpenItem(item); }}
                             aria-label="詳細を見る"
                             className="notice-zoom-btn"
-                            style={{ '--sz': '38px' }}
+                            style={{ '--sz': '30px' }}
                           >
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
                               <circle cx="10.5" cy="10.5" r="6.5" /><line x1="20" y1="20" x2="15.5" y2="15.5" />
@@ -358,6 +403,16 @@ export default function MobileHomePage() {
   const [appActive, setAppActive] = useState(0);
   const [appPlaying, setAppPlaying] = useState(true);
 
+  // 青い鳥（ポリポリ）をタップでことわざを吹き出し表示。約2.8秒後に自動で消える。
+  const [bird, setBird] = useState({ msg: PROVERBS[0], show: false });
+  const birdTimer = useRef(null);
+  const speakBird = () => {
+    setBird({ msg: PROVERBS[Math.floor(Math.random() * PROVERBS.length)], show: true });
+    if (birdTimer.current) clearTimeout(birdTimer.current);
+    birdTimer.current = setTimeout(() => setBird(b => ({ ...b, show: false })), 2800);
+  };
+  useEffect(() => () => { if (birdTimer.current) clearTimeout(birdTimer.current); }, []);
+
   useEffect(() => {
     if (!appPlaying) return;
     const id = setTimeout(() => setAppActive(a => (a + 1) % APPS.length), 3500);
@@ -414,43 +469,61 @@ export default function MobileHomePage() {
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         padding: '40px 24px 32px',
       }}>
-        {/* カラフルなスプラッター */}
+        {/* 絵の具スプラッター（PC版と同じ ink-drop：筆元キャラに集まってから弾けて飛散） */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
-          {/* 左エリア */}
-          <div style={{ position: 'absolute', top: '6%',  left: '3%',  width: 42, height: 56, background: '#FF3D8B', borderRadius: '60% 40% 70% 30% / 50% 60% 40% 50%', transform: 'rotate(20deg)',  opacity: 0.8 }} />
-          <div style={{ position: 'absolute', top: '14%', left: '3%',  width: 10, height: 10, background: '#FF3D8B', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', top: '10%', left: '8%',  width: 7,  height: 7,  background: '#FF3D8B', borderRadius: '50%', opacity: 0.55 }} />
-          <div style={{ position: 'absolute', top: '55%', left: '4%',  width: 46, height: 36, background: '#FFD600', borderRadius: '40% 60% 30% 70% / 60% 40% 55% 45%', transform: 'rotate(-18deg)', opacity: 0.85 }} />
-          <div style={{ position: 'absolute', top: '62%', left: '12%', width: 8,  height: 8,  background: '#FFD600', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', bottom: '8%', left: '6%', width: 38, height: 50, background: '#06B6D4', borderRadius: '50% 50% 40% 60% / 60% 30% 70% 40%', transform: 'rotate(12deg)',  opacity: 0.8 }} />
-          <div style={{ position: 'absolute', bottom: '5%', left: '14%', width: 9, height: 9, background: '#06B6D4', borderRadius: '50%', opacity: 0.6 }} />
-          <div style={{ position: 'absolute', top: '35%', left: '2%',  width: 28, height: 36, background: '#A855F7', borderRadius: '70% 30% 50% 50% / 40% 60% 40% 60%', transform: 'rotate(-30deg)', opacity: 0.75 }} />
-          <div style={{ position: 'absolute', top: '40%', left: '10%', width: 7,  height: 7,  background: '#A855F7', borderRadius: '50%', opacity: 0.6 }} />
-          {/* 中央エリア */}
-          <div style={{ position: 'absolute', top: '5%',  left: '30%', width: 18, height: 14, background: '#06B6D4', borderRadius: '55% 45% 40% 60%', transform: 'rotate(-20deg)', opacity: 0.75 }} />
-          <div style={{ position: 'absolute', top: '3%',  left: '44%', width: 44, height: 34, background: '#FF6B00', borderRadius: '50% 50% 40% 60% / 60% 30% 70% 40%', transform: 'rotate(8deg)',   opacity: 0.8 }} />
-          <div style={{ position: 'absolute', top: '8%',  left: '50%', width: 9,  height: 9,  background: '#FF6B00', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', bottom: '5%', left: '38%', width: 40, height: 52, background: '#22C55E', borderRadius: '70% 30% 50% 50% / 40% 60% 40% 60%', transform: 'rotate(28deg)',  opacity: 0.8 }} />
-          <div style={{ position: 'absolute', bottom: '8%', left: '46%', width: 10, height: 10, background: '#22C55E', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', top: '45%', left: '45%', width: 30, height: 22, background: '#FF3D8B', borderRadius: '40% 60% 50% 50%', transform: 'rotate(40deg)',  opacity: 0.7 }} />
-          {/* 右エリア */}
-          <div style={{ position: 'absolute', top: '8%',  left: '52%', width: 38, height: 52, background: '#FF3D8B', borderRadius: '60% 40% 70% 30% / 50% 60% 40% 50%', transform: 'rotate(20deg)',  opacity: 0.8 }} />
-          <div style={{ position: 'absolute', top: '12%', left: '60%', width: 12, height: 12, background: '#FF3D8B', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', top: '18%', right: '6%', width: 52, height: 44, background: '#FFD600', borderRadius: '40% 60% 30% 70% / 60% 40% 55% 45%', transform: 'rotate(-15deg)', opacity: 0.85 }} />
-          <div style={{ position: 'absolute', top: '15%', right: '14%', width: 8, height: 8,  background: '#FFD600', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', bottom: '22%', left: '55%', width: 44, height: 58, background: '#22C55E', borderRadius: '70% 30% 50% 50% / 40% 60% 40% 60%', transform: 'rotate(35deg)',  opacity: 0.8 }} />
-          <div style={{ position: 'absolute', bottom: '18%', left: '64%', width: 8, height: 8,  background: '#22C55E', borderRadius: '50%', opacity: 0.6 }} />
-          <div style={{ position: 'absolute', top: '55%', right: '12%', width: 48, height: 36, background: '#A855F7', borderRadius: '30% 70% 60% 40% / 55% 45% 60% 40%', transform: 'rotate(-30deg)', opacity: 0.85 }} />
-          <div style={{ position: 'absolute', top: '62%', right: '18%', width: 7,  height: 7,  background: '#A855F7', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', bottom: '10%', right: '8%', width: 56, height: 42, background: '#FF6B00', borderRadius: '50% 50% 40% 60% / 60% 30% 70% 40%', transform: 'rotate(10deg)',  opacity: 0.8 }} />
-          <div style={{ position: 'absolute', bottom: '14%', right: '4%', width: 10, height: 10, background: '#FF6B00', borderRadius: '50%', opacity: 0.65 }} />
-          <div style={{ position: 'absolute', top: '30%', left: '58%', width: 32, height: 40, background: '#06B6D4', borderRadius: '40% 60% 55% 45% / 65% 35% 55% 45%', transform: 'rotate(-25deg)', opacity: 0.8 }} />
-          <div style={{ position: 'absolute', top: '38%', left: '66%', width: 8,  height: 8,  background: '#06B6D4', borderRadius: '50%', opacity: 0.6 }} />
+          {HERO_INK.map((b, i) => {
+            const x = b.left != null ? b.left : (100 - b.right);
+            const y = b.top != null ? b.top : (100 - b.bottom);
+            // 筆元キャラ（上部中央）へ集まる発射ベクトル。スマホ幅・縦長比に合わせて係数を調整。
+            const charX = 50, charY = 10;
+            const fx = (charX - x) * 3.9;
+            const fy = (charY - y) * 7.2;
+            const delay = (x / 100) * 0.12; // ためる動きはほぼ揃え、飛散だけ軽く波に
+            return (
+              <div key={i} className="ink-blob" style={{
+                position: 'absolute',
+                ...(b.top != null ? { top: `${b.top}%` } : {}),
+                ...(b.bottom != null ? { bottom: `${b.bottom}%` } : {}),
+                ...(b.left != null ? { left: `${b.left}%` } : {}),
+                ...(b.right != null ? { right: `${b.right}%` } : {}),
+                width: b.w, height: b.h, background: b.bg, borderRadius: b.r,
+                '--rot': `${b.rot || 0}deg`, '--op': b.op,
+                '--fx': `${fx}px`, '--fy': `${fy}px`,
+                animationDelay: `${delay}s`,
+              }} />
+            );
+          })}
         </div>
 
-        {/* 画像（上部中央に配置） */}
-        <div style={{ position: 'absolute', zIndex: 2, top: '-3%', left: '50%', transform: 'translateX(-50%)', width: '46%', maxWidth: '185px' }}>
+        {/* 画像（上部中央に配置）。タップでことわざ吹き出しを表示（PC版のホバーと同じ） */}
+        <div
+          onClick={speakBird}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); speakBird(); } }}
+          role="button"
+          tabIndex={0}
+          aria-label="ポリポリをタップしてことわざを表示"
+          style={{ position: 'absolute', zIndex: 13, top: '-3%', left: '50%', transform: 'translateX(-50%)', width: '46%', maxWidth: '185px', cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}
+        >
           <img src="/images/polipoli3.png" alt="ポリポリ" className="hero-float" style={{ width: '100%', display: 'block' }} />
+          {/* ことわざ吹き出し（キャラの右横・縦書き／尻尾は左＝キャラ側）。tap で出現、約2.8秒で消える */}
+          <div aria-hidden={!bird.show} style={{
+            position: 'absolute', top: '20%', left: 'calc(100% + 14px)',
+            transform: bird.show ? 'translateX(0) scale(1)' : 'translateX(-8px) scale(0.6)',
+            transformOrigin: 'left center',
+            opacity: bird.show ? 1 : 0,
+            transition: 'opacity 0.2s ease, transform 0.34s cubic-bezier(0.34, 1.55, 0.6, 1)',
+            pointerEvents: 'none',
+            writingMode: 'vertical-rl', textOrientation: 'mixed',
+            height: 'max-content', maxHeight: '60vh',
+            background: '#ffffff', border: '3px solid #111d3b', borderRadius: '16px',
+            padding: '16px 12px', color: '#111d3b', fontWeight: 800, fontSize: '1rem',
+            lineHeight: 1.7, letterSpacing: '0.04em', textAlign: 'center', whiteSpace: 'nowrap',
+            boxShadow: '0 10px 24px rgba(17,29,59,0.2)', zIndex: 14,
+          }}>
+            {bird.msg}
+            <span style={{ position: 'absolute', top: '50%', left: '-9px', marginTop: '-7px', width: '14px', height: '14px', background: '#ffffff', border: '3px solid #111d3b', borderRadius: '50%' }} />
+            <span style={{ position: 'absolute', top: '50%', left: '-18px', marginTop: '-4px', width: '8px', height: '8px', background: '#ffffff', border: '3px solid #111d3b', borderRadius: '50%' }} />
+          </div>
         </div>
 
         {/* テキスト */}
@@ -463,9 +536,9 @@ export default function MobileHomePage() {
             lineHeight: 1.35,
             margin: 0,
           }}>
-            <span className="hero-text-line hero-text-line-1" style={{ display: 'block' }}><span style={{ fontSize: '1.1em' }}>学び</span><span style={{ fontSize: '0.9em' }}>を</span></span>
-            <span className="hero-text-line hero-text-line-2" style={{ display: 'block', marginTop: '-0.2em' }}>もっと<span style={{ fontSize: '1.1em' }}>自由に、</span></span>
-            <span className="hero-text-line hero-text-line-3" style={{ display: 'block', whiteSpace: 'nowrap' }}>もっ<span style={{ letterSpacing: '0.15em' }}>と</span><span style={{ fontSize: '1.1em' }}><span style={{ letterSpacing: '0.2em' }}>楽しく</span>。</span></span>
+            <span className="hero-text-line hero-text-line-1" style={{ display: 'block' }}><span className="hero-word" style={{ fontSize: '1.1em' }}>学び</span><span style={{ fontSize: '0.9em' }}>を</span></span>
+            <span className="hero-text-line hero-text-line-2" style={{ display: 'block', marginTop: '-0.2em' }}>もっと<span className="hero-word" style={{ fontSize: '1.1em' }}>自由に、</span></span>
+            <span className="hero-text-line hero-text-line-3" style={{ display: 'block', whiteSpace: 'nowrap' }}>もっ<span style={{ letterSpacing: '0.15em' }}>と</span><span className="hero-word" style={{ fontSize: '1.1em' }}><span style={{ letterSpacing: '0.2em' }}>楽しく</span>。</span></span>
           </h1>
         </div>
 

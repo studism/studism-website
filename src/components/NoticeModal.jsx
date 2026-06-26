@@ -7,6 +7,34 @@ import FitOneLine from '@/components/FitOneLine';
 // 本文は、で・の・が・し・「〜しました。」等の自然な位置で折り返す。
 const jpParser = loadDefaultJapaneseParser();
 
+// 本文HTMLを「文節で折り返せる」形に変換する。
+// budoux の translateHTMLString は内部で linkedom(Node用DOM) の要素にブラウザの
+// getComputedStyle を渡すため、本番ビルドでは開いた瞬間にクラッシュする
+// （Failed to execute 'getComputedStyle' ... not of type 'Element'）。
+// そこでブラウザ標準の DOMParser でHTMLを解析し、各テキストノードだけを
+// DOM非依存の parse() で文節分割→ゼロ幅スペース(U+200B)で連結する。
+const ZWSP = '​';
+const phraseWrapHtml = (html) => {
+  if (!html) return '';
+  if (typeof DOMParser === 'undefined') return html;   // 非ブラウザ環境の保険
+  const doc = new DOMParser().parseFromString(`<!doctype html><body>${html}</body>`, 'text/html');
+  const walk = (node) => {
+    node.childNodes.forEach((child) => {
+      if (child.nodeType === 3) {                       // テキストノード
+        const t = child.textContent || '';
+        if (t.trim()) {
+          const segs = jpParser.parse(t);
+          if (segs.length > 1) child.textContent = segs.join(ZWSP);
+        }
+      } else if (child.nodeType === 1) {                // 要素はさらに潜る
+        walk(child);
+      }
+    });
+  };
+  walk(doc.body);
+  return doc.body.innerHTML;
+};
+
 // お知らせ詳細をホーム画面の上にかぶせて表示するモーダル。
 // PC版はデザイン全体に scale 変形がかかっており position:fixed の基準が
 // 変形要素になってしまうため、createPortal で document.body 直下に描画する。
@@ -35,6 +63,33 @@ const easeOut = (t) => 1 - (1 - t) * (1 - t);
 const splitSentences = (html) => {
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   return (text.match(/[^。！]+[。！]?/g) || []).map((s) => s.trim()).filter(Boolean);
+};
+
+// 見出しを「アプリ名（1行目）＋タイトル（2行目）」に分割する。
+// お知らせは全件 "アプリ名：タイトル"（全角/半角コロン）形式。コロンが無い場合は
+// アプリ名なし＝全体をタイトル1行として扱う。
+const splitTitle = (title) => {
+  const t = (title || '').trim();
+  const i = t.search(/[：:]/);
+  if (i > 0) return { app: t.slice(0, i).trim(), rest: t.slice(i + 1).trim() };
+  return { app: '', rest: t };
+};
+
+// お知らせ見出し：アプリ名を1行目、タイトルを2行目に表示する共通コンポーネント。
+// 各行は FitOneLine で1行に収め、はみ出し（見切れ）を防ぐ。PC・スマホ共通。
+const NoticeHeading = ({ title, appMax, titleMax, min, color, align = 'left', style }) => {
+  const { app, rest } = splitTitle(title);
+  const lineStyle = { fontWeight: 700, color, lineHeight: 1.28, letterSpacing: '0.01em' };
+  return (
+    <div style={{ textAlign: align, ...style }}>
+      {app && (
+        <FitOneLine as="div" text={app} max={appMax} min={min}
+          className="notice-font notice-heading-font" style={{ ...lineStyle, marginBottom: '2px' }} />
+      )}
+      <FitOneLine as="div" text={rest} max={titleMax} min={min}
+        className="notice-font notice-heading-font" style={{ ...lineStyle }} />
+    </div>
+  );
 };
 
 const AppleIcon = () => (
@@ -87,6 +142,7 @@ export default function NoticeModal({ item, onClose }) {
   const [p, setP] = useState(0);            // スクロール進行度 0..1
   const [vw, setVw] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1280));
   const [reduced, setReduced] = useState(false);
+  const [squareImg, setSquareImg] = useState(false);  // チラシ画像がほぼ正方形か
 
   useEffect(() => {
     if (!item) return;
@@ -111,6 +167,7 @@ export default function NoticeModal({ item, onClose }) {
 
   useEffect(() => {
     setP(0);
+    setSquareImg(false);
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, [item]);
 
@@ -178,11 +235,10 @@ export default function NoticeModal({ item, onClose }) {
       lockRef.current = true;
       animateTo(target * vh, done);
     };
-    // スマホ（狭い画面）はホイールがないため、1タップ = 次の表示へ1ステップ送る。
+    // クリック/タップで次の表示へ1ステップ送る。PC・スマホ共通（PCはホイール送りも併用）。
     const onTap = (e) => {
       const cfg = stepRef.current;
       if (!cfg.enabled) return;
-      if (window.innerWidth >= 768) return;          // スマホのみ。PCはホイール送り
       // ストアリンク等のインタラクティブ要素のタップは送りに使わない
       if (e.target.closest && e.target.closest('a, button')) return;
       const vh = el.clientHeight;
@@ -214,8 +270,8 @@ export default function NoticeModal({ item, onClose }) {
   const isPoster = item?._kind === 'poster';
   const body = isPoster ? item?.body : item?.content;
   const sentences = useMemo(() => (body ? splitSentences(body) : []), [body]);
-  // 本文HTMLは各ブロックに keep-all＋ゼロ幅スペースを挿入した形に変換。
-  const bodyHtml = useMemo(() => (body ? jpParser.translateHTMLString(body) : ''), [body]);
+  // 本文HTMLを文節区切り（ゼロ幅スペース）入りに変換。
+  const bodyHtml = useMemo(() => (body ? phraseWrapHtml(body) : ''), [body]);
 
   if (!item) return null;
 
@@ -279,7 +335,7 @@ export default function NoticeModal({ item, onClose }) {
       aria-label="閉じる"
       className="notice-close-btn"
       style={{
-        position: 'fixed', top: '18px', right: '40px', zIndex: 10001, padding: 0,
+        position: 'fixed', top: '18px', right: narrow ? '24px' : '40px', zIndex: 10001, padding: 0,
         width: '42px', height: '42px', borderRadius: '50%', border: 'none',
         background: 'rgba(17,29,59,0.9)', color: '#fff', cursor: 'pointer',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -326,7 +382,7 @@ export default function NoticeModal({ item, onClose }) {
                 padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '14px',
               }}>{item.type}</span>
             )}
-            <FitOneLine as="h2" text={item.title} max={33} min={13} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#0a0a0a', margin: '0 0 10px', lineHeight: 1.3, letterSpacing: '0.03em' }} />
+            <NoticeHeading title={item.title} appMax={30} titleMax={24} min={12} color="#0a0a0a" align="left" style={{ margin: '0 0 10px' }} />
             {date && <p style={{ fontSize: '0.85rem', color: '#94A3B8', margin: '0 0 24px' }}>{date}</p>}
             {body && <div style={{ fontSize: '0.98rem', lineHeight: 1.8, color: '#333' }} dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
           </div>
@@ -371,13 +427,13 @@ export default function NoticeModal({ item, onClose }) {
   const arrowOpacity = p < sTitle ? 1 : clamp(1 - mapRange(p, sTitle, sExit, 0, 1), 0, 1);
   const fHidden = fOpacity <= 0.01;
   const badgeOpacity = p < SN ? 0 : clamp(mapRange(p, SN, 1, 0, 1) / 0.5, 0, 1);
-  // スマホの一文表示中だけ右下に出すタップ誘導アイコンの表示量
+  // 一文表示中に右下へ出すタップ誘導アイコンの表示量（PC・スマホ共通）。
   // チラシ退出（sExit）でフェードイン。最後の文（SN）までは表示し続け、
   // その先（最終ストア画面へ送る区間）でフェードアウトする
   const step = 1 / Math.max(STOPS - 1, 1);
   const tapCueIn = clamp(mapRange(p, sTitle, sExit, 0, 1), 0, 1);
   const tapCueOut = p <= SN ? 1 : clamp((1 - p) / (step * 0.5), 0, 1);
-  const tapCueOpacity = narrow ? tapCueIn * tapCueOut : 0;
+  const tapCueOpacity = tapCueIn * tapCueOut;
 
   return createPortal(
     <>
@@ -406,17 +462,28 @@ export default function NoticeModal({ item, onClose }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center',
           }}>
             {img && (
-              <img
-                src={img}
-                alt={item.title}
-                loading="lazy"
-                decoding="async"
-                className="notice-flyer-slap"
-                style={{
-                  display: 'block', maxHeight: '86vh', maxWidth: '90vw', width: 'auto', height: 'auto',
-                  borderRadius: '12px', boxShadow: '0 18px 50px rgba(0,0,0,0.45)', background: '#fff',
-                }}
-              />
+              <div style={{ position: 'relative', display: 'inline-block', isolation: 'isolate' }}>
+                {/* チラシと同サイズのネイビーの陰を2枚、右下へずらして背面に重ねる（紙が重なった影）。
+                    半透明にして背景がうっすら透ける、透明感のあるオーバーレイにする。 */}
+                <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'rgba(17,29,59,0.5)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)', borderRadius: '12px', transform: 'translate(26px, 24px)', zIndex: 1 }} />
+                <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'rgba(17,29,59,0.65)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)', borderRadius: '12px', transform: 'translate(13px, 12px)', zIndex: 2 }} />
+                <img
+                  src={img}
+                  alt={item.title}
+                  loading="lazy"
+                  decoding="async"
+                  onLoad={(e) => {
+                    const { naturalWidth: w, naturalHeight: h } = e.target;
+                    if (w && h) { const r = w / h; setSquareImg(r > 0.9 && r < 1.12); }
+                  }}
+                  className="notice-flyer-slap"
+                  style={{
+                    display: 'block', position: 'relative', zIndex: 3,
+                    maxHeight: '86vh', maxWidth: '90vw', width: 'auto', height: 'auto',
+                    borderRadius: '12px', boxShadow: '0 18px 50px rgba(0,0,0,0.45)', background: '#fff',
+                  }}
+                />
+              </div>
             )}
           </div>
 
@@ -461,9 +528,10 @@ export default function NoticeModal({ item, onClose }) {
             })}
           </div>
 
-          {/* 見出し（チラシ画像の下・矢印の上。スクロールで現れる） */}
+          {/* 見出し（チラシ画像の下・矢印の上。スクロールで現れる）。
+              正方形チラシは縦に余白が出やすいので、配信中＋見出しを少し上へ。 */}
           <div style={{
-            position: 'absolute', top: '73vh', left: '50%',
+            position: 'absolute', top: squareImg ? '72vh' : '73vh', left: '50%',
             transform: `translateX(-50%) translateY(${titleTy}px)`,
             width: '84vw', maxWidth: '960px', textAlign: 'center', zIndex: 2,
             opacity: titleOpacity, visibility: titleOpacity < 0.01 ? 'hidden' : 'visible',
@@ -471,39 +539,45 @@ export default function NoticeModal({ item, onClose }) {
           }}>
             {narrow ? (
               <>
-                {/* スマホ：タイトル幅のブロックを中央寄せし、その中でタイプを頭（左）・日付を同じ行の右に配置 */}
-                <div style={{ display: 'inline-block', maxWidth: '100%', textAlign: 'left' }}>
+                {/* スマホ：タイプ（配信中）と日付を同じ行に横並びで中央寄せ。
+                    見出しも中央揃え。アプリ名は控えめに、タイトル（内容）は大きく。 */}
+                <div style={{ display: 'block', width: '100%', textAlign: 'center' }}>
                   {(item.type || date) && (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '10px' }}>
-                      {item.type ? (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>
+                      {item.type && (
                         <span style={{
                           fontSize: '0.8rem', fontWeight: 700, background: tc.bg, color: tc.text,
                           padding: '3px 12px', borderRadius: '999px', display: 'inline-block', textShadow: 'none',
                         }}>{item.type}</span>
-                      ) : <span />}
+                      )}
                       {date && <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>{date}</span>}
                     </div>
                   )}
-                  <FitOneLine as="h2" text={item.title} max={30} min={13} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#fff', margin: 0, lineHeight: 1.3, letterSpacing: '0.03em' }} />
+                  <NoticeHeading title={item.title} appMax={20} titleMax={30} min={12} color="#fff" align="center" />
                 </div>
               </>
             ) : (
               <>
-                {item.type && (
-                  <span style={{
-                    fontSize: '0.8rem', fontWeight: 700, background: tc.bg, color: tc.text,
-                    padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '10px',
-                    textShadow: 'none',
-                  }}>{item.type}</span>
+                {/* PC：タイプ（配信中）と日付を同じ行に横並びで中央寄せ */}
+                {(item.type || date) && (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '10px' }}>
+                    {item.type && (
+                      <span style={{
+                        fontSize: '0.8rem', fontWeight: 700, background: tc.bg, color: tc.text,
+                        padding: '3px 12px', borderRadius: '999px', display: 'inline-block', textShadow: 'none',
+                      }}>{item.type}</span>
+                    )}
+                    {date && <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>{date}</span>}
+                  </div>
                 )}
-                <FitOneLine as="h2" text={item.title} max={42} min={14} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#fff', margin: '0 0 6px', lineHeight: 1.3, letterSpacing: '0.03em' }} />
-                {date && <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>{date}</p>}
+                {/* アプリ名は控えめに、タイトル（内容）は大きく見せる */}
+                <NoticeHeading title={item.title} appMax={28} titleMax={44} min={15} color="#fff" align="center" style={{ margin: 0 }} />
               </>
             )}
           </div>
 
-          {/* 一文表示中の右下タップ誘導（スマホのみ）。「タップで詳細へ」と同じ
-              白いタップアイコンに統一。装飾なので pointerEvents:none でタップは
+          {/* 一文表示中の右下タップ誘導（PC・スマホ共通）。「タップ/クリックで詳細へ」と
+              同じ白いタップアイコンに統一。装飾なので pointerEvents:none でクリックは
               背面のコンテナへ通し、画面どこでも1ステップ送りが効くようにする */}
           {tapCueOpacity > 0.01 && (
             <div style={{
@@ -523,14 +597,8 @@ export default function NoticeModal({ item, onClose }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
             textShadow: '0 1px 4px rgba(0,0,0,0.4)',
           }}>
-            <span>{narrow ? 'タップで詳細へ' : 'スクロールで詳細へ'}</span>
-            {narrow ? (
-              <span className="scroll-arrow" style={{ display: 'block' }}><TapGlyph size={24} /></span>
-            ) : (
-              <svg className="scroll-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            )}
+            <span>{narrow ? 'タップで詳細へ' : 'クリックで詳細へ'}</span>
+            <span className="scroll-arrow" style={{ display: 'block' }}><TapGlyph size={24} /></span>
           </div>
 
           {/* 最終画面から下へスクロールで全文を表示するためのヒント */}
@@ -541,14 +609,8 @@ export default function NoticeModal({ item, onClose }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px',
             textShadow: '0 1px 4px rgba(0,0,0,0.4)',
           }}>
-            <span>{narrow ? 'タップで全文を読む' : '下にスクロールで全文を読む'}</span>
-            {narrow ? (
-              <span className="scroll-arrow" style={{ display: 'block' }}><TapGlyph size={22} /></span>
-            ) : (
-              <svg className="scroll-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            )}
+            <span>{narrow ? 'タップで全文を読む' : 'クリックで全文を読む'}</span>
+            <span className="scroll-arrow" style={{ display: 'block' }}><TapGlyph size={22} /></span>
           </div>
         </div>
       </div>
@@ -566,7 +628,7 @@ export default function NoticeModal({ item, onClose }) {
               textShadow: 'none',
             }}>{item.type}</span>
           )}
-          <FitOneLine as="h2" text={item.title} max={36} min={14} className="notice-font notice-heading-font" style={{ fontWeight: 700, color: '#fff', margin: '0 0 10px', lineHeight: 1.3, letterSpacing: '0.03em' }} />
+          <NoticeHeading title={item.title} appMax={34} titleMax={26} min={13} color="#fff" align="left" style={{ margin: '0 0 10px' }} />
           {date && <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', margin: '0 0 24px' }}>{date}</p>}
           {body && <div className="notice-fulltext" style={{ fontSize: '1.2rem', lineHeight: 2.0 }} dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
         </div>
