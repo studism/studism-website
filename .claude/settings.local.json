@@ -59,7 +59,8 @@
       "PowerShell(pnpm preview *)",
       "PowerShell($r = Invoke-WebRequest -Uri \"https://stdism.com/\" -UseBasicParsing -Headers @{ \"Cache-Control\" = \"no-cache\" }; \\($r.Content | Select-String -Pattern '/assets/[^\"]+' -AllMatches\\).Matches.Value | Sort-Object -Unique)",
       "PowerShell(Get-Process *)",
-      "PowerShell(Start-Process \"http://localhost:4173/\")"
+      "PowerShell(Start-Process \"http://localhost:4173/\")",
+      "PowerShell(git push *)"
     ],
     "deny": [],
     "ask": []
