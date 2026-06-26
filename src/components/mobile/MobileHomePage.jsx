@@ -125,10 +125,11 @@ function MobileNewsCarousel() {
   return (
     <section id="news" style={{ background: 'transparent', padding: '24px 0 72px', position: 'relative' }}>
       {/* 背後のネイビーのハーフトーン（都会の街並みシルエット）。黄色の上から覗く。
-          黄色い波の谷（最下点 ≈ +8px）まで街並みの足元が届くよう、全体を少し下げて
-          シルエット下端を黄色に潜り込ませる（top を下げるだけなので拡大・トリミングなし）。 */}
+          柄をもっと見せたいので、aspectRatio を縦長にして街並みの背を高くし（slice なので
+          左右端は少し切れる＝街が画面外へ続く自然な見え方）、下端は黄色の波の谷より下まで
+          伸ばして「黄色との境目まで」途切れず描画する。 */}
       <div aria-hidden="true" style={{
-        position: 'absolute', left: 0, right: 0, top: '-90px', aspectRatio: '1440 / 400', zIndex: 0, pointerEvents: 'none',
+        position: 'absolute', left: 0, right: 0, top: '-125px', aspectRatio: '1440 / 560', zIndex: 0, pointerEvents: 'none',
         backgroundImage: 'radial-gradient(#111d3b 1.2px, transparent 1.4px)', backgroundSize: '5px 5px',
         WebkitMaskImage: CITY_MASK,
         maskImage: CITY_MASK,
@@ -213,7 +214,7 @@ function MobileNewsCarousel() {
                           <span className="notice-zoom-label" aria-hidden="true">
                             <svg viewBox="0 0 110 55" style={{ width: '100%', height: '100%' }}>
                               <defs>
-                                <path id={`nzpm-${i}`} d="M 25,55 A 30,30 0 1,1 85,55" />
+                                <path id={`nzpm-${i}`} d="M 31,55 A 24,24 0 1,1 79,55" />
                               </defs>
                               <text textAnchor="middle"><textPath href={`#nzpm-${i}`} startOffset="50%">詳しくみてみる</textPath></text>
                             </svg>

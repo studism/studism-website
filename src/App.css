@@ -713,9 +713,9 @@ body {
     opacity: 1;
     transform: translateX(-50%) scale(1);
   }
-  /* 文字を小さくし、円弧の半径も縮小（パス側で 44→30）して虫眼鏡へ近づける */
+  /* 文字を小さくし、円弧の半径も縮小（パス側で 44→24）して虫眼鏡へさらに近づける */
   .notice-zoom-label text {
-    font-size: 9px;
+    font-size: 8px;
     letter-spacing: 0.2px;
   }
   /* 円弧の中心（SVG下端中央）を虫眼鏡ボタンの中心に合わせ、テキストがボタンを
