@@ -143,6 +143,7 @@ export default function NoticeModal({ item, onClose }) {
   const [vw, setVw] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1280));
   const [reduced, setReduced] = useState(false);
   const [squareImg, setSquareImg] = useState(false);  // チラシ画像がほぼ正方形か
+  const [imgAR, setImgAR] = useState(0);              // チラシ画像のアスペクト比(幅/高さ)
 
   useEffect(() => {
     if (!item) return;
@@ -168,6 +169,7 @@ export default function NoticeModal({ item, onClose }) {
   useEffect(() => {
     setP(0);
     setSquareImg(false);
+    setImgAR(0);
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, [item]);
 
@@ -435,6 +437,13 @@ export default function NoticeModal({ item, onClose }) {
   const tapCueOut = p <= SN ? 1 : clamp((1 - p) / (step * 0.5), 0, 1);
   const tapCueOpacity = tapCueIn * tapCueOut;
 
+  // 見出し（配信中＋日付＋タイトル）の縦位置。固定値だと縦長チラシで隙間が空きすぎるため、
+  // チラシの実下端から算出して直下に詰める。チラシは開いた状態で中心 37vh・scale F_OPEN。
+  // 実画像高さ = min(86vh, 90vw * 高さ/幅)。下端 = 37vh + 実画像高さ * F_OPEN/2。
+  const headingTop = imgAR > 0
+    ? `calc(37vh + min(86vh, 90vw * ${(1 / imgAR).toFixed(4)}) * ${(F_OPEN / 2).toFixed(3)} + 2vh)`
+    : (squareImg ? '72vh' : '73vh');
+
   return createPortal(
     <>
     {CloseBtn}
@@ -474,7 +483,7 @@ export default function NoticeModal({ item, onClose }) {
                   decoding="async"
                   onLoad={(e) => {
                     const { naturalWidth: w, naturalHeight: h } = e.target;
-                    if (w && h) { const r = w / h; setSquareImg(r > 0.9 && r < 1.12); }
+                    if (w && h) { const r = w / h; setSquareImg(r > 0.9 && r < 1.12); setImgAR(r); }
                   }}
                   className="notice-flyer-slap"
                   style={{
@@ -531,7 +540,7 @@ export default function NoticeModal({ item, onClose }) {
           {/* 見出し（チラシ画像の下・矢印の上。スクロールで現れる）。
               正方形チラシは縦に余白が出やすいので、配信中＋見出しを少し上へ。 */}
           <div style={{
-            position: 'absolute', top: squareImg ? '72vh' : '73vh', left: '50%',
+            position: 'absolute', top: narrow ? headingTop : (squareImg ? '72vh' : '73vh'), left: '50%',
             transform: `translateX(-50%) translateY(${titleTy}px)`,
             width: '84vw', maxWidth: '960px', textAlign: 'center', zIndex: 2,
             opacity: titleOpacity, visibility: titleOpacity < 0.01 ? 'hidden' : 'visible',

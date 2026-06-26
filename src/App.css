@@ -713,14 +713,15 @@ body {
     opacity: 1;
     transform: translateX(-50%) scale(1);
   }
-  /* 弧（パス）はそのままに、文字だけ小さくしてカードからの見切れを防ぐ */
+  /* 文字を小さくし、円弧の半径も縮小（パス側で 44→30）して虫眼鏡へ近づける */
   .notice-zoom-label text {
-    font-size: 11px;
-    letter-spacing: 0.4px;
+    font-size: 9px;
+    letter-spacing: 0.2px;
   }
-  /* 弧を虫眼鏡アイコンへ少し近づける */
+  /* 円弧の中心（SVG下端中央）を虫眼鏡ボタンの中心に合わせ、テキストがボタンを
+     ぐるりと囲むように近接配置する */
   .notice-zoom-label {
-    bottom: calc(50% - 17px);
+    bottom: 50%;
   }
   .notice-zoom-wrap .notice-zoom-label {
     transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);

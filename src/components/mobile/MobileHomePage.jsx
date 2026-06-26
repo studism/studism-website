@@ -213,7 +213,7 @@ function MobileNewsCarousel() {
                           <span className="notice-zoom-label" aria-hidden="true">
                             <svg viewBox="0 0 110 55" style={{ width: '100%', height: '100%' }}>
                               <defs>
-                                <path id={`nzpm-${i}`} d="M 11,55 A 44,44 0 1,1 99,55" />
+                                <path id={`nzpm-${i}`} d="M 25,55 A 30,30 0 1,1 85,55" />
                               </defs>
                               <text textAnchor="middle"><textPath href={`#nzpm-${i}`} startOffset="50%">詳しくみてみる</textPath></text>
                             </svg>
