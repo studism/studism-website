@@ -3,6 +3,28 @@ import { Link } from 'react-router-dom';
 import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
 import { CITY_MASK } from '@/lib/cityMask';
+import useInView from '@/hooks/useInView';
+
+// 見出しを一文字ずつスライドイン。各文字を inline-block の span にし、transition-delay を
+// 1文字ずつずらして右→左へスライド＋フェードイン。画面外(inView=false)では即座に初期位置へ
+// 戻すので、スクロールで戻るたびに再生される。
+function SplitText({ text, inView, step = 0.05, startDelay = 0, style }) {
+  return (
+    <span style={style}>
+      {Array.from(text).map((ch, i) => (
+        <span key={i} style={{
+          display: 'inline-block',
+          whiteSpace: 'pre',
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'none' : 'translateX(20px)',
+          transition: 'opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          transitionDelay: inView ? `${startDelay + i * step}s` : '0s',
+          willChange: 'opacity, transform',
+        }}>{ch}</span>
+      ))}
+    </span>
+  );
+}
 
 // ヒーロー背景の絵の具スプラッター（PC版 HomePage.jsx の HERO_INK と同一データ）。
 // x位置に応じて時間差で付着＝つながった波のように飛ぶ。
@@ -56,13 +78,14 @@ const TYPE_COLORS = {
 };
 
 // 見出しの左に置く縦書きラベル（App / Service / News）。見出しは右へ寄せて表示。
-function MHeadingLabel({ label, fontSize = '0.85rem', fontWeight = 800, left = '2px' }) {
+function MHeadingLabel({ label, fontSize = '0.85rem', fontWeight = 800, left = '2px', inView = true }) {
   return (
     <span aria-hidden="true" style={{
       position: 'absolute', left, top: '50%', transform: 'translateY(-50%)',
       writingMode: 'vertical-rl', textOrientation: 'mixed',
       fontSize, fontWeight, letterSpacing: '0.12em', textTransform: 'uppercase',
-      color: '#111d3b', opacity: 0.85, whiteSpace: 'nowrap', pointerEvents: 'none',
+      color: '#111d3b', opacity: inView ? 0.85 : 0, whiteSpace: 'nowrap', pointerEvents: 'none',
+      transition: 'opacity 0.6s ease',
     }}>{label}</span>
   );
 }
@@ -72,6 +95,7 @@ function MobileNewsCarousel() {
   const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);       // スワイプ中の一時停止
   const [userPaused, setUserPaused] = useState(false); // 一時停止ボタンによる手動停止
+  const [hidden, setHidden] = useState(false);       // タブ/アプリが非表示か（背景化で自動送りを止める）
   const containerRef = useRef(null);
   const [cw, setCw] = useState(0);
   const touchStartX = useRef(0);
@@ -82,12 +106,25 @@ function MobileNewsCarousel() {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const measure = () => setCw(el.offsetWidth);
+    let raf = 0;
+    const measure = () => {
+      const w = el.offsetWidth;
+      if (w > 0) setCw(w);
+      // 0（レイアウト前・非表示直後など）のときは実寸が出るまで次フレームで再計測。
+      else { cancelAnimationFrame(raf); raf = requestAnimationFrame(measure); }
+    };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     window.addEventListener('resize', measure);
-    return () => { ro.disconnect(); window.removeEventListener('resize', measure); };
+    const onVis = () => { if (!document.hidden) measure(); };
+    document.addEventListener('visibilitychange', onVis);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+      document.removeEventListener('visibilitychange', onVis);
+    };
   }, []);
 
   const allItems = [
@@ -104,21 +141,47 @@ function MobileNewsCarousel() {
   const step   = slideW + GAP;
   const tx     = cw > 0 ? (cw - slideW) / 2 - idx * step : 0;
 
-  const handleTransitionEnd = () => {
+  const handleTransitionEnd = (e) => {
+    if (e && e.target !== e.currentTarget) return;   // 子要素の transition の伝播は無視（トラック自身のみ）
     if (idx === total + 1) { setAnimated(false); setIdx(1); }
     else if (idx === 0)    { setAnimated(false); setIdx(total); }
   };
+  // アニメ無効→有効へ戻す。背景タブでは rAF が止まるため setTimeout の保険も併用する。
   useEffect(() => {
-    if (!animated) requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+    if (animated) return;
+    let raf1 = 0, raf2 = 0;
+    raf1 = requestAnimationFrame(() => { raf2 = requestAnimationFrame(() => setAnimated(true)); });
+    const t = setTimeout(() => setAnimated(true), 80);
+    return () => { cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); clearTimeout(t); };
   }, [animated]);
 
+  // ページの表示/非表示を監視。背景化中は自動送りを止める（rAF 停止中に idx だけ進んで
+  // クローンの巻き戻しが効かず、カードが画面外へ飛んで消える不具合を防ぐ）。
   useEffect(() => {
-    if (paused || userPaused || total === 0 || cw === 0) return;
+    const onVis = () => setHidden(document.hidden);
+    onVis();
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, []);
+
+  useEffect(() => {
+    if (paused || userPaused || hidden || total === 0 || cw === 0) return;
     const id = setInterval(() => setIdx(i => i + 1), 4000);
     return () => clearInterval(id);
-  }, [paused, userPaused, total, cw]);
+  }, [paused, userPaused, hidden, total, cw]);
+
+  // 保険：idx が想定範囲(0..total+1)を外れたら、無アニメで正しい位置へ自己修復する
+  // （transitionEnd 取りこぼしや背景化でズレてもリロード不要で復帰させる）。
+  useEffect(() => {
+    if (total === 0) return;
+    if (idx > total + 1 || idx < 0) {
+      setAnimated(false);
+      setIdx(((idx - 1) % total + total) % total + 1);
+    }
+  }, [idx, total]);
 
   const realIdx = total > 0 ? ((idx - 1) % total + total) % total : 0;
+  const [newsHeadRef, newsHeadIn] = useInView();
 
   if (total === 0) return null;
 
@@ -146,15 +209,16 @@ function MobileNewsCarousel() {
         <div style={{ flex: 1, background: '#FFE066', marginTop: '-1px' }} />
       </div>
       <button
+        ref={newsHeadRef}
         onClick={() => {
           const el = document.getElementById('news');
           if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
         }}
         style={{ background: 'none', border: 'none', padding: '0 16px 0 50px', cursor: 'pointer', textAlign: 'left', display: 'block', marginBottom: '20px', position: 'relative', zIndex: 1 }}
       >
-        <MHeadingLabel label="News" fontSize="1.05rem" fontWeight={900} left="18px" />
+        <MHeadingLabel label="News" fontSize="1.05rem" fontWeight={900} left="18px" inView={newsHeadIn} />
         <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: 0, letterSpacing: '-0.02em' }}>
-          お知らせ
+          <SplitText text="お知らせ" inView={newsHeadIn} />
         </h2>
       </button>
 
@@ -191,7 +255,7 @@ function MobileNewsCarousel() {
                       ? <img src={item.img} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: item.pos || 'top', display: 'block' }} />
                       : item.image && <img src={item.image.url} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }} />
                     }
-                    <div style={{ padding: '18px 20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ padding: '10px 20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '0.78rem', fontWeight: 700, background: c.bg, color: c.text, padding: '3px 12px', borderRadius: '999px', display: 'inline-block', marginBottom: '4px', alignSelf: 'flex-start' }}>{item.type}</span>
                       <p className="notice-heading-font" style={{ fontSize: '1.15rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', lineHeight: 1.45, textAlign: 'left', alignSelf: 'stretch' }}>{item.title}</p>
                       {isPoster && item.note && <p style={{ color: '#5b6470', fontSize: '0.88rem', fontWeight: 500, margin: '0 0 8px', lineHeight: 1.5 }}>{item.note}</p>}
@@ -403,6 +467,8 @@ const SERVICES = [
 export default function MobileHomePage() {
   const [appActive, setAppActive] = useState(0);
   const [appPlaying, setAppPlaying] = useState(true);
+  const [appHeadRef, appHeadIn] = useInView();   // 「アプリケーションはこちら。」見出し
+  const [svcHeadRef, svcHeadIn] = useInView();   // 「サービス」見出し
 
   // 青い鳥（ポリポリ）をタップでことわざを吹き出し表示。約2.8秒後に自動で消える。
   const [bird, setBird] = useState({ msg: PROVERBS[0], show: false });
@@ -592,11 +658,11 @@ export default function MobileHomePage() {
           {/* 紫円：左上へ */}
           <div style={{ position: 'absolute', bottom: 'calc(8% + 12px)', right: 'calc(10% + 12px)', width: '44px', height: '44px', borderRadius: '50%', backgroundImage: 'radial-gradient(#7C3AED 24%, transparent 26%)', backgroundSize: '9px 9px' }} />
         </div>
-        <div style={{ position: 'relative', paddingLeft: '34px' }}>
-          <MHeadingLabel label="App" fontSize="1.4rem" fontWeight={900} />
+        <div ref={appHeadRef} style={{ position: 'relative', paddingLeft: '34px' }}>
+          <MHeadingLabel label="App" fontSize="1.4rem" fontWeight={900} inView={appHeadIn} />
           <Link to="/apps" style={{ textDecoration: 'none' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-              アプリケーションはこちら。
+              <SplitText text="アプリケーションはこちら。" inView={appHeadIn} />
             </h2>
           </Link>
         </div>
@@ -665,8 +731,8 @@ export default function MobileHomePage() {
       }}>
       {/* サービス一覧セクション */}
       <section id="services" style={{ background: 'transparent', padding: '24px 16px 56px', position: 'relative', zIndex: 1 }}>
-        <div style={{ position: 'relative', paddingLeft: '34px' }}>
-          <MHeadingLabel label="Service" fontSize="0.9rem" fontWeight={800} />
+        <div ref={svcHeadRef} style={{ position: 'relative', paddingLeft: '34px' }}>
+          <MHeadingLabel label="Service" fontSize="0.9rem" fontWeight={800} inView={svcHeadIn} />
           <h2
             onClick={() => {
               const el = document.getElementById('services');
@@ -674,7 +740,7 @@ export default function MobileHomePage() {
             }}
             style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em', cursor: 'pointer', display: 'inline-block' }}
           >
-            サービス
+            <SplitText text="サービス" inView={svcHeadIn} />
           </h2>
         </div>
         {SERVICES.map((s, i) => (
@@ -695,7 +761,7 @@ export default function MobileHomePage() {
                 {s.renderThumb()}
               </div>
               <div style={{ padding: '12px 16px 16px' }}>
-                <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px' }}>
+                <p style={{ fontSize: '1.05rem', fontWeight: 700, color: '#1a1a1a', margin: '0 0 6px', textAlign: 'center' }}>
                   {s.title}
                 </p>
                 <p style={{ fontSize: '0.85rem', fontWeight: 500, color: '#555', lineHeight: 1.55, margin: 0 }}>

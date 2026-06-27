@@ -92,14 +92,16 @@ const NoticeHeading = ({ title, appMax, titleMax, min, color, align = 'left', st
   );
 };
 
-const AppleIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 384 512" fill="#fff" aria-hidden="true">
+// 本物の App Store バッジと同じ比率（viewBox 384:512 ≒ 0.75）でAppleロゴを描画。size=高さ(px)。
+const AppleIcon = ({ size = 20 }) => (
+  <svg width={Math.round(size * 0.75)} height={size} viewBox="0 0 384 512" fill="#fff" aria-hidden="true" style={{ display: 'block' }}>
     <path d="M318.7 268c-.2-37 16.4-64.9 50-85.6-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C71.3 139.5 24 184.1 24 274.5q0 39.9 14.6 82.4c13 36.8 60 127.1 109 125.6 25.6-.6 43.7-18.2 77-18.2 32.3 0 49 18.2 77.4 18.2 49.5-.7 92-82.7 104.4-119.6-66.3-31.3-63.7-91.7-63.7-93.9zm-58.2-168.5c28.1-33.3 25.5-63.6 24.7-74.5-24.8 1.4-53.5 16.9-69.9 35.9-18 20.4-28.6 45.6-26.3 74 26.8 2.1 51.3-11.7 71.5-35.4z" />
   </svg>
 );
 
-const PlayIcon = () => (
-  <svg width="18" height="20" viewBox="0 0 512 512" fill="#fff" aria-hidden="true">
+// Google Play の三角アイコン（viewBox 512:512 の正方形比率）。size=高さ(px)。
+const PlayIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 512 512" fill="#fff" aria-hidden="true" style={{ display: 'block' }}>
     <path d="M47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm278.3 234.3L104.6 13l280.8 161.2-60.1 60.1zm88.9 21.7l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.1 60.1L104.6 499z" />
   </svg>
 );
@@ -111,7 +113,7 @@ const TapGlyph = ({ size = 24 }) => (
   </svg>
 );
 
-function StoreBadge({ href, sub, main, children }) {
+function StoreBadge({ href, sub, main, children, compact }) {
   return (
     <a
       href={href}
@@ -119,16 +121,16 @@ function StoreBadge({ href, sub, main, children }) {
       rel="noopener noreferrer"
       onClick={(e) => e.stopPropagation()}
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: '10px',
-        background: '#000', color: '#fff', borderRadius: '12px',
-        padding: '9px 16px', textDecoration: 'none',
-        border: '1px solid rgba(255,255,255,0.3)', pointerEvents: 'auto',
+        display: 'inline-flex', alignItems: 'center', gap: compact ? '7px' : '10px',
+        background: '#000', color: '#fff', borderRadius: compact ? '10px' : '12px',
+        padding: compact ? '7px 11px' : '9px 16px', textDecoration: 'none',
+        border: '1px solid rgba(255,255,255,0.3)', pointerEvents: 'auto', flexShrink: 0,
       }}
     >
       <span style={{ flexShrink: 0, display: 'flex' }}>{children}</span>
       <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
-        <span style={{ fontSize: '0.6rem', opacity: 0.85 }}>{sub}</span>
-        <span style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.01em' }}>{main}</span>
+        <span style={{ fontSize: compact ? '0.5rem' : '0.6rem', opacity: 0.85 }}>{sub}</span>
+        <span style={{ fontSize: compact ? '0.8rem' : '1rem', fontWeight: 700, letterSpacing: '0.01em' }}>{main}</span>
       </span>
     </a>
   );
@@ -321,12 +323,12 @@ export default function NoticeModal({ item, onClose }) {
 
   // ストアバッジ（アイコン）
   const storeBadges = (appStoreUrl || playStoreUrl) ? (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginTop: '18px' }}>
+    <div style={{ display: 'flex', flexWrap: narrow ? 'nowrap' : 'wrap', gap: narrow ? '8px' : '12px', justifyContent: 'center', marginTop: narrow ? '0' : '18px' }}>
       {appStoreUrl && (
-        <StoreBadge href={appStoreUrl} sub="Download on the" main="App Store"><AppleIcon /></StoreBadge>
+        <StoreBadge href={appStoreUrl} sub="Download on the" main="App Store" compact={narrow}><AppleIcon size={narrow ? 28 : 24} /></StoreBadge>
       )}
       {playStoreUrl && (
-        <StoreBadge href={playStoreUrl} sub="GET IT ON" main="Google Play"><PlayIcon /></StoreBadge>
+        <StoreBadge href={playStoreUrl} sub="GET IT ON" main="Google Play" compact={narrow}><PlayIcon size={narrow ? 28 : 24} /></StoreBadge>
       )}
     </div>
   ) : null;
@@ -444,6 +446,11 @@ export default function NoticeModal({ item, onClose }) {
     ? `calc(37vh + min(86vh, 90vw * ${(1 / imgAR).toFixed(4)}) * ${(F_OPEN / 2).toFixed(3)} + 2vh)`
     : (squareImg ? '72vh' : '73vh');
 
+  // 最終フェーズ（チラシ scale F_FINAL・中心 43vh）でのチラシ下端の少し下にストアバッジを置く。
+  const badgeTop = imgAR > 0
+    ? `calc(43vh + min(86vh, 90vw * ${(1 / imgAR).toFixed(4)}) * ${(F_FINAL / 2).toFixed(3)} + 2.5vh)`
+    : '78vh';
+
   return createPortal(
     <>
     {CloseBtn}
@@ -496,10 +503,11 @@ export default function NoticeModal({ item, onClose }) {
             )}
           </div>
 
-          {/* ストアアイコン（最終、中央のチラシ下に等倍で表示） */}
+          {/* ストアアイコン（最終、チラシのすぐ下に横一列で表示。スマホは実下端から算出） */}
           {storeBadges && (
             <div style={{
-              position: 'absolute', top: '78vh', left: '50%', transform: 'translateX(-50%)',
+              position: 'absolute', top: narrow ? badgeTop : '78vh', left: '50%', transform: 'translateX(-50%)',
+              width: narrow ? '100%' : 'auto', padding: narrow ? '0 12px' : 0, boxSizing: 'border-box',
               opacity: badgeOpacity, display: badgeOpacity > 0 ? 'block' : 'none', zIndex: 3,
             }}>
               {storeBadges}
