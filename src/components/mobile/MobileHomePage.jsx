@@ -4,27 +4,7 @@ import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
 import { CITY_MASK } from '@/lib/cityMask';
 import useInView from '@/hooks/useInView';
-
-// 見出しを一文字ずつスライドイン。各文字を inline-block の span にし、transition-delay を
-// 1文字ずつずらして右→左へスライド＋フェードイン。画面外(inView=false)では即座に初期位置へ
-// 戻すので、スクロールで戻るたびに再生される。
-function SplitText({ text, inView, step = 0.05, startDelay = 0, style }) {
-  return (
-    <span style={style}>
-      {Array.from(text).map((ch, i) => (
-        <span key={i} style={{
-          display: 'inline-block',
-          whiteSpace: 'pre',
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'none' : 'translateX(20px)',
-          transition: 'opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-          transitionDelay: inView ? `${startDelay + i * step}s` : '0s',
-          willChange: 'opacity, transform',
-        }}>{ch}</span>
-      ))}
-    </span>
-  );
-}
+import SplitText from '@/components/SplitText';
 
 // ヒーロー背景の絵の具スプラッター（PC版 HomePage.jsx の HERO_INK と同一データ）。
 // x位置に応じて時間差で付着＝つながった波のように飛ぶ。
@@ -361,6 +341,7 @@ const APPS = [
     name: 'Studism',
     category: '教育テクノロジー',
     icon: '/images/studism/icon.png',
+    mockup: '/images/studism/mockup.webp',
     lead: '学びを、もっと自由に、楽しく。',
     accent: '#0EA5E9',
     accentLight: '#E0F2FE',
@@ -372,6 +353,7 @@ const APPS = [
     name: 'SakuraEnglish',
     category: '語学学習',
     icon: '/images/sakuraenglish/icon.png',
+    mockup: '/images/sakuraenglish/mockup.webp',
     lead: '英語学習を、もっと楽しく。',
     accent: '#2563EB',
     accentLight: '#DBEAFE',
@@ -383,6 +365,7 @@ const APPS = [
     name: '豆マメ',
     category: '近日公開',
     icon: '/images/mamemame/icon.png',
+    mockup: '/images/mamemame/mockup.webp',
     lead: '古文学習を、もっと楽しく。',
     accent: '#1D4ED8',
     accentLight: '#DBEAFE',
@@ -394,6 +377,7 @@ const APPS = [
     name: 'Loopin',
     category: '近日公開',
     icon: '/images/loopin/icon.png',
+    mockup: '/images/loopin/mockup.webp',
     lead: '毎日の習慣を、ループさせよう。',
     accent: '#1D4ED8',
     accentLight: '#DBEAFE',
@@ -405,6 +389,7 @@ const APPS = [
     name: 'Timelyze',
     category: '生産性・時間管理',
     icon: '/images/timelyze/icon.png',
+    mockup: '/images/timelyze/mockup.webp',
     lead: '学習時間を、見える化する。',
     accent: '#2563EB',
     accentLight: '#DBEAFE',
@@ -640,7 +625,7 @@ export default function MobileHomePage() {
         </button>
 
       {/* アプリ一覧セクション */}
-      <section id="apps" style={{ background: '#EAF3FF', padding: '40px 16px 24px', position: 'relative', overflow: 'hidden', isolation: 'isolate' }}>
+      <section id="apps" style={{ background: 'radial-gradient(circle at 50% 42%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0) 68%), #EAF3FF', padding: '40px 16px 24px', position: 'relative', overflow: 'hidden', isolation: 'isolate' }}>
         <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none', opacity: 0.7 }}>
           {/* 背面のドット格子（同系色・ずらす方向ランダム） */}
           {/* 黄円：右上へ */}
@@ -662,12 +647,12 @@ export default function MobileHomePage() {
           <MHeadingLabel label="App" fontSize="1.4rem" fontWeight={900} inView={appHeadIn} />
           <Link to="/apps" style={{ textDecoration: 'none' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 900, WebkitTextStroke: '0.4px #111d3b', color: '#111d3b', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
-              <SplitText text="アプリケーションはこちら。" inView={appHeadIn} />
+              <SplitText text="アプリケーションはこちら。" inView={appHeadIn} charStyle={(ch) => ch === 'は' ? { fontSize: '0.68em' } : null} />
             </h2>
           </Link>
         </div>
         {/* 自動回転カルーセル */}
-        <div style={{ position: 'relative', height: '420px', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', height: '520px', overflow: 'hidden' }}>
           {APPS.map((app, i) => {
             const n = APPS.length;
             let d = i - appActive;
@@ -675,28 +660,72 @@ export default function MobileHomePage() {
             if (d < -n / 2) d += n;
             const isCenter = d === 0;
             const visible = Math.abs(d) <= 1;
-            const SPACING = 200;
             return (
               <div key={app.slug} style={{
-                position: 'absolute', top: '8px', left: '50%', width: '190px', marginLeft: '-95px',
-                transform: `translateX(${d * SPACING}px) translateY(${isCenter ? 0 : 36}px) scale(${isCenter ? 1 : 0.55})`,
-                transformOrigin: 'top center',
-                opacity: visible ? (isCenter ? 1 : 0.35) : 0,
-                transition: 'transform 0.8s ease, opacity 0.8s ease',
+                position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+                transform: `translateX(${d * 100}%)`,
+                opacity: visible ? 1 : 0,
+                transition: 'transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.6s ease',
                 zIndex: isCenter ? 3 : 1, pointerEvents: isCenter ? 'auto' : 'none',
-                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '0 3%', boxSizing: 'border-box',
               }}>
-                <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#444', lineHeight: 1.6, minHeight: '1.7em', margin: '0 0 14px', textAlign: 'center', width: '90vw', maxWidth: '360px', whiteSpace: 'nowrap', textOverflow: 'ellipsis', opacity: isCenter ? 1 : 0, transition: 'opacity 0.5s ease' }}>{app.lead.split('\n')[0]}</p>
-                <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
-                  <img src={app.icon} alt={app.name} style={{ width: '190px', height: '190px', borderRadius: '42px', boxShadow: `0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px ${app.shadowColor}`, display: 'block' }} />
-                </Link>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '16px', opacity: isCenter ? 1 : 0, transition: 'opacity 0.5s ease' }}>
-                  <p style={{ margin: '0 0 6px', color: '#1a1a1a', fontSize: '1.15rem', fontWeight: 800, textAlign: 'center' }}>{app.name}</p>
-                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '16px', padding: '12px 26px', borderRadius: '999px', border: '2.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '1rem', fontWeight: 700, boxShadow: '3px 5px 0 rgba(17,29,59,0.18)' }}>
+                {/* 背景：対応アプリのスマホ画像（中央やや右・ネイビーグローで際立たせる） */}
+                {app.mockup && (
+                  <>
+                    <div aria-hidden="true" style={{
+                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
+                      transform: 'translate(-50%, -50%)',
+                      width: '260px', height: '400px', borderRadius: '50%',
+                      background: 'radial-gradient(50% 50% at 50% 50%, rgba(17,29,59,0.30) 0%, rgba(17,29,59,0.16) 46%, rgba(17,29,59,0) 72%)',
+                      filter: 'blur(16px)', pointerEvents: 'none', zIndex: 0,
+                    }} />
+                    {/* スマホ背面の角丸シャドウ（黒のオーバーレイ・右側に覗く／下端はスマホ底辺に一致・直角） */}
+                    <div aria-hidden="true" style={{
+                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
+                      transform: 'translate(calc(-50% + 22px), calc(-50% + 14px))',
+                      width: '236px', height: '372px', borderRadius: '28px 28px 0 0',
+                      background: 'rgba(0,0,0,0.28)',
+                      pointerEvents: 'none', zIndex: 0,
+                    }} />
+                    <img src={app.mockup} alt="" aria-hidden="true" style={{
+                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
+                      transform: 'translate(-50%, -50%)',
+                      height: '400px', width: 'auto', objectFit: 'contain',
+                      pointerEvents: 'none', zIndex: 1,
+                    }} />
+                  </>
+                )}
+                {/* 左：縦書きのアプリ名＋キャッチコピー（2列目）、その下に「さらに詳しく」 */}
+                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '18px', marginLeft: '4%' }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'flex-start', marginLeft: app.name === 'SakuraEnglish' ? 0 : '24px' }}>
+                    {/* アプリ名（縦書き・大）。SakuraEnglish は Sakura / English の2行で表示 */}
+                    <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
+                      {app.name === 'SakuraEnglish' ? (
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: '2px' }}>
+                          <SplitText text="English" inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
+                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', marginTop: '0.55em', fontSize: '4.5rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                          <SplitText text="Sakura" inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
+                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '4.5rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                        </div>
+                      ) : (
+                        <SplitText text={app.name} inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
+                          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '5.2rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                      )}
+                    </Link>
+                    {/* キャッチコピー（縦書き・小） */}
+                    <SplitText text={app.lead.split('\n')[0]} inView={appHeadIn && isCenter} from="translateY(-14px)" step={0.075} startDelay={0.1}
+                      style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', marginLeft: app.name === 'SakuraEnglish' ? '-10px' : 0, fontSize: '0.9rem', fontWeight: 600, color: '#444', letterSpacing: '0.08em', lineHeight: 1.7, whiteSpace: 'nowrap' }} />
+                  </div>
+                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '11px 22px', borderRadius: '999px', border: '2.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '0.95rem', fontWeight: 700, boxShadow: '3px 5px 0 rgba(17,29,59,0.18)' }}>
                     さらに詳しく
                     <svg className="arrow-ic arrow-ic-right" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                   </Link>
                 </div>
+                {/* 右：アイコン */}
+                <Link to={`/app/${app.slug}`} style={{ position: 'relative', zIndex: 2, textDecoration: 'none', flexShrink: 0 }}>
+                  <img src={app.icon} alt={app.name} style={{ width: '150px', height: '150px', borderRadius: '34px', boxShadow: `0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px ${app.shadowColor}`, display: 'block' }} />
+                </Link>
               </div>
             );
           })}

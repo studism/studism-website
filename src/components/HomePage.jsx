@@ -8,6 +8,8 @@ import MobileFooter from '@/components/mobile/MobileFooter';
 import { NEWS_POSTERS } from '@/data/newsPosters';
 import NoticeModal from '@/components/NoticeModal';
 import { CITY_MASK } from '@/lib/cityMask';
+import useInView from '@/hooks/useInView';
+import SplitText from '@/components/SplitText';
 
 /* ════════════════════════════
    スライドデータ
@@ -174,6 +176,7 @@ const APPS = [
     name: 'Studism',
     category: '教育テクノロジー',
     icon: '/images/studism/icon.png',
+    mockup: '/images/studism/mockup.webp',
     lead: '学びを、もっと自由に、楽しく。\n勉強をSNSでシェアして仲間と一緒に高め合える学習コミュニティアプリ。',
     description: 'Studismは、テクノロジーの力で学習体験を変える教育テクノロジー企業のフラッグシップアプリです。',
     photoBg: 'linear-gradient(135deg, #0C4A6E 0%, #0EA5E9 55%, #BAE6FD 100%)',
@@ -187,6 +190,7 @@ const APPS = [
     name: 'SakuraEnglish',
     category: '語学学習',
     icon: '/images/sakuraenglish/icon.png',
+    mockup: '/images/sakuraenglish/mockup.webp',
     lead: '英語学習を、もっと楽しく。\nレベル別英単語クイズで語彙力をしっかり伸ばせる英語学習アプリ。',
     description: 'レベル別英単語クイズで効率的に語彙力を強化。5段階の難易度とカスタム単語リスト機能で、自分だけの学習プランを作成できます。',
     photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 55%, #93C5FD 100%)',
@@ -200,6 +204,7 @@ const APPS = [
     name: '豆マメ',
     category: '近日公開',
     icon: '/images/mamemame/icon.png',
+    mockup: '/images/mamemame/mockup.webp',
     lead: '古文学習を、もっと楽しく。\n古文単語の暗記に特化したフラッシュカードアプリ。',
     description: '',
     photoBg: 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 55%, #BFDBFE 100%)',
@@ -213,6 +218,7 @@ const APPS = [
     name: 'Loopin',
     category: '近日公開',
     icon: '/images/loopin/icon.png',
+    mockup: '/images/loopin/mockup.webp',
     lead: '毎日の習慣を、ループさせよう。\n継続したい習慣やルーティンをかんたんに管理できるアプリ。',
     description: '',
     photoBg: 'linear-gradient(135deg, #172554 0%, #1D4ED8 55%, #BFDBFE 100%)',
@@ -226,6 +232,7 @@ const APPS = [
     name: 'Timelyze',
     category: '生産性・時間管理',
     icon: '/images/timelyze/icon.png',
+    mockup: '/images/timelyze/mockup.webp',
     lead: '学習時間を、見える化する。\nタイマーで記録した勉強時間をグラフで可視化する学習管理アプリ。',
     description: '学習時間の記録・管理を簡単に。タイマー機能、教科別集計、グラフ可視化で、継続的な学習習慣をサポートします。',
     photoBg: 'linear-gradient(135deg, #1D4ED8 0%, #3B82F6 55%, #BAE6FD 100%)',
@@ -273,6 +280,7 @@ function Services() {
   const [revealed, setRevealed] = useState(false);
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(true);
+  const [appHeadRef, appHeadIn] = useInView();   // 「アプリケーションはこちら。」見出しの出現アニメ
 
   useEffect(() => {
     if (!playing) return;
@@ -310,18 +318,18 @@ function Services() {
   };
 
   return (
-    <section id="apps" style={{ background: '#EAF3FF', padding: '80px 0 32px', position: 'relative', overflow: 'hidden', isolation: 'isolate' }}>
+    <section id="apps" style={{ background: 'radial-gradient(circle at 50% 42%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0) 68%), #EAF3FF', padding: '80px 0 64px', position: 'relative', overflow: 'hidden', isolation: 'isolate' }}>
       {/* ポップな幾何学背景 */}
       <PopGeoBackground />
       {/* ヘッダー＋ボタン */}
       <div style={{ padding: '0 40px 0 120px' }}>
 
         {/* ヘッダー行 */}
-        <div style={{ marginBottom: '48px', position: 'relative' }}>
-          <HeadingRuler label="App" fontSize="1.9rem" fontWeight={900} />
+        <div ref={appHeadRef} style={{ marginBottom: '88px', position: 'relative' }}>
+          <HeadingRuler label="App" fontSize="1.9rem" fontWeight={900} inView={appHeadIn} />
           <Link to="/apps" style={{ textDecoration: 'none' }}>
             <h2 style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
-              アプリケーションはこちら。
+              <SplitText text="アプリケーションはこちら。" inView={appHeadIn} charStyle={(ch) => ch === 'は' ? { fontSize: '0.68em' } : null} />
             </h2>
           </Link>
         </div>
@@ -329,7 +337,7 @@ function Services() {
 
       {/* 自動回転カルーセル（中央のアイコンを拡大＋説明表示、ループ） */}
       <div ref={scrollRef} style={{
-        position: 'relative', height: '620px', overflow: 'hidden',
+        position: 'relative', height: '700px', overflow: 'hidden',
         opacity: revealed ? 1 : 0,
         transition: revealed ? 'opacity 0.8s ease 0.3s' : 'opacity 0.3s ease',
       }}>
@@ -340,48 +348,86 @@ function Services() {
           if (d < -n / 2) d += n;
           const isCenter = d === 0;
           const visible = Math.abs(d) <= 1;
-          const SPACING = 440;
           return (
             <div key={app.slug} style={{
-              position: 'absolute', top: '35px', left: '50%', width: '340px', marginLeft: '-170px',
-              transform: `translateX(${d * SPACING}px) translateY(${isCenter ? 0 : 68}px) scale(${isCenter ? 1 : 0.6})`,
-              transformOrigin: 'top center',
-              opacity: visible ? (isCenter ? 1 : 0.4) : 0,
-              transition: 'transform 0.9s ease, opacity 0.9s ease',
-              zIndex: isCenter ? 3 : 1,
-              pointerEvents: isCenter ? 'auto' : 'none',
-              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+              transform: `translateX(${d * 100}%)`,
+              opacity: visible ? 1 : 0,
+              transition: 'transform 0.8s cubic-bezier(0.4,0,0.2,1), opacity 0.7s ease',
+              zIndex: isCenter ? 3 : 1, pointerEvents: isCenter ? 'auto' : 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              {/* アイコン上部：説明文（中央のときだけフェード表示） */}
-              {app.lead && (
-                <p style={{ fontSize: '1.6rem', fontWeight: 600, color: '#444', lineHeight: 1.5, margin: '0 0 22px', textAlign: 'center', opacity: isCenter ? 1 : 0, transition: 'opacity 0.6s ease' }}>
-                  {app.lead.split('\n')[0]}
-                </p>
+              {/* 背景：対応アプリのスマホ画像（中央やや右・はっきり表示） */}
+              {app.mockup && (
+                <>
+                  {/* スマホを際立たせるネイビーのソフトグロー（オーバーレイ） */}
+                  <div aria-hidden="true" style={{
+                    position: 'absolute', top: '50%', left: 'calc(50% + 120px)',
+                    transform: 'translate(-50%, -50%)',
+                    width: '492px', height: '738px', borderRadius: '50%',
+                    background: 'radial-gradient(50% 50% at 50% 50%, rgba(17,29,59,0.30) 0%, rgba(17,29,59,0.16) 46%, rgba(17,29,59,0) 72%)',
+                    filter: 'blur(22px)', pointerEvents: 'none', zIndex: 0,
+                  }} />
+                  {/* スマホ背面の角丸シャドウ（黒のオーバーレイ・右側に覗く／下端はスマホ底辺に一致・直角） */}
+                  <div aria-hidden="true" style={{
+                    position: 'absolute', top: '50%', left: 'calc(50% + 120px)',
+                    transform: 'translate(calc(-50% + 38px), calc(-50% + 23px))',
+                    width: '398px', height: '626px', borderRadius: '47px 47px 0 0',
+                    background: 'rgba(0,0,0,0.28)',
+                    pointerEvents: 'none', zIndex: 0,
+                  }} />
+                  <img src={app.mockup} alt="" aria-hidden="true" style={{
+                    position: 'absolute', top: '50%', left: 'calc(50% + 120px)',
+                    transform: 'translate(-50%, -50%)',
+                    height: '672px', width: 'auto', objectFit: 'contain',
+                    pointerEvents: 'none', zIndex: 1,
+                  }} />
+                </>
               )}
-              {/* アイコン */}
-              <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
-                {app.comingSoon ? (
-                  <div style={{ width: '340px', height: '340px', borderRadius: '74px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
+              {/* 中央寄せの内枠：左に縦書きアプリ名＋キャッチコピー（2列目）＋ボタン、右にアイコン */}
+              <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1020px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 40px', boxSizing: 'border-box' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '36px', marginLeft: '48px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '18px', alignItems: 'flex-start' }}>
+                    {/* アプリ名（縦書き・大）。SakuraEnglish は Sakura / English の2行 */}
+                    <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
+                      {app.name === 'SakuraEnglish' && !app.comingSoon ? (
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: '2px' }}>
+                          <SplitText text="English" inView={revealed && isCenter} from="translateY(-16px)" step={0.12}
+                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', marginTop: '0.55em', fontSize: '6.4rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                          <SplitText text="Sakura" inView={revealed && isCenter} from="translateY(-16px)" step={0.12}
+                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '6.4rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                        </div>
+                      ) : (
+                        <SplitText text={app.comingSoon ? 'Coming Soon' : app.name} inView={revealed && isCenter} from="translateY(-16px)" step={0.12}
+                          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '6.4rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                      )}
+                    </Link>
+                    {/* キャッチコピー（縦書き・小） */}
+                    {app.lead && (
+                      <SplitText text={app.lead.split('\n')[0]} inView={revealed && isCenter} from="translateY(-14px)" step={0.075} startDelay={0.1}
+                        style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '1.9rem', fontWeight: 600, color: '#444', letterSpacing: '0.08em', lineHeight: 1.7, whiteSpace: 'nowrap' }} />
+                    )}
                   </div>
-                ) : (
-                  <div style={{ position: 'relative', display: 'block' }}>
-                    <img src={app.icon} alt={app.name} style={{ width: '340px', height: '340px', borderRadius: '74px', boxShadow: '0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px rgba(0,0,0,0.14)', display: 'block' }} />
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '55%', borderRadius: '74px 74px 50% 50% / 74px 74px 30% 30%', background: 'linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%)', pointerEvents: 'none' }} />
-                  </div>
-                )}
-              </Link>
-              {/* 中央のときだけアプリ名＋ボタンをフェード表示 */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '24px', opacity: isCenter ? 1 : 0, transition: 'opacity 0.6s ease' }}>
-                <p style={{ margin: '0 0 8px', color: '#1a1a1a', fontSize: '1.8rem', fontWeight: 800, letterSpacing: '0.01em', textAlign: 'center' }}>
-                  {app.comingSoon ? 'Coming Soon' : app.name}
-                </p>
-                {!app.comingSoon && (
-                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '28px', padding: '16px 36px', borderRadius: '999px', border: '2.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '1.2rem', fontWeight: 700, boxShadow: '4px 6px 0 rgba(17,29,59,0.18)', transition: 'background 0.2s ease, box-shadow 0.2s ease' }}>
-                    さらに詳しく
-                    <svg className="arrow-ic arrow-ic-right" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
-                  </Link>
-                )}
+                  {!app.comingSoon && (
+                    <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '9px', padding: '18px 42px', borderRadius: '999px', border: '2.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '1.35rem', fontWeight: 700, boxShadow: '4px 6px 0 rgba(17,29,59,0.18)', transition: 'background 0.2s ease, box-shadow 0.2s ease' }}>
+                      さらに詳しく
+                      <svg className="arrow-ic arrow-ic-right" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                    </Link>
+                  )}
+                </div>
+                {/* 右：アイコン */}
+                <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none', flexShrink: 0, marginTop: '48px' }}>
+                  {app.comingSoon ? (
+                    <div style={{ width: '300px', height: '300px', borderRadius: '66px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.08em' }}>COMING SOON</span>
+                    </div>
+                  ) : (
+                    <div style={{ position: 'relative', display: 'block' }}>
+                      <img src={app.icon} alt={app.name} style={{ width: '300px', height: '300px', borderRadius: '66px', boxShadow: '0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px rgba(0,0,0,0.14)', display: 'block' }} />
+                      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '55%', borderRadius: '66px 66px 50% 50% / 66px 66px 30% 30%', background: 'linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%)', pointerEvents: 'none' }} />
+                    </div>
+                  )}
+                </Link>
               </div>
             </div>
           );
@@ -389,7 +435,7 @@ function Services() {
       </div>
 
       {/* 操作バー（手動移動・ドット・再生/一時停止） */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginTop: '8px', opacity: revealed ? 1 : 0, transition: 'opacity 1.4s ease' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginTop: '36px', opacity: revealed ? 1 : 0, transition: 'opacity 1.4s ease' }}>
         <button onClick={() => setActive(a => (a - 1 + APPS.length) % APPS.length)} aria-label="前へ"
           className="carousel-nav"
           style={{ width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
@@ -479,6 +525,7 @@ const SERVICES = [
 function ServiceSection() {
   const scrollRef = useRef(null);
   const [revealed, setRevealed] = useState(false);
+  const [svcHeadRef, svcHeadIn] = useInView();   // 「サービス」見出しの出現アニメ
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -493,8 +540,8 @@ function ServiceSection() {
   return (
     <section id="services" style={{ background: 'transparent', padding: '60px 0 96px', position: 'relative', zIndex: 1 }}>
       <div style={{ padding: '0 40px 0 120px' }}>
-        <div style={{ marginBottom: '48px', position: 'relative' }}>
-          <HeadingRuler label="Service" />
+        <div ref={svcHeadRef} style={{ marginBottom: '48px', position: 'relative' }}>
+          <HeadingRuler label="Service" inView={svcHeadIn} />
           <h2
             onClick={() => {
               const el = document.getElementById('services');
@@ -502,7 +549,7 @@ function ServiceSection() {
             }}
             style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', cursor: 'pointer', display: 'inline-block' }}
           >
-            サービス
+            <SplitText text="サービス" inView={svcHeadIn} />
           </h2>
         </div>
       </div>
@@ -570,6 +617,7 @@ function NewsSection() {
   // ウィンドウ幅。広いほど中央カードを細く＝両サイドのカードの覗きを広くする
   const [winW, setWinW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1440);
   const [openItem, setOpenItem] = useState(null); // 詳細モーダルで開いているお知らせ
+  const [newsHeadRef, newsHeadIn] = useInView();  // 「お知らせ」見出しの出現アニメ
 
 
   // コンテナ幅の計測。マウント時に offsetWidth が 0 を返すケース（再訪時の
@@ -715,8 +763,9 @@ function NewsSection() {
         <div style={{ flex: 1, background: '#FFE066', marginTop: '-1px' }} />
       </div>
       <div style={{ padding: '0 40px 0 120px', marginBottom: '48px', position: 'relative', zIndex: 1 }}>
-        <HeadingRuler left="76px" label="News" fontSize="1.4rem" fontWeight={900} />
+        <HeadingRuler left="76px" label="News" fontSize="1.4rem" fontWeight={900} inView={newsHeadIn} />
         <button
+          ref={newsHeadRef}
           onClick={() => {
             const el = document.getElementById('news');
             if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
@@ -724,7 +773,7 @@ function NewsSection() {
           style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}
         >
           <h2 style={{ fontSize: '4rem', fontWeight: 900, color: '#111d3b', margin: 0, letterSpacing: '-0.02em', lineHeight: 1, textRendering: 'geometricPrecision', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
-            お知らせ
+            <SplitText text="お知らせ" inView={newsHeadIn} />
           </h2>
         </button>
       </div>
@@ -818,14 +867,14 @@ function NewsSection() {
 const DESIGN_WIDTH = 1440;
 
 // 見出しの左に置く縦書きラベル（App / Service / News）。見出しと一緒にスクロールする装飾。
-function HeadingRuler({ left = '-44px', label, fontSize = '0.95rem', fontWeight = 800 }) {
+function HeadingRuler({ left = '-44px', label, fontSize = '0.95rem', fontWeight = 800, inView = true }) {
   return (
     <div aria-hidden="true" style={{
       position: 'absolute', left, top: '50%', transform: 'translateY(-50%)',
       writingMode: 'vertical-rl', textOrientation: 'mixed',
       fontSize, fontWeight, letterSpacing: '0.14em',
-      textTransform: 'uppercase', color: '#111d3b', opacity: 0.85,
-      whiteSpace: 'nowrap', pointerEvents: 'none',
+      textTransform: 'uppercase', color: '#111d3b', opacity: inView ? 0.85 : 0,
+      whiteSpace: 'nowrap', pointerEvents: 'none', transition: 'opacity 0.6s ease',
     }}>{label}</div>
   );
 }

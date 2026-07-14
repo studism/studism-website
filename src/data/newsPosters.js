@@ -12,7 +12,7 @@ export const NEWS_POSTERS = [
     title: 'Timelyze：時間管理アプリ大幅アップデート！',
     note: 'さらに使いやすくなりました!',
     date: '2025.1.26',
-    pos: 'center 35%',
+    pos: 'center 45%',
     appStoreUrl: 'https://apps.apple.com/jp/app/timelyze/id6752543100',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.naoki2998.timelyze&hl=ja',
     body: `
@@ -27,8 +27,9 @@ export const NEWS_POSTERS = [
     img: '/images/news/sakuraenglish-release.webp',
     type: '配信中',
     title: 'SakuraEnglish：大幅アップデート！',
-    note: 'さらに使いやすくなりました!',
+    note: 'ノートデザインに変わりました！',
     date: '2025.1.26',
+    pos: 'center 42%',
     appStoreUrl: 'https://apps.apple.com/jp/app/sakuraenglish/id6747013736',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.studism.sakuraenglish01',
     body: `
@@ -43,8 +44,9 @@ export const NEWS_POSTERS = [
     img: '/images/news/studism-ad.webp',
     type: '配信中',
     title: 'Studism：勉強のためのSNS配信中',
+    note: '使いやすくなって機能続々追加！',
     date: '2025.1.26',
-    pos: 'center 35%',
+    pos: 'center 40%',
     appStoreUrl: 'https://apps.apple.com/jp/app/studism/id6754665143',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.naoki2998.Studism&hl=ja',
     body: `
@@ -60,7 +62,7 @@ export const NEWS_POSTERS = [
     type: '配信中',
     title: '豆マメ：古文単語アプリ配信中',
     date: '2025.1.26',
-    pos: 'center 35%',
+    pos: 'center 10%',
     appStoreUrl: 'https://apps.apple.com/jp/app/%E8%B1%86%E3%83%9E%E3%83%A1/id6757949629',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.naoki2998.mamemame&hl=ja',
     body: `
