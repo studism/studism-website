@@ -701,14 +701,15 @@ export default function MobileHomePage() {
                       background: 'rgba(0,0,0,0.28)',
                       pointerEvents: 'none', zIndex: 0,
                     }} />
-                    {/* スマホ画像はタップで詳細へ遷移するリンクにする */}
+                    {/* スマホ画像はタップで詳細へ遷移するリンク。絶対配置リンクの幅自動計算で
+                        画像が潰れないよう、リンク・画像に明示サイズ(205x330=比0.621)を指定 */}
                     <Link to={`/app/${app.slug}`} aria-label={`${app.name}の詳細を見る`} style={{
                       position: 'absolute', top: '50%', left: 'calc(50% + 78px)',
                       transform: 'translate(-50%, -50%)',
-                      display: 'block', lineHeight: 0, zIndex: 1,
+                      width: '205px', height: '330px', display: 'block', lineHeight: 0, zIndex: 1,
                     }}>
                       <img src={app.mockup} alt="" aria-hidden="true" style={{
-                        height: '330px', width: 'auto', objectFit: 'contain', display: 'block',
+                        width: '100%', height: '100%', objectFit: 'contain', display: 'block',
                       }} />
                     </Link>
                   </>
