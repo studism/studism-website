@@ -697,34 +697,34 @@ export default function MobileHomePage() {
                   </>
                 )}
                 {/* 左：縦書きのアプリ名＋キャッチコピー（2列目）、その下に「さらに詳しく」 */}
-                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '18px', marginLeft: '4%' }}>
-                  <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'flex-start', marginLeft: app.name === 'SakuraEnglish' ? 0 : '24px' }}>
+                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '15px', marginLeft: '4%' }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '9px', alignItems: 'flex-start', marginLeft: app.name === 'SakuraEnglish' ? 0 : '18px' }}>
                     {/* アプリ名（縦書き・大）。SakuraEnglish は Sakura / English の2行で表示 */}
                     <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
                       {app.name === 'SakuraEnglish' ? (
                         <div style={{ display: 'flex', flexDirection: 'row', gap: '2px' }}>
                           <SplitText text="English" inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
-                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', marginTop: '0.55em', fontSize: '4.5rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', marginTop: '0.55em', fontSize: '3.4rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
                           <SplitText text="Sakura" inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
-                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '4.5rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '3.4rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
                         </div>
                       ) : (
                         <SplitText text={app.name} inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
-                          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '5.2rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '3.9rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
                       )}
                     </Link>
                     {/* キャッチコピー（縦書き・小） */}
                     <SplitText text={app.lead.split('\n')[0]} inView={appHeadIn && isCenter} from="translateY(-14px)" step={0.075} startDelay={0.1}
-                      style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', marginLeft: app.name === 'SakuraEnglish' ? '-10px' : 0, fontSize: '0.9rem', fontWeight: 600, color: '#444', letterSpacing: '0.08em', lineHeight: 1.7, whiteSpace: 'nowrap' }} />
+                      style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', marginLeft: app.name === 'SakuraEnglish' ? '-8px' : 0, fontSize: '0.75rem', fontWeight: 600, color: '#444', letterSpacing: '0.08em', lineHeight: 1.7, whiteSpace: 'nowrap' }} />
                   </div>
-                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '11px 22px', borderRadius: '999px', border: '2.5px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '0.95rem', fontWeight: 700, boxShadow: '3px 5px 0 rgba(17,29,59,0.18)' }}>
+                  <Link to={`/app/${app.slug}`} className="bubble-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', borderRadius: '999px', border: '2px solid #111d3b', background: 'transparent', color: '#111d3b', fontSize: '0.75rem', fontWeight: 700, boxShadow: '3px 5px 0 rgba(17,29,59,0.18)' }}>
                     さらに詳しく
-                    <svg className="arrow-ic arrow-ic-right" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                    <svg className="arrow-ic arrow-ic-right" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                   </Link>
                 </div>
                 {/* 右：アイコン */}
                 <Link to={`/app/${app.slug}`} style={{ position: 'relative', zIndex: 2, textDecoration: 'none', flexShrink: 0 }}>
-                  <img src={app.icon} alt={app.name} style={{ width: '150px', height: '150px', borderRadius: '34px', boxShadow: `0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.10), 0 20px 40px ${app.shadowColor}`, display: 'block' }} />
+                  <img src={app.icon} alt={app.name} style={{ width: '112px', height: '112px', borderRadius: '26px', boxShadow: `0 2px 3px rgba(0,0,0,0.08), 0 6px 12px rgba(0,0,0,0.10), 0 15px 30px ${app.shadowColor}`, display: 'block' }} />
                 </Link>
               </div>
             );
