@@ -674,31 +674,35 @@ export default function MobileHomePage() {
                 {app.mockup && (
                   <>
                     <div aria-hidden="true" style={{
-                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
+                      position: 'absolute', top: '50%', left: 'calc(50% + 44px)',
                       transform: 'translate(-50%, -50%)',
-                      width: '260px', height: '400px', borderRadius: '50%',
+                      width: '214px', height: '330px', borderRadius: '50%',
                       background: 'radial-gradient(50% 50% at 50% 50%, rgba(17,29,59,0.30) 0%, rgba(17,29,59,0.16) 46%, rgba(17,29,59,0) 72%)',
                       filter: 'blur(16px)', pointerEvents: 'none', zIndex: 0,
                     }} />
                     {/* スマホ背面の角丸シャドウ（黒のオーバーレイ・右側に覗く／下端はスマホ底辺に一致・直角） */}
                     <div aria-hidden="true" style={{
-                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
-                      transform: 'translate(calc(-50% + 22px), calc(-50% + 14px))',
-                      width: '236px', height: '372px', borderRadius: '28px 28px 0 0',
+                      position: 'absolute', top: '50%', left: 'calc(50% + 44px)',
+                      transform: 'translate(calc(-50% + 20px), calc(-50% + 12px))',
+                      width: '194px', height: '306px', borderRadius: '23px 23px 0 0',
                       background: 'rgba(0,0,0,0.28)',
                       pointerEvents: 'none', zIndex: 0,
                     }} />
                     <img src={app.mockup} alt="" aria-hidden="true" style={{
-                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
+                      position: 'absolute', top: '50%', left: 'calc(50% + 44px)',
                       transform: 'translate(-50%, -50%)',
-                      height: '400px', width: 'auto', objectFit: 'contain',
+                      height: '330px', width: 'auto', objectFit: 'contain',
                       pointerEvents: 'none', zIndex: 1,
                     }} />
                   </>
                 )}
-                {/* 左：縦書きのアプリ名＋キャッチコピー（2列目）、その下に「さらに詳しく」 */}
-                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '15px', marginLeft: '4%' }}>
-                  <div style={{ display: 'flex', flexDirection: 'row', gap: '9px', alignItems: 'flex-start', marginLeft: app.name === 'SakuraEnglish' ? 0 : '18px' }}>
+                {/* 左：アイコンを上に、その下に縦書きのアプリ名＋キャッチコピー、さらに「さらに詳しく」 */}
+                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '15px', marginLeft: 'calc(4% + 20px)' }}>
+                  {/* アプリアイコン（アプリ名・キャッチコピーの上に配置） */}
+                  <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none', flexShrink: 0 }}>
+                    <img src={app.icon} alt={app.name} style={{ width: '112px', height: '112px', borderRadius: '26px', boxShadow: `0 2px 3px rgba(0,0,0,0.08), 0 6px 12px rgba(0,0,0,0.10), 0 15px 30px ${app.shadowColor}`, display: 'block' }} />
+                  </Link>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '9px', alignItems: 'flex-start', marginTop: '12px', marginLeft: app.name === 'SakuraEnglish' ? 0 : '18px' }}>
                     {/* アプリ名（縦書き・大）。SakuraEnglish は Sakura / English の2行で表示 */}
                     <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none' }}>
                       {app.name === 'SakuraEnglish' ? (
@@ -722,10 +726,6 @@ export default function MobileHomePage() {
                     <svg className="arrow-ic arrow-ic-right" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                   </Link>
                 </div>
-                {/* 右：アイコン */}
-                <Link to={`/app/${app.slug}`} style={{ position: 'relative', zIndex: 2, textDecoration: 'none', flexShrink: 0 }}>
-                  <img src={app.icon} alt={app.name} style={{ width: '112px', height: '112px', borderRadius: '26px', boxShadow: `0 2px 3px rgba(0,0,0,0.08), 0 6px 12px rgba(0,0,0,0.10), 0 15px 30px ${app.shadowColor}`, display: 'block' }} />
-                </Link>
               </div>
             );
           })}
