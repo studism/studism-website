@@ -713,8 +713,12 @@ export default function MobileHomePage() {
                             style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '3.4rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
                         </div>
                       ) : (
-                        <SplitText text={app.name} inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
-                          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '3.9rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                        // 縦書き名を display:flex の div で包み横幅を確定させる（Link 直下の
+                        // inline-block だとモバイルSafariで幅が潰れ、キャッチコピーと重なるため）
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                          <SplitText text={app.name} inView={appHeadIn && isCenter} from="translateY(-16px)" step={0.12}
+                            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', display: 'inline-block', fontSize: '3.9rem', fontWeight: 800, color: '#1a1a1a', letterSpacing: '0.04em', lineHeight: 1.0, whiteSpace: 'nowrap' }} />
+                        </div>
                       )}
                     </Link>
                     {/* キャッチコピー（縦書き・小） */}
