@@ -202,7 +202,7 @@ const APPS = [
   {
     slug: 'mamemame',
     name: '豆マメ',
-    category: '近日公開',
+    category: '語学学習',
     icon: '/images/mamemame/icon.png',
     mockup: '/images/mamemame/mockup.webp',
     lead: '古文学習を、もっと楽しく。\n古文単語の暗記に特化したフラッシュカードアプリ。',
@@ -216,7 +216,7 @@ const APPS = [
   {
     slug: 'loopin',
     name: 'Loopin',
-    category: '近日公開',
+    category: '習慣管理',
     icon: '/images/loopin/icon.png',
     mockup: '/images/loopin/mockup.webp',
     lead: '毎日の習慣を、ループさせよう。\n継続したい習慣やルーティンをかんたんに管理できるアプリ。',

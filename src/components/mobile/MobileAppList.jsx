@@ -26,7 +26,7 @@ const APPS = [
   {
     slug: 'mamemame',
     name: '豆マメ',
-    category: '近日公開',
+    category: '語学学習',
     icon: '/images/mamemame/icon.png',
     lead: '',
     accent: '#1D4ED8',
@@ -35,7 +35,7 @@ const APPS = [
   {
     slug: 'loopin',
     name: 'Loopin',
-    category: '近日公開',
+    category: '習慣管理',
     icon: '/images/loopin/icon.png',
     lead: '',
     accent: '#1D4ED8',

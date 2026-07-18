@@ -131,7 +131,7 @@ const appData = {
     lead: '毎日の習慣を、ループさせよう。',
     description: '継続したい習慣やルーティンをかんたんに登録・管理できるアプリです。毎日のチェックと通知リマインダー、達成率カレンダーで習慣化をしっかりサポートします。',
     icon: '/images/loopin/icon.png',
-    category: '近日公開',
+    category: '習慣管理',
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #1D4ED8, #7C3AED)',
     features: [
@@ -153,7 +153,7 @@ const appData = {
     lead: '古文単語を、豆知識と一緒に覚えよう。',
     description: '古文単語の暗記に特化したフラッシュカードアプリです。レベル別のクイズ形式で楽しく学べ、間違えた単語を自動で繰り返し出題することで、試験に向けた効率的な暗記をサポートします。',
     icon: '/images/mamemame/icon.png',
-    category: '近日公開',
+    category: '語学学習',
     color: '#1D4ED8',
     gradient: 'linear-gradient(135deg, #10B981, #06B6D4)',
     features: [
