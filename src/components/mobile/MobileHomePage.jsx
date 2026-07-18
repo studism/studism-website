@@ -674,7 +674,7 @@ export default function MobileHomePage() {
                 {app.mockup && (
                   <>
                     <div aria-hidden="true" style={{
-                      position: 'absolute', top: '50%', left: 'calc(50% + 44px)',
+                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
                       transform: 'translate(-50%, -50%)',
                       width: '214px', height: '330px', borderRadius: '50%',
                       background: 'radial-gradient(50% 50% at 50% 50%, rgba(17,29,59,0.30) 0%, rgba(17,29,59,0.16) 46%, rgba(17,29,59,0) 72%)',
@@ -682,14 +682,14 @@ export default function MobileHomePage() {
                     }} />
                     {/* スマホ背面の角丸シャドウ（黒のオーバーレイ・右側に覗く／下端はスマホ底辺に一致・直角） */}
                     <div aria-hidden="true" style={{
-                      position: 'absolute', top: '50%', left: 'calc(50% + 44px)',
+                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
                       transform: 'translate(calc(-50% + 20px), calc(-50% + 12px))',
                       width: '194px', height: '306px', borderRadius: '23px 23px 0 0',
                       background: 'rgba(0,0,0,0.28)',
                       pointerEvents: 'none', zIndex: 0,
                     }} />
                     <img src={app.mockup} alt="" aria-hidden="true" style={{
-                      position: 'absolute', top: '50%', left: 'calc(50% + 44px)',
+                      position: 'absolute', top: '50%', left: 'calc(50% + 60px)',
                       transform: 'translate(-50%, -50%)',
                       height: '330px', width: 'auto', objectFit: 'contain',
                       pointerEvents: 'none', zIndex: 1,
@@ -697,7 +697,7 @@ export default function MobileHomePage() {
                   </>
                 )}
                 {/* 左：アイコンを上に、その下に縦書きのアプリ名＋キャッチコピー、さらに「さらに詳しく」 */}
-                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '15px', marginLeft: 'calc(4% + 20px)' }}>
+                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '15px', marginLeft: 'calc(4% + 4px)' }}>
                   {/* アプリアイコン（アプリ名・キャッチコピーの上に配置） */}
                   <Link to={`/app/${app.slug}`} style={{ textDecoration: 'none', flexShrink: 0 }}>
                     <img src={app.icon} alt={app.name} style={{ width: '112px', height: '112px', borderRadius: '26px', boxShadow: `0 2px 3px rgba(0,0,0,0.08), 0 6px 12px rgba(0,0,0,0.10), 0 15px 30px ${app.shadowColor}`, display: 'block' }} />
